@@ -5,6 +5,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import lombok.Builder;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -40,5 +41,13 @@ public class Member {
     private LocalDateTime deletedAt;
 
     protected Member() {
+    }
+
+    @Builder
+    public Member(String email, String password, String username, String phoneNumber) {
+        this.email = email;
+        this.password = password;
+        this.username = username;
+        this.phoneNumber = phoneNumber;
     }
 }
