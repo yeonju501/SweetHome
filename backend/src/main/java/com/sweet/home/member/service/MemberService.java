@@ -3,6 +3,7 @@ package com.sweet.home.member.service;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -10,17 +11,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public MemberService(MemberRepository memberRepository) {
+    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
         this.memberRepository = memberRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional
     public Long saveMember(MemberSaveRequest request) {
         checkDuplicateEmail(request.getEmail());
 
-        Member member = memberRepository.save(request.toEntity());
-        return member.getId();
+        Member member = request.toEntity();
+        member.encodePassword(passwordEncoder);
+        return memberRepository.save(member).getId();
     }
 
     private void checkDuplicateEmail(String email) {
