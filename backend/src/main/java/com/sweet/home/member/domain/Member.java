@@ -38,4 +38,7 @@ public class Member {
 
     @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
+
+    protected Member() {
+    }
 }
