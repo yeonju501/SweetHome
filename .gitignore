@@ -1,0 +1,8 @@
+# macOS
+front/.DS_Store
+back/.DS_Store
+.DS_Store
+
+### VS Code ###
+.vscode/
+.idea/
