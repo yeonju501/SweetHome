@@ -1,6 +1,7 @@
 package com.sweet.home.member.service;
 
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
+import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +18,9 @@ public class MemberService {
     @Transactional
     public Long saveMember(MemberSaveRequest request) {
         checkDuplicateEmail(request.getEmail());
-        return null;
+
+        Member member = memberRepository.save(request.toEntity());
+        return member.getId();
     }
 
     private void checkDuplicateEmail(String email) {
