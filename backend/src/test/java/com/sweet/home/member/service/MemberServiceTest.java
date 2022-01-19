@@ -1,5 +1,9 @@
 package com.sweet.home.member.service;
 
+import static com.sweet.home.member.util.MemberFixture.EMAIL;
+import static com.sweet.home.member.util.MemberFixture.PASSWORD;
+import static com.sweet.home.member.util.MemberFixture.PHONE_NUMBER;
+import static com.sweet.home.member.util.MemberFixture.USERNAME;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
@@ -8,6 +12,7 @@ import static org.mockito.Mockito.when;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
+import com.sweet.home.member.util.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,11 +25,6 @@ import org.springframework.test.util.ReflectionTestUtils;
 @ExtendWith(MockitoExtension.class)
 class MemberServiceTest {
 
-    private static final String EMAIL = "email@email.com";
-    private static final String PASSWORD = "PASSword123!@";
-    private static final String USERNAME = "username";
-    private static final String PHONE_NUMBER = "01012345678";
-
     @Mock
     private MemberRepository memberRepository;
 
@@ -35,7 +35,7 @@ class MemberServiceTest {
 
     @BeforeEach
     void setup() {
-        memberSaveRequest = new MemberSaveRequest(EMAIL, PASSWORD, USERNAME, PHONE_NUMBER);
+        memberSaveRequest = MemberFixture.createMemberSaveRequest(EMAIL, PASSWORD, USERNAME, PHONE_NUMBER);
     }
 
     @Test
