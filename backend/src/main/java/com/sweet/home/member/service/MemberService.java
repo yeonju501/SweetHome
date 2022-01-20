@@ -34,4 +34,11 @@ public class MemberService {
             throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
         }
     }
+
+    @Transactional
+    public void resignMember(String email) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        member.resignMember();
+    }
 }

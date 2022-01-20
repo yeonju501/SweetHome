@@ -13,12 +13,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Getter
+@Where(clause = "deleted_at is null")
 public class Member {
 
     @Id
@@ -101,5 +103,9 @@ public class Member {
         if (!Objects.isNull(phoneNumber)){
             this.phoneNumber = phoneNumber;
         }
+    }
+
+    public void resignMember() {
+        this.deletedAt = LocalDateTime.now();
     }
 }

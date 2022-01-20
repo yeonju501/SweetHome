@@ -29,6 +29,6 @@ public class ProfileRestController {
     @PutMapping("/members/my-profile")
     public ResponseEntity<Void> updateMyProfile(@AuthenticationPrincipal String email, @RequestBody ProfileUpdateRequest request) {
         profileService.updateProfile(email, request);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 }

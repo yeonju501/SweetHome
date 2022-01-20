@@ -25,7 +25,7 @@ public class AuthService {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public LoginMemberResponse login(LoginRequest request) {
         Member member = memberRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));

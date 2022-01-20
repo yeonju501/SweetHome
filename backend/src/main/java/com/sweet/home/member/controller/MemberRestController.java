@@ -4,6 +4,8 @@ import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.service.MemberService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,5 +26,11 @@ public class MemberRestController {
         Long joinMemberId = memberService.saveAssociateMember(request);
         URI uri = URI.create("/api/members/" + joinMemberId);
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping("/members")
+    public ResponseEntity<Void> resignMember(@AuthenticationPrincipal String email) {
+        memberService.resignMember(email);
+        return ResponseEntity.noContent().build();
     }
 }
