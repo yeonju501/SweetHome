@@ -1,6 +1,8 @@
 package com.sweet.home.member.domain;
 
 import com.sweet.home.auth.domain.Authority;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -63,5 +65,11 @@ public class Member {
 
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
+    }
+
+    public void login(PasswordEncoder passwordEncoder, String password) {
+        if (passwordEncoder.matches(password, this.password)) {
+            throw new BusinessException(ErrorCode.MEMBER_LOGIN_ERROR_BY_PASSWORD);
+        }
     }
 }
