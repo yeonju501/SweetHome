@@ -12,9 +12,15 @@ import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Date;
+import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -51,10 +57,9 @@ public class JwtTokenProvider {
             .compact();
     }
 
-    public String resolveToken(String accessToken) {
+    public Authentication resolveToken(String accessToken) {
         try {
-            return Jwts.parserBuilder().setSigningKey(key).build()
-                .parseClaimsJws(accessToken).getBody().getSubject();
+            return getAuthentication(accessToken);
         } catch (ExpiredJwtException e) {
             throw new JwtException(ErrorCode.INVALID_EXPIRED_JWT);
         } catch (SecurityException | MalformedJwtException e) {
@@ -69,6 +74,11 @@ public class JwtTokenProvider {
     private Authentication getAuthentication(String accessToken) {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
             .parseClaimsJws(accessToken).getBody();
-        return null;
+
+        Collection<? extends GrantedAuthority> authorities =
+            Arrays.stream(claims.get(JWT_PAYLOAD_AUTHORITY_TYPE).toString().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+        return new UsernamePasswordAuthenticationToken(claims.getSubject(), accessToken, authorities);
     }
 }

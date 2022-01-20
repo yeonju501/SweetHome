@@ -1,6 +1,7 @@
 package com.sweet.home.auth.infrastructure;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertAll;
 
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.member.util.MemberFixture;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
 
 @ExtendWith(MockitoExtension.class)
 class JwtTokenProviderTest {
@@ -47,9 +49,13 @@ class JwtTokenProviderTest {
         String accessToken = jwtTokenProvider.createToken(subject, authority);
 
         // when
-        String result = jwtTokenProvider.resolveToken(accessToken);
+        Authentication result = jwtTokenProvider.resolveToken(accessToken);
 
         // then
-        assertThat(result).isEqualTo(subject);
+        assertAll(
+            () -> assertThat(result.getPrincipal()).isEqualTo(subject),
+            () -> assertThat(result.getCredentials()).isEqualTo(accessToken),
+            () -> assertThat(result.getAuthorities().size()).isEqualTo(1)
+        );
     }
 }
