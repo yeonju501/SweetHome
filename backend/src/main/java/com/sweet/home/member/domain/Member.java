@@ -1,8 +1,11 @@
 package com.sweet.home.member.domain;
 
+import com.sweet.home.auth.domain.Authority;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import lombok.Builder;
@@ -31,6 +34,10 @@ public class Member {
 
     @Column(name = "phone_number", length = 11, nullable = false)
     private String phoneNumber;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "authority")
+    private Authority authority;
 
     @CreatedDate
     @Column(name = "created_at")
