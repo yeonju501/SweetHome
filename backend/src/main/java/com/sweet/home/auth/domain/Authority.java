@@ -1,5 +1,7 @@
 package com.sweet.home.auth.domain;
 
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import java.util.Arrays;
 
 public enum Authority {
@@ -30,6 +32,6 @@ public enum Authority {
         return Arrays.stream(values())
             .filter(authority -> authority.authorityCode.equals(inputAuthorityCode))
             .findFirst()
-            .orElseThrow(() -> )
+            .orElseThrow(() -> new BusinessException(ErrorCode.AUTHORITY_NOT_FOUND_BY_AUTHORITY_CODE));
     }
 }
