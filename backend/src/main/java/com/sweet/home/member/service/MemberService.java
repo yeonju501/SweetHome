@@ -19,10 +19,10 @@ public class MemberService {
     }
 
     @Transactional
-    public Long saveMember(MemberSaveRequest request) {
+    public Long saveAssociateMember(MemberSaveRequest request) {
         checkDuplicateEmail(request.getEmail());
 
-        Member member = request.toEntity();
+        Member member = request.toAssociateMember();
         member.encodePassword(passwordEncoder);
         return memberRepository.save(member).getId();
     }

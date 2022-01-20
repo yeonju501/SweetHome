@@ -56,11 +56,22 @@ public class Member {
     }
 
     @Builder
-    public Member(String email, String password, String username, String phoneNumber) {
+    public Member(String email, String password, String username, String phoneNumber, Authority authority) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.authority = authority;
+    }
+
+    public static Member createAssociateMember(String email, String password, String username, String phoneNumber) {
+        return Member.builder()
+            .email(email)
+            .password(password)
+            .username(username)
+            .phoneNumber(phoneNumber)
+            .authority(Authority.ROLE_ASSOCIATE_MEMBER)
+            .build();
     }
 
     public void encodePassword(PasswordEncoder passwordEncoder) {

@@ -21,7 +21,7 @@ public class MemberRestController {
 
     @PostMapping("/members/join")
     public ResponseEntity<Void> join(@RequestBody MemberSaveRequest request) {
-        Long joinMemberId = memberService.saveMember(request);
+        Long joinMemberId = memberService.saveAssociateMember(request);
         URI uri = URI.create("/api/members/" + joinMemberId);
         return ResponseEntity.created(uri).build();
     }

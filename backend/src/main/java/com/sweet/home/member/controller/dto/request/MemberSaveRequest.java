@@ -29,12 +29,7 @@ public class MemberSaveRequest {
         this.phoneNumber = phoneNumber;
     }
 
-    public Member toEntity() {
-        return Member.builder()
-            .email(email)
-            .password(password)
-            .username(username)
-            .phoneNumber(phoneNumber)
-            .build();
+    public Member toAssociateMember() {
+        return Member.createAssociateMember(email, password, username, phoneNumber);
     }
 }
