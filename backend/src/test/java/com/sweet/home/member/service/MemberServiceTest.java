@@ -9,6 +9,8 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
@@ -50,9 +52,9 @@ class MemberServiceTest {
         when(memberRepository.existsByEmail(EMAIL)).thenReturn(true);
 
         // when & then
-        assertThatExceptionOfType(RuntimeException.class)
-            .isThrownBy(() -> memberService.saveMember(memberSaveRequest))
-            .withMessageMatching("이미 존재하는 이메일 입니다.");
+        assertThatExceptionOfType(BusinessException.class)
+            .isThrownBy(() -> memberService.saveAssociateMember(memberSaveRequest))
+            .withMessageMatching(ErrorCode.MEMBER_EMAIL_DUPLICATED.getMessage());
     }
 
     @Test
@@ -61,12 +63,12 @@ class MemberServiceTest {
 
         // setup & given
         when(memberRepository.existsByEmail(EMAIL)).thenReturn(false);
-        Member member = memberSaveRequest.toEntity();
+        Member member = memberSaveRequest.toAssociateMember();
         ReflectionTestUtils.setField(member, "id", 1L);
         when(memberRepository.save(any())).thenReturn(member);
 
         // when
-        Long result = memberService.saveMember(memberSaveRequest);
+        Long result = memberService.saveAssociateMember(memberSaveRequest);
 
         // then
         assertThat(result).isEqualTo(1L);

@@ -1,5 +1,7 @@
 package com.sweet.home.member.service;
 
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
@@ -19,17 +21,17 @@ public class MemberService {
     }
 
     @Transactional
-    public Long saveMember(MemberSaveRequest request) {
+    public Long saveAssociateMember(MemberSaveRequest request) {
         checkDuplicateEmail(request.getEmail());
 
-        Member member = request.toEntity();
+        Member member = request.toAssociateMember();
         member.encodePassword(passwordEncoder);
         return memberRepository.save(member).getId();
     }
 
     private void checkDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
-            throw new RuntimeException("이미 존재하는 이메일 입니다.");
+            throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
         }
     }
 }
