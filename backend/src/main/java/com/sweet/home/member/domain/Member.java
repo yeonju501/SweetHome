@@ -102,4 +102,8 @@ public class Member {
             this.phoneNumber = phoneNumber;
         }
     }
+
+    public void resignMember() {
+        this.deletedAt = LocalDateTime.now();
+    }
 }
