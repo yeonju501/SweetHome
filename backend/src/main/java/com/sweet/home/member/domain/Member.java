@@ -4,6 +4,7 @@ import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -81,6 +82,24 @@ public class Member {
     public void login(PasswordEncoder passwordEncoder, String password) {
         if (!passwordEncoder.matches(password, this.password)) {
             throw new BusinessException(ErrorCode.MEMBER_LOGIN_ERROR_BY_PASSWORD);
+        }
+    }
+
+    public void changePassword(PasswordEncoder passwordEncoder, String password) {
+        if (passwordEncoder.matches(password, this.password)) {
+            this.password = passwordEncoder.encode(password);
+        }
+    }
+
+    public void changeUsername(String username) {
+        if (!Objects.isNull(username)) {
+            this.username = username;
+        }
+    }
+
+    public void changePhoneNumber(String phoneNumber) {
+        if (!Objects.isNull(phoneNumber)){
+            this.phoneNumber = phoneNumber;
         }
     }
 }
