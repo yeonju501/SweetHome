@@ -15,7 +15,7 @@ class JwtTokenProviderTest {
     private String headerType = "headerType";
     private String issuer = "issuer";
     private String secret = "dGVzdF90ZXN0X3Rlc3RfdGVzdF90ZXN0X3Rlc3RfdGVzdF90ZXN0X3Rlc3RfdGVzdF90ZXN0X3Rlc3RfdGVzdF8K";
-    private long accessTime = 1000L;
+    private long accessTime = 100000L;
 
     private JwtTokenProvider jwtTokenProvider;
 
@@ -35,5 +35,19 @@ class JwtTokenProviderTest {
 
         // then
         assertThat(result).isNotNull();
+    }
+
+    @Test
+    @DisplayName("생성된 토큰에서 subject값을 반환할 수 있다.")
+    void resolveTokenTest() {
+        // given
+        String subject = MemberFixture.EMAIL;
+        String accessToken = jwtTokenProvider.createToken(subject);
+
+        // when
+        String result = jwtTokenProvider.resolveToken(accessToken);
+
+        // then
+        assertThat(result).isEqualTo(subject);
     }
 }

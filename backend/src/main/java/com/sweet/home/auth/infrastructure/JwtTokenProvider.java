@@ -1,7 +1,12 @@
 package com.sweet.home.auth.infrastructure;
 
+import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.global.exception.JwtException;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
+import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import java.security.Key;
@@ -39,5 +44,20 @@ public class JwtTokenProvider {
             .setExpiration(new Date((new Date()).getTime() + accessTime))
             .setIssuedAt(new Date())
             .compact();
+    }
+
+    public String resolveToken(String accessToken) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build()
+                .parseClaimsJws(accessToken).getBody().getSubject();
+        } catch (ExpiredJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_EXPIRED_JWT);
+        } catch (SecurityException | MalformedJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_MALFORMED_JWT);
+        } catch (UnsupportedJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_UNSUPPORTED_JWT);
+        } catch (IllegalArgumentException e) {
+            throw new JwtException(ErrorCode.INVALID_ILLEGAL_ARGUMENT_JWT);
+        }
     }
 }
