@@ -1,5 +1,7 @@
 package com.sweet.home.auth.domain;
 
+import java.util.Arrays;
+
 public enum Authority {
 
     ROLE_ASSOCIATE_MEMBER("준회원", "A00"),
@@ -22,5 +24,12 @@ public enum Authority {
 
     public String getAuthorityCode() {
         return authorityCode;
+    }
+
+    public static Authority convertCodeToAuthority(String inputAuthorityCode) {
+        return Arrays.stream(values())
+            .filter(authority -> authority.authorityCode.equals(inputAuthorityCode))
+            .findFirst()
+            .orElseThrow(() -> )
     }
 }
