@@ -21,3 +21,10 @@ spring:
 
 server:
   port: 8080
+
+jwt:
+  token:
+    header-type: JWT
+    issuer: 2030
+    secret: b3JpX3RveV9wcm9qZWN0X3JlYWxfd29ybGRfamF2YV9zcHJpbmdfYm9vdF9zZWNyZXRfand0X3NhdWx0X2tleQo=
+    access-time: 1800000  # 30분
