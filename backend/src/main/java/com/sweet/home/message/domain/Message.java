@@ -17,16 +17,16 @@ public class Message {
     @Column(name = "message_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "message_content_id")
+    @ManyToOne(targetEntity = MessageContent.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "message_content_id")
     private MessageContent messageContentId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "send_member_id")
+    @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "send_member_id")
     private Member sendMemberId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @Column(name = "receive_member_id")
+    @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "receive_member_id")
     private Member receiveMemberId;
 
     @Column(name = "sender_receiver_delimiter")
@@ -46,5 +46,23 @@ public class Message {
         this.receiveMemberId = receiveMemberId;
         this.senderReceiverDelimiter = senderReceiverDelimiter;
         this.deletedAt = deletedAt;
+    }
+
+    public static Message createSendMessage(Member sender, Member receiver, MessageContent messageContentId) {
+        return Message.builder()
+                .sendMemberId(sender)
+                .receiveMemberId(receiver)
+                .messageContentId(messageContentId)
+                .senderReceiverDelimiter(SenderReceiverDelimiter.sender)
+                .build();
+    }
+
+    public static Message createReceiveMessage(Member sender, Member receiver, MessageContent messageContentId) {
+        return Message.builder()
+                .sendMemberId(sender)
+                .receiveMemberId(receiver)
+                .messageContentId(messageContentId)
+                .senderReceiverDelimiter(SenderReceiverDelimiter.receiver)
+                .build();
     }
 }
