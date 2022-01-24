@@ -5,6 +5,8 @@ import com.sweet.home.message.service.MessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
+
 @RestController
 @RequestMapping("/api")
 public class MessageRestController {
@@ -17,7 +19,9 @@ public class MessageRestController {
 
     @PostMapping("/message/send")
     public ResponseEntity<Void> send(@RequestBody MessageSendRequest request) {
-        return null;
+        Long messageId = messageService.sendMessage(request);
+        URI uri = URI.create("/api/message/" + messageId);
+        return ResponseEntity.created(uri).build();
     }
 
 }
