@@ -1,8 +1,6 @@
 package com.sweet.home.message.controller.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sweet.home.member.domain.Member;
-import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import lombok.Getter;
 

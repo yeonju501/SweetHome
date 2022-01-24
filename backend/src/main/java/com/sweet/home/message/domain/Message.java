@@ -39,13 +39,11 @@ public class Message {
     }
 
     @Builder
-    public Message(Long id, MessageContent messageContentId, Member sendMemberId, Member receiveMemberId, SenderReceiverDelimiter senderReceiverDelimiter, LocalDateTime deletedAt) {
-        this.id = id;
+    public Message(MessageContent messageContentId, Member sendMemberId, Member receiveMemberId, SenderReceiverDelimiter senderReceiverDelimiter) {
         this.messageContentId = messageContentId;
         this.sendMemberId = sendMemberId;
         this.receiveMemberId = receiveMemberId;
         this.senderReceiverDelimiter = senderReceiverDelimiter;
-        this.deletedAt = deletedAt;
     }
 
     public static Message createSendMessage(Member sender, Member receiver, MessageContent messageContentId) {

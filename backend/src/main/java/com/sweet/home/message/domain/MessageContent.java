@@ -36,15 +36,12 @@ public class MessageContent {
     }
 
     @Builder
-    public MessageContent(Long id, String title, String content, LocalDateTime createdAt, LocalDateTime readAt) {
-        this.id = id;
+    public MessageContent(String title, String content) {
         this.title = title;
         this.content = content;
-        this.createdAt = createdAt;
-        this.readAt = readAt;
     }
 
-    public static MessageContent createMessageContent(String title, String content){
+    public static MessageContent createMessageContent(String title, String content) {
         return MessageContent.builder()
                 .title(title)
                 .content(content)
