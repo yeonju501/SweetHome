@@ -43,4 +43,11 @@ public class MessageContent {
         this.createdAt = createdAt;
         this.readAt = readAt;
     }
+
+    public static MessageContent createMessageContent(String title, String content){
+        return MessageContent.builder()
+                .title(title)
+                .content(content)
+                .build();
+    }
 }
