@@ -41,4 +41,10 @@ public class MemberService {
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         member.resignMember();
     }
+
+    @Transactional(readOnly = true)
+    public Member findByEmail(String email) {
+        return memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+    }
 }
