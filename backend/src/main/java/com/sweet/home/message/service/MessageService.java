@@ -1,5 +1,7 @@
 package com.sweet.home.message.service;
 
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
@@ -29,18 +31,20 @@ public class MessageService {
     // 메세지 보내기
     @Transactional
     public Long sendMessage(MessageSendRequest request) {
-        Optional<Member> sender = memberRepository.findByUsername(request.getSender());
-        Optional<Member> receiver = memberRepository.findByUsername(request.getReceiver());
+        Member sender = memberRepository.findByUsername(request.getSender())
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_USERNAME));;
+        Member receiver = memberRepository.findByUsername(request.getReceiver())
+                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_USERNAME));;
 
         // 메세지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();
         messageContentRepository.save(messageContent);
 
         // 보낸 메시지함에 보관
-        Message message = Message.createSendMessage(sender.get(), receiver.get(), messageContent);
+        Message message = Message.createSendMessage(sender, receiver, messageContent);
 
         // 받는 사람의 받은 메시지함에 보관
-        messageRepository.save(Message.createReceiveMessage(sender.get(), receiver.get(), messageContent));
+        messageRepository.save(Message.createReceiveMessage(sender, receiver, messageContent));
 
         return messageRepository.save(message).getId();
     }
