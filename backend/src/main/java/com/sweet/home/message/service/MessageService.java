@@ -1,5 +1,7 @@
 package com.sweet.home.message.service;
 
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
@@ -33,10 +35,27 @@ public class MessageService {
         messageRepository.saveAll(Message.createMessage(sender, receiver, messageContent));
     }
 
-    // 메시지 삭제
+    // 보낸 메시지 삭제
     @Transactional
-    public void deleteMessage(String email, String messageId){
+    public void deleteSendMessage(String email, String messageId) {
+        Member member = memberService.findByEmail(email);
+        Message message = messageRepository.findById(Long.parseLong(messageId))
+            .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
 
+        if (message.getSendMember().getId().equals(member.getId())) {
+            message.deleteMessage();
+        }
     }
 
+    // 받은 메시지 삭제
+    @Transactional
+    public void deleteReceiveMessage(String email, String messageId) {
+        Member member = memberService.findByEmail(email);
+        Message message = messageRepository.findById(Long.parseLong(messageId))
+            .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
+
+        if (message.getReceiveMember().getId().equals(member.getId())) {
+            message.deleteMessage();
+        }
+    }
 }
