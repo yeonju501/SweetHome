@@ -29,7 +29,7 @@ public class MessageContent {
     @Column(name = "read_at", nullable = true)
     private LocalDateTime readAt;
 
-    public MessageContent() {
+    protected MessageContent() {
     }
 
     @Builder

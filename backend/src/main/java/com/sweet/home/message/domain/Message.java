@@ -39,7 +39,7 @@ public class Message {
     @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
 
-    public Message() {
+    protected Message() {
     }
 
     @Builder
