@@ -24,7 +24,7 @@ public class MessageService {
     @Transactional
     public Long sendMessage(String email, MessageSendRequest request) {
         Member sender = memberService.findByEmail(email);
-        Member receiver = memberService.findByUsername(request.getReceiver());
+        Member receiver = memberService.findByUsername(request.getReceiverName());
 
         // 메세지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();

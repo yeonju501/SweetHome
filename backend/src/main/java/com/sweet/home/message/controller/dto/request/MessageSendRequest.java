@@ -7,8 +7,8 @@ import lombok.Getter;
 @Getter
 public class MessageSendRequest {
 
-    @JsonProperty("receiver")
-    private String receiver;
+    @JsonProperty("receiver_name")
+    private String receiverName;
 
     @JsonProperty("title")
     private String title;
@@ -19,8 +19,8 @@ public class MessageSendRequest {
     public MessageSendRequest() {
     }
 
-    public MessageSendRequest(String receiver, String title, String content) {
-        this.receiver = receiver;
+    public MessageSendRequest(String receiverName, String title, String content) {
+        this.receiverName = receiverName;
         this.title = title;
         this.content = content;
     }
