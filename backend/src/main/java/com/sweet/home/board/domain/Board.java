@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 public class Board {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
     private Long id;
 
@@ -24,7 +24,7 @@ public class Board {
     @Column(name = "name", length = 20, nullable = false)
     private String name;
 
-    @Column(name= "description", length = 50, nullable = false)
+    @Column(name = "description", length = 50, nullable = false)
     private String description;
 
     @Column(name = "board_status", nullable = true)
