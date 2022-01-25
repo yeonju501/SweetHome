@@ -2,6 +2,7 @@ package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.service.ArticleService;
+import com.sweet.home.member.service.MemberService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
