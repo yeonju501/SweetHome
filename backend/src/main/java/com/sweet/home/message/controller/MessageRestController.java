@@ -17,10 +17,10 @@ public class MessageRestController {
         this.messageService = messageService;
     }
 
-    @PostMapping("/message/send")
+    @PostMapping("/messages")
     public ResponseEntity<Void> send(@RequestBody MessageSendRequest request) {
         Long messageId = messageService.sendMessage(request);
-        URI uri = URI.create("/api/message/" + messageId);
+        URI uri = URI.create("/api/messages/" + messageId);
         return ResponseEntity.created(uri).build();
     }
 
