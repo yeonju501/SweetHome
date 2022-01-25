@@ -1,5 +1,6 @@
 package com.sweet.home.board.service;
 
+import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.domain.BoardRepository;
@@ -23,5 +24,14 @@ public class BoardService {
         return boardRepository.findAll().stream()
             .map(BoardResponse::from)
             .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void saveBoard(BoardSaveRequest request) {
+        Board board = Board.builder()
+            .name(request.getName())
+            .description(request.getDescription())
+            .build();
+        boardRepository.save(board);
     }
 }
