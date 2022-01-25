@@ -21,6 +21,6 @@ public class BoardRestController {
 
     @GetMapping("/boards")
     public ResponseEntity<List<BoardResponse>> showBoard() {
-        return ResponseEntity.ok().body(boardService.findBoard());
+        return ResponseEntity.ok().body(boardService.findAllBoards());
     }
 }
