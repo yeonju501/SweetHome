@@ -29,6 +29,7 @@ public class Message {
     @JoinColumn(name = "receive_member_id")
     private Member receiveMemberId;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "sender_receiver_delimiter")
     private SenderReceiverDelimiter senderReceiverDelimiter;
 
