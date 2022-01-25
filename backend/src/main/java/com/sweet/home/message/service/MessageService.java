@@ -8,6 +8,7 @@ import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
+import com.sweet.home.message.domain.SenderReceiverDelimiter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,27 +36,30 @@ public class MessageService {
         messageRepository.saveAll(Message.createMessage(sender, receiver, messageContent));
     }
 
-    // 보낸 메시지 삭제
+    // 메시지 삭제
     @Transactional
-    public void deleteSendMessage(String email, String messageId) {
+    public void deleteMessage(String email, String messageId) {
         Member member = memberService.findByEmail(email);
         Message message = messageRepository.findById(Long.parseLong(messageId))
             .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
 
-        if (message.getSendMember().getId().equals(member.getId())) {
-            message.deleteMessage();
+        checkSenderOrReceiver(member, message);
+
+        message.deleteMessage();
+    }
+
+    private void checkSenderOrReceiver(Member member, Message message) {
+        if (message.getSenderReceiverDelimiter() == SenderReceiverDelimiter.SENDER) {
+            checkMessagingByOwner(member, message.getSendMember());
+        }
+        else if ( message.getSenderReceiverDelimiter() == SenderReceiverDelimiter.RECEIVER) {
+            checkMessagingByOwner(member, message.getReceiveMember());
         }
     }
 
-    // 받은 메시지 삭제
-    @Transactional
-    public void deleteReceiveMessage(String email, String messageId) {
-        Member member = memberService.findByEmail(email);
-        Message message = messageRepository.findById(Long.parseLong(messageId))
-            .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
-
-        if (message.getReceiveMember().getId().equals(member.getId())) {
-            message.deleteMessage();
+    private void checkMessagingByOwner(Member member, Member messageMember){
+        if(!member.getId().equals(messageMember.getId())){
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
         }
     }
 }

@@ -22,6 +22,7 @@ public enum ErrorCode {
 
     //message
     MESSAGE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 메시지 ID 입니다."),
+    MESSAGE_NOT_MATCH_BY_MEMBER_ID(HttpStatus.CONFLICT, "메시지 송수신자와 일치하지 않는 이용자입니다."),
     ;
 
     private final HttpStatus httpStatus;
