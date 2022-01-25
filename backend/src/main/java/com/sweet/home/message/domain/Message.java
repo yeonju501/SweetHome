@@ -7,11 +7,14 @@ import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Getter
 @Where(clause = "deleted_at is null")
 public class Message {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
@@ -19,15 +22,15 @@ public class Message {
 
     @ManyToOne(targetEntity = MessageContent.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "message_content_id")
-    private MessageContent messageContentId;
+    private MessageContent messageContent;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "send_member_id")
-    private Member sendMemberId;
+    private Member sendMember;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "receive_member_id")
-    private Member receiveMemberId;
+    private Member receiveMember;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sender_receiver_delimiter")
@@ -40,28 +43,39 @@ public class Message {
     }
 
     @Builder
-    public Message(MessageContent messageContentId, Member sendMemberId, Member receiveMemberId, SenderReceiverDelimiter senderReceiverDelimiter) {
-        this.messageContentId = messageContentId;
-        this.sendMemberId = sendMemberId;
-        this.receiveMemberId = receiveMemberId;
+    public Message(MessageContent messageContent, Member sendMember, Member receiveMember,
+        SenderReceiverDelimiter senderReceiverDelimiter) {
+        this.messageContent = messageContent;
+        this.sendMember = sendMember;
+        this.receiveMember = receiveMember;
         this.senderReceiverDelimiter = senderReceiverDelimiter;
     }
 
-    public static Message createSendMessage(Member sender, Member receiver, MessageContent messageContentId) {
-        return Message.builder()
-                .sendMemberId(sender)
-                .receiveMemberId(receiver)
-                .messageContentId(messageContentId)
-                .senderReceiverDelimiter(SenderReceiverDelimiter.sender)
-                .build();
+    public static List<Message> createMessage(Member sender, Member receiver,
+        MessageContent messageContent) {
+        return Arrays.asList(
+            Message.createReceiveMessage(sender, receiver, messageContent),
+            Message.createReceiveMessage(sender, receiver, messageContent)
+        );
     }
 
-    public static Message createReceiveMessage(Member sender, Member receiver, MessageContent messageContentId) {
+    public static Message createSendMessage(Member sender, Member receiver,
+        MessageContent messageContent) {
         return Message.builder()
-                .sendMemberId(sender)
-                .receiveMemberId(receiver)
-                .messageContentId(messageContentId)
-                .senderReceiverDelimiter(SenderReceiverDelimiter.receiver)
-                .build();
+            .sendMember(sender)
+            .receiveMember(receiver)
+            .messageContent(messageContent)
+            .senderReceiverDelimiter(SenderReceiverDelimiter.SENDER)
+            .build();
+    }
+
+    public static Message createReceiveMessage(Member sender, Member receiver,
+        MessageContent messageContent) {
+        return Message.builder()
+            .sendMember(sender)
+            .receiveMember(receiver)
+            .messageContent(messageContent)
+            .senderReceiverDelimiter(SenderReceiverDelimiter.RECEIVER)
+            .build();
     }
 }

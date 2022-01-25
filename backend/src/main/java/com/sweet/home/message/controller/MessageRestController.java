@@ -19,9 +19,10 @@ public class MessageRestController {
     }
 
     @PostMapping("/messages")
-    public ResponseEntity<Void> send(@AuthenticationPrincipal String email, @RequestBody MessageSendRequest request) {
-        Long messageId = messageService.sendMessage(email, request);
-        URI uri = URI.create("/api/messages/" + messageId);
+    public ResponseEntity<Void> send(@AuthenticationPrincipal String email,
+        @RequestBody MessageSendRequest request) {
+        messageService.sendMessage(email, request);
+        URI uri = URI.create("/api/messages/");
         return ResponseEntity.created(uri).build();
     }
 

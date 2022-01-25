@@ -22,19 +22,16 @@ public class MessageService {
 
     // 메세지 보내기
     @Transactional
-    public Long sendMessage(String email, MessageSendRequest request) {
+    public void sendMessage(String email, MessageSendRequest request) {
         Member sender = memberService.findByEmail(email);
         Member receiver = memberService.findByUsername(request.getReceiverName());
 
         // 메세지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();
 
-        // 보낸 메시지함에 보관
-        Message message = Message.createSendMessage(sender, receiver, messageContent);
-
         // 받는 사람의 받은 메시지함에 보관
         messageRepository.save(Message.createReceiveMessage(sender, receiver, messageContent));
-
-        return messageRepository.save(message).getId();
+        // 보낸 메시지함에 보관
+        messageRepository.save(Message.createSendMessage(sender, receiver, messageContent));
     }
 }

@@ -40,8 +40,8 @@ public class MessageContent {
 
     public static MessageContent createMessageContent(String title, String content) {
         return MessageContent.builder()
-                .title(title)
-                .content(content)
-                .build();
+            .title(title)
+            .content(content)
+            .build();
     }
 }

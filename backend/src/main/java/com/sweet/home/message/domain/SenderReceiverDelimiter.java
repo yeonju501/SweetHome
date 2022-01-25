@@ -1,8 +1,8 @@
 package com.sweet.home.message.domain;
 
 public enum SenderReceiverDelimiter {
-    sender("sender"),
-    receiver("receiver");
+    SENDER("sender"),
+    RECEIVER("receiver");
 
     private final String delimiter;
 
