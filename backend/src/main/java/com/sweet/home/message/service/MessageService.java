@@ -1,9 +1,7 @@
 package com.sweet.home.message.service;
 
-import com.sweet.home.global.exception.BusinessException;
-import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
-import com.sweet.home.member.domain.MemberRepository;
+import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
@@ -16,22 +14,20 @@ import org.springframework.transaction.annotation.Transactional;
 public class MessageService {
 
     private final MessageRepository messageRepository;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
     private final MessageContentRepository messageContentRepository;
 
-    public MessageService(MessageRepository messageRepository, MemberRepository memberRepository, MessageContentRepository messageContentRepository) {
+    public MessageService(MessageRepository messageRepository, MemberService memberService, MessageContentRepository messageContentRepository) {
         this.messageRepository = messageRepository;
-        this.memberRepository = memberRepository;
+        this.memberService = memberService;
         this.messageContentRepository = messageContentRepository;
     }
 
     // 메세지 보내기
     @Transactional
     public Long sendMessage(MessageSendRequest request) {
-        Member sender = memberRepository.findByUsername(request.getSender())
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_USERNAME));;
-        Member receiver = memberRepository.findByUsername(request.getReceiver())
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_USERNAME));;
+        Member sender = memberService.findByUsername(request.getSender());
+        Member receiver = memberService.findByUsername(request.getReceiver());
 
         // 메세지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();
