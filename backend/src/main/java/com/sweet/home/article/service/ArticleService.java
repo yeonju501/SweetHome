@@ -7,6 +7,7 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
+import com.sweet.home.member.service.MemberService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,17 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 public class ArticleService {
 
     private final ArticleRepository articleRepository;
-    private final MemberRepository memberRepository;
+    private final MemberService memberService;
 
-    public ArticleService(ArticleRepository articleRepository, MemberRepository memberRepository) {
+    public ArticleService(ArticleRepository articleRepository, MemberService memberService) {
         this.articleRepository = articleRepository;
-        this.memberRepository = memberRepository;
+        this.memberService = memberService;
     }
 
     @Transactional
     public Long saveArticle(String email, ArticleSaveRequest request) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+        Member member = memberService.findByEmail(email);
         // board 로직
         Article article = Article.builder()
                 .title(request.getTitle())
