@@ -19,10 +19,8 @@ public class BoardService {
     }
 
     @Transactional
-    public List<BoardResponse> findBoard() {
-        List<Board> boardList = boardRepository.findAll();
-        return boardList
-            .stream()
+    public List<BoardResponse> findAllBoards() {
+        return boardRepository.findAll().stream()
             .map(BoardResponse::from)
             .collect(Collectors.toList());
     }
