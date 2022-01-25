@@ -1,5 +1,6 @@
 package com.sweet.home.article.domain;
 
+import com.sweet.home.board.domain.Board;
 import com.sweet.home.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -27,9 +28,9 @@ public class Article {
     @JoinColumn(name = "member_id")
     private Member member;
 
-//    @ManyToOne(targetEntity = Board.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "board_id")
-//    private Board board;
+    @ManyToOne(targetEntity = Board.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "board_id")
+    private Board board;
 
     @Column(name = "content", nullable = false)
     private String content;
