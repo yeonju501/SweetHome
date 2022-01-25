@@ -17,7 +17,7 @@ public class Message {
     @Column(name = "message_id")
     private Long id;
 
-    @ManyToOne(targetEntity = MessageContent.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = MessageContent.class, fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "message_content_id")
     private MessageContent messageContentId;
 

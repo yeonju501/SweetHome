@@ -5,7 +5,6 @@ import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
-import com.sweet.home.message.domain.MessageContentRepository;
 import com.sweet.home.message.domain.MessageRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,12 +14,10 @@ public class MessageService {
 
     private final MessageRepository messageRepository;
     private final MemberService memberService;
-    private final MessageContentRepository messageContentRepository;
 
-    public MessageService(MessageRepository messageRepository, MemberService memberService, MessageContentRepository messageContentRepository) {
+    public MessageService(MessageRepository messageRepository, MemberService memberService) {
         this.messageRepository = messageRepository;
         this.memberService = memberService;
-        this.messageContentRepository = messageContentRepository;
     }
 
     // 메세지 보내기
@@ -31,7 +28,6 @@ public class MessageService {
 
         // 메세지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();
-        messageContentRepository.save(messageContent);
 
         // 보낸 메시지함에 보관
         Message message = Message.createSendMessage(sender, receiver, messageContent);
