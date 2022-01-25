@@ -30,8 +30,6 @@ public class MessageService {
         MessageContent messageContent = request.toCreateMessageContent();
 
         // 받는 사람의 받은 메시지함에 보관
-        messageRepository.save(Message.createReceiveMessage(sender, receiver, messageContent));
-        // 보낸 메시지함에 보관
-        messageRepository.save(Message.createSendMessage(sender, receiver, messageContent));
+        messageRepository.saveAll(Message.createMessage(sender, receiver, messageContent));
     }
 }

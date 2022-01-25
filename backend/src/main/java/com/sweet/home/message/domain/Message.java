@@ -51,16 +51,14 @@ public class Message {
         this.senderReceiverDelimiter = senderReceiverDelimiter;
     }
 
-    public static List<Message> createMessage(Member sender, Member receiver,
-        MessageContent messageContent) {
+    public static List<Message> createMessage(Member sender, Member receiver, MessageContent messageContent) {
         return Arrays.asList(
-            Message.createReceiveMessage(sender, receiver, messageContent),
+            Message.createSendMessage(sender, receiver, messageContent),
             Message.createReceiveMessage(sender, receiver, messageContent)
         );
     }
 
-    public static Message createSendMessage(Member sender, Member receiver,
-        MessageContent messageContent) {
+    public static Message createSendMessage(Member sender, Member receiver, MessageContent messageContent) {
         return Message.builder()
             .sendMember(sender)
             .receiveMember(receiver)
@@ -69,8 +67,7 @@ public class Message {
             .build();
     }
 
-    public static Message createReceiveMessage(Member sender, Member receiver,
-        MessageContent messageContent) {
+    public static Message createReceiveMessage(Member sender, Member receiver, MessageContent messageContent) {
         return Message.builder()
             .sendMember(sender)
             .receiveMember(receiver)
