@@ -2,8 +2,9 @@ package com.sweet.home.board.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sweet.home.board.domain.Board;
-import com.sweet.home.member.controller.dto.response.ProfileResponse;
+import lombok.Getter;
 
+@Getter
 public class BoardResponse {
 
     @JsonProperty("name")
