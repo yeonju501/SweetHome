@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Where(clause = "deleted_at is null")
 public class Message {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "message_id")
     private Long id;
 
