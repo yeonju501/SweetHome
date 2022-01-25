@@ -75,4 +75,8 @@ public class Message {
             .senderReceiverDelimiter(SenderReceiverDelimiter.RECEIVER)
             .build();
     }
+
+    public void deleteMessage() {
+        this.deletedAt = LocalDateTime.now();
+    }
 }
