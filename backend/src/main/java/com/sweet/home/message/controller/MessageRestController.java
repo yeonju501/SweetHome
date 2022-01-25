@@ -25,10 +25,17 @@ public class MessageRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping("/messages/{message_id}")
-    public ResponseEntity<Void> deleteMessage(@AuthenticationPrincipal String email,
+    @DeleteMapping("/messages/send/{message_id}")
+    public ResponseEntity<Void> deleteSendMessage(@AuthenticationPrincipal String email,
         @PathVariable(value = "message_id") String messageId) {
-        messageService.deleteMessage(email, messageId);
+        messageService.deleteSendMessage(email, messageId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/messages/receive/{message_id}")
+    public ResponseEntity<Void> deleteReceiveMessage(@AuthenticationPrincipal String email,
+        @PathVariable(value = "message_id") String messageId) {
+        messageService.deleteReceiveMessage(email, messageId);
         return ResponseEntity.noContent().build();
     }
 }
