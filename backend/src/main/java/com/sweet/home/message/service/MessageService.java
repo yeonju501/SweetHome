@@ -20,16 +20,23 @@ public class MessageService {
         this.memberService = memberService;
     }
 
-    // 메세지 보내기
+    // 메시지 보내기
     @Transactional
     public void sendMessage(String email, MessageSendRequest request) {
         Member sender = memberService.findByEmail(email);
         Member receiver = memberService.findByUsername(request.getReceiverName());
 
-        // 메세지 콘텐트 만들기
+        // 메시지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();
 
         // 받는 사람의 받은 메시지함에 보관
         messageRepository.saveAll(Message.createMessage(sender, receiver, messageContent));
     }
+
+    // 메시지 삭제
+    @Transactional
+    public void deleteMessage(String email, String messageId){
+
+    }
+
 }

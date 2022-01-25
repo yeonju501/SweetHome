@@ -19,9 +19,16 @@ public class MessageRestController {
     }
 
     @PostMapping("/messages")
-    public ResponseEntity<Void> send(@AuthenticationPrincipal String email, @RequestBody MessageSendRequest request) {
+    public ResponseEntity<Void> sendMessage(@AuthenticationPrincipal String email, @RequestBody MessageSendRequest request) {
         messageService.sendMessage(email, request);
         URI uri = URI.create("/api/messages/");
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping("/messages/{message_id}")
+    public ResponseEntity<Void> deleteMessage(@AuthenticationPrincipal String email,
+        @PathVariable(value = "message_id") String messageId) {
+        messageService.deleteMessage(email, messageId);
+        return ResponseEntity.noContent().build();
     }
 }
