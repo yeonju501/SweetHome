@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,7 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class Member {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
 
