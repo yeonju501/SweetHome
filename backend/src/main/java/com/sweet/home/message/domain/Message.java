@@ -90,7 +90,7 @@ public class Message {
             checkMessagingByOwner(member, receiveMember);
             return;
         }
-        throw new BusinessException(ErrorCode.MESSAGE_WEIRD_DELIMITER);
+        throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
     }
 
     private void checkMessagingByOwner(Member member, Member compareMember) {
