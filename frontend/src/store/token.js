@@ -1,16 +1,20 @@
-export const LOGIN = "account/LOGIN";
+const LOGIN = "token/LOGIN";
 export const SET_TOKEN = (token) => ({ type: LOGIN, token });
 
-const token = (state = {}, action) => {
+const initialState = {
+	token: "",
+};
+
+const access_token = (state = initialState, action) => {
 	switch (action.type) {
 		case LOGIN:
 			return {
 				...state,
-				access_token: action.count,
+				token: action.token,
 			};
 		default:
 			return state;
 	}
 };
 
-export default token;
+export default access_token;
