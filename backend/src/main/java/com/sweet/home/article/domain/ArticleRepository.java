@@ -9,5 +9,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findAllByBoard(Board board);
 
-    Article findByBoardAndId(Board board, Long articleId);
+    Optional<Article> findByBoardAndId(Board board, Long articleId);
 }
