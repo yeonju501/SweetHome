@@ -23,7 +23,7 @@ function SignIn() {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		if (isValidEmail) {
+		if (isValidEmail && password) {
 			axios({
 				url: "http://localhost:8080/api/members/login",
 				method: "POST",
