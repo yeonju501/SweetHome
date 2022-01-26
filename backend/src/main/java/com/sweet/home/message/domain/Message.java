@@ -3,6 +3,7 @@ package com.sweet.home.message.domain;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
@@ -102,6 +103,12 @@ public class Message {
     public void checkMessageOwnerByEmail(String email) {
         if (!(email.equals(sendMember.getEmail()) || email.equals(receiveMember.getEmail()))) {
             throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_EMAIL);
+        }
+    }
+
+    public void readMessage(String email) {
+        if (Objects.isNull(messageContent.getReadAt()) && receiveMember.getEmail().equals(email)) {
+            messageContent.changeReadAt();
         }
     }
 }

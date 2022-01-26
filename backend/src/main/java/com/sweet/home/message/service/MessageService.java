@@ -55,16 +55,8 @@ public class MessageService {
 
         message.checkMessageOwnerByEmail(email);
 
-        readMessage(message);
+        message.readMessage(email);
 
         return MessageDetailResponse.from(message);
-    }
-
-    // 메시지 읽음 처리
-    private void readMessage(Message message) {
-        if (Objects.isNull(message.getMessageContent().getReadAt())) {
-            message.getMessageContent().changeReadAt();
-            messageRepository.save(message);
-        }
     }
 }
