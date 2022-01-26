@@ -1,8 +1,12 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function SendMessage() {
+	const token = window.localStorage.getItem("access_token");
+
 	const [sendMessage, setSendMessage] = useState({
-		reciver: "",
+		receiver_name: "",
+		title: "",
 		content: "",
 	});
 
@@ -15,20 +19,38 @@ function SendMessage() {
 
 	function onSend(e) {
 		e.preventDefault();
-		e.target.checkValidity();
+		const checkValue = e.target.checkValidity();
+		if (checkValue) {
+			axios({
+				method: "POST",
+				url: "http://localhost:8080/api/messages/",
+				headers: { Authorization: `Bearer ${token}` },
+				data: sendMessage,
+			}).then((res) => {
+				console.log(res);
+			});
+		}
 		console.log(e.target.checkValidity());
 	}
 
-	const { reciver, content } = sendMessage;
+	const { receiver_name, title, content } = sendMessage;
 	return (
 		<div>
 			<h1>SendMessage</h1>
 			<form onSubmit={onSend}>
 				<input
 					type="text"
-					placeholder="reciver"
-					id="reciver"
-					value={reciver}
+					placeholder="receiver_name"
+					id="receiver_name"
+					value={receiver_name}
+					onChange={onChange}
+					required
+				/>
+				<input
+					type="text"
+					placeholder="title"
+					id="title"
+					value={title}
 					onChange={onChange}
 					required
 				/>
