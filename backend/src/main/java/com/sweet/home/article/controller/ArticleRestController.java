@@ -20,7 +20,7 @@ public class ArticleRestController {
     }
 
     @PostMapping("/articles")
-    public ResponseEntity<Void> create(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request) {
+    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request) {
         Long createMemberId = articleService.saveArticle(email, request);
         URI uri = URI.create("/boards/articles/" + createMemberId);
         return ResponseEntity.created(uri).build();
