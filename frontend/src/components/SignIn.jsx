@@ -59,8 +59,9 @@ function SignIn() {
 				<button>Sing In</button>
 			</form>
 
-			<Link to="/">Home</Link>
-			<Link to="/sign-up">sign up</Link>
+			<button>카카오로 시작하기</button>
+			<Link to="/">비밀번호를 잊으셨나요?</Link>
+			<Link to="/sign-up">회원가입</Link>
 		</div>
 	);
 }
