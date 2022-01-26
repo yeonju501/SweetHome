@@ -98,4 +98,10 @@ public class Message {
             throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
         }
     }
+
+    public void checkMessageOwnerByEmail(String email) {
+        if (!(email.equals(sendMember.getEmail()) || email.equals(receiveMember.getEmail()))) {
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_EMAIL);
+        }
+    }
 }
