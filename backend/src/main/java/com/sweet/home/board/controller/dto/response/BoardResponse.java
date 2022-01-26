@@ -2,9 +2,13 @@ package com.sweet.home.board.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sweet.home.board.domain.Board;
-import com.sweet.home.member.controller.dto.response.ProfileResponse;
+import lombok.Getter;
 
+@Getter
 public class BoardResponse {
+
+    @JsonProperty("id")
+    private Long id;
 
     @JsonProperty("name")
     private String name;
@@ -15,13 +19,15 @@ public class BoardResponse {
     protected BoardResponse() {
     }
 
-    public BoardResponse(String name, String description) {
+    public BoardResponse(Long id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
 
     public static BoardResponse from(Board board){
         return new BoardResponse(
+            board.getId(),
             board.getName(),
             board.getDescription()
         );
