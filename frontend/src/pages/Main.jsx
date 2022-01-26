@@ -1,7 +1,9 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
-function main() {
-	return <div>main</div>;
+function Main() {
+	const access = useSelector((state) => state.token.token);
+	return <div>hi {access}</div>;
 }
 
-export default main;
+export default Main;
