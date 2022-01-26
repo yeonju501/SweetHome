@@ -3,13 +3,7 @@
 	box-sizing: border-box;
 	font-size: 62.5%;
 	background-color: #f9f9f9;
-}
-@font-face {
-	font-family: "LeferiPoint-BlackA";
-	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
-		format("woff");
-	font-weight: normal;
-	font-style: normal;
+	font-family: sans-serif;
 }
 
 .sign_in {
@@ -17,14 +11,13 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	font-family: "LeferiPoint-BlackA";
 }
 .sign_in_div {
 	display: flex;
 	flex-direction: column;
 	text-align: center;
 	border: 1px solid #e4e4e4;
-	padding: 4rem;
+	padding: 7rem;
 	background-color: #fff;
 	align-items: center;
 }
@@ -61,14 +54,19 @@
 
 .kakao_button {
 	background-color: yellow;
+	color: #000;
 	border: none;
 	width: 26.4rem;
 	height: 3.3rem;
 	border-radius: 2px;
 	font-size: 1.5rem;
-	font-weight: 700;
+	font-weight: bold;
 	margin-bottom: 5rem;
 	cursor: pointer;
+}
+
+.kakao_button:active {
+	transform: scale(0.95);
 }
 
 .login_button {
@@ -81,13 +79,26 @@
 	color: #fff;
 	margin-bottom: 4rem;
 	cursor: pointer;
+	font-weight: 800;
+}
+
+.login_button:active {
+	transform: scale(0.95);
+}
+
+.disabled_button {
+	opacity: 0.6;
+	cursor: auto;
+}
+.disabled_button:active {
+	transform: scale(1);
 }
 
 .Link {
 	background-color: transparent;
 	text-decoration: none;
 	font-size: 1.4rem;
-	font-weight: 400;
+	font-weight: 800;
 	color: #0087e8;
 	margin-bottom: 1.5rem;
 }
