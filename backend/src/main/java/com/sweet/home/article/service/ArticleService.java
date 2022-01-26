@@ -3,6 +3,8 @@ package com.sweet.home.article.service;
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
+import com.sweet.home.board.domain.Board;
+import com.sweet.home.board.service.BoardService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -16,20 +18,23 @@ public class ArticleService {
 
     private final ArticleRepository articleRepository;
     private final MemberService memberService;
+    private final BoardService boardService;
 
-    public ArticleService(ArticleRepository articleRepository, MemberService memberService) {
+    public ArticleService(ArticleRepository articleRepository, MemberService memberService, BoardService boardService) {
         this.articleRepository = articleRepository;
         this.memberService = memberService;
+        this.boardService = boardService;
     }
 
     @Transactional
-    public Long saveArticle(String email, ArticleSaveRequest request) {
+    public Long saveArticle(String email, ArticleSaveRequest request, Long boardId) {
         Member member = memberService.findByEmail(email);
-        // board 로직
+        Board board = boardService.findById(boardId);
         Article article = Article.builder()
                 .title(request.getTitle())
                 .content(request.getContent())
                 .member(member)
+                .board(board)
                 .build();
         return articleRepository.save(article).getId();
     }

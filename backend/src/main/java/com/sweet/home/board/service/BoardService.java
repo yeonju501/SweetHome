@@ -4,6 +4,8 @@ import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.domain.BoardRepository;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,5 +35,11 @@ public class BoardService {
             .description(request.getDescription())
             .build();
         boardRepository.save(board);
+    }
+
+    @Transactional
+    public Board findById(Long boardId) {
+        return boardRepository.findById(boardId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
     }
 }
