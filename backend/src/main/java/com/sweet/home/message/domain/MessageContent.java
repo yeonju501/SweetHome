@@ -44,4 +44,8 @@ public class MessageContent {
             .content(content)
             .build();
     }
+
+    public void changeReadAt() {
+        this.readAt = LocalDateTime.now();
+    }
 }

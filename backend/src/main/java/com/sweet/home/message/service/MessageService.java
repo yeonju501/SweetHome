@@ -5,9 +5,11 @@ import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
+import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
+import java.util.Objects;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,10 +30,8 @@ public class MessageService {
         Member sender = memberService.findByEmail(email);
         Member receiver = memberService.findByUsername(request.getReceiverName());
 
-        // 메시지 콘텐트 만들기
         MessageContent messageContent = request.toCreateMessageContent();
 
-        // 받는 사람의 받은 메시지함에 보관
         messageRepository.saveAll(Message.createMessage(sender, receiver, messageContent));
     }
 
@@ -45,5 +45,18 @@ public class MessageService {
         message.checkSenderOrReceiver(member);
 
         message.deleteMessage();
+    }
+
+    // 메시지 상세 조회
+    @Transactional
+    public MessageDetailResponse viewMessageDetail(String email, Long messageId) {
+        Message message = messageRepository.findById(messageId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
+
+        message.checkMessageOwnerByEmail(email);
+
+        message.readMessage(email);
+
+        return MessageDetailResponse.from(message);
     }
 }
