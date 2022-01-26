@@ -1,14 +1,23 @@
-.div_Home {
+.Home_div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 
-.div_Home_img {
+.Home_div_img {
 	margin-right: 5rem;
+	position: relative;
 }
 
 .Home_img {
 	transform: translateY(6rem);
 	width: 45rem;
+}
+
+.Home_h1 {
+	position: absolute;
+	font-size: 2.5rem;
+	font-weight: bold;
+	top: 15rem;
+	z-index: 1;
 }

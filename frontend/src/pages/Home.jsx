@@ -29,9 +29,9 @@ function Home() {
 			{currentUser ? (
 				navigate("/main")
 			) : (
-				<div className={style.div_Home}>
-					<div className={style.div_Home_img}>
-						<h1>당신의 이웃을 만나보세요</h1>
+				<div className={style.Home_div}>
+					<div className={style.Home_div_img}>
+						<h2 className={style.Home_h1}>당신의 이웃을 만나보세요</h2>
 						<Apart className={style.Home_img} />
 					</div>
 					<SignIn />
