@@ -4,12 +4,10 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import rootReudcer from "./store/index";
+import rootReducer from "./store/index";
 import { createStore } from "redux";
-import axios from "axios";
 
-const store = createStore(rootReudcer);
-axios.defaults.withCredentials = true;
+const store = createStore(rootReducer);
 
 ReactDOM.render(
 	<React.StrictMode>
