@@ -31,7 +31,9 @@ function Home() {
 			) : (
 				<div className={style.Home_div}>
 					<div className={style.Home_div_img}>
-						<h2 className={style.Home_h1}>당신의 이웃을 만나보세요</h2>
+						<h2 className={style.Home_h1}>
+							당신의<span className={style.Home_h1_neigh}> 이웃</span>을 만나보세요
+						</h2>
 						<Apart className={style.Home_img} />
 					</div>
 					<SignIn />
