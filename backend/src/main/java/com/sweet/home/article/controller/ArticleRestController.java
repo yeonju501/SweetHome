@@ -19,10 +19,10 @@ public class ArticleRestController {
         this.articleService = articleService;
     }
 
-    @PostMapping("/articles")
-    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request) {
-        Long createMemberId = articleService.saveArticle(email, request);
-        URI uri = URI.create("/boards/articles/" + createMemberId);
+    @PostMapping("/{boardId}/articles")
+    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request, @PathVariable Long boardId) {
+        Long createMemberId = articleService.saveArticle(email, request, boardId);
+        URI uri = URI.create("/" + boardId + "/articles/" + createMemberId);
         return ResponseEntity.created(uri).build();
     }
 }
