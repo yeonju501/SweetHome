@@ -1,8 +1,11 @@
 package com.sweet.home.message.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sweet.home.message.domain.Message;
+import java.time.LocalDateTime;
 
 public class MessageDetailResponse {
+
     @JsonProperty("sender_username")
     private String senderUsername;
 
@@ -22,16 +25,16 @@ public class MessageDetailResponse {
     private String content;
 
     @JsonProperty("send_at")
-    private String sendAt;
+    private LocalDateTime sendAt;
 
     @JsonProperty("read_at")
-    private String readAt;
+    private LocalDateTime readAt;
 
     public MessageDetailResponse() {
     }
 
     public MessageDetailResponse(String senderUsername, String senderEmail, String receiverUsername, String receiverEmail,
-        String title, String content, String sendAt, String readAt) {
+        String title, String content, LocalDateTime sendAt, LocalDateTime readAt) {
         this.senderUsername = senderUsername;
         this.senderEmail = senderEmail;
         this.receiverUsername = receiverUsername;
@@ -40,5 +43,18 @@ public class MessageDetailResponse {
         this.content = content;
         this.sendAt = sendAt;
         this.readAt = readAt;
+    }
+
+    public static MessageDetailResponse from(Message message) {
+        return new MessageDetailResponse(
+            message.getSendMember().getUsername(),
+            message.getSendMember().getEmail(),
+            message.getReceiveMember().getUsername(),
+            message.getReceiveMember().getEmail(),
+            message.getMessageContent().getTitle(),
+            message.getMessageContent().getContent(),
+            message.getMessageContent().getCreatedAt(),
+            message.getMessageContent().getReadAt()
+        );
     }
 }
