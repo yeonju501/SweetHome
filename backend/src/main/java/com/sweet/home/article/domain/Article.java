@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 public class Article {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "article_id")
     private Long id;
 
@@ -50,9 +50,10 @@ public class Article {
     }
 
     @Builder
-    public Article(String title, String content, Member member){
+    public Article(String title, String content, Member member, Board board){
         this.title = title;
         this.content = content;
         this.member = member;
+        this.board = board;
     }
 }

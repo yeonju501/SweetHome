@@ -25,7 +25,7 @@ public class BoardResponse {
         this.description = description;
     }
 
-    public static BoardResponse from(Board board){
+    public static BoardResponse from(Board board) {
         return new BoardResponse(
             board.getId(),
             board.getName(),

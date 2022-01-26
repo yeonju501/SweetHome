@@ -24,6 +24,9 @@ public enum ErrorCode {
     MESSAGE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 메시지 ID 입니다."),
     MESSAGE_NOT_MATCH_BY_MEMBER_ID(HttpStatus.BAD_REQUEST, "메시지 송수신자와 일치하지 않는 유저입니다."),
     MESSAGE_NOT_MATCH_BY_MEMBER_EMAIL(HttpStatus.BAD_REQUEST, "메시지 송수신자와 일치하지 않는 이메일입니다."),
+
+    // board
+    BOARD_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다."),
     ;
 
     private final HttpStatus httpStatus;
