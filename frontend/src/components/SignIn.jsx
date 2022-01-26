@@ -63,7 +63,9 @@ function SignIn() {
 					{regEmail.test(email) && password.length > 5 ? (
 						<button className={style.login_button}>Sign In</button>
 					) : (
-						<button className={`${style.login_button} ${style.disabled_button}`}>Sign In</button>
+						<button disabled className={`${style.login_button} ${style.disabled_button}`}>
+							Sign In
+						</button>
 					)}
 				</form>
 
