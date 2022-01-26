@@ -4,11 +4,11 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import rootReducer from "./reducer/reducer";
+import rootReudcer from "./store/index";
 import { createStore } from "redux";
 import axios from "axios";
 
-const store = createStore(rootReducer);
+const store = createStore(rootReudcer);
 axios.defaults.withCredentials = true;
 
 ReactDOM.render(
