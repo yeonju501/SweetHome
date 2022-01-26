@@ -34,11 +34,11 @@ public class ArticleResponse {
         this.createdAt = createdAt;
     }
 
-    public static ArticleResponse from(Article article, MemberArticleResponse member) {
+    public static ArticleResponse from(Article article) {
         return new ArticleResponse(
             article.getId(),
             article.getTitle(),
-            member,
+            MemberArticleResponse.from(article.getMember()),
             article.getContent(),
             article.getCreatedAt()
         );

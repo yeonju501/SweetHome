@@ -2,7 +2,6 @@ package com.sweet.home.article.service;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.response.ArticleResponse;
-import com.sweet.home.article.controller.dto.response.MemberArticleResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
 import com.sweet.home.board.domain.Board;
@@ -44,7 +43,7 @@ public class ArticleService {
     public List<ArticleResponse> findAllByBoard(Long boardId) {
         Board board = boardService.findById(boardId);
         return articleRepository.findAllByBoard(board).stream()
-            .map(article -> ArticleResponse.from(article, MemberArticleResponse.from(article.getMember())))
+            .map(ArticleResponse::from)
             .collect(Collectors.toList());
     }
 }
