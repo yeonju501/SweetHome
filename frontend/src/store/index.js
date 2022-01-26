@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
-import token from "./token";
+import access_token from "./token";
 
-const rootReudcer = combineReducers({
-	token,
+const rootReducer = combineReducers({
+	token: access_token,
 });
 
-export default rootReudcer;
+export default rootReducer;
