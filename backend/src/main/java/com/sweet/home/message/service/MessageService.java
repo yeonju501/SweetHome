@@ -38,28 +38,13 @@ public class MessageService {
 
     // 메시지 삭제
     @Transactional
-    public void deleteMessage(String email, String messageId) {
+    public void deleteMessage(String email, Long messageId) {
         Member member = memberService.findByEmail(email);
-        Message message = messageRepository.findById(Long.parseLong(messageId))
+        Message message = messageRepository.findById(messageId)
             .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
 
-        checkSenderOrReceiver(member, message);
+        message.checkSenderOrReceiver(member);
 
         message.deleteMessage();
-    }
-
-    private void checkSenderOrReceiver(Member member, Message message) {
-        if (message.getSenderReceiverDelimiter() == SenderReceiverDelimiter.SENDER) {
-            checkMessagingByOwner(member, message.getSendMember());
-        }
-        else if ( message.getSenderReceiverDelimiter() == SenderReceiverDelimiter.RECEIVER) {
-            checkMessagingByOwner(member, message.getReceiveMember());
-        }
-    }
-
-    private void checkMessagingByOwner(Member member, Member messageMember){
-        if(!member.getId().equals(messageMember.getId())){
-            throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
-        }
     }
 }

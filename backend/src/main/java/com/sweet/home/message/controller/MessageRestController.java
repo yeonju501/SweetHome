@@ -27,7 +27,7 @@ public class MessageRestController {
 
     @DeleteMapping("/messages/{message_id}")
     public ResponseEntity<Void> deleteMessage(@AuthenticationPrincipal String email,
-        @PathVariable(value = "message_id") String messageId) {
+        @PathVariable(value = "message_id") Long messageId) {
         messageService.deleteMessage(email, messageId);
         return ResponseEntity.noContent().build();
     }
