@@ -1,0 +1,14 @@
+.div_Home {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.div_Home_img {
+	margin-right: 5rem;
+}
+
+.Home_img {
+	transform: translateY(6rem);
+	width: 45rem;
+}
