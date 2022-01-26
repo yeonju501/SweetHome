@@ -50,9 +50,10 @@ public class Article {
     }
 
     @Builder
-    public Article(String title, String content, Member member){
+    public Article(String title, String content, Member member, Board board){
         this.title = title;
         this.content = content;
         this.member = member;
+        this.board = board;
     }
 }
