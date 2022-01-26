@@ -82,17 +82,19 @@ public class Message {
         this.deletedAt = LocalDateTime.now();
     }
 
-
     public void checkSenderOrReceiver(Member member) {
-        if (getSenderReceiverDelimiter() == SenderReceiverDelimiter.SENDER) {
-            checkMessagingByOwner(member);
-        } else if (getSenderReceiverDelimiter() == SenderReceiverDelimiter.RECEIVER) {
-            checkMessagingByOwner(member);
+        if (senderReceiverDelimiter == SenderReceiverDelimiter.SENDER) {
+            checkMessagingByOwner(member, sendMember);
+            return;
+        } else if (senderReceiverDelimiter == SenderReceiverDelimiter.RECEIVER) {
+            checkMessagingByOwner(member, receiveMember);
+            return;
         }
+        throw new BusinessException(ErrorCode.MESSAGE_WEIRD_DELIMITER);
     }
 
-    public void checkMessagingByOwner(Member member) {
-        if (!member.getId().equals(getId())) {
+    private void checkMessagingByOwner(Member member, Member compareMember) {
+        if (!member.getId().equals(compareMember.getId())) {
             throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
         }
     }

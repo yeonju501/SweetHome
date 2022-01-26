@@ -8,7 +8,6 @@ import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
-import com.sweet.home.message.domain.SenderReceiverDelimiter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
