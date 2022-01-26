@@ -21,7 +21,7 @@ public class BoardService {
         this.boardRepository = boardRepository;
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<BoardResponse> findAllBoards() {
         return boardRepository.findAll().stream()
             .map(BoardResponse::from)
@@ -37,7 +37,7 @@ public class BoardService {
         boardRepository.save(board);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Board findById(Long boardId) {
         return boardRepository.findById(boardId)
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
