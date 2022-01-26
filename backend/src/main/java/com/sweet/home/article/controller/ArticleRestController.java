@@ -34,6 +34,6 @@ public class ArticleRestController {
 
     @GetMapping("/{boardId}/articles")
     public ResponseEntity<List<ArticleResponse>> showArticleList(@PathVariable Long boardId) {
-        return ResponseEntity.ok().body(articleService.findAllArticles(boardId));
+        return ResponseEntity.ok().body(articleService.findAllByBoard(boardId));
     }
 }
