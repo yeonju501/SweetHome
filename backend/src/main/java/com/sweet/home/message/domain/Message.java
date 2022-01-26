@@ -1,5 +1,7 @@
 package com.sweet.home.message.domain;
 
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import lombok.Builder;
 import lombok.Getter;
@@ -74,5 +76,26 @@ public class Message {
             .messageContent(messageContent)
             .senderReceiverDelimiter(SenderReceiverDelimiter.RECEIVER)
             .build();
+    }
+
+    public void deleteMessage() {
+        this.deletedAt = LocalDateTime.now();
+    }
+
+    public void checkSenderOrReceiver(Member member) {
+        if (senderReceiverDelimiter == SenderReceiverDelimiter.SENDER) {
+            checkMessagingByOwner(member, sendMember);
+            return;
+        } else if (senderReceiverDelimiter == SenderReceiverDelimiter.RECEIVER) {
+            checkMessagingByOwner(member, receiveMember);
+            return;
+        }
+        throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
+    }
+
+    private void checkMessagingByOwner(Member member, Member compareMember) {
+        if (!member.getId().equals(compareMember.getId())) {
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_MATCH_BY_MEMBER_ID);
+        }
     }
 }
