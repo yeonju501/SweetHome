@@ -27,6 +27,9 @@ public enum ErrorCode {
 
     // board
     BOARD_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다."),
+
+    // article
+    ARTICLE_NOT_FOUND_BY_BOARD_AND_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다.")
     ;
 
     private final HttpStatus httpStatus;
