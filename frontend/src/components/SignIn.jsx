@@ -2,10 +2,12 @@ import React from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
+import { SET_TOKEN } from "../store/token";
 
 function SignIn() {
 	const navigate = useNavigate();
-
+	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -33,11 +35,11 @@ function SignIn() {
 				data: inputValue,
 			})
 				.then((res) => {
+					dispatch(SET_TOKEN(res.data.access_token));
 					navigate("/main");
-					window.localStorage.setItem("access_token", res.data.access_token);
 				})
 				.catch((err) => {
-					alert(err);
+					console.log(err);
 				});
 		}
 	}
