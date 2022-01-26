@@ -15,7 +15,8 @@ function SignIn() {
 	});
 
 	const { email, password } = inputValue;
-	const isValidEmail = email.includes("@") && email.includes(".");
+	const regEmail =
+		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 
 	function onChange(e) {
 		setInputValue({
@@ -26,7 +27,7 @@ function SignIn() {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		if (isValidEmail && password) {
+		if (regEmail.test(email) && password) {
 			axios({
 				url: "http://localhost:8080/api/members/login",
 				method: "POST",
@@ -58,7 +59,12 @@ function SignIn() {
 						onChange={onChange}
 						value={password}
 					/>
-					<button className={style.login_button}>Sing In</button>
+
+					{regEmail.test(email) && password.length > 5 ? (
+						<button className={style.login_button}>Sign In</button>
+					) : (
+						<button className={`${style.login_button} ${style.disabled_button}`}>Sign In</button>
+					)}
 				</form>
 
 				<button className={style.kakao_button}>카카오로 시작하기</button>

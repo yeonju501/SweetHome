@@ -55,7 +55,6 @@
 .kakao_button {
 	background-color: yellow;
 	color: #000;
-
 	border: none;
 	width: 26.4rem;
 	height: 3.3rem;
@@ -85,6 +84,14 @@
 
 .login_button:active {
 	transform: scale(0.95);
+}
+
+.disabled_button {
+	opacity: 0.6;
+	cursor: auto;
+}
+.disabled_button:active {
+	transform: scale(1);
 }
 
 .Link {
