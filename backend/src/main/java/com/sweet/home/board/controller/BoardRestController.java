@@ -29,7 +29,7 @@ public class BoardRestController {
     }
 
     @PostMapping("/boards")
-    public ResponseEntity<Void> create(@RequestBody BoardSaveRequest request) {
+    public ResponseEntity<Void> createBoard(@RequestBody BoardSaveRequest request) {
         boardService.saveBoard(request);
         URI uri = URI.create("/api/boards");
         return ResponseEntity.created(uri).build();
