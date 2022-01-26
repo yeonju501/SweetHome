@@ -1,6 +1,7 @@
 package com.sweet.home.message.controller;
 
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
+import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.service.MessageService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,5 +31,11 @@ public class MessageRestController {
         @PathVariable(value = "message_id") Long messageId) {
         messageService.deleteMessage(email, messageId);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/messages/{message_id}")
+    public ResponseEntity<MessageDetailResponse> getDetailMessage(@AuthenticationPrincipal String email,
+        @PathVariable(value = "message_id") Long messageId) {
+        return ResponseEntity.ok().body(messageService.viewMessageDetail(messageId));
     }
 }

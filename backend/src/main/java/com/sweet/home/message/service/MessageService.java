@@ -5,6 +5,7 @@ import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
+import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
@@ -45,5 +46,12 @@ public class MessageService {
         message.checkSenderOrReceiver(member);
 
         message.deleteMessage();
+    }
+
+    // 메시지 상세 조회
+    @Transactional
+    public MessageDetailResponse viewMessageDetail(Long messageId) {
+
+        return null;
     }
 }
