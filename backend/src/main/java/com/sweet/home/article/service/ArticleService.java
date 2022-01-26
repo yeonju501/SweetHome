@@ -7,6 +7,8 @@ import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.service.BoardService;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.util.List;
@@ -51,6 +53,8 @@ public class ArticleService {
     @Transactional
     public ArticleDetailResponse findById(Long boardId, Long articleId) {
         Board board = boardService.findById(boardId);
-        return ArticleDetailResponse.from(articleRepository.findByBoardAndId(board, articleId));
+        Article article = articleRepository.findByBoardAndId(board, articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_BOARD_AND_ID));
+        return ArticleDetailResponse.from(article);
     }
 }
