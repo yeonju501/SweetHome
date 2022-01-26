@@ -1,15 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import rootReducer from "./reducer/reducer";
+import rootReducer from "./store/index";
 import { createStore } from "redux";
-import axios from "axios";
 
 const store = createStore(rootReducer);
-axios.defaults.withCredentials = true;
 
 ReactDOM.render(
 	<React.StrictMode>

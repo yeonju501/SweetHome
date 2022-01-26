@@ -1,0 +1,93 @@
+* {
+	margin: 0;
+	box-sizing: border-box;
+	font-size: 62.5%;
+	background-color: #f9f9f9;
+}
+@font-face {
+	font-family: "LeferiPoint-BlackA";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2201-2@1.0/LeferiPoint-BlackA.woff")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
+.sign_in {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "LeferiPoint-BlackA";
+}
+.sign_in_div {
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	border: 1px solid #e4e4e4;
+	padding: 4rem;
+	background-color: #fff;
+	align-items: center;
+}
+.title {
+	background-color: transparent;
+	font-size: 4rem;
+	margin-bottom: 3.7rem;
+	cursor: default;
+}
+
+.form {
+	background-color: transparent;
+	display: flex;
+	flex-direction: column;
+}
+
+.form input {
+	width: 26.4rem;
+	height: 3.3rem;
+	border: 1px solid #e4e4e4;
+	border-radius: 2px;
+	margin-bottom: 1rem;
+	text-align: center;
+	font-size: 1.3rem;
+}
+
+.form input:focus::placeholder {
+	opacity: 0;
+}
+
+.form input:focus {
+	outline: none;
+}
+
+.kakao_button {
+	background-color: yellow;
+	border: none;
+	width: 26.4rem;
+	height: 3.3rem;
+	border-radius: 2px;
+	font-size: 1.5rem;
+	font-weight: 700;
+	margin-bottom: 5rem;
+	cursor: pointer;
+}
+
+.login_button {
+	width: 26.4rem;
+	height: 3.3rem;
+	border: none;
+	border-radius: 2px;
+	background-color: #0087e8;
+	font-size: 1.5rem;
+	color: #fff;
+	margin-bottom: 4rem;
+	cursor: pointer;
+}
+
+.Link {
+	background-color: transparent;
+	text-decoration: none;
+	font-size: 1.4rem;
+	font-weight: 400;
+	color: #0087e8;
+	margin-bottom: 1.5rem;
+}
