@@ -77,4 +77,8 @@ public class Article {
             this.content = content;
         }
     }
+
+    public void deleteArticle(){
+        this.deletedAt = LocalDateTime.now();
+    }
 }
