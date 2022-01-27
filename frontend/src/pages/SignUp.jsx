@@ -5,6 +5,7 @@ import style from "../style/SignIn.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import * as inputValid from "../utils/inputValid";
+import SignPassword from "../components/accounts/SignPassword";
 
 function SignUp() {
 	const token = window.localStorage.getItem("access_token");
@@ -17,21 +18,8 @@ function SignUp() {
 		phone_number: "",
 	});
 
-	const [passwordType, setPasswordType] = useState({
-		type: "password",
-		visible: false,
-	});
-
-	const changePasswordType = () => {
-		setPasswordType(() => {
-			if (!passwordType.visible) {
-				return { type: "text", visible: true };
-			}
-			return { type: "password", visible: false };
-		});
-	};
-
 	const { email, password, username, phone_number } = inputValue;
+
 	const isValid = inputValid.SignUpValid(email, password, phone_number);
 
 	useEffect(() => {
@@ -80,28 +68,7 @@ function SignUp() {
 						id="email"
 					/>
 
-					<div className={style.password}>
-						<input
-							type={passwordType.type}
-							placeholder="숫자 + 문자로 비밀번호를 입력하세요"
-							onChange={onChange}
-							value={password}
-							id="password"
-						/>
-						{passwordType.visible ? (
-							<FontAwesomeIcon
-								icon={faEye}
-								className={password.length ? `${style.icon}` : `${style.hidden}`}
-								onClick={changePasswordType}
-							/>
-						) : (
-							<FontAwesomeIcon
-								icon={faEyeSlash}
-								className={password.length ? `${style.icon}` : `${style.hidden}`}
-								onClick={changePasswordType}
-							/>
-						)}
-					</div>
+					<SignPassword onChange={onChange} password={password} />
 
 					<input
 						type="text"
