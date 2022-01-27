@@ -8,6 +8,7 @@ import java.net.URI;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -48,6 +49,13 @@ public class ArticleRestController {
     public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email,
         @RequestBody ArticleSaveRequest request, @PathVariable Long boardId, @PathVariable Long articleId) {
         articleService.updateArticle(email, request, articleId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{boardId}/articles/{articleId}")
+    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long boardId,
+        @PathVariable Long articleId) {
+        articleService.deleteArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
 }

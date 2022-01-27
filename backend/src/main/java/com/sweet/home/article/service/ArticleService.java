@@ -68,4 +68,13 @@ public class ArticleService {
 
         articleRepository.save(article);
     }
+
+    @Transactional
+    public void deleteArticle(String email, Long articleId){
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
+        article.checkArticleByEmail(email);
+
+        article.deleteArticle();
+    }
 }
