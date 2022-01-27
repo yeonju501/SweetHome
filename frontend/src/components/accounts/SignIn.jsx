@@ -6,6 +6,7 @@ import { useDispatch } from "react-redux";
 import { SET_TOKEN } from "../../store/token";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
+import SignPassword from "./SignPassword";
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -53,13 +54,7 @@ function SignIn() {
 				<h1 className={style.title}>Sweet Home</h1>
 				<form onSubmit={onSubmit} className={style.form}>
 					<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
-					<input
-						type="password"
-						placeholder="password"
-						id="password"
-						onChange={onChange}
-						value={password}
-					/>
+					<SignPassword onChange={onChange} password={password} />
 
 					{isValid ? (
 						<button className={style.login_button}>Sign In</button>
