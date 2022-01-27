@@ -3,8 +3,11 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from "react-redux";
-import { SET_TOKEN } from "../store/token";
-import style from "../style/SignIn.module.css";
+import { SET_TOKEN } from "../../store/token";
+import style from "../../style/SignIn.module.css";
+import * as inputValid from "../../utils/inputValid";
+import SignPassword from "./SignPassword";
+import { SignInButton } from "./SignButton";
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -15,8 +18,8 @@ function SignIn() {
 	});
 
 	const { email, password } = inputValue;
-	const regEmail =
-		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+
+	const isValid = inputValid.SignInValid(email, password);
 
 	function onChange(e) {
 		setInputValue({
@@ -27,7 +30,7 @@ function SignIn() {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		if (regEmail.test(email) && password) {
+		if (isValid) {
 			axios({
 				url: "http://localhost:8080/api/members/login",
 				method: "POST",
@@ -52,21 +55,8 @@ function SignIn() {
 				<h1 className={style.title}>Sweet Home</h1>
 				<form onSubmit={onSubmit} className={style.form}>
 					<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
-					<input
-						type="password"
-						placeholder="password"
-						id="password"
-						onChange={onChange}
-						value={password}
-					/>
-
-					{regEmail.test(email) && password.length > 5 ? (
-						<button className={style.login_button}>Sign In</button>
-					) : (
-						<button disabled className={`${style.login_button} ${style.disabled_button}`}>
-							Sign In
-						</button>
-					)}
+					<SignPassword onChange={onChange} password={password} />
+					{isValid ? <SignInButton valid="activated" /> : <SignInButton valid="" />}
 				</form>
 
 				<button className={style.kakao_button}>카카오로 시작하기</button>

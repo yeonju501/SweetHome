@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SignIn from "../components/SignIn";
+import SignIn from "../components/accounts/SignIn";
 import style from "../style/Home.module.css";
 import { ReactComponent as Apart } from "../assets/main_apartment.svg";
 function Home() {
