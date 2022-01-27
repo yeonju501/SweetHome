@@ -18,11 +18,14 @@ function SignUp() {
 	const regEmail =
 		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
 	const regNumber = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
-	const regPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{5,10}$/;
+	const regPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{5,20}$/;
+
+	const isValid =
+		regEmail.test(email) && regNumber.test(phone_number) && regPassword.test(password);
 
 	useEffect(() => {
 		token && navigate("/main");
-	}, [token]);
+	}, []);
 
 	const onChange = (e) => {
 		setInputValue({
@@ -34,7 +37,7 @@ function SignUp() {
 	const onSubmit = (e) => {
 		e.preventDefault();
 
-		if (isValidEmail) {
+		if (isValid) {
 			axios({
 				method: "post",
 				url: "http://localhost:8080/api/members/join",
@@ -50,14 +53,7 @@ function SignUp() {
 	return (
 		<>
 			<form onSubmit={onSubmit}>
-				<input
-					type="text"
-					placeholder="email"
-					onChange={onChange}
-					value={email}
-					id="email"
-					required
-				/>
+				<input type="text" placeholder="email" onChange={onChange} value={email} id="email" />
 
 				<input
 					type="password"
@@ -65,7 +61,6 @@ function SignUp() {
 					onChange={onChange}
 					value={password}
 					id="password"
-					required
 				/>
 
 				<input
@@ -74,7 +69,6 @@ function SignUp() {
 					onChange={onChange}
 					value={username}
 					id="username"
-					required
 				/>
 				<input
 					type="text"
@@ -82,9 +76,8 @@ function SignUp() {
 					onChange={onChange}
 					value={phone_number}
 					id="phone_number"
-					required
 				/>
-				<button>Submit</button>
+				{isValid ? <button>Submit</button> : <button disabled>Submit</button>}
 			</form>
 		</>
 	);
