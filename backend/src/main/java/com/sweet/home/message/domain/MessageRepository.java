@@ -7,4 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findBySendMemberAndSenderReceiverDelimiter(Member sendMember, SenderReceiverDelimiter senderReceiverDelimiter);
+
+    List<Message> findByReceiveMemberAndSenderReceiverDelimiter(Member receiveMember,
+        SenderReceiverDelimiter senderReceiverDelimiter);
 }
