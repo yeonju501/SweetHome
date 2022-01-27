@@ -43,11 +43,11 @@ public class MessageRestController {
 
     @GetMapping("/messages/send")
     public ResponseEntity<List<MessageResponse>> getSendMessageList(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok().body(messageService.viewSendMessageList(email));
+        return ResponseEntity.ok().body(messageService.viewSendMessages(email));
     }
 
     @GetMapping("/messages/receive")
     public ResponseEntity<List<MessageResponse>> getReceiveMessageList(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok().body(messageService.viewReceiveMessageList(email));
+        return ResponseEntity.ok().body(messageService.viewReceiveMessages(email));
     }
 }
