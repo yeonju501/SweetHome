@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import style from "../style/SignIn.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import * as inputValid from "../utils/inputValid";
 
 function SignUp() {
 	const token = window.localStorage.getItem("access_token");
@@ -31,14 +32,7 @@ function SignUp() {
 	};
 
 	const { email, password, username, phone_number } = inputValue;
-
-	const regEmail =
-		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
-	const regNumber = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
-	const regPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{5,20}$/;
-
-	const isValid =
-		regEmail.test(email) && regNumber.test(phone_number) && regPassword.test(password);
+	const isValid = inputValid.SignUpValid(email, password, phone_number);
 
 	useEffect(() => {
 		token && navigate("/main");
