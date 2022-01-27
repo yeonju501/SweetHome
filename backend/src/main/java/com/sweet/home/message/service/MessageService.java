@@ -64,17 +64,17 @@ public class MessageService {
     }
 
     // 받은 메시지 조회
-    @Transactional
-    public List<MessageResponse> viewSendMessageList(String email) {
+    @Transactional(readOnly = true)
+    public List<MessageResponse> viewSendMessages(String email) {
         Member member = memberService.findByEmail(email);
         return messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.SENDER).stream()
             .map(MessageResponse::from)
             .collect(Collectors.toList());
     }
 
-    // 보은 메시지 조회
-    @Transactional
-    public List<MessageResponse> viewReceiveMessageList(String email) {
+    // 보낸 메시지 조회
+    @Transactional(readOnly = true)
+    public List<MessageResponse> viewReceiveMessages(String email) {
         Member member = memberService.findByEmail(email);
         return messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.RECEIVER).stream()
             .map(MessageResponse::from)
