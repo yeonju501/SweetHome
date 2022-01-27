@@ -2,10 +2,9 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import style from "../style/SignIn.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import * as inputValid from "../utils/inputValid";
 import SignPassword from "../components/accounts/SignPassword";
+import { SignUpButton } from "../components/SignButton";
 
 function SignUp() {
 	const token = window.localStorage.getItem("access_token");
@@ -84,13 +83,7 @@ function SignUp() {
 						value={phone_number}
 						id="phone_number"
 					/>
-					{isValid ? (
-						<button className={style.login_button}>가입</button>
-					) : (
-						<button className={`${style.login_button} ${style.disabled_button}`} disabled>
-							가입
-						</button>
-					)}
+					{isValid ? <SignUpButton valid="activated" /> : <SignUpButton valid="" />}
 				</form>
 
 				<button className={style.kakao_button}>카카오로 시작하기</button>

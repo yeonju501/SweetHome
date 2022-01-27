@@ -7,6 +7,7 @@ import { SET_TOKEN } from "../../store/token";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
+import { SignInButton } from "./SignButton";
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -55,14 +56,7 @@ function SignIn() {
 				<form onSubmit={onSubmit} className={style.form}>
 					<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
 					<SignPassword onChange={onChange} password={password} />
-
-					{isValid ? (
-						<button className={style.login_button}>Sign In</button>
-					) : (
-						<button disabled className={`${style.login_button} ${style.disabled_button}`}>
-							Sign In
-						</button>
-					)}
+					{isValid ? <SignInButton valid="activated" /> : <SignInButton valid="" />}
 				</form>
 
 				<button className={style.kakao_button}>카카오로 시작하기</button>
