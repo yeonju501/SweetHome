@@ -71,4 +71,13 @@ public class MessageService {
             .map(MessageResponse::from)
             .collect(Collectors.toList());
     }
+
+    // 보은 메시지 조회
+    @Transactional
+    public List<MessageResponse> viewReceiveMessageList(String email) {
+        Member member = memberService.findByEmail(email);
+        return messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.RECEIVER).stream()
+            .map(MessageResponse::from)
+            .collect(Collectors.toList());
+    }
 }
