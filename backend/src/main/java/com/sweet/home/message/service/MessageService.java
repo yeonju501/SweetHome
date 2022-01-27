@@ -6,10 +6,13 @@ import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
+import com.sweet.home.message.controller.dto.response.MessageResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
-import java.util.Objects;
+import com.sweet.home.message.domain.SenderReceiverDelimiter;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -58,5 +61,23 @@ public class MessageService {
         message.readMessage(email);
 
         return MessageDetailResponse.from(message);
+    }
+
+    // 받은 메시지 조회
+    @Transactional
+    public List<MessageResponse> viewSendMessageList(String email) {
+        Member member = memberService.findByEmail(email);
+        return messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.SENDER).stream()
+            .map(MessageResponse::from)
+            .collect(Collectors.toList());
+    }
+
+    // 보은 메시지 조회
+    @Transactional
+    public List<MessageResponse> viewReceiveMessageList(String email) {
+        Member member = memberService.findByEmail(email);
+        return messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.RECEIVER).stream()
+            .map(MessageResponse::from)
+            .collect(Collectors.toList());
     }
 }
