@@ -42,7 +42,7 @@ public class ArticleService {
         return articleRepository.save(article).getId();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public List<ArticleResponse> findAllByBoard(Long boardId) {
         Board board = boardService.findById(boardId);
         return articleRepository.findAllByBoard(board).stream()
@@ -50,11 +50,22 @@ public class ArticleService {
             .collect(Collectors.toList());
     }
 
-    @Transactional
-    public ArticleDetailResponse findById(Long boardId, Long articleId) {
-        Board board = boardService.findById(boardId);
-        Article article = articleRepository.findByBoardAndId(board, articleId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_BOARD_AND_ID));
+    @Transactional(readOnly = true)
+    public ArticleDetailResponse findById(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
         return ArticleDetailResponse.from(article);
+    }
+
+    @Transactional
+    public void updateArticle(String email, ArticleSaveRequest request, Long articleId) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
+        article.checkArticleByEmail(email);
+
+        article.changeTitle(request.getTitle());
+        article.changeContent(request.getContent());
+
+        articleRepository.save(article);
     }
 }
