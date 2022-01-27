@@ -5,9 +5,10 @@ import style from "../style/SignIn.module.css";
 import * as inputValid from "../utils/inputValid";
 import SignPassword from "../components/accounts/SignPassword";
 import { SignUpButton } from "../components/SignButton";
+import { useSelector } from "react-redux";
 
 function SignUp() {
-	const token = window.localStorage.getItem("access_token");
+	const token = useSelector((state) => state.token.token);
 	const navigate = useNavigate();
 
 	const [inputValue, setInputValue] = useState({
