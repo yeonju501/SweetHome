@@ -8,6 +8,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     List<Article> findAllByBoard(Board board);
-
-    Optional<Article> findByBoardAndId(Board board, Long articleId);
 }
