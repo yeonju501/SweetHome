@@ -14,6 +14,11 @@ function SignUp() {
 		phone_number: "",
 	});
 
+	const [passwordType, setPasswordType] = useState({
+		type: "password",
+		visible: false,
+	});
+
 	const { email, password, username, phone_number } = inputValue;
 
 	const regEmail =
