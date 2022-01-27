@@ -15,7 +15,10 @@ function SignUp() {
 
 	const { email, password, username, phone_number } = inputValue;
 
-	const isValidEmail = email.includes("@") && email.includes(".");
+	const regEmail =
+		/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/;
+	const regNumber = /^01(?:0|1|[6-9])(?:\d{3}|\d{4})\d{4}$/;
+	const regPassword = /^(?=.*\d)(?=.*[a-zA-Z])[0-9a-zA-Z]{5,10}$/;
 
 	useEffect(() => {
 		token && navigate("/main");
