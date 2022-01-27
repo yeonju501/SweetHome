@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import style from "../style/SignIn.module.css";
 import * as inputValid from "../utils/inputValid";
 import SignPassword from "../components/accounts/SignPassword";
-import { SignUpButton } from "../components/SignButton";
+import { SignUpButton } from "../components/accounts/SignButton";
 import { useSelector } from "react-redux";
 
 function SignUp() {
