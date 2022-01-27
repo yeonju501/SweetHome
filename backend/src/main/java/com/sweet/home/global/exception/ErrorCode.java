@@ -29,7 +29,8 @@ public enum ErrorCode {
     BOARD_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다."),
 
     // article
-    ARTICLE_NOT_FOUND_BY_BOARD_AND_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다.")
+    ARTICLE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시글입니다."),
+    ARTICLE_NOT_MATCH_BY_EMAIL(HttpStatus.BAD_REQUEST, "게시글 작성자와 일치하지 않는 이메일입니다.")
     ;
 
     private final HttpStatus httpStatus;

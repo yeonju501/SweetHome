@@ -1,7 +1,10 @@
 package com.sweet.home.article.domain;
 
 import com.sweet.home.board.domain.Board;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
@@ -50,10 +53,28 @@ public class Article {
     }
 
     @Builder
-    public Article(String title, String content, Member member, Board board){
+    public Article(String title, String content, Member member, Board board) {
         this.title = title;
         this.content = content;
         this.member = member;
         this.board = board;
+    }
+
+    public void checkArticleByEmail(String email) {
+        if (!member.getEmail().equals(email)) {
+            throw new BusinessException(ErrorCode.ARTICLE_NOT_MATCH_BY_EMAIL);
+        }
+    }
+
+    public void changeTitle(String title) {
+        if (!Objects.isNull(title)) {
+            this.title = title;
+        }
+    }
+
+    public void changeContent(String content) {
+        if (!Objects.isNull(content)) {
+            this.content = content;
+        }
     }
 }

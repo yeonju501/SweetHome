@@ -11,6 +11,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,13 @@ public class ArticleRestController {
 
     @GetMapping("/{boardId}/articles/{articleId}")
     public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long boardId, @PathVariable Long articleId) {
-        return ResponseEntity.ok().body(articleService.findById(boardId, articleId));
+        return ResponseEntity.ok().body(articleService.findById(articleId));
+    }
+
+    @PutMapping("/{boardId}/articles/{articleId}")
+    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email,
+        @RequestBody ArticleSaveRequest request, @PathVariable Long boardId, @PathVariable Long articleId) {
+        articleService.updateArticle(email, request, articleId);
+        return ResponseEntity.noContent().build();
     }
 }
