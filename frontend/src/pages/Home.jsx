@@ -8,6 +8,10 @@ function Home() {
 	const navigate = useNavigate();
 	const token = useSelector((state) => state.token.token);
 
+	useEffect(() => {
+		token && navigate("/main");
+	});
+
 	return (
 		<>
 			<div className={style.Home_div}>
