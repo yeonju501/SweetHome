@@ -61,7 +61,7 @@
 	border-radius: 2px;
 	font-size: 1.5rem;
 	font-weight: bold;
-	margin-bottom: 5rem;
+	margin-bottom: 3.7rem;
 	cursor: pointer;
 }
 
@@ -77,9 +77,10 @@
 	background-color: #0087e8;
 	font-size: 1.5rem;
 	color: #fff;
-	margin-bottom: 4rem;
+	margin-bottom: 1rem;
 	cursor: pointer;
 	font-weight: 800;
+	margin-top: 1.5rem;
 }
 
 .login_button:active {
@@ -101,4 +102,26 @@
 	font-weight: 800;
 	color: #0087e8;
 	margin-bottom: 1.5rem;
+}
+
+.sign_up_span {
+	background: #fff;
+	font-size: 1.4rem;
+	color: rgba(202, 203, 208);
+	margin-bottom: 3rem;
+}
+
+.password {
+	position: relative;
+}
+
+.icon {
+	font-size: 1.5rem;
+	position: absolute;
+	top: 1rem;
+	right: 0.7rem;
+}
+
+.hidden {
+	display: none;
 }
