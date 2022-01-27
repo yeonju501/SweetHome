@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
+import style from "../style/SignIn.module.css";
 
 function SignUp() {
 	const token = window.localStorage.getItem("access_token");
@@ -51,41 +52,58 @@ function SignUp() {
 	};
 
 	return (
-		<>
-			<h1>회원가입</h1>
-			<span>
-				이미 회원이신가요? <Link to="/sign-in">로그인</Link>
-			</span>
-			<form onSubmit={onSubmit}>
-				<input type="text" placeholder="email" onChange={onChange} value={email} id="email" />
+		<div className={style.sign_in}>
+			<div className={style.sign_in_div}>
+				<h1 className={style.title}>회원가입</h1>
+				<span className={style.sign_up_span}>
+					이미 회원이신가요?{" "}
+					<Link className={style.Link} to="/sign-in">
+						로그인
+					</Link>
+				</span>
+				<form onSubmit={onSubmit} className={style.form}>
+					<input
+						type="text"
+						placeholder="이메일 주소"
+						onChange={onChange}
+						value={email}
+						id="email"
+					/>
 
-				<input
-					type="password"
-					placeholder="password"
-					onChange={onChange}
-					value={password}
-					id="password"
-				/>
+					<input
+						type="password"
+						placeholder="숫자 + 문자 조합으로 비밀번호 입력해주세요"
+						onChange={onChange}
+						value={password}
+						id="password"
+					/>
 
-				<input
-					type="text"
-					placeholder="username"
-					onChange={onChange}
-					value={username}
-					id="username"
-				/>
-				<input
-					type="text"
-					placeholder="phone number without - "
-					onChange={onChange}
-					value={phone_number}
-					id="phone_number"
-				/>
-				{isValid ? <button>Submit</button> : <button disabled>Submit</button>}
-			</form>
+					<input
+						type="text"
+						placeholder="사용자 이름"
+						onChange={onChange}
+						value={username}
+						id="username"
+					/>
+					<input
+						type="text"
+						placeholder="-을 제외하고 휴대폰 번호를 입력해주세요 "
+						onChange={onChange}
+						value={phone_number}
+						id="phone_number"
+					/>
+					{isValid ? (
+						<button className={style.login_button}>Sign Up</button>
+					) : (
+						<button className={`${style.login_button} ${style.disabled_button}`} disabled>
+							Sign Up
+						</button>
+					)}
+				</form>
 
-			<button>카카오로 시작하기</button>
-		</>
+				<button className={style.kakao_button}>카카오로 시작하기</button>
+			</div>
+		</div>
 	);
 }
 export default SignUp;

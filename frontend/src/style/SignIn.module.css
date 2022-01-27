@@ -102,3 +102,10 @@
 	color: #0087e8;
 	margin-bottom: 1.5rem;
 }
+
+.sign_up_span {
+	background: #fff;
+	font-size: 1.4rem;
+	color: rgba(202, 203, 208);
+	margin-bottom: 3rem;
+}
