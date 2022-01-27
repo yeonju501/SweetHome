@@ -110,3 +110,18 @@
 	color: rgba(202, 203, 208);
 	margin-bottom: 3rem;
 }
+
+.password {
+	position: relative;
+}
+
+.icon {
+	font-size: 1.5rem;
+	position: absolute;
+	top: 1rem;
+	right: 0.7rem;
+}
+
+.hidden {
+	display: none;
+}
