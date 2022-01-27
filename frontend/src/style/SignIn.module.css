@@ -61,7 +61,7 @@
 	border-radius: 2px;
 	font-size: 1.5rem;
 	font-weight: bold;
-	margin-bottom: 5rem;
+	margin-bottom: 3.7rem;
 	cursor: pointer;
 }
 
@@ -77,9 +77,10 @@
 	background-color: #0087e8;
 	font-size: 1.5rem;
 	color: #fff;
-	margin-bottom: 4rem;
+	margin-bottom: 1rem;
 	cursor: pointer;
 	font-weight: 800;
+	margin-top: 1.5rem;
 }
 
 .login_button:active {

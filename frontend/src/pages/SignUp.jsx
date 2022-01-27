@@ -93,10 +93,10 @@ function SignUp() {
 						id="phone_number"
 					/>
 					{isValid ? (
-						<button className={style.login_button}>Sign Up</button>
+						<button className={style.login_button}>가입</button>
 					) : (
 						<button className={`${style.login_button} ${style.disabled_button}`} disabled>
-							Sign Up
+							가입
 						</button>
 					)}
 				</form>
