@@ -52,6 +52,10 @@ function SignUp() {
 
 	return (
 		<>
+			<h1>회원가입</h1>
+			<span>
+				이미 회원이신가요? <Link to="/sign-in">로그인</Link>
+			</span>
 			<form onSubmit={onSubmit}>
 				<input type="text" placeholder="email" onChange={onChange} value={email} id="email" />
 
@@ -79,6 +83,8 @@ function SignUp() {
 				/>
 				{isValid ? <button>Submit</button> : <button disabled>Submit</button>}
 			</form>
+
+			<button>카카오로 시작하기</button>
 		</>
 	);
 }
