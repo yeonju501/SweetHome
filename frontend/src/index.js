@@ -5,14 +5,13 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import rootReducer from "./store/index";
 import { createStore } from "redux";
-import Footer from "./components/Footer";
+
 const store = createStore(rootReducer);
 
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
 			<App />
-			<Footer />
 		</Provider>
 	</React.StrictMode>,
 
