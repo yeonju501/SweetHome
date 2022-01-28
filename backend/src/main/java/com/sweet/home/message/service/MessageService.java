@@ -13,6 +13,8 @@ import com.sweet.home.message.domain.MessageRepository;
 import com.sweet.home.message.domain.SenderReceiverDelimiter;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,19 +67,23 @@ public class MessageService {
 
     // 받은 메시지 조회
     @Transactional(readOnly = true)
-    public List<MessageResponse> viewSendMessages(String email) {
+    public List<MessageResponse> viewSendMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
-        return messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.SENDER).stream()
-            .map(MessageResponse::from)
-            .collect(Collectors.toList());
+
+        Page<Message> pages = messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.SENDER,
+            pageable);
+
+        return pages.stream().map(MessageResponse::from).collect(Collectors.toList());
     }
 
     // 보낸 메시지 조회
     @Transactional(readOnly = true)
-    public List<MessageResponse> viewReceiveMessages(String email) {
+    public List<MessageResponse> viewReceiveMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
-        return messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.RECEIVER).stream()
-            .map(MessageResponse::from)
-            .collect(Collectors.toList());
+
+        Page<Message> pages = messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member,
+            SenderReceiverDelimiter.RECEIVER, pageable);
+
+        return pages.stream().map(MessageResponse::from).collect(Collectors.toList());
     }
 }
