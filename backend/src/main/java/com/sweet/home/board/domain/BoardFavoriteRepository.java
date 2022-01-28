@@ -10,4 +10,6 @@ public interface BoardFavoriteRepository extends JpaRepository<BoardFavorite, Lo
 
     @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
     List<BoardFavorite> findAllByMember(Member member);
+
+    BoardFavorite findByMemberAndBoard(Member member, Board board);
 }
