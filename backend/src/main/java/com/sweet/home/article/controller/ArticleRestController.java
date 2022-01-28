@@ -42,7 +42,7 @@ public class ArticleRestController {
 
     @GetMapping("/{boardId}/articles/{articleId}")
     public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long boardId, @PathVariable Long articleId) {
-        return ResponseEntity.ok().body(articleService.findById(articleId));
+        return ResponseEntity.ok().body(articleService.showArticle(articleId));
     }
 
     @PutMapping("/{boardId}/articles/{articleId}")

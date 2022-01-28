@@ -51,7 +51,13 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public ArticleDetailResponse findById(Long articleId) {
+    public Article findById(Long articleId) {
+        return articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
+    }
+    
+    @Transactional(readOnly = true)
+    public ArticleDetailResponse showArticle(Long articleId) {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
         return ArticleDetailResponse.from(article);
