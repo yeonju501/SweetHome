@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 function SendMessage() {
-	const token = window.localStorage.getItem("access_token");
+	const token = useSelector((state) => state.token.token);
 
 	const [sendMessage, setSendMessage] = useState({
 		receiver_name: "",
