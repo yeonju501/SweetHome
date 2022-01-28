@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
@@ -14,22 +14,22 @@ function ReadReceiveMessage() {
 		send_at: "",
 		read_at: "",
 	});
+	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 
-	function getReceiveMessage(e) {
-		e.preventDefault();
+	useEffect(() => {
 		axios({
 			method: "GET",
-			url: "http://localhost:8080/api/messages/send",
+			url: "http://localhost:8080/api/messages/receive",
 			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => {
-			setReadReceiveMessage(res.data);
-			console.log(res.data);
+			setReceiveMessageArray(res.data);
+			console.log("res:data", res.data);
+			console.log("저장된 값 확인", receiveMessageArray);
 		});
-	}
+	});
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
-			{/* {readReceiveMessage} */}
 		</div>
 	);
 }
