@@ -1,22 +1,16 @@
 package com.sweet.home.board.service;
 
-//import com.sweet.home.board.controller.dto.request.BoardFavoriteRequest;
-
 import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.domain.Board;
-import com.sweet.home.board.domain.BoardFavorite;
-import com.sweet.home.board.domain.BoardFavoriteRepository;
 import com.sweet.home.board.domain.BoardRepository;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
-import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 public class BoardService {

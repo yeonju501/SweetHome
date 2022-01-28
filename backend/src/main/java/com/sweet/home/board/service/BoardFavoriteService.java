@@ -4,8 +4,6 @@ import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.domain.BoardFavorite;
 import com.sweet.home.board.domain.BoardFavoriteRepository;
-import com.sweet.home.global.exception.BusinessException;
-import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.util.List;
