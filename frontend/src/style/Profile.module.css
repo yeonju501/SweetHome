@@ -1,0 +1,75 @@
+.profile {
+	background-color: #ffff;
+	padding: 4rem;
+	display: flex;
+	flex-direction: column;
+}
+
+.profile_img {
+	margin-right: 2rem;
+	border-radius: 50%;
+}
+.profile_user {
+	display: flex;
+	margin-bottom: 3rem;
+}
+
+.title {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.email {
+	font-size: 1.1rem;
+	color: rgba(157, 157, 157);
+}
+
+.nav {
+	list-style: none;
+	display: flex;
+	font-size: 1.5rem;
+	margin-bottom: 3rem;
+}
+
+.nav li {
+	margin-left: 2rem;
+	font-weight: 600;
+
+	cursor: pointer;
+}
+
+.nav li:first-child {
+	margin: 0;
+}
+
+.active {
+	color: black;
+}
+
+.deactive {
+	color: rgba(157, 157, 157);
+}
+
+form {
+	display: flex;
+	flex-direction: column;
+	font-size: 1.5rem;
+}
+
+form input {
+	width: 40rem;
+	height: 2.5rem;
+	margin-bottom: 3rem;
+}
+
+button {
+	width: 10rem;
+	height: 4rem;
+	border: none;
+	border-radius: 2px;
+	background-color: #0087e8;
+	font-size: 1.5rem;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 700;
+}
