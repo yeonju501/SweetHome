@@ -3,6 +3,7 @@ import SignIn from "./components/accounts/SignIn";
 import Home from "./pages/Home";
 import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
+import PrivateRoute from "./components/PrivateRoute";
 
 function App() {
 	return (
@@ -12,6 +13,7 @@ function App() {
 				<Route path="/sign-in" element={<SignIn />} />
 				<Route path="/sign-up" element={<SignUp />} />
 				<Route path="/main" element={<Main />} />
+				<Route path="/profile" element={<PrivateRoute />}></Route>
 			</Routes>
 		</Router>
 	);
