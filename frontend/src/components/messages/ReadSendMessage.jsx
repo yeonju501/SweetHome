@@ -14,6 +14,7 @@ function ReadSendMessage() {
 		})
 			.then((res) => {
 				setSendMessageArray(res.data);
+				console.log(res.data);
 				console.log("저장된 값 확인", sendMessageArray);
 			})
 			.catch((err) => {
@@ -23,6 +24,11 @@ function ReadSendMessage() {
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
+			<ul>
+				{sendMessageArray.map((sendMessage, idx) => (
+					<li key={idx}>{sendMessage.title}</li>
+				))}
+			</ul>
 		</div>
 	);
 }
