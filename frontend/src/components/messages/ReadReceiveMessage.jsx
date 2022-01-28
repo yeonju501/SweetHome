@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function ReadReceiveMessage() {
+	const token = window.localStorage.getItem("access_token");
 
 	const [readReceiveMessage, setReadReceiveMessage] = useState({
 		sender_username: "",
