@@ -4,16 +4,6 @@ import axios from "axios";
 
 function ReadReceiveMessage() {
 	const token = useSelector((state) => state.token.token);
-
-	const [readReceiveMessage, setReadReceiveMessage] = useState({
-		sender_username: "",
-		sender_email: "",
-		reciver_username: "",
-		receiver_email: "",
-		title: "",
-		send_at: "",
-		read_at: "",
-	});
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 
 	useEffect(() => {
