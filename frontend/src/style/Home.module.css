@@ -12,13 +12,14 @@
 .Home_img {
 	transform: translateY(6rem);
 	width: 45rem;
+	height: 50rem;
 }
 
 .Home_h1 {
 	position: absolute;
 	font-size: 2.5rem;
 	font-weight: bold;
-	top: 15rem;
+	top: 2rem;
 	z-index: 1;
 }
 
