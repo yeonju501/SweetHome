@@ -1,6 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
+import style from "../style/Profile.module.css";
 
 function Profile() {
 	const location = useLocation();
