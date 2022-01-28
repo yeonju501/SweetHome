@@ -14,6 +14,7 @@ function ReadReceiveMessage() {
 		})
 			.then((res) => {
 				setReceiveMessageArray(res.data);
+				console.log(res.data);
 				console.log("저장된 값 확인", receiveMessageArray);
 			})
 			.catch((err) => {
@@ -24,8 +25,8 @@ function ReadReceiveMessage() {
 		<div>
 			<h1>ReadReciveMessage</h1>
 			<ul>
-				{receiveMessageArray.map((receiveMessage) => (
-					<li key={receiveMessage.id}>{receiveMessage.title}</li>
+				{receiveMessageArray.map((receiveMessage, idx) => (
+					<li key={idx}>{receiveMessage.title}</li>
 				))}
 			</ul>
 		</div>
