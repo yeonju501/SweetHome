@@ -37,10 +37,15 @@ public class BoardRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @PostMapping("/boards/favorite")
+    @PostMapping("/boards/favorites")
     public ResponseEntity<Void> addFavorite(@AuthenticationPrincipal String email, @RequestBody BoardFavoriteRequest request) {
-        boardService.addFavorite(email, request);
-        URI uri = URI.create("/api/boards/favorite");
+        boardService.saveFavorite(email, request);
+        URI uri = URI.create("/api/boards/favorites");
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/boards/favorites")
+    public ResponseEntity<List<BoardResponse>> showFavorites(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok().body(boardService.findAllFavorites(email));
     }
 }
