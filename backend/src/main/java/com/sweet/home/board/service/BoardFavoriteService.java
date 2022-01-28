@@ -43,4 +43,11 @@ public class BoardFavoriteService {
             .stream().map(boardFavorite -> BoardResponse.from(boardFavorite.getBoard()))
             .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void deleteFavorite(String email, Long boardId) {
+        Member member = memberService.findByEmail(email);
+        Board board = boardService.findById(boardId);
+        boardFavoriteRepository.delete(boardFavoriteRepository.findByMemberAndBoard(member, board));
+    }
 }

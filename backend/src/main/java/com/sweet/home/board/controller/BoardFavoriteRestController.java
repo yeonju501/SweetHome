@@ -6,6 +6,7 @@ import java.net.URI;
 import java.util.List;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -32,5 +33,11 @@ public class BoardFavoriteRestController {
     @GetMapping("/boards/favorites")
     public ResponseEntity<List<BoardResponse>> showFavorites(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(boardFavoriteService.findAllFavorites(email));
+    }
+
+    @DeleteMapping("/boards/{boardId}/favorites")
+    public ResponseEntity<Void> DeleteFavorite(@AuthenticationPrincipal String email, @PathVariable Long boardId) {
+        boardFavoriteService.deleteFavorite(email, boardId);
+        return ResponseEntity.noContent().build();
     }
 }
