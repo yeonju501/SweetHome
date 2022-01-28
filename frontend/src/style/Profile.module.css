@@ -65,4 +65,11 @@ form input {
 button {
 	width: 10rem;
 	height: 4rem;
+	border: none;
+	border-radius: 2px;
+	background-color: #0087e8;
+	font-size: 1.5rem;
+	color: #fff;
+	cursor: pointer;
+	font-weight: 700;
 }
