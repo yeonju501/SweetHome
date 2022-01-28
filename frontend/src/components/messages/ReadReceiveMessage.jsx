@@ -24,16 +24,20 @@ function ReadReceiveMessage() {
 		})
 			.then((res) => {
 				setReceiveMessageArray(res.data);
-				console.log("res:data", res.data);
 				console.log("저장된 값 확인", receiveMessageArray);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	});
+	}, []);
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
+			<ul>
+				{receiveMessageArray.map((receiveMessage) => (
+					<li key={receiveMessage.id}>{receiveMessage.title}</li>
+				))}
+			</ul>
 		</div>
 	);
 }
