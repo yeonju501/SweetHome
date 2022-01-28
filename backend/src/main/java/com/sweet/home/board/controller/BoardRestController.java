@@ -1,12 +1,10 @@
 package com.sweet.home.board.controller;
 
-import com.sweet.home.board.controller.dto.request.BoardFavoriteRequest;
 import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.service.BoardService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -35,17 +33,5 @@ public class BoardRestController {
         boardService.saveBoard(request);
         URI uri = URI.create("/api/boards");
         return ResponseEntity.created(uri).build();
-    }
-
-    @PostMapping("/boards/favorites")
-    public ResponseEntity<Void> addFavorite(@AuthenticationPrincipal String email, @RequestBody BoardFavoriteRequest request) {
-        boardService.saveFavorite(email, request);
-        URI uri = URI.create("/api/boards/favorites");
-        return ResponseEntity.created(uri).build();
-    }
-
-    @GetMapping("/boards/favorites")
-    public ResponseEntity<List<BoardResponse>> showFavorites(@AuthenticationPrincipal String email) {
-        return ResponseEntity.ok().body(boardService.findAllFavorites(email));
     }
 }

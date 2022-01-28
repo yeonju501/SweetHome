@@ -2,7 +2,6 @@ package com.sweet.home.board.service;
 
 //import com.sweet.home.board.controller.dto.request.BoardFavoriteRequest;
 
-import com.sweet.home.board.controller.dto.request.BoardFavoriteRequest;
 import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.domain.Board;
@@ -24,13 +23,10 @@ public class BoardService {
 
     private final BoardRepository boardRepository;
     private final MemberService memberService;
-    private final BoardFavoriteRepository boardFavoriteRepository;
 
-    public BoardService(BoardRepository boardRepository, MemberService memberService,
-        BoardFavoriteRepository boardFavoriteRepository) {
+    public BoardService(BoardRepository boardRepository, MemberService memberService) {
         this.boardRepository = boardRepository;
         this.memberService = memberService;
-        this.boardFavoriteRepository = boardFavoriteRepository;
     }
 
     @Transactional(readOnly = true)
@@ -53,25 +49,5 @@ public class BoardService {
     public Board findById(Long boardId) {
         return boardRepository.findById(boardId)
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
-    }
-
-    @Transactional
-    public void saveFavorite(String email, BoardFavoriteRequest request) {
-        Board board = boardRepository.findById(request.getId())
-            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
-        Member member = memberService.findByEmail(email);
-        BoardFavorite boardFavorite = BoardFavorite.builder()
-            .board(board)
-            .member(member)
-            .build();
-        boardFavoriteRepository.save(boardFavorite);
-    }
-
-    @Transactional(readOnly = true)
-    public List<BoardResponse> findAllFavorites(String email) {
-        Member member = memberService.findByEmail(email);
-        return boardFavoriteRepository.findAllByMember(member)
-            .stream().map(boardFavorite -> BoardResponse.from(boardFavorite.getBoard()))
-            .collect(Collectors.toList());
     }
 }
