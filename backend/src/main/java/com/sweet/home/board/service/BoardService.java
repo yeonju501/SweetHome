@@ -56,7 +56,7 @@ public class BoardService {
     }
 
     @Transactional
-    public void addFavorite(String email, BoardFavoriteRequest request) {
+    public void saveFavorite(String email, BoardFavoriteRequest request) {
         Board board = boardRepository.findById(request.getId())
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
         Member member = memberService.findByEmail(email);
@@ -65,5 +65,13 @@ public class BoardService {
             .member(member)
             .build();
         boardFavoriteRepository.save(boardFavorite);
+    }
+
+    @Transactional(readOnly = true)
+    public List<BoardResponse> findAllFavorites(String email) {
+        Member member = memberService.findByEmail(email);
+        return boardFavoriteRepository.findAllByMember(member)
+            .stream().map(boardFavorite -> BoardResponse.from(boardFavorite.getBoard()))
+            .collect(Collectors.toList());
     }
 }
