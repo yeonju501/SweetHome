@@ -4,6 +4,8 @@ import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.domain.BoardFavorite;
 import com.sweet.home.board.domain.BoardFavoriteRepository;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.util.List;
@@ -27,8 +29,10 @@ public class BoardFavoriteService {
 
     @Transactional
     public void saveFavorite(String email, Long boardId) {
-        Board board = boardService.findById(boardId);
         Member member = memberService.findByEmail(email);
+        Board board = boardService.findById(boardId);
+
+        checkNotAdded(member, board);
         BoardFavorite boardFavorite = BoardFavorite.builder()
             .board(board)
             .member(member)
@@ -36,11 +40,17 @@ public class BoardFavoriteService {
         boardFavoriteRepository.save(boardFavorite);
     }
 
+    private void checkNotAdded(Member member, Board board) {
+        if (boardFavoriteRepository.existsByMemberAndBoard(member, board)) {
+            throw new BusinessException(ErrorCode.BOARD_FAVORITE_ALREADY_EXISTS);
+        }
+    }
+
     @Transactional(readOnly = true)
     public List<BoardResponse> findAllFavorites(String email) {
         Member member = memberService.findByEmail(email);
-        return boardFavoriteRepository.findAllByMember(member)
-            .stream().map(boardFavorite -> BoardResponse.from(boardFavorite.getBoard()))
+        return boardFavoriteRepository.findAllByMember(member).stream()
+            .map(boardFavorite -> BoardResponse.from(boardFavorite.getBoard()))
             .collect(Collectors.toList());
     }
 
@@ -48,6 +58,8 @@ public class BoardFavoriteService {
     public void deleteFavorite(String email, Long boardId) {
         Member member = memberService.findByEmail(email);
         Board board = boardService.findById(boardId);
-        boardFavoriteRepository.delete(boardFavoriteRepository.findByMemberAndBoard(member, board));
+        BoardFavorite boardFavorite = boardFavoriteRepository.findByMemberAndBoard(member, board)
+            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_FAVORITE_NOT_FOUND));
+        boardFavoriteRepository.delete(boardFavorite);
     }
 }
