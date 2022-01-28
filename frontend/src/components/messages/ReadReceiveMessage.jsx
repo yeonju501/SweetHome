@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 
 function ReadReceiveMessage() {
-	const token = window.localStorage.getItem("access_token");
+	const token = useSelector((state) => state.token.token);
 
 	const [readReceiveMessage, setReadReceiveMessage] = useState({
 		sender_username: "",
@@ -28,6 +29,7 @@ function ReadReceiveMessage() {
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
+			{/* {readReceiveMessage} */}
 		</div>
 	);
 }
