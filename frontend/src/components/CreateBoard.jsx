@@ -2,6 +2,8 @@ import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function CreateBoard() {
 	const token = useSelector((state) => state.token.token);
 	const [boardInfo, setBoardInfo] = useState({ name: "", description: "" });
@@ -16,7 +18,7 @@ function CreateBoard() {
 		e.preventDefault();
 		if (name.trim() && description.trim()) {
 			axios({
-				url: "http://localhost:8080/api/boards",
+				url: `${SERVER_URL}/api/boards`,
 				headers: { Authorization: `Bearer ${token}` },
 				method: "post",
 				data: boardInfo,
