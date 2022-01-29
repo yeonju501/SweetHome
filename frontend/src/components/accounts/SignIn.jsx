@@ -9,6 +9,8 @@ import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
 import { SignInButton } from "./SignButton";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function SignIn() {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
@@ -32,7 +34,7 @@ function SignIn() {
 		e.preventDefault();
 		if (isValid) {
 			axios({
-				url: "http://localhost:8080/api/members/login",
+				url: `${SERVER_URL}/api/members/login`,
 				method: "POST",
 				headers: {
 					"Content-type": "application/json",
