@@ -48,7 +48,7 @@ public class JwtFilter extends OncePerRequestFilter {
     }
 
     private void saveAuthentication(String token) {
-        Authentication authentication = jwtTokenProvider.resolveToken(token);
+        Authentication authentication = jwtTokenProvider.resolveAccessToken(token);
         SecurityContextHolder.getContext().setAuthentication(authentication);
     }
 }

@@ -1,5 +1,6 @@
 package com.sweet.home.auth.infrastructure;
 
+import com.sweet.home.auth.domain.Tokens;
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.global.exception.JwtException;
@@ -28,6 +29,8 @@ public class JwtTokenProvider {
 
     private static final String JWT_HEADER_PARAM_TYPE = "typ";
     private static final String JWT_PAYLOAD_AUTHORITY_TYPE = "auth";
+    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
+    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     private final Key key;
     private final String headerType;
@@ -45,8 +48,10 @@ public class JwtTokenProvider {
         this.accessTime = accessTime;
     }
 
-    public String createToken(String subject, Authority authority) {
-        return Jwts.builder()
+    public Tokens createToken(String subject, Authority authority) {
+
+        // Access Token 생성
+        String accessToken = Jwts.builder()
             .signWith(key, SignatureAlgorithm.HS512)
             .setHeaderParam(JWT_HEADER_PARAM_TYPE, headerType)
             .setSubject(subject)
@@ -55,9 +60,20 @@ public class JwtTokenProvider {
             .setExpiration(new Date((new Date()).getTime() + accessTime))
             .setIssuedAt(new Date())
             .compact();
+
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+            .setExpiration(new Date((new Date()).getTime() + REFRESH_TOKEN_EXPIRE_TIME))
+            .signWith(key, SignatureAlgorithm.HS512)
+            .compact();
+
+        return Tokens.builder()
+            .accessToken(accessToken)
+            .refreshToken(refreshToken)
+            .build();
     }
 
-    public Authentication resolveToken(String accessToken) {
+    public Authentication resolveAccessToken(String accessToken) {
         try {
             return getAuthentication(accessToken);
         } catch (ExpiredJwtException e) {
@@ -71,7 +87,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private Authentication getAuthentication(String accessToken) {
+    public Authentication getAuthentication(String accessToken) {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
             .parseClaimsJws(accessToken).getBody();
 
@@ -80,5 +96,20 @@ public class JwtTokenProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return new UsernamePasswordAuthenticationToken(claims.getSubject(), accessToken, authorities);
+    }
+
+    public boolean validateRefreshToken(String refreshToken) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(refreshToken);
+            return true;
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_MALFORMED_JWT);
+        } catch (ExpiredJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_EXPIRED_JWT);
+        } catch (UnsupportedJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_UNSUPPORTED_JWT);
+        } catch (IllegalArgumentException e) {
+            throw new JwtException(ErrorCode.INVALID_ILLEGAL_ARGUMENT_JWT);
+        }
     }
 }
