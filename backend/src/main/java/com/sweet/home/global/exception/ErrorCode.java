@@ -37,7 +37,8 @@ public enum ErrorCode {
     ARTICLE_NOT_MATCH_BY_EMAIL(HttpStatus.BAD_REQUEST, "게시글 작성자와 일치하지 않는 이메일입니다."),
 
     // articleLike
-    ARTICLE_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요한 게시글입니다.")
+    ARTICLE_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요한 게시글입니다."),
+    ARTICLE_LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST, "좋아요 되지 않은 게시글입니다.")
     ;
 
     private final HttpStatus httpStatus;

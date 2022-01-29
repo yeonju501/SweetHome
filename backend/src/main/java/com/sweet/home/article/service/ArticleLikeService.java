@@ -23,7 +23,7 @@ public class ArticleLikeService {
         this.articleService = articleService;
     }
 
-    public void LikeArticle(String email, Long articleId) {
+    public void likeArticle(String email, Long articleId) {
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
 
@@ -39,5 +39,14 @@ public class ArticleLikeService {
         if (articleLikeRepository.existsByMemberAndArticle(member, article)) {
             throw new BusinessException(ErrorCode.ARTICLE_LIKE_ALREADY_EXISTS);
         }
+    }
+
+    public void deleteLike(String email, Long articleId) {
+        Member member = memberService.findByEmail(email);
+        Article article = articleService.findById(articleId);
+
+        ArticleLike articleLike = articleLikeRepository.findByMemberAndArticle(member, article)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_LIKE_NOT_FOUND));
+        articleLikeRepository.delete(articleLike);
     }
 }
