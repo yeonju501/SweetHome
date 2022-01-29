@@ -1,5 +1,8 @@
 package com.sweet.home.message.service;
 
+import static com.sweet.home.message.domain.SenderReceiverDelimiter.RECEIVER;
+import static com.sweet.home.message.domain.SenderReceiverDelimiter.SENDER;
+
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -10,10 +13,8 @@ import com.sweet.home.message.controller.dto.response.MessageResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
-import com.sweet.home.message.domain.SenderReceiverDelimiter;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -70,10 +71,9 @@ public class MessageService {
     public List<MessageResponse> viewSendMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
-        Page<Message> pages = messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SenderReceiverDelimiter.SENDER,
-            pageable);
-
-        return pages.stream().map(MessageResponse::from).collect(Collectors.toList());
+        return messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SENDER, pageable).stream()
+            .map(MessageResponse::from)
+            .collect(Collectors.toList());
     }
 
     // 보낸 메시지 조회
@@ -81,9 +81,8 @@ public class MessageService {
     public List<MessageResponse> viewReceiveMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
-        Page<Message> pages = messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member,
-            SenderReceiverDelimiter.RECEIVER, pageable);
-
-        return pages.stream().map(MessageResponse::from).collect(Collectors.toList());
+        return messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, RECEIVER, pageable).stream()
+            .map(MessageResponse::from)
+            .collect(Collectors.toList());
     }
 }
