@@ -40,22 +40,22 @@ public class AuthService {
 
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
 
+        saveRefreshToken(member, tokenResponse);
+        return tokenResponse;
+    }
+
+    private void saveRefreshToken(Member member, TokenResponse tokenResponse) {
         RefreshToken refreshToken = RefreshToken.builder()
             .key(member.getEmail())
             .value(tokenResponse.getRefreshToken())
             .build();
-
         refreshTokenRepository.save(refreshToken);
-
-        return tokenResponse;
     }
 
     @Transactional
     public TokenResponse reissue(TokenRequest request) {
         // Refresh Token 검증
-        if (!jwtTokenProvider.validateRefreshToken(request.getRefreshToken())) {
-            throw new BusinessException(ErrorCode.INVALID_NOT_FOUND_REFRESH_TOKEN);
-        }
+        jwtTokenProvider.validateRefreshToken(request.getRefreshToken());
 
         Authentication authentication = jwtTokenProvider.getAuthentication(request.getAccessToken());
 
@@ -64,18 +64,14 @@ public class AuthService {
             .orElseThrow(() -> new BusinessException(ErrorCode.INVALID_LOGOUT_USER_JWT));
 
         // refresh token 일치하는지 검사
-        if (!refreshToken.getValue().equals(request.getRefreshToken())) {
-            throw new BusinessException(ErrorCode.INVALID_NOT_MATCH_BY_REFRESH_TOKEN);
-        }
+        refreshToken.validateValue(request.getRefreshToken());
 
         // 새로운 토큰 생성
         TokenResponse tokenResponse = jwtTokenProvider.createToken(authentication.getName(),
-            Authority.convertCodeToAuthority(authentication.getAuthorities().toString().replaceAll("[\\[\\]]", "")));
+            jwtTokenProvider.getAuthority(authentication));
 
         // 새로운 refresh token
         refreshToken.updateValue(tokenResponse.getRefreshToken());
-        refreshTokenRepository.save(refreshToken);
-
         return tokenResponse;
     }
 }

@@ -2,6 +2,7 @@ package com.sweet.home.auth.infrastructure;
 
 import com.sweet.home.auth.controller.dto.response.TokenResponse;
 import com.sweet.home.auth.domain.Authority;
+import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.global.exception.JwtException;
 import io.jsonwebtoken.Claims;
@@ -97,10 +98,16 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(claims.getSubject(), accessToken, authorities);
     }
 
-    public boolean validateRefreshToken(String refreshToken) {
+    public Authority getAuthority(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+            .map(authority -> Authority.convertCodeToAuthority(authority.getAuthority()))
+            .findFirst()
+            .orElseThrow(() -> new BusinessException(ErrorCode.INVALID_NOT_FOUND_AUTHORITY));
+    }
+
+    public void validateRefreshToken(String refreshToken) {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(refreshToken);
-            return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
             throw new JwtException(ErrorCode.INVALID_MALFORMED_JWT);
         } catch (ExpiredJwtException e) {
