@@ -3,7 +3,6 @@ package com.sweet.home.auth.service;
 import com.sweet.home.auth.controller.dto.request.LoginRequest;
 import com.sweet.home.auth.controller.dto.request.TokenRequest;
 import com.sweet.home.auth.controller.dto.response.TokenResponse;
-import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.auth.domain.RefreshToken;
 import com.sweet.home.auth.domain.RefreshTokenRepository;
 import com.sweet.home.auth.infrastructure.JwtTokenProvider;

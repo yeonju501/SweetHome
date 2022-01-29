@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
 
     private static final String JWT_HEADER_PARAM_TYPE = "typ";
-    private static final String JWT_PAYLOAD_AUTHORITY_TYPE = "auth";// 7일
+    private static final String JWT_PAYLOAD_AUTHORITY_TYPE = "auth";
 
     private final Key key;
     private final String headerType;
