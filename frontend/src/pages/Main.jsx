@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import BoardList from "../components/BoardList";
 import { Link } from "react-router-dom";
 import axios from "axios";
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Main() {
 	const token = useSelector((state) => state.token.token);
@@ -10,7 +11,7 @@ function Main() {
 
 	useEffect(() => {
 		axios({
-			url: "http://localhost:8080/api/members/my-profile",
+			url: `${SERVER_URL}/api/members/my-profile`,
 			method: "get",
 			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => setUserInfo(res.data));
