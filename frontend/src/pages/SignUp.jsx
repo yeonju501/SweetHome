@@ -8,6 +8,7 @@ import { SignUpButton } from "../components/accounts/SignButton";
 import { useSelector } from "react-redux";
 
 function SignUp() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const token = useSelector((state) => state.token.token);
 	const navigate = useNavigate();
 
@@ -37,9 +38,10 @@ function SignUp() {
 		e.preventDefault();
 
 		if (isValid) {
+			console.log(SERVER_URL);
 			axios({
 				method: "post",
-				url: "http://localhost:8080/api/members/join",
+				url: `${SERVER_URL}/api/members/join`,
 				data: inputValue,
 			})
 				.then(() => navigate("/sign-in"))

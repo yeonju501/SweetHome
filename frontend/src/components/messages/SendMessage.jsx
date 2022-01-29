@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function SendMessage() {
 	const token = useSelector((state) => state.token.token);
 
@@ -24,7 +26,7 @@ function SendMessage() {
 		if (checkValue) {
 			axios({
 				method: "POST",
-				url: "http://localhost:8080/api/messages/",
+				url: `${SERVER_URL}/api/messages/`,
 				headers: { Authorization: `Bearer ${token}` },
 				data: sendMessage,
 			}).then((res) => {

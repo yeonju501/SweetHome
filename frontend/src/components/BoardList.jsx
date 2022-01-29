@@ -2,13 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function BoardList() {
 	const token = useSelector((state) => state.token.token);
 	const [boards, setBoards] = useState([]);
 
 	useEffect(() => {
 		axios({
-			url: "http://localhost:8080/api/boards",
+			url: `${SERVER_URL}/api/boards`,
 			headers: { Authorization: `Bearer ${token}` },
 			method: "get",
 		})

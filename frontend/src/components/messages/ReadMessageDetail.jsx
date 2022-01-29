@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function ReadMessageDeatil() {
 	const token = useSelector((state) => state.token.token);
 	const [messageDetail, setMessageDetail] = useState({
@@ -18,7 +20,7 @@ function ReadMessageDeatil() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: "http://localhost:8080/api/messages/1",
+			url: `${SERVER_URL}/api/messages/1`,
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {

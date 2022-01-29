@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function ReadReceiveMessage() {
 	const token = useSelector((state) => state.token.token);
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
@@ -9,7 +11,7 @@ function ReadReceiveMessage() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: "http://localhost:8080/api/messages/receive",
+			url: `${SERVER_URL}/api/messages/receive`,
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
