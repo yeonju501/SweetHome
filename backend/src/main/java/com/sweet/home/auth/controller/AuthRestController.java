@@ -1,7 +1,8 @@
 package com.sweet.home.auth.controller;
 
 import com.sweet.home.auth.controller.dto.request.LoginRequest;
-import com.sweet.home.auth.controller.dto.response.LoginMemberResponse;
+import com.sweet.home.auth.controller.dto.request.TokenRequest;
+import com.sweet.home.auth.controller.dto.response.TokenResponse;
 import com.sweet.home.auth.service.AuthService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -20,7 +21,12 @@ public class AuthRestController {
     }
 
     @PostMapping("/members/login")
-    public ResponseEntity<LoginMemberResponse> login(@RequestBody LoginRequest request) {
+    public ResponseEntity<TokenResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok().body(authService.login(request));
+    }
+
+    @PostMapping("/members/reissue")
+    public ResponseEntity<TokenResponse> reissue(@RequestBody TokenRequest request) {
+        return ResponseEntity.ok().body(authService.reissue(request));
     }
 }

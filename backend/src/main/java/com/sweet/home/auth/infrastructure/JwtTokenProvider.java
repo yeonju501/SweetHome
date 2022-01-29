@@ -1,6 +1,8 @@
 package com.sweet.home.auth.infrastructure;
 
+import com.sweet.home.auth.controller.dto.response.TokenResponse;
 import com.sweet.home.auth.domain.Authority;
+import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.global.exception.JwtException;
 import io.jsonwebtoken.Claims;
@@ -33,20 +35,25 @@ public class JwtTokenProvider {
     private final String headerType;
     private final String issuer;
     private final long accessTime;
+    private final long refreshTime;
 
     public JwtTokenProvider(@Value("${jwt.token.header-type}") String headerType,
         @Value("${jwt.token.issuer}") String issuer,
         @Value("${jwt.token.secret}") String secret,
-        @Value("${jwt.token.access-time}") long accessTime) {
+        @Value("${jwt.token.access-time}") long accessTime,
+        @Value("${jwt.token.refresh-time}") long refreshTime) {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.headerType = headerType;
         this.issuer = issuer;
         this.accessTime = accessTime;
+        this.refreshTime = refreshTime;
     }
 
-    public String createToken(String subject, Authority authority) {
-        return Jwts.builder()
+    public TokenResponse createToken(String subject, Authority authority) {
+
+        // Access Token 생성
+        String accessToken = Jwts.builder()
             .signWith(key, SignatureAlgorithm.HS512)
             .setHeaderParam(JWT_HEADER_PARAM_TYPE, headerType)
             .setSubject(subject)
@@ -55,9 +62,20 @@ public class JwtTokenProvider {
             .setExpiration(new Date((new Date()).getTime() + accessTime))
             .setIssuedAt(new Date())
             .compact();
+
+        // Refresh Token 생성
+        String refreshToken = Jwts.builder()
+            .setExpiration(new Date((new Date()).getTime() + refreshTime))
+            .signWith(key, SignatureAlgorithm.HS512)
+            .compact();
+
+        return TokenResponse.builder()
+            .accessToken(accessToken)
+            .refreshToken(refreshToken)
+            .build();
     }
 
-    public Authentication resolveToken(String accessToken) {
+    public Authentication resolveAccessToken(String accessToken) {
         try {
             return getAuthentication(accessToken);
         } catch (ExpiredJwtException e) {
@@ -71,7 +89,7 @@ public class JwtTokenProvider {
         }
     }
 
-    private Authentication getAuthentication(String accessToken) {
+    public Authentication getAuthentication(String accessToken) {
         Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
             .parseClaimsJws(accessToken).getBody();
 
@@ -80,5 +98,26 @@ public class JwtTokenProvider {
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
         return new UsernamePasswordAuthenticationToken(claims.getSubject(), accessToken, authorities);
+    }
+
+    public Authority getAuthority(Authentication authentication) {
+        return authentication.getAuthorities().stream()
+            .map(authority -> Authority.convertCodeToAuthority(authority.getAuthority()))
+            .findFirst()
+            .orElseThrow(() -> new BusinessException(ErrorCode.INVALID_NOT_FOUND_AUTHORITY));
+    }
+
+    public void validateRefreshToken(String refreshToken) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(refreshToken);
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_MALFORMED_JWT);
+        } catch (ExpiredJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_EXPIRED_JWT);
+        } catch (UnsupportedJwtException e) {
+            throw new JwtException(ErrorCode.INVALID_UNSUPPORTED_JWT);
+        } catch (IllegalArgumentException e) {
+            throw new JwtException(ErrorCode.INVALID_ILLEGAL_ARGUMENT_JWT);
+        }
     }
 }
