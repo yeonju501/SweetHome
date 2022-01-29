@@ -39,7 +39,6 @@ public class AuthService {
         member.login(passwordEncoder, request.getPassword());
 
         TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
-
         saveRefreshToken(member, tokenResponse);
         return tokenResponse;
     }

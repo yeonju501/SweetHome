@@ -29,23 +29,25 @@ import org.springframework.stereotype.Component;
 public class JwtTokenProvider {
 
     private static final String JWT_HEADER_PARAM_TYPE = "typ";
-    private static final String JWT_PAYLOAD_AUTHORITY_TYPE = "auth";
-    private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
+    private static final String JWT_PAYLOAD_AUTHORITY_TYPE = "auth";// 7일
 
     private final Key key;
     private final String headerType;
     private final String issuer;
     private final long accessTime;
+    private final long refreshTime;
 
     public JwtTokenProvider(@Value("${jwt.token.header-type}") String headerType,
         @Value("${jwt.token.issuer}") String issuer,
         @Value("${jwt.token.secret}") String secret,
-        @Value("${jwt.token.access-time}") long accessTime) {
+        @Value("${jwt.token.access-time}") long accessTime,
+        @Value("${jwt.token.refresh-time}") long refreshTime) {
         byte[] keyBytes = Decoders.BASE64.decode(secret);
         this.key = Keys.hmacShaKeyFor(keyBytes);
         this.headerType = headerType;
         this.issuer = issuer;
         this.accessTime = accessTime;
+        this.refreshTime = refreshTime;
     }
 
     public TokenResponse createToken(String subject, Authority authority) {
@@ -63,7 +65,7 @@ public class JwtTokenProvider {
 
         // Refresh Token 생성
         String refreshToken = Jwts.builder()
-            .setExpiration(new Date((new Date()).getTime() + REFRESH_TOKEN_EXPIRE_TIME))
+            .setExpiration(new Date((new Date()).getTime() + refreshTime))
             .signWith(key, SignatureAlgorithm.HS512)
             .compact();
 

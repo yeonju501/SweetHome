@@ -20,13 +20,14 @@ class JwtTokenProviderTest {
     private String issuer = "issuer";
     private String secret = "dGVzdF90ZXN0X3Rlc3RfdGVzdF90ZXN0X3Rlc3RfdGVzdF90ZXN0X3Rlc3RfdGVzdF90ZXN0X3Rlc3RfdGVzdF8K";
     private long accessTime = 100000L;
+    private long refreshTime = 604800000L;
     private Authority authority = Authority.ROLE_REGULAR_MEMBER;
 
     private JwtTokenProvider jwtTokenProvider;
 
     @BeforeEach
     void setup() {
-        jwtTokenProvider = new JwtTokenProvider(headerType, issuer, secret, accessTime);
+        jwtTokenProvider = new JwtTokenProvider(headerType, issuer, secret, accessTime, refreshTime);
     }
 
     @Test
@@ -55,7 +56,7 @@ class JwtTokenProviderTest {
         // then
         assertAll(
             () -> assertThat(result.getPrincipal()).isEqualTo(subject),
-            () -> assertThat(result.getCredentials()).isEqualTo(accessToken),
+            () -> assertThat(result.getCredentials()).isEqualTo(accessToken.getAccessToken()),
             () -> assertThat(result.getAuthorities().size()).isEqualTo(1)
         );
     }
