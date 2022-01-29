@@ -1,4 +1,23 @@
-function ArticleDetail() {
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+
+function ArticleDetail({ articleId }) {
+	const token = useSelector((state) => state.token.token);
+
+	const [member, setMember] = useState();
+	const [articleData, setArticleData] = useState();
+
+	useEffect(() => {
+		axios({
+			url: `http://localhost:8080/api/boards/articles/${articleId}`,
+			method: "get",
+			headers: { Authorization: `Bearer ${token}` },
+		})
+			.then((res) => console.log(res))
+			.catch((err) => console.log(err));
+	}, []);
+
 	return (
 		<div>
 			<div>게시판 제목</div>
