@@ -23,6 +23,7 @@ function ReadMessageDeatil() {
 		})
 			.then((res) => {
 				console.log(res.data);
+				setMessageDetail(res.data);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -31,6 +32,7 @@ function ReadMessageDeatil() {
 	return (
 		<div>
 			<h1>ReadMessageDetail</h1>
+			{messageDetail.title}
 		</div>
 	);
 }
