@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function CreateArticleActivated({ setDisabled }) {
 	const token = window.localStorage.getItem("access_token");
 
@@ -15,7 +17,7 @@ function CreateArticleActivated({ setDisabled }) {
 		e.preventDefault();
 		if (title.trim() && content.trim()) {
 			axios({
-				url: "http://localhost:8080/api/boards/articles/",
+				url: `${SERVER_URL}/api/boards/articles/`,
 				headers: { Authorization: `Bearer ${token}` },
 				method: "post",
 				data: articleData,

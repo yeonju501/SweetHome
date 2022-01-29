@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function ArticleDetail({ articleId }) {
 	const token = useSelector((state) => state.token.token);
 
@@ -10,7 +12,7 @@ function ArticleDetail({ articleId }) {
 
 	useEffect(() => {
 		axios({
-			url: `http://localhost:8080/api/boards/articles/${articleId}`,
+			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 			method: "get",
 			headers: { Authorization: `Bearer ${token}` },
 		})
