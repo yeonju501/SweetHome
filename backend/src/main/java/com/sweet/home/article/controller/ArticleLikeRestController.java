@@ -3,6 +3,7 @@ package com.sweet.home.article.controller;
 import com.sweet.home.article.service.ArticleLikeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,9 +20,16 @@ public class ArticleLikeRestController {
     }
 
     @PostMapping("/{boardId}/articles/{articleId}/likes")
-    public ResponseEntity<Void> LikeArticle(@AuthenticationPrincipal String email, @PathVariable Long boardId,
+    public ResponseEntity<Void> likeArticle(@AuthenticationPrincipal String email, @PathVariable Long boardId,
         @PathVariable Long articleId) {
-        articleLikeService.LikeArticle(email, articleId);
+        articleLikeService.likeArticle(email, articleId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{boardId}/articles/{articleId}/likes")
+    public ResponseEntity<Void> deleteLike(@AuthenticationPrincipal String email, @PathVariable Long boardId,
+        @PathVariable Long articleId) {
+        articleLikeService.deleteLike(email, articleId);
         return ResponseEntity.noContent().build();
     }
 }
