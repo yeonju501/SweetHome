@@ -13,6 +13,7 @@ import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,9 +44,9 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleResponse> findAllByBoard(Long boardId) {
+    public List<ArticleResponse> findAllByBoard(Long boardId, Pageable pageable) {
         Board board = boardService.findById(boardId);
-        return articleRepository.findAllByBoard(board).stream()
+        return articleRepository.findAllByBoard(board, pageable).stream()
             .map(ArticleResponse::from)
             .collect(Collectors.toList());
     }
@@ -55,7 +56,7 @@ public class ArticleService {
         return articleRepository.findById(articleId)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
     }
-    
+
     @Transactional(readOnly = true)
     public ArticleDetailResponse showArticle(Long articleId) {
         Article article = articleRepository.findById(articleId)

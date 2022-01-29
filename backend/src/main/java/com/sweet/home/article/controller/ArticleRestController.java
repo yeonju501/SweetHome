@@ -6,6 +6,8 @@ import com.sweet.home.article.controller.dto.response.ArticleResponse;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
 import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -36,8 +38,9 @@ public class ArticleRestController {
     }
 
     @GetMapping("/{boardId}/articles")
-    public ResponseEntity<List<ArticleResponse>> showArticleList(@PathVariable Long boardId) {
-        return ResponseEntity.ok().body(articleService.findAllByBoard(boardId));
+    public ResponseEntity<List<ArticleResponse>> showArticles(@PathVariable Long boardId, @PageableDefault Pageable pageable) {
+        articleService.findAllByBoard(boardId, pageable);
+        return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
     }
 
     @GetMapping("/{boardId}/articles/{articleId}")
