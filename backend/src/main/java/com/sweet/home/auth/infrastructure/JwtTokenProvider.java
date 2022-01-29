@@ -1,6 +1,6 @@
 package com.sweet.home.auth.infrastructure;
 
-import com.sweet.home.auth.domain.Tokens;
+import com.sweet.home.auth.controller.dto.response.TokenResponse;
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.global.exception.JwtException;
@@ -29,7 +29,6 @@ public class JwtTokenProvider {
 
     private static final String JWT_HEADER_PARAM_TYPE = "typ";
     private static final String JWT_PAYLOAD_AUTHORITY_TYPE = "auth";
-    private static final long ACCESS_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;            // 30분
     private static final long REFRESH_TOKEN_EXPIRE_TIME = 1000 * 60 * 60 * 24 * 7;  // 7일
 
     private final Key key;
@@ -48,7 +47,7 @@ public class JwtTokenProvider {
         this.accessTime = accessTime;
     }
 
-    public Tokens createToken(String subject, Authority authority) {
+    public TokenResponse createToken(String subject, Authority authority) {
 
         // Access Token 생성
         String accessToken = Jwts.builder()
@@ -67,7 +66,7 @@ public class JwtTokenProvider {
             .signWith(key, SignatureAlgorithm.HS512)
             .compact();
 
-        return Tokens.builder()
+        return TokenResponse.builder()
             .accessToken(accessToken)
             .refreshToken(refreshToken)
             .build();

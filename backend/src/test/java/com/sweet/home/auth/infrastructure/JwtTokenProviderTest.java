@@ -3,7 +3,7 @@ package com.sweet.home.auth.infrastructure;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertAll;
 
-import com.sweet.home.auth.domain.Tokens;
+import com.sweet.home.auth.controller.dto.response.TokenResponse;
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.member.util.MemberFixture;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,6 +11,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.core.Authentication;
 
 @ExtendWith(MockitoExtension.class)
 class JwtTokenProviderTest {
@@ -35,27 +36,27 @@ class JwtTokenProviderTest {
         String subject = MemberFixture.EMAIL;
 
         // when
-        Tokens result = jwtTokenProvider.createToken(subject, authority);
+        TokenResponse result = jwtTokenProvider.createToken(subject, authority);
 
         // then
         assertThat(result).isNotNull();
     }
 
-//    @Test
-//    @DisplayName("생성된 토큰에서 subject값을 반환할 수 있다.")
-//    void resolveTokenTest() {
-//        // given
-//        String subject = MemberFixture.EMAIL;
-//        Tokens accessToken = jwtTokenProvider.createToken(subject, authority);
-//
-//        // when
-//        Authentication result = jwtTokenProvider.resolveToken(accessToken.getAccessToken());
-//
-//        // then
-//        assertAll(
-//            () -> assertThat(result.getPrincipal()).isEqualTo(subject),
-//            () -> assertThat(result.getCredentials()).isEqualTo(accessToken),
-//            () -> assertThat(result.getAuthorities().size()).isEqualTo(1)
-//        );
-//    }
+    @Test
+    @DisplayName("생성된 토큰에서 subject값을 반환할 수 있다.")
+    void resolveTokenTest() {
+        // given
+        String subject = MemberFixture.EMAIL;
+        TokenResponse accessToken = jwtTokenProvider.createToken(subject, authority);
+
+        // when
+        Authentication result = jwtTokenProvider.resolveAccessToken(accessToken.getAccessToken());
+
+        // then
+        assertAll(
+            () -> assertThat(result.getPrincipal()).isEqualTo(subject),
+            () -> assertThat(result.getCredentials()).isEqualTo(accessToken),
+            () -> assertThat(result.getAuthorities().size()).isEqualTo(1)
+        );
+    }
 }

@@ -2,8 +2,7 @@ package com.sweet.home.auth.service;
 
 import com.sweet.home.auth.controller.dto.request.LoginRequest;
 import com.sweet.home.auth.controller.dto.request.TokenRequest;
-import com.sweet.home.auth.controller.dto.response.LoginMemberResponse;
-import com.sweet.home.auth.domain.Tokens;
+import com.sweet.home.auth.controller.dto.response.TokenResponse;
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.auth.domain.RefreshToken;
 import com.sweet.home.auth.domain.RefreshTokenRepository;
@@ -34,25 +33,25 @@ public class AuthService {
     }
 
     @Transactional
-    public LoginMemberResponse login(LoginRequest request) {
+    public TokenResponse login(LoginRequest request) {
         Member member = memberRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
         member.login(passwordEncoder, request.getPassword());
 
-        Tokens tokens = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(member.getEmail(), member.getAuthority());
 
         RefreshToken refreshToken = RefreshToken.builder()
             .key(member.getEmail())
-            .value(tokens.getRefreshToken())
+            .value(tokenResponse.getRefreshToken())
             .build();
 
         refreshTokenRepository.save(refreshToken);
 
-        return new LoginMemberResponse(tokens);
+        return tokenResponse;
     }
 
     @Transactional
-    public LoginMemberResponse reissue(TokenRequest request) {
+    public TokenResponse reissue(TokenRequest request) {
         // Refresh Token 검증
         if (!jwtTokenProvider.validateRefreshToken(request.getRefreshToken())) {
             throw new BusinessException(ErrorCode.INVALID_NOT_FOUND_REFRESH_TOKEN);
@@ -70,13 +69,13 @@ public class AuthService {
         }
 
         // 새로운 토큰 생성
-        Tokens tokens = jwtTokenProvider.createToken(authentication.getName(),
+        TokenResponse tokenResponse = jwtTokenProvider.createToken(authentication.getName(),
             Authority.convertCodeToAuthority(authentication.getAuthorities().toString().replaceAll("[\\[\\]]", "")));
 
         // 새로운 refresh token
-        refreshToken.updateValue(tokens.getRefreshToken());
+        refreshToken.updateValue(tokenResponse.getRefreshToken());
         refreshTokenRepository.save(refreshToken);
 
-        return new LoginMemberResponse(tokens);
+        return tokenResponse;
     }
 }
