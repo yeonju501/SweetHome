@@ -11,7 +11,7 @@ function Main() {
 	const token = useSelector((state) => state.token.token);
 	const [userInfo, setUserInfo] = useState(null);
 	const [boards, setBoards] = useState([]);
-	const [currentBoard, setCurrentBoard] = useState({});
+	const [currentBoard, setCurrentBoard] = useState("");
 
 	useEffect(() => {
 		axios({
@@ -28,7 +28,6 @@ function Main() {
 			method: "get",
 		})
 			.then((res) => {
-				console.log(res);
 				setBoards(res.data);
 			})
 			.catch((err) => {

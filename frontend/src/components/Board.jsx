@@ -8,14 +8,40 @@ function Board({ currentBoard }) {
 	const token = useSelector((state) => state.token.token);
 	const [articles, setArticles] = useState([]);
 
+	useEffect(() => {
+		console.log(currentBoard);
+		currentBoard &&
+			axios({
+				url: `${SERVER_URL}/api/boards/${currentBoard.id}/articles`,
+				headers: { Authorization: `Bearer ${token}` },
+				method: "get",
+			})
+				.then((res) => {
+					console.log(res);
+					setArticles(res.data);
+				})
+				.catch((err) => {
+					console.log(err);
+				});
+	}, [currentBoard]);
+
 	return (
 		<div>
 			<div>
 				<p>{currentBoard.name}</p>
 				<p>{currentBoard.description}</p>
 			</div>
-			<CreateArticle boardId={currentBoard.id}/>
-			<div>게시글 목록</div>
+			<CreateArticle boardId={currentBoard.id} />
+			<ul>
+				{articles.map((article) => (
+					<li key={article.id}>
+						<p>{article.username}</p>
+						<p>{article.created_at}</p>
+						<h3>{article.title}</h3>
+						<p>{article.content}</p>
+					</li>
+				))}
+			</ul>
 		</div>
 	);
 }
