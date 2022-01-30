@@ -42,4 +42,14 @@ public class CommentLikeService {
             throw new BusinessException(ErrorCode.COMMENT_LIKE_ALREADY_EXISTS);
         }
     }
+
+    @Transactional
+    public void deleteLike(String email, Long commentId) {
+        Member member = memberService.findByEmail(email);
+        Comment comment = commentService.findById(commentId);
+
+        CommentLike commentLike = commentLikeRepository.findByMemberAndComment(member, comment)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_LIKE_NOT_FOUND));
+        commentLikeRepository.delete(commentLike);
+    }
 }

@@ -55,7 +55,8 @@ public enum ErrorCode {
     COMMENT_NOT_MATCH_BY_MEMBER_EMAIL(HttpStatus.BAD_REQUEST, "댓글 작성자와 일치하지 않는 이메일입니다."),
 
     // commentLike
-    COMMENT_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요한 댓글입니다.")
+    COMMENT_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요한 댓글입니다."),
+    COMMENT_LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST, "좋아요 되지 않은 댓글입니다.")
     ;
 
     private final HttpStatus httpStatus;
