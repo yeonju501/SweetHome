@@ -1,5 +1,7 @@
 package com.sweet.home.agreement.domain;
 
-public interface AgreementRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface AgreementRepository extends JpaRepository<Agreement, Long> {
 
 }
