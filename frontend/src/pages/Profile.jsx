@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import ProfileNav from "../components/ProfileNav";
 
 function Profile() {
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const user = location.state.user;
