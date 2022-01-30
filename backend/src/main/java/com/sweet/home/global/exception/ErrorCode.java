@@ -25,6 +25,7 @@ public enum ErrorCode {
 
     //agreement
     AGREEMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 동의서 ID 입니다."),
+    AGREEMENT_NOT_YOUR_APARTMENT(HttpStatus.UNAUTHORIZED, "해당 아파트의 관리자가 아닙니다."),
 
     //message
     MESSAGE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 메시지 ID 입니다."),

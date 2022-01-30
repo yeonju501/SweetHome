@@ -1,6 +1,8 @@
 package com.sweet.home.agreement.domain;
 
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -77,5 +79,29 @@ public class Agreement {
 
     public void deleteAgreement() {
         this.deletedAt = LocalDateTime.now();
+    }
+
+    public void changeTitle(String title){
+        this.title = title;
+    }
+
+    public void changeContent(String content) {
+        this.content = content;
+    }
+
+    public void changeStartDate(LocalDateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public void changeEndDate(LocalDateTime endDate) {
+        this.endDate = endDate;
+    }
+
+//    public void checkBuildingManager(Building building){
+//        if (!building.equals(building)){
+    public void checkBuildingManager(String building){
+        if (!building.equals(building)){
+            throw new BusinessException(ErrorCode.AGREEMENT_NOT_YOUR_APARTMENT);
+        }
     }
 }
