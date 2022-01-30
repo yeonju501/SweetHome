@@ -14,8 +14,8 @@ public class ArticleTitleResponse {
     @JsonProperty("title")
     private String title;
 
-    @JsonProperty("member")
-    private MemberArticleResponse member;
+    @JsonProperty("username")
+    private String username;
 
     @JsonProperty("content")
     private String content;
@@ -26,10 +26,10 @@ public class ArticleTitleResponse {
     protected ArticleTitleResponse() {
     }
 
-    public ArticleTitleResponse(Long id, String title, MemberArticleResponse member, String content, LocalDateTime createdAt) {
+    public ArticleTitleResponse(Long id, String title, String username, String content, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
-        this.member = member;
+        this.username = username;
         this.content = content;
         this.createdAt = createdAt;
     }
@@ -38,7 +38,7 @@ public class ArticleTitleResponse {
         return new ArticleTitleResponse(
             article.getId(),
             article.getTitle(),
-            MemberArticleResponse.from(article.getMember()),
+            article.getMember().getUsername(),
             article.getContent(),
             article.getCreatedAt()
         );
