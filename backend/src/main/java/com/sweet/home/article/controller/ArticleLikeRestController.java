@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/boards")
+@RequestMapping("/api")
 public class ArticleLikeRestController {
 
     private final ArticleLikeService articleLikeService;
