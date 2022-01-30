@@ -74,4 +74,8 @@ public class Agreement {
             .endDate(request.getEndDate())
             .build();
     }
+
+    public void deleteAgreement() {
+        this.deletedAt = LocalDateTime.now();
+    }
 }
