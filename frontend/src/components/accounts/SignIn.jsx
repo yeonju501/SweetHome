@@ -53,7 +53,6 @@ function SignIn() {
 				navigate("/sign-in");
 			});
 	}
-
 	function onSubmit(e) {
 		e.preventDefault();
 		if (isValid) {
@@ -66,8 +65,9 @@ function SignIn() {
 				data: inputValue,
 			})
 				.then((res) => {
-					dispatch(SET_TOKEN(res.data.access_token));
+					dispatch(SET_TOKEN(res.data));
 					navigate("/main");
+					setTimeout(onSilentRefresh, 1000 * 60 * 30 - 6000);
 				})
 				.catch((err) => {
 					console.log(err);
