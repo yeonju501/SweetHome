@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 
 public class MessageResponse {
 
+    @JsonProperty("message_id")
+    private Long messageId;
+
     @JsonProperty("sender_username")
     private String senderUsername;
 
@@ -30,8 +33,9 @@ public class MessageResponse {
     public MessageResponse() {
     }
 
-    public MessageResponse(String senderUsername, String senderEmail, String receiverUsername, String receiverEmail,
-        String title, LocalDateTime sendAt, LocalDateTime readAt) {
+    public MessageResponse(Long messageId, String senderUsername, String senderEmail, String receiverUsername,
+        String receiverEmail, String title, LocalDateTime sendAt, LocalDateTime readAt) {
+        this.messageId = messageId;
         this.senderUsername = senderUsername;
         this.senderEmail = senderEmail;
         this.receiverUsername = receiverUsername;
@@ -43,6 +47,7 @@ public class MessageResponse {
 
     public static MessageResponse from(Message message) {
         return new MessageResponse(
+            message.getId(),
             message.getSendMember().getUsername(),
             message.getSendMember().getEmail(),
             message.getReceiveMember().getUsername(),
