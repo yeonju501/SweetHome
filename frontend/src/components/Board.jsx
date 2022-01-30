@@ -34,7 +34,7 @@ function Board({ currentBoard }) {
 				<p>{currentBoard.name}</p>
 				<p>{currentBoard.description}</p>
 			</div>
-			<CreateArticle boardId={currentBoard.id} getArticles={getArticles} />
+			{currentBoard ? <CreateArticle boardId={currentBoard.id} getArticles={getArticles} /> : null}
 			<ul>
 				{articles.map((article) => (
 					<li key={article.id}>
