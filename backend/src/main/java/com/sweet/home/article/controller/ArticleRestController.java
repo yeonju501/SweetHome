@@ -2,7 +2,7 @@ package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
-import com.sweet.home.article.controller.dto.response.ArticleResponse;
+import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
 import java.util.List;
@@ -38,7 +38,7 @@ public class ArticleRestController {
     }
 
     @GetMapping("/{boardId}/articles")
-    public ResponseEntity<List<ArticleResponse>> showArticles(@PathVariable Long boardId, @PageableDefault Pageable pageable) {
+    public ResponseEntity<List<ArticleTitleResponse>> showArticles(@PathVariable Long boardId, @PageableDefault Pageable pageable) {
         articleService.findAllByBoard(boardId, pageable);
         return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
     }

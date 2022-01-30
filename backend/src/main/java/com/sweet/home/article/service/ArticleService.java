@@ -2,7 +2,7 @@ package com.sweet.home.article.service;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
-import com.sweet.home.article.controller.dto.response.ArticleResponse;
+import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
 import com.sweet.home.board.domain.Board;
@@ -44,10 +44,10 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleResponse> findAllByBoard(Long boardId, Pageable pageable) {
+    public List<ArticleTitleResponse> findAllByBoard(Long boardId, Pageable pageable) {
         Board board = boardService.findById(boardId);
         return articleRepository.findAllByBoard(board, pageable).stream()
-            .map(ArticleResponse::from)
+            .map(ArticleTitleResponse::from)
             .collect(Collectors.toList());
     }
 
