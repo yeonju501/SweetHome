@@ -14,7 +14,6 @@ function Profile() {
 	const user = location.state.user;
 	const arr = ["회원정보", "내가 작성한 글", "내가 작성한 댓글", "내가 좋아요한 글"];
 
-	const [change, setChange] = useState(false);
 	const [active, setActive] = useState(-1);
 	const [userInfo, setUserInfo] = useState({
 		email: "",
@@ -95,17 +94,16 @@ function Profile() {
 
 			<form onSubmit={onSubmit}>
 				<label htmlFor="username">닉네임</label>
-				<input type="text" id="username" value={username} onChange={onChange} />
+				<input type="text" id="username" value={username || ""} onChange={onChange} />
 				<label htmlFor="email">Email</label>
-				<input type="text" id="email" value={email} onChange={onChange} />
+				<input type="text" id="email" value={email || ""} onChange={onChange} />
 				<label htmlFor="phone_number">휴대폰 번호</label>
-				<input type="text" id="phone_number" value={phone_number} onChange={onChange} />
+				<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
 				<label htmlFor="address">주소</label>
 				<input type="text" id="address" />
 				<label htmlFor="password">비밀번호</label>
-				<input type="password" id="password" value={password} onChange={onChange} />
+				<input type="password" id="password" value={password || ""} onChange={onChange} />
 
-				{change && <p>정보가 성공적으로 변경되었습니다</p>}
 				<div style={{ display: "flex", alignItems: "center" }}>
 					<button style={{ marginRight: "25rem" }}>저장</button>
 					<DeleteAccount />
