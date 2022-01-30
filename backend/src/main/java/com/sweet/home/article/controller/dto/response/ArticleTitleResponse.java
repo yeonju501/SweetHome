@@ -6,7 +6,7 @@ import java.time.LocalDateTime;
 import lombok.Getter;
 
 @Getter
-public class ArticleResponse {
+public class ArticleTitleResponse {
 
     @JsonProperty("id")
     private Long id;
@@ -23,10 +23,10 @@ public class ArticleResponse {
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
-    protected ArticleResponse() {
+    protected ArticleTitleResponse() {
     }
 
-    public ArticleResponse(Long id, String title, MemberArticleResponse member, String content, LocalDateTime createdAt) {
+    public ArticleTitleResponse(Long id, String title, MemberArticleResponse member, String content, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.member = member;
@@ -34,8 +34,8 @@ public class ArticleResponse {
         this.createdAt = createdAt;
     }
 
-    public static ArticleResponse from(Article article) {
-        return new ArticleResponse(
+    public static ArticleTitleResponse from(Article article) {
+        return new ArticleTitleResponse(
             article.getId(),
             article.getTitle(),
             MemberArticleResponse.from(article.getMember()),

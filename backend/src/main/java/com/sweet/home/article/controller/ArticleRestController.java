@@ -2,7 +2,7 @@ package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
-import com.sweet.home.article.controller.dto.response.ArticleResponse;
+import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
 import java.util.List;
@@ -38,26 +38,26 @@ public class ArticleRestController {
     }
 
     @GetMapping("/{boardId}/articles")
-    public ResponseEntity<List<ArticleResponse>> showArticles(@PathVariable Long boardId, @PageableDefault Pageable pageable) {
+    public ResponseEntity<List<ArticleTitleResponse>> showArticles(@PathVariable Long boardId,
+        @PageableDefault Pageable pageable) {
         articleService.findAllByBoard(boardId, pageable);
         return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
     }
 
-    @GetMapping("/{boardId}/articles/{articleId}")
-    public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long boardId, @PathVariable Long articleId) {
+    @GetMapping("/articles/{articleId}")
+    public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long articleId) {
         return ResponseEntity.ok().body(articleService.showArticle(articleId));
     }
 
-    @PutMapping("/{boardId}/articles/{articleId}")
-    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email,
-        @RequestBody ArticleSaveRequest request, @PathVariable Long boardId, @PathVariable Long articleId) {
+    @PutMapping("/articles/{articleId}")
+    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request,
+        @PathVariable Long articleId) {
         articleService.updateArticle(email, request, articleId);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/{boardId}/articles/{articleId}")
-    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long boardId,
-        @PathVariable Long articleId) {
+    @DeleteMapping("/articles/{articleId}")
+    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
         articleService.deleteArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }

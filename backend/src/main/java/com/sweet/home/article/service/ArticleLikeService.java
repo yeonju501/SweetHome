@@ -1,5 +1,6 @@
 package com.sweet.home.article.service;
 
+import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleLike;
 import com.sweet.home.article.domain.ArticleLikeRepository;
@@ -7,7 +8,11 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ArticleLikeService {
@@ -39,6 +44,14 @@ public class ArticleLikeService {
         if (articleLikeRepository.existsByMemberAndArticle(member, article)) {
             throw new BusinessException(ErrorCode.ARTICLE_LIKE_ALREADY_EXISTS);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleLikeResponse> showArticleLikes(String email, Pageable pageable) {
+        Member member = memberService.findByEmail(email);
+        return articleLikeRepository.findAllByMember(member, pageable).stream()
+            .map(ArticleLikeResponse::from)
+            .collect(Collectors.toList());
     }
 
     public void deleteLike(String email, Long articleId) {

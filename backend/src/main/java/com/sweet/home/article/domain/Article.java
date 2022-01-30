@@ -7,6 +7,7 @@ import com.sweet.home.member.domain.Member;
 import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -49,6 +50,10 @@ public class Article {
     @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
 
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from article_like al where al.article_id = article_id)")
+    private long totalLikes;
+
     protected Article() {
     }
 
@@ -78,7 +83,7 @@ public class Article {
         }
     }
 
-    public void deleteArticle(){
+    public void deleteArticle() {
         this.deletedAt = LocalDateTime.now();
     }
 }
