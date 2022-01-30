@@ -54,6 +54,10 @@ public class Article {
     @Formula("(select count(1) from article_like al where al.article_id = article_id)")
     private long totalLikes;
 
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from article_report ar where ar.article_id = article_id)")
+    private long totalReports;
+
     protected Article() {
     }
 
