@@ -22,7 +22,7 @@ public class AgreementService {
     }
 
     @Transactional
-    public void createAgreement(String email, AgreementRequest request){
+    public void createAgreement(String email, AgreementRequest request) {
         // 이메일로 유저 아이디 찾고
         Member member = memberService.findByEmail(email);
         // 찾은 유저 아이디로 어느 건물 관리자인지 찾고
@@ -33,6 +33,7 @@ public class AgreementService {
         //다음은 임시 코드
         String building = "2030";
         agreementRepository.save(Agreement.createAgreement(building, request));
+        // 임시코드 끝
     }
 
     @Transactional
@@ -45,4 +46,24 @@ public class AgreementService {
 
         agreement.deleteAgreement();
     }
+
+    @Transactional
+    public void updateAgreement(String email, AgreementRequest request, Long agreementId) {
+        Member member = memberService.findByEmail(email);
+        Agreement agreement = agreementRepository.findById(agreementId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+
+        //TODO: 멤버가 이 동이서의 아파트를 관리하는지 확인하는 로직
+
+        // 임시코드
+        String building = "2030";
+        // 임시코드 끝
+        agreement.checkBuildingManager(building);
+
+        agreement.changeTitle(request.getTitle());
+        agreement.changeContent(request.getContent());
+        agreement.changeStartDate(request.getStartDate());
+        agreement.changeEndDate(request.getEndDate());
+    }
+
 }
