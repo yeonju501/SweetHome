@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
@@ -17,11 +17,19 @@ function Profile() {
 	const [change, setChange] = useState(false);
 	const [active, setActive] = useState(-1);
 	const [userInfo, setUserInfo] = useState({
-		email: user.email,
-		username: user.username,
-		phone_number: user.phone_number,
+		email: "",
+		username: "",
+		phone_number: "",
 		password: "",
 	});
+
+	useEffect(() => {
+		axios({
+			url: `${SERVER_URL}/api/members/my-profile`,
+			method: "get",
+			headers: { Authorization: `Bearer ${token}` },
+		}).then((res) => setUserInfo(res.data));
+	}, []);
 
 	const { email, username, phone_number, password } = userInfo;
 
