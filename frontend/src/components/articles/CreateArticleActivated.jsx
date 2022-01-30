@@ -1,10 +1,12 @@
 import { useState } from "react";
+import { useSelector } from "react-redux";
+
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function CreateArticleActivated({ setDisabled }) {
-	const token = window.localStorage.getItem("access_token");
+function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
+	const token = useSelector((state) => state.token.token);
 
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
@@ -17,13 +19,13 @@ function CreateArticleActivated({ setDisabled }) {
 		e.preventDefault();
 		if (title.trim() && content.trim()) {
 			axios({
-				url: `${SERVER_URL}/api/boards/articles/`,
+				url: `${SERVER_URL}/api/boards/${boardId}/articles/`,
 				headers: { Authorization: `Bearer ${token}` },
 				method: "post",
 				data: articleData,
 			})
 				.then((res) => {
-					console.log(res);
+					getArticles();
 					setArticleData({ title: "", content: "" });
 					setDisabled(true);
 				})

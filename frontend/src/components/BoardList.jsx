@@ -1,8 +1,20 @@
-function BoardList({ boards }) {
+function BoardList({ boards, setCurrentBoard }) {
+	const handleBoardClick = (board) => {
+		setCurrentBoard(board);
+	};
+
 	return (
 		<ul>
 			{boards.map((board) => (
-				<li key={board.id}>{board.name}</li>
+				<li
+					id={board.id}
+					key={board.id}
+					onClick={() => {
+						handleBoardClick(board);
+					}}
+				>
+					{board.name}
+				</li>
 			))}
 		</ul>
 	);
