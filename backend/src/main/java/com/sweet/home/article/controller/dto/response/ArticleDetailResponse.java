@@ -23,13 +23,17 @@ public class ArticleDetailResponse {
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
 
+    @JsonProperty("total_likes")
+    private long totalLikes;
+
     protected ArticleDetailResponse(String title, MemberArticleResponse member, String content, LocalDateTime createdAt,
-        LocalDateTime updatedAt) {
+        LocalDateTime updatedAt, long totalLikes) {
         this.title = title;
         this.member = member;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.totalLikes = totalLikes;
     }
 
     public static ArticleDetailResponse from(Article article) {
@@ -38,7 +42,8 @@ public class ArticleDetailResponse {
             MemberArticleResponse.from(article.getMember()),
             article.getContent(),
             article.getCreatedAt(),
-            article.getUpdatedAt()
+            article.getUpdatedAt(),
+            article.getTotalLikes()
         );
     }
 }
