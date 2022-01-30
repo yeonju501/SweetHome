@@ -28,6 +28,7 @@ public class ArticleLikeService {
         this.articleService = articleService;
     }
 
+    @Transactional
     public void likeArticle(String email, Long articleId) {
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
@@ -54,6 +55,7 @@ public class ArticleLikeService {
             .collect(Collectors.toList());
     }
 
+    @Transactional
     public void deleteLike(String email, Long articleId) {
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);

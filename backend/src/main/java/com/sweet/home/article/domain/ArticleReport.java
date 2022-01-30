@@ -16,11 +16,11 @@ import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Entity
-public class ArticleLike {
+public class ArticleReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_like_id")
+    @Column(name = "article_report_id")
     private Long id;
 
     @ManyToOne(targetEntity = Article.class, fetch = FetchType.LAZY)
@@ -31,16 +31,23 @@ public class ArticleLike {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @Column(name = "content")
+    private String content;
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    protected ArticleLike() {
+    @Column(name = "deleted_at", nullable = true)
+    private LocalDateTime deletedAt;
+
+    protected ArticleReport() {
     }
 
     @Builder
-    public ArticleLike(Article article, Member member) {
+    public ArticleReport(Article article, Member member, String content) {
         this.article = article;
         this.member = member;
+        this.content = content;
     }
 }
