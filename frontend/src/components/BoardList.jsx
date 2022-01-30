@@ -2,7 +2,9 @@ function BoardList({ boards }) {
 	return (
 		<ul>
 			{boards.map((board) => (
-				<li key={board.id}>{board.name}</li>
+				<li id={board.id} key={board.id}>
+					{board.name}
+				</li>
 			))}
 		</ul>
 	);
