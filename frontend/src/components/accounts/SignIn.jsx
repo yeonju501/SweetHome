@@ -31,6 +31,29 @@ function SignIn() {
 		});
 	}
 
+	function onSilentRefresh() {
+		axios({
+			url: `${SERVER_URL}/api/members/reissue`,
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			data: {
+				access_token: accessToken,
+				refresh_token: refreshToken,
+			},
+		})
+			.then((res) => {
+				dispatch(SET_TOKEN(res.data));
+				navigate("/main");
+			})
+			.catch(() => {
+				alert("로그인을 다시 해주세요");
+				dispatch(DELETE_TOKEN());
+				navigate("/sign-in");
+			});
+	}
+
 	function onSubmit(e) {
 		e.preventDefault();
 		if (isValid) {
