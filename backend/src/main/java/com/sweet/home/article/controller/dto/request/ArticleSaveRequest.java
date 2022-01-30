@@ -12,7 +12,7 @@ public class ArticleSaveRequest {
     @JsonProperty("content")
     private String content;
 
-    public ArticleSaveRequest() {
+    protected ArticleSaveRequest() {
     }
 
     public ArticleSaveRequest(String title, String content) {
