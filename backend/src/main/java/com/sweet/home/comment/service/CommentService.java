@@ -58,4 +58,13 @@ public class CommentService {
         comment.checkCommentByEmail(email);
         comment.changeContent(request.getContent());
     }
+
+    @Transactional
+    public void deleteComment(String email, Long commentId){
+        Comment comment = commentRepository.findById(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+
+        comment.checkCommentByEmail(email);
+        comment.deleteComment();
+    }
 }
