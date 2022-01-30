@@ -7,11 +7,12 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Getter;
 
-@Getter
 @Entity
+@Getter
 public class BuildingHouseMember {
 
     @Id
@@ -20,10 +21,13 @@ public class BuildingHouseMember {
     private Long id;
 
     @ManyToOne(targetEntity = BuildingHouse.class, fetch = FetchType.LAZY)
-    @Column(name = "building_house_id")
+    @JoinColumn(name = "building_house_id")
     private BuildingHouse buildingHouse;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
-    @Column(name = "member_info_id")
+    @JoinColumn(name = "member_info_id")
     private Member member;
+
+    protected BuildingHouseMember() {
+    }
 }
