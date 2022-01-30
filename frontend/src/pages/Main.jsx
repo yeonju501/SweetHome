@@ -8,7 +8,7 @@ import axios from "axios";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Main() {
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 	const [userInfo, setUserInfo] = useState(null);
 	const [boards, setBoards] = useState([]);
 	const [currentBoard, setCurrentBoard] = useState("");

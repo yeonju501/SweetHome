@@ -1,9 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { SET_TOKEN } from "../../store/token";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_TOKEN, DELETE_TOKEN } from "../../store/token";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
@@ -12,6 +11,8 @@ import { SignInButton } from "./SignButton";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SignIn() {
+	const accessToken = useSelector((state) => state.token.accessToken);
+	const refreshToken = useSelector((state) => state.token.refreshToken);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState({
@@ -30,6 +31,28 @@ function SignIn() {
 		});
 	}
 
+	function onSilentRefresh() {
+		axios({
+			url: `${SERVER_URL}/api/members/reissue`,
+			method: "POST",
+			headers: {
+				"Content-type": "application/json",
+			},
+			data: {
+				access_token: accessToken,
+				refresh_token: refreshToken,
+			},
+		})
+			.then((res) => {
+				dispatch(SET_TOKEN(res.data));
+				navigate("/main");
+			})
+			.catch(() => {
+				alert("로그인을 다시 해주세요");
+				dispatch(DELETE_TOKEN());
+				navigate("/sign-in");
+			});
+	}
 	function onSubmit(e) {
 		e.preventDefault();
 		if (isValid) {
@@ -42,8 +65,9 @@ function SignIn() {
 				data: inputValue,
 			})
 				.then((res) => {
-					dispatch(SET_TOKEN(res.data.access_token));
+					dispatch(SET_TOKEN(res.data));
 					navigate("/main");
+					setTimeout(onSilentRefresh, 1000 * 60 * 30 - 6000);
 				})
 				.catch((err) => {
 					console.log(err);
