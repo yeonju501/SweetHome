@@ -3,6 +3,8 @@ package com.sweet.home.agreement.service;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import org.springframework.stereotype.Service;
@@ -31,5 +33,16 @@ public class AgreementService {
         //다음은 임시 코드
         String building = "2030";
         agreementRepository.save(Agreement.createAgreement(building, request));
+    }
+
+    @Transactional
+    public void deleteAgreement(String email, Long agreementId) {
+        Member member = memberService.findByEmail(email);
+        Agreement agreement = agreementRepository.findById(agreementId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+
+        // TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
+
+        agreement.deleteAgreement();
     }
 }
