@@ -5,6 +5,7 @@ import style from "../style/Profile.module.css";
 import * as inputValid from "../utils/inputValid";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import DeleteAccount from "../components/accounts/DeleteAccount";
 
 function Profile() {
 	const token = useSelector((state) => state.token.token);
