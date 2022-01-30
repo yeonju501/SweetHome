@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/boards/articles")
+@RequestMapping("/api/boards/")
 public class ReportTypeRestController {
 
     private final ReportTypeService reportTypeService;

@@ -1,6 +1,8 @@
 package com.sweet.home.comment.domain;
 
 import com.sweet.home.article.domain.Article;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -54,6 +56,16 @@ public class Comment {
     public Comment(Article article, Member member, String content) {
         this.article = article;
         this.member = member;
+        this.content = content;
+    }
+
+    public void checkCommentByEmail(String email) {
+        if (!member.getEmail().equals(email)) {
+            throw new BusinessException(ErrorCode.COMMENT_NOT_MATCH_BY_MEMBER_EMAIL);
+        }
+    }
+
+    public void changeContent(String content) {
         this.content = content;
     }
 }

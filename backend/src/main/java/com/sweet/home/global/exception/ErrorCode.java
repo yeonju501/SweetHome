@@ -48,7 +48,11 @@ public enum ErrorCode {
     ARTICLE_LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST, "좋아요 되지 않은 게시글입니다."),
 
     // articleReport
-    ARTICLE_REPORT_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 신고한 게시글입니다.")
+    ARTICLE_REPORT_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 신고한 게시글입니다."),
+
+    // comment
+    COMMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 댓글입니다."),
+    COMMENT_NOT_MATCH_BY_MEMBER_EMAIL(HttpStatus.BAD_REQUEST, "댓글 작성자와 일치하지 않는 이메일입니다.")
     ;
 
     private final HttpStatus httpStatus;
