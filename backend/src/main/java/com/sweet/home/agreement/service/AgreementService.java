@@ -1,6 +1,7 @@
 package com.sweet.home.agreement.service;
 
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
+import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
 import com.sweet.home.global.exception.BusinessException;
@@ -42,7 +43,13 @@ public class AgreementService {
         Agreement agreement = agreementRepository.findById(agreementId)
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
 
-        // TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
+        //TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
+        // 임시코드
+        // Member에서 찾은 BuildingMember에서의 building_id 필요
+        String building = "2030";
+        // 임시코드 끝
+
+        agreement.checkBuildingRelationship(building);
 
         agreement.deleteAgreement();
     }
@@ -53,12 +60,13 @@ public class AgreementService {
         Agreement agreement = agreementRepository.findById(agreementId)
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
 
-        //TODO: 멤버가 이 동이서의 아파트를 관리하는지 확인하는 로직
-
+        //TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
         // 임시코드
+        // Member에서 찾은 BuildingMember에서의 building_id 필요
         String building = "2030";
         // 임시코드 끝
-        agreement.checkBuildingManager(building);
+
+        agreement.checkBuildingRelationship(building);
 
         agreement.changeTitle(request.getTitle());
         agreement.changeContent(request.getContent());
@@ -66,4 +74,21 @@ public class AgreementService {
         agreement.changeEndDate(request.getEndDate());
     }
 
+    // 메시지 상세 조회
+    @Transactional(readOnly = true)
+    public AgreementDetailResponse viewAgreementDetail(String email, Long agreementId) {
+        Member member = memberService.findByEmail(email);
+        Agreement agreement = agreementRepository.findById(agreementId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+
+        //TODO: 멤버가 이 동의서의 아파트에서 살고있는지 확인하는 로직
+        // 임시코드
+        // Member에서 찾은 BuildingHouseMember에서 찾은 BuildingHouse 의 building_id 필요
+        String building = "2030";
+        // 임시코드 끝
+
+        agreement.checkBuildingRelationship(building);
+
+        return AgreementDetailResponse.from(agreement);
+    }
 }
