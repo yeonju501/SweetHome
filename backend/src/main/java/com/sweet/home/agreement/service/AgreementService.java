@@ -2,12 +2,16 @@ package com.sweet.home.agreement.service;
 
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
+import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +30,8 @@ public class AgreementService {
     public void createAgreement(String email, AgreementRequest request) {
         // 이메일로 유저 아이디 찾고
         Member member = memberService.findByEmail(email);
+
+        //TODO: 로그인한 유저가 아파트 관리자인지 판별 및 어느 아파트 관리자인지 파악
         // 찾은 유저 아이디로 어느 건물 관리자인지 찾고
         // BuildingMember buildingMember = buildingMemberService.findByMemberId(member.getId());
         // 찾은 건물 아이디를 동의서 아파트 id에 넣어야 하고
@@ -90,5 +96,20 @@ public class AgreementService {
         agreement.checkBuildingRelationship(building);
 
         return AgreementDetailResponse.from(agreement);
+    }
+
+    @Transactional(readOnly = true)
+    public List<AgreementResponse> viewAgreements(Pageable pageable, String email) {
+        Member member = memberService.findByEmail(email);
+
+        //TODO: 멤버가 이 동의서의 아파트에서 살고있는지 확인하는 로직
+        // 임시코드
+        // Member에서 찾은 BuildingHouseMember에서 찾은 BuildingHouse 의 building_id 필요
+        String building = "2030";
+        // 임시코드 끝
+
+        return agreementRepository.findByBuilding(building, pageable).stream()
+            .map(AgreementResponse::from)
+            .collect(Collectors.toList());
     }
 }

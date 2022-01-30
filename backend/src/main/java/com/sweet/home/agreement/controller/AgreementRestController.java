@@ -2,8 +2,13 @@ package com.sweet.home.agreement.controller;
 
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
+import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
 import com.sweet.home.agreement.service.AgreementService;
 import java.net.URI;
+import java.util.List;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -57,4 +62,9 @@ public class AgreementRestController {
     }
 
     //목록조회
+    @GetMapping("/agreements/")
+    public ResponseEntity<List<AgreementResponse>> getAgreements(@AuthenticationPrincipal String email,
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(agreementService.viewAgreements(pageable, email));
+    }
 }
