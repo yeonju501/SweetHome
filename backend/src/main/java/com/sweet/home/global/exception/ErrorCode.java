@@ -41,7 +41,10 @@ public enum ErrorCode {
 
     // articleLike
     ARTICLE_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요한 게시글입니다."),
-    ARTICLE_LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST, "좋아요 되지 않은 게시글입니다.")
+    ARTICLE_LIKE_NOT_FOUND(HttpStatus.BAD_REQUEST, "좋아요 되지 않은 게시글입니다."),
+
+    // articleReport
+    ARTICLE_REPORT_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 신고한 게시글입니다.")
     ;
 
     private final HttpStatus httpStatus;
