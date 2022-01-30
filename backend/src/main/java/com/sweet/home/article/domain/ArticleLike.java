@@ -28,6 +28,7 @@ public class ArticleLike {
     private Article article;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @CreatedDate
