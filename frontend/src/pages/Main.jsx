@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import BoardList from "../components/BoardList";
 import CreateBoard from "../components/CreateBoard";
+import Board from "../components/Board";
 import { Link } from "react-router-dom";
 import axios from "axios";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -41,7 +42,7 @@ function Main() {
 				<div>nav-bar</div>
 				<CreateBoard />
 				<BoardList boards={boards} />
-				<div>글 목록</div>
+				<Board />
 				<p>{userInfo.username}</p>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
