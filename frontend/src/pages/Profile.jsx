@@ -5,6 +5,7 @@ import style from "../style/Profile.module.css";
 import * as inputValid from "../utils/inputValid";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import DeleteAccount from "../components/accounts/DeleteAccount";
 
 function Profile() {
 	const token = useSelector((state) => state.token.token);
@@ -87,7 +88,10 @@ function Profile() {
 				<input type="password" id="password" value={password} onChange={onChange} />
 
 				{change && <p>정보가 성공적으로 변경되었습니다</p>}
-				<button>저장</button>
+				<div style={{ display: "flex", alignItems: "center" }}>
+					<button style={{ marginRight: "25rem" }}>저장</button>
+					<DeleteAccount />
+				</div>
 			</form>
 		</div>
 	);

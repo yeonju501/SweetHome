@@ -1,4 +1,7 @@
 const LOGIN = "token/LOGIN";
+const DELETE = "token/DELETE_TOKEN";
+
+export const DELETE_TOKEN = () => ({ type: DELETE });
 export const SET_TOKEN = (token) => ({ type: LOGIN, token });
 
 const initialState = {
@@ -11,6 +14,11 @@ const access_token = (state = initialState, action) => {
 			return {
 				...state,
 				token: action.token,
+			};
+		case DELETE:
+			return {
+				...state,
+				token: "",
 			};
 		default:
 			return state;
