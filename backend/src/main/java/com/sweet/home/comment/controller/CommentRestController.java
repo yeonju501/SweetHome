@@ -11,12 +11,13 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/boards/articles")
+@RequestMapping("/api/articles")
 public class CommentRestController {
 
     private final CommentService commentService;
@@ -33,7 +34,14 @@ public class CommentRestController {
     }
 
     @GetMapping("/{articleId}/comments")
-    public ResponseEntity<List<CommentResponse>> showComments(@PathVariable Long articleId, @PageableDefault Pageable pageable){
+    public ResponseEntity<List<CommentResponse>> showComments(@PathVariable Long articleId, @PageableDefault Pageable pageable) {
         return ResponseEntity.ok().body(commentService.findAllByArticle(articleId, pageable));
+    }
+
+    @PutMapping("/comments/{commentId}")
+    public ResponseEntity<Void> updateComment(@AuthenticationPrincipal String email, @PathVariable Long commentId,
+        @RequestBody CommentSaveRequest request) {
+        commentService.updateComment(email, commentId, request);
+        return ResponseEntity.noContent().build();
     }
 }
