@@ -21,7 +21,7 @@ function SignUp() {
 
 	const { email, password, username, phone_number } = inputValue;
 
-	const isValid = inputValid.SignUpValid(email, password, phone_number);
+	const isValid = inputValid.signUpValid(email, password, phone_number);
 
 	useEffect(() => {
 		token && navigate("/main");
@@ -38,7 +38,6 @@ function SignUp() {
 		e.preventDefault();
 
 		if (isValid) {
-			console.log(SERVER_URL);
 			axios({
 				method: "post",
 				url: `${SERVER_URL}/api/members/join`,

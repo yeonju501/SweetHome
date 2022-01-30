@@ -2,22 +2,54 @@ import React from "react";
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
+import * as inputValid from "../utils/inputValid";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 function Profile() {
+	const token = useSelector((state) => state.token.token);
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const user = location.state.user;
 	const arr = ["회원정보", "내가 작성한 글", "내가 작성한 댓글", "내가 좋아요한 글"];
+
+	const [change, setChange] = useState(false);
 	const [active, setActive] = useState(-1);
 	const [userInfo, setUserInfo] = useState({
 		email: user.email,
 		username: user.username,
 		phone_number: user.phone_number,
+		password: "",
 	});
+
+	const { email, username, phone_number, password } = userInfo;
+
+	const isValid = inputValid.profileChange(email, phone_number);
+
 	const onChange = (e) => {
 		setUserInfo({ ...userInfo, [e.target.id]: e.target.value });
 	};
 
-	const { email, username, phone_number } = userInfo;
+	const onSubmit = (e) => {
+		e.preventDefault();
+		if (isValid && username.trim().length > 0) {
+			axios({
+				method: "put",
+				url: `${SERVER_URL}/api/members/my-profile`,
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${token}`,
+				},
+				data: userInfo,
+			})
+				.then(setUserInfo({ ...userInfo, password: "" }))
+				.then(setChange(true))
+				.then(setTimeout(() => setChange(false), 9000))
+				.catch((err) => console.log(err));
+		} else {
+			alert("정보를 형식에 맞게 다시 입력해주세요");
+		}
+	};
 
 	return (
 		<div className={style.profile}>
@@ -42,7 +74,7 @@ function Profile() {
 				</ul>
 			</div>
 
-			<form>
+			<form onSubmit={onSubmit}>
 				<label htmlFor="username">닉네임</label>
 				<input type="text" id="username" value={username} onChange={onChange} />
 				<label htmlFor="email">Email</label>
@@ -50,7 +82,11 @@ function Profile() {
 				<label htmlFor="phone_number">휴대폰 번호</label>
 				<input type="text" id="phone_number" value={phone_number} onChange={onChange} />
 				<label htmlFor="address">주소</label>
-				<input type="text" id="address" onChange={onChange} />
+				<input type="text" id="address" />
+				<label htmlFor="password">비밀번호</label>
+				<input type="password" id="password" value={password} onChange={onChange} />
+
+				{change && <p>정보가 성공적으로 변경되었습니다</p>}
 				<button>저장</button>
 			</form>
 		</div>

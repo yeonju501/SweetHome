@@ -21,7 +21,7 @@ function SignIn() {
 
 	const { email, password } = inputValue;
 
-	const isValid = inputValid.SignInValid(email, password);
+	const isValid = inputValid.signInValid(email, password);
 
 	function onChange(e) {
 		setInputValue({
