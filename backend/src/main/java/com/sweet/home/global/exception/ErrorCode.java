@@ -52,7 +52,10 @@ public enum ErrorCode {
 
     // comment
     COMMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 댓글입니다."),
-    COMMENT_NOT_MATCH_BY_MEMBER_EMAIL(HttpStatus.BAD_REQUEST, "댓글 작성자와 일치하지 않는 이메일입니다.")
+    COMMENT_NOT_MATCH_BY_MEMBER_EMAIL(HttpStatus.BAD_REQUEST, "댓글 작성자와 일치하지 않는 이메일입니다."),
+
+    // commentLike
+    COMMENT_LIKE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 좋아요한 댓글입니다.")
     ;
 
     private final HttpStatus httpStatus;
