@@ -88,7 +88,10 @@ function Profile() {
 				<input type="password" id="password" value={password} onChange={onChange} />
 
 				{change && <p>정보가 성공적으로 변경되었습니다</p>}
-				<button>저장</button>
+				<div>
+					<button>저장</button>
+					<DeleteAccount />
+				</div>
 			</form>
 		</div>
 	);
