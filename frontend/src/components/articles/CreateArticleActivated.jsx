@@ -5,7 +5,7 @@ import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function CreateArticleActivated({ setDisabled, boardId }) {
+function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
 	const token = useSelector((state) => state.token.token);
 
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
@@ -25,7 +25,7 @@ function CreateArticleActivated({ setDisabled, boardId }) {
 				data: articleData,
 			})
 				.then((res) => {
-					console.log(res);
+					getArticles();
 					setArticleData({ title: "", content: "" });
 					setDisabled(true);
 				})

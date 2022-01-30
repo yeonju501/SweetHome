@@ -10,20 +10,23 @@ function Board({ currentBoard }) {
 
 	useEffect(() => {
 		console.log(currentBoard);
-		currentBoard &&
-			axios({
-				url: `${SERVER_URL}/api/boards/${currentBoard.id}/articles`,
-				headers: { Authorization: `Bearer ${token}` },
-				method: "get",
-			})
-				.then((res) => {
-					console.log(res);
-					setArticles(res.data);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+		currentBoard && getArticles();
 	}, [currentBoard]);
+
+	const getArticles = () => {
+		axios({
+			url: `${SERVER_URL}/api/boards/${currentBoard.id}/articles`,
+			headers: { Authorization: `Bearer ${token}` },
+			method: "get",
+		})
+			.then((res) => {
+				console.log(res);
+				setArticles(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 
 	return (
 		<div>
@@ -31,7 +34,7 @@ function Board({ currentBoard }) {
 				<p>{currentBoard.name}</p>
 				<p>{currentBoard.description}</p>
 			</div>
-			<CreateArticle boardId={currentBoard.id} />
+			<CreateArticle boardId={currentBoard.id} getArticles={getArticles} />
 			<ul>
 				{articles.map((article) => (
 					<li key={article.id}>
