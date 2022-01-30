@@ -22,7 +22,11 @@ function DeleteAccount() {
 				.catch((err) => console.log(err));
 	};
 
-	return <div onClick={deleteAccount}>회원 탈퇴</div>;
+	return (
+		<div onClick={deleteAccount} style={{ color: "red", fontWeight: "600", cursor: "pointer" }}>
+			회원 탈퇴
+		</div>
+	);
 }
 
 export default DeleteAccount;
