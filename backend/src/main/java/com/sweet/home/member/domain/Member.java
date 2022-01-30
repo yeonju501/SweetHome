@@ -89,7 +89,7 @@ public class Member {
     }
 
     public void changePassword(PasswordEncoder passwordEncoder, String password) {
-        if (passwordEncoder.matches(password, this.password)) {
+        if (!Objects.isNull(password) && passwordEncoder.matches(password, this.password)) {
             this.password = passwordEncoder.encode(password);
         }
     }
