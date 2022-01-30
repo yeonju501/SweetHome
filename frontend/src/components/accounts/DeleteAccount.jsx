@@ -2,11 +2,12 @@ import axios from "axios";
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import { DELETE_TOKEN } from "../../store/token";
 
 function DeleteAccount() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ function DeleteAccount() {
 			})
 				.then(dispatch(DELETE_TOKEN()))
 				.then(navigate("/"))
-				.catch((err) => console.log(err));
+				.catch(toast.error("회원 탈퇴에 실패 하였습니다."));
 	};
 
 	return (
