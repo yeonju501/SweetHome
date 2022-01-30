@@ -23,15 +23,19 @@ public class CommentResponse {
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
 
+    @JsonProperty("total_likes")
+    private long totalLikes;
+
     protected CommentResponse() {
     }
 
     public CommentResponse(String username, String content, LocalDateTime createdAt,
-        LocalDateTime updatedAt) {
+        LocalDateTime updatedAt, long totalLikes) {
         this.username = username;
         this.content = content;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.totalLikes = totalLikes;
     }
 
     public static CommentResponse from(Comment comment) {
@@ -39,7 +43,8 @@ public class CommentResponse {
             comment.getMember().getUsername(),
             comment.getContent(),
             comment.getCreatedAt(),
-            comment.getUpdatedAt()
+            comment.getUpdatedAt(),
+            comment.getTotalLikes()
         );
     }
 }
