@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -30,5 +31,12 @@ public class BuildingHouse {
     private String ho;
 
     protected BuildingHouse() {
+    }
+
+    @Builder
+    public BuildingHouse(Apt apt, String dong, String ho) {
+        this.apt = apt;
+        this.dong = dong;
+        this.ho = ho;
     }
 }

@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -29,5 +30,11 @@ public class BuildingHouseMember {
     private Member member;
 
     protected BuildingHouseMember() {
+    }
+
+    @Builder
+    public BuildingHouseMember(BuildingHouse buildingHouse, Member member) {
+        this.buildingHouse = buildingHouse;
+        this.member = member;
     }
 }
