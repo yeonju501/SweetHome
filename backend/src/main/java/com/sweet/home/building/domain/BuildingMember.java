@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -29,5 +30,11 @@ public class BuildingMember {
     private Member member;
 
     protected BuildingMember() {
+    }
+
+    @Builder
+    public BuildingMember(Apt apt, Member member) {
+        this.apt = apt;
+        this.member = member;
     }
 }

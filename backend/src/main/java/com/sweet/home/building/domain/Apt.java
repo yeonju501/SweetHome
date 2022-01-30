@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 
 @Entity
@@ -16,6 +17,6 @@ public class Apt {
     @Column(name = "building_id")
     private Long id;
 
-    protected Apt() {
+    public Apt() {
     }
 }
