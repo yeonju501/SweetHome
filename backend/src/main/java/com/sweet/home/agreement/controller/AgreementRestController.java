@@ -21,11 +21,11 @@ public class AgreementRestController {
     }
 
     //생성
-    @PostMapping("/agreement")
+    @PostMapping("/agreements")
     public ResponseEntity<Void> createAgreement(@AuthenticationPrincipal String email,
         @RequestBody AgreementRequest request) {
         agreementService.createAgreement(email, request);
-        URI uri = URI.create("api/agreement/");
+        URI uri = URI.create("api/agreements/");
         return ResponseEntity.created(uri).build();
     }
     //삭제
