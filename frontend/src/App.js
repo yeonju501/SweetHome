@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 function App() {
 	return (
-		<ToastContainer>
+		<>
 			<Router>
 				<Routes>
 					<Route path="/" element={<Home />} />
@@ -31,7 +31,7 @@ function App() {
 					</Route>
 				</Routes>
 			</Router>
-			</ToastContainer>
+			<ToastContainer />
 		</>
 	);
 }

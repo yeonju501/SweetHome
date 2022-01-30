@@ -6,6 +6,7 @@ import * as inputValid from "../utils/inputValid";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import DeleteAccount from "../components/accounts/DeleteAccount";
+import { toast } from "react-toastify";
 
 function Profile() {
 	const token = useSelector((state) => state.token.token);
@@ -56,7 +57,7 @@ function Profile() {
 				data: userInfo,
 			})
 				.then(setUserInfo({ ...userInfo, password: "" }))
-
+				.then(() => toast.success("회원정보가 변경 되었습니다"))
 				.catch((err) => console.log(err));
 
 			setIntro({
@@ -65,7 +66,7 @@ function Profile() {
 				username: userInfo.username,
 			});
 		} else {
-			alert("정보를 형식에 맞게 다시 입력해주세요");
+			toast.error("회원 정보가 변경 되지 않았습니다.");
 		}
 	};
 
