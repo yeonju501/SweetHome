@@ -5,24 +5,27 @@ export const DELETE_TOKEN = () => ({ type: DELETE });
 export const SET_TOKEN = (token) => ({ type: LOGIN, token });
 
 const initialState = {
-	token: "",
+	accessToken: "",
+	refreshToken: "",
 };
 
-const access_token = (state = initialState, action) => {
+const token = (state = initialState, action) => {
 	switch (action.type) {
 		case LOGIN:
 			return {
 				...state,
-				token: action.token,
+				accessToken: action.token.access_token,
+				refreshToken: action.token.refresh_token,
 			};
 		case DELETE:
 			return {
 				...state,
-				token: "",
+				accessToken: "",
+				refreshToken: "",
 			};
 		default:
 			return state;
 	}
 };
 
-export default access_token;
+export default token;
