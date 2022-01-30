@@ -37,20 +37,16 @@ public class Agreement {
     @Column(name = "content", length = 400, nullable = false)
     private String content;
 
-    // 동의서를 등록한 시간
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    //동의서를 삭제한 시간
     @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
 
-    // 동의 시작 시간
     @Column(name = "start_date")
     private LocalDateTime startDate;
 
-    // 동의 마감 시간
     @Column(name = "end_date")
     private LocalDateTime endDate;
 
@@ -81,7 +77,7 @@ public class Agreement {
         this.deletedAt = LocalDateTime.now();
     }
 
-    public void changeTitle(String title){
+    public void changeTitle(String title) {
         this.title = title;
     }
 
@@ -97,10 +93,10 @@ public class Agreement {
         this.endDate = endDate;
     }
 
-//    public void checkBuildingManager(Building building){
+    //    public void checkBuildingRelationship(Building building){
 //        if (!building.equals(building)){
-    public void checkBuildingManager(String building){
-        if (!building.equals(building)){
+    public void checkBuildingRelationship(String building) {
+        if (!building.equals(building)) {
             throw new BusinessException(ErrorCode.AGREEMENT_NOT_YOUR_APARTMENT);
         }
     }
