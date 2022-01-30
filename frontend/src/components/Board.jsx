@@ -1,7 +1,10 @@
-function Board() {
+function Board({ currentBoard }) {
 	return (
 		<div>
-			<div>게시판 디테일</div>
+			<div>
+				<p>{currentBoard.name}</p>
+				<p>{currentBoard.description}</p>
+			</div>
 			<div>게시글 목록</div>
 		</div>
 	);

@@ -12,7 +12,7 @@ function Main() {
 	const [userInfo, setUserInfo] = useState(null);
 	const [boards, setBoards] = useState([]);
 	const [currentBoard, setCurrentBoard] = useState({});
-	console.log(currentBoard);
+
 	useEffect(() => {
 		axios({
 			url: `${SERVER_URL}/api/members/my-profile`,
