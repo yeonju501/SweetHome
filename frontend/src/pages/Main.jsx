@@ -11,6 +11,7 @@ function Main() {
 	const token = useSelector((state) => state.token.token);
 	const [userInfo, setUserInfo] = useState(null);
 	const [boards, setBoards] = useState([]);
+	const [currentBoard, setCurrentBoard] = useState([]);
 
 	useEffect(() => {
 		axios({
@@ -42,7 +43,7 @@ function Main() {
 				<div>nav-bar</div>
 				<CreateBoard />
 				<BoardList boards={boards} />
-				<Board />
+				<Board currentBoard={currentBoard} />
 				<p>{userInfo.username}</p>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
