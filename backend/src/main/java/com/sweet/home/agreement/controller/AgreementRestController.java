@@ -8,6 +8,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +25,7 @@ public class AgreementRestController {
 
     //생성
     @PostMapping("/agreements")
-    public ResponseEntity<Void> createAgreement(@AuthenticationPrincipal String email,
-        @RequestBody AgreementRequest request) {
+    public ResponseEntity<Void> createAgreement(@AuthenticationPrincipal String email, @RequestBody AgreementRequest request) {
         agreementService.createAgreement(email, request);
         URI uri = URI.create("api/agreements/");
         return ResponseEntity.created(uri).build();
@@ -33,13 +33,20 @@ public class AgreementRestController {
 
     //삭제
     @DeleteMapping("/agreements/{agreement_id}")
-    public ResponseEntity<Void> deleteMessage(@AuthenticationPrincipal String email,
+    public ResponseEntity<Void> deleteAgreement(@AuthenticationPrincipal String email,
         @PathVariable(value = "agreement_id") Long agreementId) {
         agreementService.deleteAgreement(email, agreementId);
         return ResponseEntity.noContent().build();
     }
 
     //수정
+    @PutMapping("/agreements/{agreement_id}")
+    public ResponseEntity<Void> updateAgreement(@AuthenticationPrincipal String email, @RequestBody AgreementRequest request,
+        @PathVariable(value = "agreement_id") Long agreementId) {
+        agreementService.updateAgreement(email, request, agreementId);
+        return ResponseEntity.noContent().build();
+    }
+
     //상세조회
     //목록조회
 }
