@@ -1,11 +1,13 @@
 package com.sweet.home.agreement.domain;
 
+import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
@@ -51,5 +53,25 @@ public class Agreement {
     private LocalDateTime endDate;
 
     protected Agreement() {
+    }
+
+    @Builder
+//    public Agreement(Building building, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
+    public Agreement(String building, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
+        this.building = building;
+        this.title = title;
+        this.content = content;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public static Agreement createAgreement(String building, AgreementRequest request) {
+        return Agreement.builder()
+            .building(building)
+            .title(request.getTitle())
+            .content(request.getContent())
+            .startDate(request.getStartDate())
+            .endDate(request.getEndDate())
+            .build();
     }
 }
