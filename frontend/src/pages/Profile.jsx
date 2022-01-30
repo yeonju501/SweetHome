@@ -23,6 +23,11 @@ function Profile() {
 		password: "",
 	});
 
+	const [intro, setIntro] = useState({
+		email: user.email,
+		username: user.username,
+	});
+
 	useEffect(() => {
 		axios({
 			url: `${SERVER_URL}/api/members/my-profile`,
@@ -52,9 +57,14 @@ function Profile() {
 				data: userInfo,
 			})
 				.then(setUserInfo({ ...userInfo, password: "" }))
-				.then(setChange(true))
-				.then(setTimeout(() => setChange(false), 9000))
+
 				.catch((err) => console.log(err));
+
+			setIntro({
+				...intro,
+				email: userInfo.email,
+				username: userInfo.username,
+			});
 		} else {
 			alert("정보를 형식에 맞게 다시 입력해주세요");
 		}
@@ -65,8 +75,8 @@ function Profile() {
 			<div className={style.profile_user}>
 				<img src="" alt="Profile img" className={style.profile_img} />
 				<div>
-					<h1 className={style.title}>{user.username}</h1>
-					<p className={style.email}>{user.email}</p>
+					<h1 className={style.title}>{intro.username}</h1>
+					<p className={style.email}>{intro.email}</p>
 				</div>
 			</div>
 			<div>
