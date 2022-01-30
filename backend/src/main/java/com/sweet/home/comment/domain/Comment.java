@@ -15,11 +15,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Entity
+@Where(clause = "deleted_at is null")
 public class Comment {
 
     @Id
@@ -67,5 +69,9 @@ public class Comment {
 
     public void changeContent(String content) {
         this.content = content;
+    }
+
+    public void deleteComment() {
+        this.deletedAt = LocalDateTime.now();
     }
 }
