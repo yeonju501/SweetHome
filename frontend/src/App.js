@@ -5,6 +5,7 @@ import Main from "./pages/Main";
 import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./pages/Profile";
+import MessageBox from "./pages/MessageBox";
 function App() {
 	return (
 		<Router>
@@ -16,6 +17,7 @@ function App() {
 					<Route path="/main" element={<Main />} />
 					<Route path="/profile/:username" element={<Profile />} />
 				</Route>
+				<Route path="message-box" element={<MessageBox />} />
 			</Routes>
 		</Router>
 	);
