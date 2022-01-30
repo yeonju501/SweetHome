@@ -1,9 +1,8 @@
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { useDispatch } from "react-redux";
-import { SET_TOKEN } from "../../store/token";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_TOKEN, DELETE_TOKEN } from "../../store/token";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
@@ -12,6 +11,8 @@ import { SignInButton } from "./SignButton";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SignIn() {
+	const accessToken = useSelector((state) => state.token.accessToken);
+	const refreshToken = useSelector((state) => state.token.refreshToken);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState({
