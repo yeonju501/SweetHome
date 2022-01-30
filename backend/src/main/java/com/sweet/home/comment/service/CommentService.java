@@ -43,6 +43,12 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
+    public Comment findById(Long commentId) {
+        return commentRepository.findById(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+    }
+
+    @Transactional(readOnly = true)
     public List<CommentResponse> findAllByArticle(Long articleId, Pageable pageable) {
         Article article = articleService.findById(articleId);
         return commentRepository.findAllByArticle(article, pageable).stream()
