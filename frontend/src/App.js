@@ -6,6 +6,9 @@ import SignUp from "./pages/SignUp";
 import PrivateRoute from "./components/PrivateRoute";
 import Profile from "./pages/Profile";
 import MessageBox from "./pages/MessageBox";
+import ReadReceiveMessage from "./components/messages/ReadReceiveMessage";
+import ReadSendMessage from "./components/messages/ReadSendMessage";
+import SendMessage from "./components/messages/SendMessage";
 function App() {
 	return (
 		<Router>
@@ -17,7 +20,11 @@ function App() {
 					<Route path="/main" element={<Main />} />
 					<Route path="/profile/:username" element={<Profile />} />
 				</Route>
-				<Route path="message-box" element={<MessageBox />} />
+				<Route path="/message-box/" element={<MessageBox />}>
+					<Route path="read-receive-message" element={<ReadReceiveMessage />} />
+					<Route path="read-send-message" element={<ReadSendMessage />} />
+					<Route path="send-message" element={<SendMessage />} />
+				</Route>
 			</Routes>
 		</Router>
 	);
