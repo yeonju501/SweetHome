@@ -46,4 +46,13 @@ public class ReplyService {
         reply.checkReplyByEmail(email);
         reply.changeContent(request.getContent());
     }
+
+    @Transactional
+    public void deleteReply(String email, Long replyId) {
+        Reply reply = replyRepository.findById(replyId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REPLY_NOT_FOUND_BY_ID));
+
+        reply.checkReplyByEmail(email);
+        reply.deleteReply();
+    }
 }
