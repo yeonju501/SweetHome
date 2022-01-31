@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import BoardList from "../components/BoardList";
 import CreateBoard from "../components/CreateBoard";
 import Board from "../components/Board";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import Navbar from "../components/Navbar";
+import { SET_USER } from "../store/user";
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Main() {
+	const dispatch = useDispatch();
 	const token = useSelector((state) => state.token.accessToken);
 	const [userInfo, setUserInfo] = useState(null);
 	const [boards, setBoards] = useState([]);
@@ -18,7 +22,10 @@ function Main() {
 			url: `${SERVER_URL}/api/members/my-profile`,
 			method: "get",
 			headers: { Authorization: `Bearer ${token}` },
-		}).then((res) => setUserInfo(res.data));
+		}).then((res) => {
+			setUserInfo(res.data);
+			dispatch(SET_USER(res.data));
+		});
 	}, []);
 
 	useEffect(() => {
@@ -38,8 +45,8 @@ function Main() {
 	return (
 		userInfo && (
 			<div>
-				hi {token}
 				<div>nav-bar</div>
+				<Navbar />
 				<CreateBoard />
 				<BoardList boards={boards} setCurrentBoard={setCurrentBoard} />
 				<Board currentBoard={currentBoard} />
