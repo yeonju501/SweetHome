@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Where(clause = "deleted_at is null")
+@Where(clause = "deleted_at is null and blocked_at is null")
 public class Article {
 
     @Id
@@ -47,6 +47,9 @@ public class Article {
     @Column(name = "updated_at", nullable = true)
     private LocalDateTime updatedAt;
 
+    @Column(name = "blocked_at", nullable = true)
+    private LocalDateTime blockedAt;
+
     @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
 
@@ -57,6 +60,8 @@ public class Article {
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from article_report ar where ar.article_id = article_id)")
     private long totalReports;
+
+    private static final int BLOCK_STANDARD = 5;
 
     protected Article() {
     }
@@ -89,5 +94,11 @@ public class Article {
 
     public void deleteArticle() {
         this.deletedAt = LocalDateTime.now();
+    }
+
+    public void checkTotalReports() {
+        if (this.totalReports >= BLOCK_STANDARD) {
+            this.blockedAt = LocalDateTime.now();
+        }
     }
 }

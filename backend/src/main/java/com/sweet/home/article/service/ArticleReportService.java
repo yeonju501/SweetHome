@@ -37,6 +37,8 @@ public class ArticleReportService {
             .content(request.getType() + " " + request.getContent())
             .build();
         articleReportRepository.save(articleReport);
+
+        article.checkTotalReports();
     }
 
     private void checkNotReported(Member member, Article article) {
