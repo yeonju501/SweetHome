@@ -3,13 +3,11 @@ import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
 import * as inputValid from "../utils/inputValid";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import DeleteAccount from "../components/accounts/DeleteAccount";
 import { toast } from "react-toastify";
 import ProfileNav from "../components/ProfileNav";
 
 function Profile() {
-	const token = useSelector((state) => state.token.accessToken);
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const user = location.state.user;

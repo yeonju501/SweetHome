@@ -1,13 +1,12 @@
 import axios from "axios";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import { DELETE_TOKEN } from "../../store/token";
 
 function DeleteAccount() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const token = useSelector((state) => state.token.accessToken);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
