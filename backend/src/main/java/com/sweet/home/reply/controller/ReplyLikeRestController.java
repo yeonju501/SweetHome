@@ -3,6 +3,7 @@ package com.sweet.home.reply.controller;
 import com.sweet.home.reply.service.ReplyLikeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,14 @@ public class ReplyLikeRestController {
     }
 
     @PostMapping("/{replyId}/likes")
-    public ResponseEntity<Void> likeReply(@AuthenticationPrincipal String email, @PathVariable Long replyId){
+    public ResponseEntity<Void> likeReply(@AuthenticationPrincipal String email, @PathVariable Long replyId) {
         replyLikeService.likeReply(email, replyId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/{replyId}/likes")
+    public ResponseEntity<Void> deleteReplyLike(@AuthenticationPrincipal String email, @PathVariable Long replyId) {
+        replyLikeService.deleteReplyLike(email, replyId);
         return ResponseEntity.noContent().build();
     }
 }

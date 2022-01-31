@@ -42,4 +42,14 @@ public class ReplyLikeService {
             throw new BusinessException(ErrorCode.REPLY_LIKE_ALREADY_EXISTS);
         }
     }
+
+    @Transactional
+    public void deleteReplyLike(String email, Long replyId) {
+        Member member = memberService.findByEmail(email);
+        Reply reply = replyService.findById(replyId);
+
+        ReplyLike replyLike = replyLikeRepository.findByMemberAndReply(member, reply)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REPLY_LIKE_NOT_FOUND));
+        replyLikeRepository.delete(replyLike);
+    }
 }
