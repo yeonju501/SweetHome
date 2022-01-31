@@ -1,9 +1,11 @@
 package com.sweet.home.reply.controller;
 
+import com.sun.org.apache.regexp.internal.RE;
 import com.sweet.home.reply.controller.dto.request.ReplySaveRequest;
 import com.sweet.home.reply.service.ReplyService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -32,6 +34,12 @@ public class ReplyRestController {
     public ResponseEntity<Void> updateReply(@AuthenticationPrincipal String email, @PathVariable Long replyId,
         @RequestBody ReplySaveRequest request) {
         replyService.updateReply(email, replyId, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/replies/{replyId}")
+    public ResponseEntity<Void> deleteReply(@AuthenticationPrincipal String email, @PathVariable Long replyId) {
+        replyService.deleteReply(email, replyId);
         return ResponseEntity.noContent().build();
     }
 
