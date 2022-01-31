@@ -21,7 +21,6 @@ function Main() {
 		axios({
 			url: `${SERVER_URL}/api/members/my-profile`,
 			method: "get",
-			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => {
 			setUserInfo(res.data);
 			dispatch(SET_USER(res.data));
@@ -31,7 +30,6 @@ function Main() {
 	useEffect(() => {
 		axios({
 			url: `${SERVER_URL}/api/boards`,
-			headers: { Authorization: `Bearer ${token}` },
 			method: "get",
 		})
 			.then((res) => {

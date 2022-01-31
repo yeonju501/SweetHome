@@ -16,7 +16,6 @@ function DeleteAccount() {
 			axios({
 				url: `${SERVER_URL}/api/members`,
 				method: "delete",
-				headers: { Authorization: `Bearer ${token}` },
 			})
 				.then(dispatch(DELETE_TOKEN()))
 				.then(navigate("/"))

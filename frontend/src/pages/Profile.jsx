@@ -30,7 +30,6 @@ function Profile() {
 		axios({
 			url: `${SERVER_URL}/api/members/my-profile`,
 			method: "get",
-			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => setUserInfo(res.data));
 	}, []);
 
@@ -50,7 +49,6 @@ function Profile() {
 				url: `${SERVER_URL}/api/members/my-profile`,
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
 				},
 				data: userInfo,
 			})
