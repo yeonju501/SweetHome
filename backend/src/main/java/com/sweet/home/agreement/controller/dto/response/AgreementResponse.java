@@ -6,6 +6,10 @@ import com.sweet.home.agreement.domain.Agreement;
 import java.time.LocalDateTime;
 
 public class AgreementResponse {
+
+    @JsonProperty("agreement_id")
+    private Long id;
+
     @JsonProperty("title")
     private String title;
 
@@ -25,16 +29,18 @@ public class AgreementResponse {
     public AgreementResponse() {
     }
 
-    public AgreementResponse(String title, LocalDateTime createdAt, LocalDateTime startDate,
+    public AgreementResponse(Long id, String title, LocalDateTime createdAt, LocalDateTime startDate,
         LocalDateTime endDate) {
+        this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public static AgreementResponse from(Agreement agreement){
+    public static AgreementResponse from(Agreement agreement) {
         return new AgreementResponse(
+            agreement.getId(),
             agreement.getTitle(),
             agreement.getCreatedAt(),
             agreement.getStartDate(),

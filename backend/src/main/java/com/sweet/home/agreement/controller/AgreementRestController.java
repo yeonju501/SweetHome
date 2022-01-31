@@ -1,5 +1,6 @@
 package com.sweet.home.agreement.controller;
 
+import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
@@ -30,7 +31,7 @@ public class AgreementRestController {
         this.agreementService = agreementService;
     }
 
-    //생성
+    //동의서 생성
     @PostMapping("/agreements")
     public ResponseEntity<Void> createAgreement(@AuthenticationPrincipal String email, @RequestBody AgreementRequest request) {
         agreementService.createAgreement(email, request);
@@ -38,7 +39,7 @@ public class AgreementRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    //삭제
+    //동의서 삭제
     @DeleteMapping("/agreements/{agreement_id}")
     public ResponseEntity<Void> deleteAgreement(@AuthenticationPrincipal String email,
         @PathVariable(value = "agreement_id") Long agreementId) {
@@ -46,7 +47,7 @@ public class AgreementRestController {
         return ResponseEntity.noContent().build();
     }
 
-    //수정
+    //동의서 수정
     @PutMapping("/agreements/{agreement_id}")
     public ResponseEntity<Void> updateAgreement(@AuthenticationPrincipal String email, @RequestBody AgreementRequest request,
         @PathVariable(value = "agreement_id") Long agreementId) {
@@ -54,17 +55,31 @@ public class AgreementRestController {
         return ResponseEntity.noContent().build();
     }
 
-    //상세조회
+    //동의서 상세조회
     @GetMapping("/agreements/{agreement_id}")
     public ResponseEntity<AgreementDetailResponse> getDetailAgreement(@AuthenticationPrincipal String email,
         @PathVariable(value = "agreement_id") Long agreementId) {
         return ResponseEntity.ok().body(agreementService.viewAgreementDetail(email, agreementId));
     }
 
-    //목록조회
+    //동의서 목록조회
     @GetMapping("/agreements/")
     public ResponseEntity<List<AgreementResponse>> getAgreements(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(agreementService.viewAgreements(pageable, email));
     }
+
+    // ----------서명 파트----------
+    //서명하기
+    @PostMapping("/agreements/{agreement_id}")
+    public ResponseEntity<Void> createAgree(@AuthenticationPrincipal String email, @RequestBody AgreeRequest request,
+        @PathVariable(value = "agreement_id") Long agreementId) {
+        agreementService.createAgree(email, agreementId, request);
+        URI uri = URI.create("api/agreements/" + agreementId);
+        return ResponseEntity.created(uri).build();
+    }
+
+    //서명한 사람 목록 받아오기
+
+
 }

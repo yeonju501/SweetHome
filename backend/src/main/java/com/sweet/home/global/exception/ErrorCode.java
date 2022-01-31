@@ -23,11 +23,17 @@ public enum ErrorCode {
 
     MEMBER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 중복된 이메일의 회원 정보가 존재합니다."),
 
-    //agreement
+    // agreement
     AGREEMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 동의서 ID 입니다."),
     AGREEMENT_NOT_YOUR_APARTMENT(HttpStatus.UNAUTHORIZED, "해당 아파트의 관리자가 아닙니다."),
 
-    //message
+    // buildingHouseMember
+    BUILDING_HOUSE_MEMBER_NOT_FOUND_ID(HttpStatus.NOT_FOUND, "존재하지 않는 세대주 입니다."),
+
+    // building (Building)
+    BUILDING_NOT_MATCH_BY_BUILDING_ID(HttpStatus.BAD_REQUEST, "빌딩 ID가 일치하지 않습니다."),
+
+    // message
     MESSAGE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 메시지 ID 입니다."),
     MESSAGE_NOT_MATCH_BY_MEMBER_ID(HttpStatus.BAD_REQUEST, "메시지 송수신자와 일치하지 않는 유저입니다."),
     MESSAGE_NOT_MATCH_BY_MEMBER_EMAIL(HttpStatus.BAD_REQUEST, "메시지 송수신자와 일치하지 않는 이메일입니다."),
