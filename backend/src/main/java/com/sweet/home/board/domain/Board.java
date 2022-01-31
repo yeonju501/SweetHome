@@ -17,9 +17,9 @@ public class Board {
     @Column(name = "board_id")
     private Long id;
 
-//    @ManyToOne(targetEntity = Apt.class, fetch = FetchType.LAZY)
+//    @ManyToOne(targetEntity = Building.class, fetch = FetchType.LAZY)
 //    @JoinColumn(name = "apt_id")
-//    private Apt apt;
+//    private Building apt;
 
     @Column(name = "name", length = 20, nullable = false)
     private String name;

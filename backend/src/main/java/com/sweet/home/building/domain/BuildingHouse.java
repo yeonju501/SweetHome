@@ -20,9 +20,9 @@ public class BuildingHouse {
     @Column(name = "building_house_id")
     private Long id;
 
-    @ManyToOne(targetEntity = Apt.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Building.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "building_id")
-    private Apt apt;
+    private Building building;
 
     @Column(name = "dong", nullable = true)
     private String dong;
@@ -34,8 +34,8 @@ public class BuildingHouse {
     }
 
     @Builder
-    public BuildingHouse(Apt apt, String dong, String ho) {
-        this.apt = apt;
+    public BuildingHouse(Building building, String dong, String ho) {
+        this.building = building;
         this.dong = dong;
         this.ho = ho;
     }

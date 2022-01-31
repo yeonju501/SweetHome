@@ -10,13 +10,21 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Apt {
+public class Building {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "building_id")
     private Long id;
 
-    public Apt() {
+    @Column(name = "name")
+    private String name;
+
+    public Building() {
+    }
+
+    @Builder
+    public Building(String name) {
+        this.name = name;
     }
 }
