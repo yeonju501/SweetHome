@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadMessageDeatil() {
 	const token = useSelector((state) => state.token.accessToken);
+	const location = useLocation();
 	const [messageDetail, setMessageDetail] = useState({
 		sender_username: "",
 		sender_email: "",
@@ -20,7 +22,7 @@ function ReadMessageDeatil() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/messages/1`,
+			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
