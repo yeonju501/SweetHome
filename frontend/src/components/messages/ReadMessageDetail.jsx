@@ -33,10 +33,23 @@ function ReadMessageDeatil() {
 				console.log(err);
 			});
 	}, []);
+
+	function onDeleteMessage(e) {
+		e.preventDefault();
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
+			headers: { Authorization: `Bearer ${token}` },
+		}).then((res) => {
+			console.log(res);
+		});
+	}
+
 	return (
 		<div>
 			<h1>ReadMessageDetail</h1>
 			{messageDetail.title}
+			<button onClick={onDeleteMessage}>삭제</button>
 		</div>
 	);
 }
