@@ -29,10 +29,13 @@ function ReadReceiveMessage() {
 			<h1>ReadReciveMessage</h1>
 			<ul>
 				{receiveMessageArray.map((receiveMessage, idx) => (
-					<li key={idx}>{receiveMessage.title}</li>
+					<li key={idx}>
+						<Link to="/message-box/message-detail" state={{ messageId: receiveMessage.message_id }}>
+							{receiveMessage.message_id}
+						</Link>
+					</li>
 				))}
 			</ul>
-			<Link to="/message-box/message-detail">MessageDetail</Link>
 		</div>
 	);
 }
