@@ -1,10 +1,17 @@
 package com.sweet.home.agreement.service;
 
+import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
+import com.sweet.home.agreement.domain.AgreedHouse;
+import com.sweet.home.agreement.domain.AgreedHouseRepository;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
+import com.sweet.home.building.domain.Building;
+import com.sweet.home.building.domain.BuildingHouseMember;
+import com.sweet.home.building.domain.BuildingRepository;
+import com.sweet.home.building.service.BuildingHouseMemberService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -20,10 +27,18 @@ public class AgreementService {
 
     private final AgreementRepository agreementRepository;
     private final MemberService memberService;
+    private final BuildingHouseMemberService buildingHouseMemberService;
+    private final BuildingRepository buildingRepository;
+    private final AgreedHouseRepository agreedHouseRepository;
 
-    public AgreementService(AgreementRepository agreementRepository, MemberService memberService) {
+    public AgreementService(AgreementRepository agreementRepository, MemberService memberService,
+        BuildingHouseMemberService buildingHouseMemberService, BuildingRepository buildingRepository,
+        AgreedHouseRepository agreedHouseRepository) {
         this.agreementRepository = agreementRepository;
         this.memberService = memberService;
+        this.buildingHouseMemberService = buildingHouseMemberService;
+        this.buildingRepository = buildingRepository;
+        this.agreedHouseRepository = agreedHouseRepository;
     }
 
     @Transactional
@@ -38,7 +53,7 @@ public class AgreementService {
         // agreementRepository.saveAll(Agreement.createAgreement(buildingMember.getBuildingId(), request));
 
         //다음은 임시 코드
-        String building = "2030";
+        Building building = buildingRepository.getById(1L);
         agreementRepository.save(Agreement.createAgreement(building, request));
         // 임시코드 끝
     }
@@ -52,7 +67,7 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
         // 임시코드
         // Member에서 찾은 BuildingMember에서의 building_id 필요
-        String building = "2030";
+        Building building = buildingRepository.getById(1L);
         // 임시코드 끝
 
         agreement.checkBuildingRelationship(building);
@@ -69,7 +84,7 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
         // 임시코드
         // Member에서 찾은 BuildingMember에서의 building_id 필요
-        String building = "2030";
+        Building building = buildingRepository.getById(1L);
         // 임시코드 끝
 
         agreement.checkBuildingRelationship(building);
@@ -80,7 +95,6 @@ public class AgreementService {
         agreement.changeEndDate(request.getEndDate());
     }
 
-    // 메시지 상세 조회
     @Transactional(readOnly = true)
     public AgreementDetailResponse viewAgreementDetail(String email, Long agreementId) {
         Member member = memberService.findByEmail(email);
@@ -90,7 +104,7 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트에서 살고있는지 확인하는 로직
         // 임시코드
         // Member에서 찾은 BuildingHouseMember에서 찾은 BuildingHouse 의 building_id 필요
-        String building = "2030";
+        Building building = buildingRepository.getById(1L);
         // 임시코드 끝
 
         agreement.checkBuildingRelationship(building);
@@ -105,11 +119,33 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트에서 살고있는지 확인하는 로직
         // 임시코드
         // Member에서 찾은 BuildingHouseMember에서 찾은 BuildingHouse 의 building_id 필요
-        String building = "2030";
+        Building building = buildingRepository.getById(1L);
         // 임시코드 끝
 
         return agreementRepository.findByBuilding(building, pageable).stream()
             .map(AgreementResponse::from)
             .collect(Collectors.toList());
     }
+
+    @Transactional
+    public void createAgree(String email, Long agreementId, AgreeRequest request) {
+        //멤버 찾기
+        Member member = memberService.findByEmail(email);
+
+        //멤버의 buildingHouseMember 찾기
+        BuildingHouseMember buildingHouseMember = buildingHouseMemberService.findByMember(member);
+
+        //동의서 ID 찾기
+        Agreement agreement = agreementRepository.findById(agreementId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+
+        //동의서의 buildingId와 멤버에서 찾은 BuildingHouse의 BuildingID 가 같은지 확인
+        if (!agreement.getBuilding().equals(buildingHouseMember.getBuildingHouse().getBuilding())) {
+            throw new BusinessException(ErrorCode.BUILDING_NOT_MATCH_BY_BUILDING_ID);
+        }
+
+        //동의서 서명하기
+        agreedHouseRepository.save(AgreedHouse.createAgree(agreement, buildingHouseMember.getBuildingHouse(), request));
+    }
 }
+
