@@ -67,6 +67,7 @@ function SignIn() {
 				.then((res) => {
 					dispatch(SET_TOKEN(res.data));
 					navigate("/main");
+					axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.access_token}`;
 					setTimeout(onSilentRefresh, 1000 * 60 * 30 - 6000);
 				})
 				.catch((err) => {

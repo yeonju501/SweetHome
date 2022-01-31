@@ -3,13 +3,11 @@ import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
 import * as inputValid from "../utils/inputValid";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import DeleteAccount from "../components/accounts/DeleteAccount";
 import { toast } from "react-toastify";
 import ProfileNav from "../components/ProfileNav";
 
 function Profile() {
-	const token = useSelector((state) => state.token.accessToken);
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const user = location.state.user;
@@ -30,7 +28,6 @@ function Profile() {
 		axios({
 			url: `${SERVER_URL}/api/members/my-profile`,
 			method: "get",
-			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => setUserInfo(res.data));
 	}, []);
 
@@ -50,7 +47,6 @@ function Profile() {
 				url: `${SERVER_URL}/api/members/my-profile`,
 				headers: {
 					"Content-Type": "application/json",
-					Authorization: `Bearer ${token}`,
 				},
 				data: userInfo,
 			})
