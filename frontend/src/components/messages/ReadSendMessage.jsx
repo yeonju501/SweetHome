@@ -5,7 +5,7 @@ import axios from "axios";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadSendMessage() {
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 	const [sendMessageArray, setSendMessageArray] = useState([]);
 
 	useEffect(() => {

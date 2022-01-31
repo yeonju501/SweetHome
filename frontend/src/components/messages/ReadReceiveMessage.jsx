@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadReceiveMessage() {
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 
 	useEffect(() => {
@@ -31,6 +32,7 @@ function ReadReceiveMessage() {
 					<li key={idx}>{receiveMessage.title}</li>
 				))}
 			</ul>
+			<Link to="/message-box/message-detail">MessageDetail</Link>
 		</div>
 	);
 }

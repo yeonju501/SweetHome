@@ -5,7 +5,7 @@ import axios from "axios";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadMessageDeatil() {
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 	const [messageDetail, setMessageDetail] = useState({
 		sender_username: "",
 		sender_email: "",
