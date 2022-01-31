@@ -7,6 +7,7 @@ export const SET_USER = (data) => ({ type: LOGIN, data });
 const initialState = {
 	username: "",
 	email: "",
+	phone_number: "",
 };
 
 const userInfo = (state = initialState, action) => {
@@ -16,12 +17,14 @@ const userInfo = (state = initialState, action) => {
 				...state,
 				username: action.data.username,
 				email: action.data.email,
+				phone_number: action.data.phone_number,
 			};
 		case DELETE:
 			return {
 				...state,
 				username: "",
 				email: "",
+				phone_number: "",
 			};
 		default:
 			return state;
