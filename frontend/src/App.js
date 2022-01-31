@@ -9,6 +9,7 @@ import MessageBox from "./pages/MessageBox";
 import ReadReceiveMessage from "./components/messages/ReadReceiveMessage";
 import ReadSendMessage from "./components/messages/ReadSendMessage";
 import SendMessage from "./components/messages/SendMessage";
+import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReadMessageDeatil from "./components/messages/ReadMessageDetail";
@@ -31,6 +32,7 @@ function App() {
 						<Route path="send-message" element={<SendMessage />} />
 						<Route path="message-detail" element={<ReadMessageDeatil />} />
 					</Route>
+					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Router>
 			<ToastContainer />
