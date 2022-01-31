@@ -38,6 +38,12 @@ public class ReplyService {
         replyRepository.save(reply);
     }
 
+    @Transactional(readOnly = true)
+    public Reply findById(Long replyId) {
+        return replyRepository.findById(replyId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REPLY_NOT_FOUND_BY_ID));
+    }
+
     @Transactional
     public void updateReply(String email, Long replyId, ReplySaveRequest request) {
         Reply reply = replyRepository.findById(replyId)
