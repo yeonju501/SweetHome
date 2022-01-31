@@ -11,6 +11,7 @@ import ReadSendMessage from "./components/messages/ReadSendMessage";
 import SendMessage from "./components/messages/SendMessage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ReadMessageDeatil from "./components/messages/ReadMessageDetail";
 
 function App() {
 	return (
@@ -28,6 +29,7 @@ function App() {
 						<Route path="read-receive-message" element={<ReadReceiveMessage />} />
 						<Route path="read-send-message" element={<ReadSendMessage />} />
 						<Route path="send-message" element={<SendMessage />} />
+						<Route path="message-detail" element={<ReadMessageDeatil />} />
 					</Route>
 				</Routes>
 			</Router>
