@@ -2,6 +2,8 @@ package com.sweet.home.reply.service;
 
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.service.CommentService;
+import com.sweet.home.global.exception.BusinessException;
+import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.reply.controller.dto.request.ReplySaveRequest;
@@ -34,5 +36,14 @@ public class ReplyService {
             .content(request.getContent())
             .build();
         replyRepository.save(reply);
+    }
+
+    @Transactional
+    public void updateReply(String email, Long replyId, ReplySaveRequest request) {
+        Reply reply = replyRepository.findById(replyId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REPLY_NOT_FOUND_BY_ID));
+
+        reply.checkReplyByEmail(email);
+        reply.changeContent(request.getContent());
     }
 }
