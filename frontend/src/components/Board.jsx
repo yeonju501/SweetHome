@@ -16,7 +16,6 @@ function Board({ currentBoard }) {
 	const getArticles = () => {
 		axios({
 			url: `${SERVER_URL}/api/boards/${currentBoard.id}/articles`,
-			headers: { Authorization: `Bearer ${token}` },
 			method: "get",
 		})
 			.then((res) => {

@@ -19,7 +19,6 @@ function CreateBoard() {
 		if (name.trim() && description.trim()) {
 			axios({
 				url: `${SERVER_URL}/api/boards`,
-				headers: { Authorization: `Bearer ${token}` },
 				method: "post",
 				data: boardInfo,
 			})

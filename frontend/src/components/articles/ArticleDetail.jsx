@@ -15,7 +15,6 @@ function ArticleDetail({ articleId }) {
 		axios({
 			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 			method: "get",
-			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => console.log(res))
 			.catch((err) => console.log(err));
