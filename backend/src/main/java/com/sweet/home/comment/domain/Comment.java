@@ -4,7 +4,9 @@ import com.sweet.home.article.domain.Article;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
+import com.sweet.home.reply.domain.Reply;
 import java.time.LocalDateTime;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,6 +16,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Formula;
@@ -56,6 +59,9 @@ public class Comment {
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from comment_like cl where cl.comment_id = comment_id)")
     private long totalLikes;
+
+    @OneToMany(mappedBy = "comment", targetEntity = Reply.class, fetch = FetchType.LAZY)
+    private List<Reply> replies;
 
     protected Comment() {
     }
