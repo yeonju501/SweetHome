@@ -9,7 +9,6 @@ function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 	const [articles, setArticles] = useState([]);
 
 	useEffect(() => {
-		console.log(currentBoard);
 		currentBoard && getArticles();
 	}, [currentBoard]);
 
@@ -23,7 +22,6 @@ function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 	};
 
 	const handleArticleClick = (article) => {
-		console.log(article);
 		setCurrentArticle(article.id);
 		setArticleClicked(true);
 	};
