@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import BoardList from "../components/BoardList";
 import CreateBoard from "../components/CreateBoard";
 import Board from "../components/Board";
+import ArticleDetail from "../components/articles/ArticleDetail";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -14,7 +15,9 @@ function Main() {
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
 	const [boards, setBoards] = useState([]);
+	const [articleClicked, setArticleClicked] = useState(false);
 	const [currentBoard, setCurrentBoard] = useState("");
+	const [currentArticle, setCurrentArticle] = useState("");
 
 	useEffect(() => {
 		axios({
@@ -46,7 +49,15 @@ function Main() {
 				<Navbar />
 				<CreateBoard />
 				<BoardList boards={boards} setCurrentBoard={setCurrentBoard} />
-				<Board currentBoard={currentBoard} />
+				{articleClicked ? (
+					<ArticleDetail articleId={currentArticle} currentBoard={currentBoard} />
+				) : (
+					<Board
+						currentBoard={currentBoard}
+						setArticleClicked={setArticleClicked}
+						setCurrentArticle={setCurrentArticle}
+					/>
+				)}
 				<p>{userInfo.username}</p>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile

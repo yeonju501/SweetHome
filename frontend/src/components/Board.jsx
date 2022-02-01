@@ -4,12 +4,11 @@ import axios from "axios";
 import CreateArticle from "./articles/CreateArticle";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function Board({ currentBoard }) {
+function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 	const token = useSelector((state) => state.token.token);
 	const [articles, setArticles] = useState([]);
 
 	useEffect(() => {
-		console.log(currentBoard);
 		currentBoard && getArticles();
 	}, [currentBoard]);
 
@@ -17,14 +16,14 @@ function Board({ currentBoard }) {
 		axios({
 			url: `${SERVER_URL}/api/boards/${currentBoard.id}/articles`,
 			method: "get",
-		})
-			.then((res) => {
-				console.log(res);
-				setArticles(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).then((res) => {
+			setArticles(res.data);
+		});
+	};
+
+	const handleArticleClick = (article) => {
+		setCurrentArticle(article.id);
+		setArticleClicked(true);
 	};
 
 	return (
@@ -36,7 +35,13 @@ function Board({ currentBoard }) {
 			{currentBoard ? <CreateArticle boardId={currentBoard.id} getArticles={getArticles} /> : null}
 			<ul>
 				{articles.map((article) => (
-					<li key={article.id}>
+					<li
+						key={article.id}
+						id={article.id}
+						onClick={() => {
+							handleArticleClick(article);
+						}}
+					>
 						<p>{article.username}</p>
 						<p>{article.created_at}</p>
 						<h3>{article.title}</h3>
