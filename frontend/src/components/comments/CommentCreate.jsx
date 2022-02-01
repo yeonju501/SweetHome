@@ -22,6 +22,7 @@ function CommentCreate() {
 		<div>
 			<form onSubmit={onSubmit}>
 				<input type="text" onChange={onChange} value={comment} placeholder="댓글을 남겨 보세요" />
+				<button>작성</button>
 			</form>
 		</div>
 	);

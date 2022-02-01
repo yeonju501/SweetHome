@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import Comments from "../comments/Comments";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -45,7 +46,9 @@ function ArticleDetail({ articleId }) {
 					<button>🤍</button>
 				</div>
 			</article>
-			<div>댓글 박스</div>
+			<div>
+				<Comments />
+			</div>
 		</div>
 	);
 }
