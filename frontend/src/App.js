@@ -1,4 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import axios from "axios";
 import SignIn from "./components/accounts/SignIn";
 import Home from "./pages/Home";
 import Main from "./pages/Main";
@@ -14,6 +15,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReadMessageDeatil from "./components/messages/ReadMessageDetail";
 
+axios.defaults.withCredentials = true;
 function App() {
 	return (
 		<>

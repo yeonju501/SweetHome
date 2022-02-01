@@ -6,7 +6,6 @@ export const SET_TOKEN = (token) => ({ type: LOGIN, token });
 
 const initialState = {
 	accessToken: "",
-	refreshToken: "",
 };
 
 const token = (state = initialState, action) => {
@@ -15,13 +14,11 @@ const token = (state = initialState, action) => {
 			return {
 				...state,
 				accessToken: action.token.access_token,
-				refreshToken: action.token.refresh_token,
 			};
 		case DELETE:
 			return {
 				...state,
 				accessToken: "",
-				refreshToken: "",
 			};
 		default:
 			return state;

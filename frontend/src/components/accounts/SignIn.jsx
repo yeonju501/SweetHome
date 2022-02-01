@@ -7,6 +7,7 @@ import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
 import { SignInButton } from "./SignButton";
+import Cookies from "universal-cookie";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -54,6 +55,8 @@ function SignIn() {
 			});
 	}
 	function onSubmit(e) {
+		const cookies = new Cookies();
+		const expires = 1000 * 3600 * 24 * 7;
 		e.preventDefault();
 		if (isValid) {
 			axios({
@@ -65,7 +68,13 @@ function SignIn() {
 				data: inputValue,
 			})
 				.then((res) => {
-					dispatch(SET_TOKEN(res.data));
+					dispatch(SET_TOKEN(res.data.access_token));
+					cookies.set("refreshToken", res.data.refresh_token, {
+						path: "/",
+						secure: true,
+						// httpOnly: true,
+						expires: new Date(Date.now() + expires),
+					});
 					navigate("/main");
 					axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.access_token}`;
 					setTimeout(onSilentRefresh, 1000 * 60 * 30 - 6000);
