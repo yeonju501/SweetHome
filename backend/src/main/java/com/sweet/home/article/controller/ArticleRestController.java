@@ -2,6 +2,7 @@ package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
+import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
@@ -37,16 +38,21 @@ public class ArticleRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/{boardId}/articles")
-    public ResponseEntity<List<ArticleTitleResponse>> showArticles(@PathVariable Long boardId,
-        @PageableDefault Pageable pageable) {
-        articleService.findAllByBoard(boardId, pageable);
-        return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
-    }
-
     @GetMapping("/articles/{articleId}")
     public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long articleId) {
         return ResponseEntity.ok().body(articleService.showArticle(articleId));
+    }
+
+    @GetMapping("/{boardId}/articles")
+    public ResponseEntity<List<ArticleTitleResponse>> showArticles(@PathVariable Long boardId,
+        @PageableDefault Pageable pageable) {
+        return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
+    }
+
+    @GetMapping("/articles/mine")
+    public ResponseEntity<List<ArticleLikeResponse>> showMyArticles(@AuthenticationPrincipal String email,
+        @PageableDefault Pageable pageable) {
+        return ResponseEntity.ok().body(articleService.findAllByMember(email, pageable));
     }
 
     @PutMapping("/articles/{articleId}")
