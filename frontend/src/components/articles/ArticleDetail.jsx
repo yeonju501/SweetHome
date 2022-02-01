@@ -5,7 +5,7 @@ import Comments from "../comments/Comments";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function ArticleDetail({ articleId, currentBoard }) {
+function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 	const token = useSelector((state) => state.token.token);
 
 	const [articleData, setArticleData] = useState();
@@ -15,10 +15,18 @@ function ArticleDetail({ articleId, currentBoard }) {
 			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 			method: "get",
 		}).then((res) => {
-			console.log(res.data);
 			setArticleData(res.data);
 		});
 	}, []);
+
+	const handleDeleteButton = () => {
+		axios({
+			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
+			method: "delete",
+		}).then(() => {
+			setArticleClicked(false);
+		});
+	};
 
 	return (
 		<div>
@@ -36,7 +44,7 @@ function ArticleDetail({ articleId, currentBoard }) {
 						</div>
 						<div>
 							<button>수정</button>
-							<button>삭제</button>
+							<button onClick={handleDeleteButton}>삭제</button>
 						</div>
 						<h3>{articleData.title}</h3>
 						<p>{articleData.content}</p>

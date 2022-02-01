@@ -50,7 +50,11 @@ function Main() {
 				<CreateBoard />
 				<BoardList boards={boards} setCurrentBoard={setCurrentBoard} />
 				{articleClicked ? (
-					<ArticleDetail articleId={currentArticle} currentBoard={currentBoard} />
+					<ArticleDetail
+						articleId={currentArticle}
+						currentBoard={currentBoard}
+						setArticleClicked={setArticleClicked}
+					/>
 				) : (
 					<Board
 						currentBoard={currentBoard}
