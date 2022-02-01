@@ -1,5 +1,6 @@
 package com.sweet.home.article.controller.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sweet.home.article.domain.Article;
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class ArticleTitleResponse {
     @JsonProperty("content")
     private String content;
 
+    @JsonFormat
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 

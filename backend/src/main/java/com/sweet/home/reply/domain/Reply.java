@@ -53,6 +53,10 @@ public class Reply {
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from reply_like rl where rl.reply_id = reply_id)")
+    private long totalLikes;
+
     protected Reply() {
     }
 

@@ -3,7 +3,7 @@ package com.sweet.home.comment.service;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
-import com.sweet.home.comment.controller.dto.response.CommentResponse;
+import com.sweet.home.comment.controller.dto.response.CommentReplyResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.domain.CommentRepository;
 import com.sweet.home.global.exception.BusinessException;
@@ -49,10 +49,10 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentResponse> findAllByArticle(Long articleId, Pageable pageable) {
+    public List<CommentReplyResponse> findAllByArticle(Long articleId, Pageable pageable) {
         Article article = articleService.findById(articleId);
         return commentRepository.findAllByArticle(article, pageable).stream()
-            .map(CommentResponse::from)
+            .map(CommentReplyResponse::from)
             .collect(Collectors.toList());
     }
 
