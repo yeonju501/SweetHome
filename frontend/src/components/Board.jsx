@@ -4,7 +4,7 @@ import axios from "axios";
 import CreateArticle from "./articles/CreateArticle";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function Board({ currentBoard }) {
+function Board({ currentBoard, setArticleClicked }) {
 	const token = useSelector((state) => state.token.token);
 	const [articles, setArticles] = useState([]);
 
@@ -27,6 +27,11 @@ function Board({ currentBoard }) {
 			});
 	};
 
+	const handleArticleClick = (res) => {
+		console.log(res.target);
+		setArticleClicked(true);
+	};
+
 	return (
 		<div>
 			<div>
@@ -36,7 +41,7 @@ function Board({ currentBoard }) {
 			{currentBoard ? <CreateArticle boardId={currentBoard.id} getArticles={getArticles} /> : null}
 			<ul>
 				{articles.map((article) => (
-					<li key={article.id}>
+					<li key={article.id} id={article.id} onClick={handleArticleClick}>
 						<p>{article.username}</p>
 						<p>{article.created_at}</p>
 						<h3>{article.title}</h3>

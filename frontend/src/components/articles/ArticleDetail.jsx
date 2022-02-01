@@ -45,9 +45,7 @@ function ArticleDetail({ articleId }) {
 					<button>🤍</button>
 				</div>
 			</article>
-			<div>
-				<Comments />
-			</div>
+			<div></div>
 		</div>
 	);
 }
