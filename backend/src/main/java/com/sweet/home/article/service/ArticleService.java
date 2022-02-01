@@ -2,6 +2,7 @@ package com.sweet.home.article.service;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
+import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
@@ -48,6 +49,14 @@ public class ArticleService {
         Board board = boardService.findById(boardId);
         return articleRepository.findAllByBoard(board, pageable).stream()
             .map(ArticleTitleResponse::from)
+            .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleLikeResponse> findAllByMember(String email, Pageable pageable) {
+        Member member = memberService.findByEmail(email);
+        return articleRepository.findAllByMember(member, pageable).stream()
+            .map(ArticleLikeResponse::from)
             .collect(Collectors.toList());
     }
 

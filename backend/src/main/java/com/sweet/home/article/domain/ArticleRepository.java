@@ -1,6 +1,7 @@
 package com.sweet.home.article.domain;
 
 import com.sweet.home.board.domain.Board;
+import com.sweet.home.member.domain.Member;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
@@ -11,4 +12,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @EntityGraph(attributePaths = {"board"}, type = EntityGraphType.FETCH)
     Page<Article> findAllByBoard(Board board, Pageable pageable);
+
+    @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
+    Page<Article> findAllByMember(Member member, Pageable pageable);
 }
