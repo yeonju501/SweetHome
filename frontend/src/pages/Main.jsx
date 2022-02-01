@@ -50,9 +50,13 @@ function Main() {
 				<CreateBoard />
 				<BoardList boards={boards} setCurrentBoard={setCurrentBoard} />
 				{articleClicked ? (
-					<ArticleDetail currentArticle={currentArticle} />
+					<ArticleDetail articleId={currentArticle} />
 				) : (
-					<Board currentBoard={currentBoard} setArticleClicked={setArticleClicked} />
+					<Board
+						currentBoard={currentBoard}
+						setArticleClicked={setArticleClicked}
+						setCurrentArticle={setCurrentArticle}
+					/>
 				)}
 				<p>{userInfo.username}</p>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
