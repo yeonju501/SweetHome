@@ -68,7 +68,7 @@ function SignIn() {
 				data: inputValue,
 			})
 				.then((res) => {
-					dispatch(SET_TOKEN(res.data.access_token));
+					dispatch(SET_TOKEN(res.data));
 					cookies.set("refreshToken", res.data.refresh_token, {
 						path: "/",
 						secure: true,

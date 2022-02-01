@@ -20,7 +20,6 @@ function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
 		if (title.trim() && content.trim()) {
 			axios({
 				url: `${SERVER_URL}/api/boards/${boardId}/articles/`,
-				headers: { Authorization: `Bearer ${token}` },
 				method: "post",
 				data: articleData,
 			})

@@ -6,7 +6,7 @@ import style from "../style/Home.module.css";
 import { ReactComponent as Apart } from "../assets/main_apartment.svg";
 function Home() {
 	const navigate = useNavigate();
-	const token = useSelector((state) => state.token.token);
+	const token = useSelector((state) => state.token.accessToken);
 
 	useEffect(() => {
 		token && navigate("/main");
