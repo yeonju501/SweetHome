@@ -8,6 +8,7 @@ import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -45,13 +46,13 @@ public class ArticleRestController {
 
     @GetMapping("/{boardId}/articles")
     public ResponseEntity<List<ArticleTitleResponse>> showArticles(@PathVariable Long boardId,
-        @PageableDefault Pageable pageable) {
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
     }
 
     @GetMapping("/articles/mine")
     public ResponseEntity<List<ArticleLikeResponse>> showMyArticles(@AuthenticationPrincipal String email,
-        @PageableDefault Pageable pageable) {
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.findAllByMember(email, pageable));
     }
 
