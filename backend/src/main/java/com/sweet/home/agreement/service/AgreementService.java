@@ -2,6 +2,7 @@ package com.sweet.home.agreement.service;
 
 import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
+import com.sweet.home.agreement.controller.dto.response.AgreedHouseResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
 import com.sweet.home.agreement.domain.AgreedHouse;
@@ -9,6 +10,7 @@ import com.sweet.home.agreement.domain.AgreedHouseRepository;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
 import com.sweet.home.building.domain.Building;
+import com.sweet.home.building.domain.BuildingHouse;
 import com.sweet.home.building.domain.BuildingHouseMember;
 import com.sweet.home.building.domain.BuildingRepository;
 import com.sweet.home.building.service.BuildingHouseMemberService;
@@ -131,21 +133,44 @@ public class AgreementService {
     public void createAgree(String email, Long agreementId, AgreeRequest request) {
         //멤버 찾기
         Member member = memberService.findByEmail(email);
-
         //멤버의 buildingHouseMember 찾기
         BuildingHouseMember buildingHouseMember = buildingHouseMemberService.findByMember(member);
-
         //동의서 ID 찾기
         Agreement agreement = agreementRepository.findById(agreementId)
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
 
         //동의서의 buildingId와 멤버에서 찾은 BuildingHouse의 BuildingID 가 같은지 확인
-        if (!agreement.getBuilding().equals(buildingHouseMember.getBuildingHouse().getBuilding())) {
+        checkSameBuilding(agreement.getBuilding(), buildingHouseMember.getBuildingHouse().getBuilding());
+        //이미 서명한 세대인지 확인
+        checkDuplicateHouse(buildingHouseMember.getBuildingHouse());
+
+        agreedHouseRepository.save(AgreedHouse.createAgree(agreement, buildingHouseMember.getBuildingHouse(), request));
+    }
+
+    private void checkSameBuilding (Building firstBuilding, Building secondBuilding){
+        if (!firstBuilding.equals(secondBuilding)) {
             throw new BusinessException(ErrorCode.BUILDING_NOT_MATCH_BY_BUILDING_ID);
         }
+    }
 
-        //동의서 서명하기
-        agreedHouseRepository.save(AgreedHouse.createAgree(agreement, buildingHouseMember.getBuildingHouse(), request));
+    private void checkDuplicateHouse (BuildingHouse buildingHouse){
+        if (agreedHouseRepository.existsByBuildingHouse(buildingHouse)){
+            throw new BusinessException(ErrorCode.AGREEMENT_ALREADY_AGREED);
+        };
+    }
+
+    @Transactional(readOnly = true)
+    public List<AgreedHouseResponse> viewAgreedHouses(String email, Long agreementId) {
+        Member member = memberService.findByEmail(email);
+
+        //TODO: 이 멤버가 해당 동의서의 아파트 관리자인지 찾기
+
+        Agreement agreement = agreementRepository.findById(agreementId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+
+        return agreedHouseRepository.findByAgreement(agreement).stream()
+            .map(AgreedHouseResponse::from)
+            .collect(Collectors.toList());
     }
 }
 
