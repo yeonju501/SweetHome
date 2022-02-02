@@ -1,4 +1,4 @@
-package com.sweet.home.article.domain;
+package com.sweet.home.comment.domain;
 
 import com.sweet.home.member.domain.Member;
 import java.time.LocalDateTime;
@@ -15,23 +15,23 @@ import lombok.Getter;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
-@Getter
 @Entity
+@Getter
 @Where(clause = "deleted_at is null")
-public class ArticleReport {
+public class CommentReport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "article_report_id")
+    @Column(name = "comment_report_id")
     private Long id;
-
-    @ManyToOne(targetEntity = Article.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "article_id")
-    private Article article;
 
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
+
+    @ManyToOne(targetEntity = Comment.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    private Comment comment;
 
     @Column(name = "content")
     private String content;
@@ -43,13 +43,14 @@ public class ArticleReport {
     @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
 
-    protected ArticleReport() {
+    protected CommentReport() {
+
     }
 
     @Builder
-    public ArticleReport(Article article, Member member, String content) {
-        this.article = article;
+    public CommentReport(Member member, Comment comment, String content) {
         this.member = member;
+        this.comment = comment;
         this.content = content;
     }
 }

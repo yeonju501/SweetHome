@@ -7,6 +7,7 @@ import com.sweet.home.member.domain.Member;
 import com.sweet.home.reply.domain.Reply;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +27,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @Getter
 @Entity
-@Where(clause = "deleted_at is null")
+@Where(clause = "deleted_at is null and blocked_at is null")
 public class Comment {
 
     @Id
@@ -50,18 +51,27 @@ public class Comment {
     private LocalDateTime createdAt;
 
     @LastModifiedDate
-    @Column(name = "updated_at")
+    @Column(name = "updated_at", nullable = true)
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
+    @Column(name = "blocked_at", nullable = true)
+    private LocalDateTime blockedAt;
+
+    @Column(name = "deleted_at", nullable = true)
     private LocalDateTime deletedAt;
 
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from comment_like cl where cl.comment_id = comment_id)")
     private long totalLikes;
 
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from comment_report cr where cr.comment_id = comment_id)")
+    private long totalReports;
+
     @OneToMany(mappedBy = "comment", targetEntity = Reply.class, fetch = FetchType.LAZY)
     private List<Reply> replies;
+
+    private static final int BLOCK_STANDARD = 5;
 
     protected Comment() {
     }
@@ -80,10 +90,18 @@ public class Comment {
     }
 
     public void changeContent(String content) {
-        this.content = content;
+        if (!Objects.isNull(content)) {
+            this.content = content;
+        }
     }
 
     public void deleteComment() {
         this.deletedAt = LocalDateTime.now();
+    }
+
+    public void checkTotalReports() {
+        if (this.totalReports >= BLOCK_STANDARD) {
+            this.blockedAt = LocalDateTime.now();
+        }
     }
 }
