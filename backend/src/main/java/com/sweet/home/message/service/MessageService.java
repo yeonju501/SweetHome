@@ -7,6 +7,7 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.controller.dto.response.MessageResponse;
@@ -51,6 +52,20 @@ public class MessageService {
         message.checkSenderOrReceiver(member);
 
         message.deleteMessage();
+    }
+
+    // 메시지 다중 삭제
+    @Transactional
+    public void deleteMessages(String email, MessageDeleteRequest request) {
+        Member member = memberService.findByEmail(email);
+        for (Long id : request.getIds()) {
+            Message message = messageRepository.findById(id)
+                .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
+
+            message.checkSenderOrReceiver(member);
+
+            message.deleteMessage();
+        }
     }
 
     // 메시지 상세 조회

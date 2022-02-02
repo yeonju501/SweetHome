@@ -1,5 +1,6 @@
 package com.sweet.home.message.controller;
 
+import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.controller.dto.response.MessageResponse;
@@ -35,6 +36,12 @@ public class MessageRestController {
     public ResponseEntity<Void> deleteMessage(@AuthenticationPrincipal String email,
         @PathVariable(value = "message_id") Long messageId) {
         messageService.deleteMessage(email, messageId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/messages/")
+    public ResponseEntity<Void> deleteMessages(@AuthenticationPrincipal String email, @RequestBody MessageDeleteRequest request) {
+        messageService.deleteMessages(email, request);
         return ResponseEntity.noContent().build();
     }
 
