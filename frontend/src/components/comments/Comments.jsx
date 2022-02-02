@@ -22,7 +22,7 @@ function Comments({ articleId }) {
 	return (
 		<div>
 			{comments ? (
-				<CommentsList articleId={articleId} comments={comments} />
+				<CommentsList articleId={articleId} comments={comments} getComments={getComments} />
 			) : (
 				<p>작성된 댓글이 없습니다</p>
 			)}
