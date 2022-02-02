@@ -10,6 +10,23 @@ function CommentUpdate({ comment, getComments }) {
 		setCommentContent({ content: e.target.value });
 	};
 
+	const onClick = () => {
+		setUpdate(!update);
+	};
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		axios({
+			url: `${URL}/api/articles/comments/${comment.id}`,
+			method: "put",
+			headers: { "Content-Type": "application/json" },
+			data: commentContent,
+		}).then(() => {
+			getComments();
+			onClick();
+		});
+	};
+
 	return (
 		<>
 			{update ? (
