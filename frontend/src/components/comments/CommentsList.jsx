@@ -1,6 +1,7 @@
 import React from "react";
+import CommentDelete from "./CommentDelete";
 
-function CommentsList({ comments }) {
+function CommentsList({ comments, articleId, getComments }) {
 	return (
 		<ul>
 			{comments &&
@@ -9,6 +10,7 @@ function CommentsList({ comments }) {
 						<p>{comment.username}</p>
 						<p>{comment.content}</p>
 						<p>{comment.created_at}</p>
+						<CommentDelete id={comment.id} articleId={articleId} getComments={getComments} />
 					</li>
 				))}
 		</ul>
