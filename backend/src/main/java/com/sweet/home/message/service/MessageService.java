@@ -54,7 +54,7 @@ public class MessageService {
         message.deleteMessage();
     }
 
-    // 메시지 삭제
+    // 메시지 다중 삭제
     @Transactional
     public void deleteMessages(String email, MessageDeleteRequest request) {
         Member member = memberService.findByEmail(email);
