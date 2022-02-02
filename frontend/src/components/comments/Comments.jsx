@@ -12,7 +12,7 @@ function Comments({ articleId }) {
 			url: `${URL}/api/articles/${articleId}/comments`,
 			method: "get",
 		}).then((res) => setComments(res.data));
-	});
+	}, [comments]);
 	return (
 		<div>
 			<CommentsList articleId={articleId} commnets={comments || null} />
