@@ -2,6 +2,7 @@ package com.sweet.home.agreement.controller;
 
 import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
+import com.sweet.home.agreement.controller.dto.response.AgreedHouseResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
 import com.sweet.home.agreement.service.AgreementService;
@@ -80,6 +81,9 @@ public class AgreementRestController {
     }
 
     //서명한 사람 목록 받아오기
-
-
+    @GetMapping("/agreements/agree/{agreement_id}")
+    public ResponseEntity<List<AgreedHouseResponse>> getAgreedHouses(@AuthenticationPrincipal String email,
+        @PathVariable(value = "agreement_id") Long agreementId) {
+        return ResponseEntity.ok().body(agreementService.viewAgreedHouses(email, agreementId));
+    }
 }
