@@ -7,12 +7,16 @@ function Comments({ articleId }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState(null);
 
-	useEffect(() => {
+	const getComments = () => {
 		axios({
 			url: `${URL}/api/articles/${articleId}/comments`,
 			method: "get",
 		}).then((res) => setComments(res.data));
-	}, [comments]);
+	};
+	useEffect(() => {
+		getComments();
+	}, []);
+
 	return (
 		<div>
 			{comments ? (
