@@ -5,7 +5,7 @@ function CommentsList({ comments }) {
 		<ul>
 			{comments &&
 				comments.map((comment) => (
-					<li>
+					<li key={comment.id}>
 						<p>{comment.username}</p>
 						<p>{comment.content}</p>
 						<p>{comment.created_at}</p>
