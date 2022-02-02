@@ -1,5 +1,6 @@
 import React from "react";
 import CommentDelete from "./CommentDelete";
+import CommentUpdate from "./CommentUpdate";
 
 function CommentsList({ comments, articleId, getComments }) {
 	return (
@@ -7,9 +8,7 @@ function CommentsList({ comments, articleId, getComments }) {
 			{comments &&
 				comments.map((comment) => (
 					<li key={comment.id}>
-						<p>{comment.username}</p>
-						<p>{comment.content}</p>
-						<p>{comment.created_at}</p>
+						<CommentUpdate comment={comment} getComments={getComments} />
 						<CommentDelete id={comment.id} articleId={articleId} getComments={getComments} />
 					</li>
 				))}
