@@ -5,7 +5,7 @@ import CommentsList from "./CommentsList";
 
 function Comments({ articleId }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
-	const [comments, setComments] = useState(null);
+	const [comments, setComments] = useState("");
 
 	const getComments = () => {
 		axios({
@@ -24,7 +24,7 @@ function Comments({ articleId }) {
 			) : (
 				<p>작성된 댓글이 없습니다</p>
 			)}
-			<CommentCreate articleId={articleId} />
+			<CommentCreate articleId={articleId} getComments={getComments} />
 		</div>
 	);
 }
