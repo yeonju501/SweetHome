@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 
-function CommentCreate({ articleId }) {
+function CommentCreate({ articleId, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
@@ -16,8 +16,10 @@ function CommentCreate({ articleId }) {
 			method: "post",
 			headers: { "Content-Type": "application/json;charset=UTF-8" },
 			data: comment,
+		}).then(() => {
+			setComment({ content: "" });
+			getComments();
 		});
-		setComment({ content: "" });
 	};
 
 	return (

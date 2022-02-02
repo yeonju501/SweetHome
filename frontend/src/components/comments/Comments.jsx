@@ -5,22 +5,28 @@ import CommentsList from "./CommentsList";
 
 function Comments({ articleId }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
-	const [comments, setComments] = useState(null);
+	const [comments, setComments] = useState("");
 
-	useEffect(() => {
+	const getComments = () => {
 		axios({
 			url: `${URL}/api/articles/${articleId}/comments`,
 			method: "get",
-		}).then((res) => setComments(res.data));
-	}, [comments]);
+		}).then((res) => {
+			setComments(res.data);
+		});
+	};
+	useEffect(() => {
+		getComments();
+	}, []);
+
 	return (
 		<div>
 			{comments ? (
-				<CommentsList articleId={articleId} commnets={comments} />
+				<CommentsList articleId={articleId} comments={comments} />
 			) : (
 				<p>작성된 댓글이 없습니다</p>
 			)}
-			<CommentCreate articleId={articleId} />
+			<CommentCreate articleId={articleId} getComments={getComments} />
 		</div>
 	);
 }
