@@ -3,7 +3,7 @@ import axios from "axios";
 import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 
-function Comments() {
+function Comments({ articleId }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState(null);
 
@@ -15,8 +15,8 @@ function Comments() {
 	});
 	return (
 		<div>
-			<CommentsList commnets={comments} />
-			<CommentCreate />
+			<CommentsList articleId={articleId} commnets={comments || null} />
+			<CommentCreate articleId={articleId} />
 		</div>
 	);
 }

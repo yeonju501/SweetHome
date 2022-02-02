@@ -54,6 +54,7 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 							<button>🤍</button>
 						</div>
 					</article>
+					<Comments articleId={articleId} />
 				</div>
 			)}
 		</div>
