@@ -3,7 +3,7 @@ import axios from "axios";
 import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 
-function Comments() {
+function Comments({ articleId }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState(null);
 
@@ -12,11 +12,15 @@ function Comments() {
 			url: `${URL}/api/articles/${articleId}/comments`,
 			method: "get",
 		}).then((res) => setComments(res.data));
-	});
+	}, [comments]);
 	return (
 		<div>
-			<CommentsList commnets={comments} />
-			<CommentCreate />
+			{comments ? (
+				<CommentsList articleId={articleId} commnets={comments} />
+			) : (
+				<p>작성된 댓글이 없습니다</p>
+			)}
+			<CommentCreate articleId={articleId} />
 		</div>
 	);
 }
