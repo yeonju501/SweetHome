@@ -15,7 +15,11 @@ function Comments({ articleId }) {
 	}, [comments]);
 	return (
 		<div>
-			{comments && <CommentsList articleId={articleId} commnets={comments} />}
+			{comments ? (
+				<CommentsList articleId={articleId} commnets={comments} />
+			) : (
+				<p>작성된 댓글이 없습니다</p>
+			)}
 			<CommentCreate articleId={articleId} />
 		</div>
 	);
