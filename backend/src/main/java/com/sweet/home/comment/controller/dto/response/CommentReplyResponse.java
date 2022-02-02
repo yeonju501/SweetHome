@@ -12,6 +12,9 @@ import lombok.Getter;
 @Getter
 public class CommentReplyResponse {
 
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("username")
     private String username;
 
@@ -35,8 +38,9 @@ public class CommentReplyResponse {
     protected CommentReplyResponse() {
     }
 
-    public CommentReplyResponse(String username, String content, LocalDateTime createdAt,
+    public CommentReplyResponse(Long id, String username, String content, LocalDateTime createdAt,
         LocalDateTime updatedAt, long totalLikes, List<ReplyResponse> replies) {
+        this.id = id;
         this.username = username;
         this.content = content;
         this.createdAt = createdAt;
@@ -47,6 +51,7 @@ public class CommentReplyResponse {
 
     public static CommentReplyResponse from(Comment comment) {
         return new CommentReplyResponse(
+            comment.getId(),
             comment.getMember().getUsername(),
             comment.getContent(),
             comment.getCreatedAt(),
