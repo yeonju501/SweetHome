@@ -8,11 +8,13 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function ReadReceiveMessage() {
 	const token = useSelector((state) => state.token.accessToken);
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
+	const [page, setPage] = useState(0);
+	const size = 10;
 
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/messages/receive`,
+			url: `${SERVER_URL}/api/messages/receive?page=${page}&size=${size}`,
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
@@ -23,7 +25,15 @@ function ReadReceiveMessage() {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [page]);
+
+	const pageUp = () => {
+		setPage(page + 1);
+	};
+
+	const pageDown = () => {
+		setPage(page - 1);
+	};
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
@@ -36,6 +46,8 @@ function ReadReceiveMessage() {
 					</li>
 				))}
 			</ul>
+			<button onClick={pageDown}>이전</button>
+			<button onClick={pageUp}>다음</button>
 		</div>
 	);
 }
