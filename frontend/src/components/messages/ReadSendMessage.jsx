@@ -14,7 +14,7 @@ function ReadSendMessage() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/messages/send`,
+			url: `${SERVER_URL}/api/messages/send?page=${page}&size=${size}`,
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
@@ -25,7 +25,7 @@ function ReadSendMessage() {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [page]);
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
