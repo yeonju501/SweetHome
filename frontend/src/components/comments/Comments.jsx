@@ -15,7 +15,7 @@ function Comments({ articleId }) {
 	}, [comments]);
 	return (
 		<div>
-			<CommentsList articleId={articleId} commnets={comments || null} />
+			{comments && <CommentsList articleId={articleId} commnets={comments} />}
 			<CommentCreate articleId={articleId} />
 		</div>
 	);
