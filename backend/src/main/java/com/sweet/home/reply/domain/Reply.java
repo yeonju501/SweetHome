@@ -5,6 +5,7 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,7 +24,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
 @Getter
-@Where(clause = "deleted_at is null")
+@Where(clause = "deleted_at is null and blocked_at is null")
 public class Reply {
 
     @Id
@@ -50,12 +51,21 @@ public class Reply {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+    @Column(name = "blocked_at")
+    private LocalDateTime blockedAt;
+
     @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from reply_like rl where rl.reply_id = reply_id)")
     private long totalLikes;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from reply_report rr where rr.reply_id = reply_id)")
+    private long totalReports;
+
+    private static final int BLOCK_STANDARD = 5;
 
     protected Reply() {
     }
@@ -74,10 +84,18 @@ public class Reply {
     }
 
     public void changeContent(String content) {
-        this.content = content;
+        if (!Objects.isNull(content)) {
+            this.content = content;
+        }
     }
 
     public void deleteReply() {
         this.deletedAt = LocalDateTime.now();
+    }
+
+    public void checkTotalReports() {
+        if (this.totalReports >= BLOCK_STANDARD) {
+            this.blockedAt = LocalDateTime.now();
+        }
     }
 }
