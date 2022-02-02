@@ -11,7 +11,9 @@ function Comments({ articleId }) {
 		axios({
 			url: `${URL}/api/articles/${articleId}/comments`,
 			method: "get",
-		}).then((res) => setComments(res.data));
+		}).then((res) => {
+			setComments(res.data);
+		});
 	};
 	useEffect(() => {
 		getComments();
@@ -20,7 +22,7 @@ function Comments({ articleId }) {
 	return (
 		<div>
 			{comments ? (
-				<CommentsList articleId={articleId} commnets={comments} />
+				<CommentsList articleId={articleId} comments={comments} />
 			) : (
 				<p>작성된 댓글이 없습니다</p>
 			)}
