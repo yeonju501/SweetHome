@@ -8,6 +8,8 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function ReadReceiveMessage() {
 	const token = useSelector((state) => state.token.accessToken);
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
+	const [page, setPage] = useState(0);
+	const size = 10;
 
 	useEffect(() => {
 		axios({
