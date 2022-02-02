@@ -2,6 +2,7 @@ package com.sweet.home.agreement.service;
 
 import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
+import com.sweet.home.agreement.controller.dto.response.AgreedHouseResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
 import com.sweet.home.agreement.domain.AgreedHouse;
@@ -146,6 +147,20 @@ public class AgreementService {
 
         //동의서 서명하기
         agreedHouseRepository.save(AgreedHouse.createAgree(agreement, buildingHouseMember.getBuildingHouse(), request));
+    }
+
+    @Transactional(readOnly = true)
+    public List<AgreedHouseResponse> viewAgreedHouses(String email, Long agreementId) {
+        Member member = memberService.findByEmail(email);
+
+        //TODO: 이 멤버가 해당 동의서의 아파트 관리자인지 찾기
+
+        Agreement agreement = agreementRepository.findById(agreementId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+
+        return agreedHouseRepository.findByAgreement(agreement).stream()
+            .map(AgreedHouseResponse::from)
+            .collect(Collectors.toList());
     }
 }
 
