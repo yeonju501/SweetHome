@@ -26,6 +26,14 @@ function ReadReceiveMessage() {
 				console.log(err);
 			});
 	}, [page]);
+
+	const pageUp = () => {
+		setPage(page + 1);
+	};
+
+	const pageDown = () => {
+		setPage(page - 1);
+	};
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
@@ -38,6 +46,8 @@ function ReadReceiveMessage() {
 					</li>
 				))}
 			</ul>
+			<button onClick={pageDown}>이전</button>
+			<button onClick={pageUp}>다음</button>
 		</div>
 	);
 }
