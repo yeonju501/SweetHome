@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "universal-cookie";
+import axios from "axios";
 import { SET_TOKEN, DELETE_TOKEN } from "../../store/token";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
 import { SignInButton } from "./SignButton";
-import Cookies from "universal-cookie";
+import errorMessage from "../../store/errorMessage";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -80,7 +81,7 @@ function SignIn() {
 					setTimeout(onSilentRefresh, 1000 * 60 * 30 - 6000);
 				})
 				.catch((err) => {
-					console.log(err);
+					errorMessage(err.response.data.error_code);
 				});
 		}
 	}
