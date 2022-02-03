@@ -74,7 +74,6 @@ function Main() {
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
 				</Link>
-				<Link to="/message-box/">MessageBox</Link>
 			</div>
 		)
 	);
