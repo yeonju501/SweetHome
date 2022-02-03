@@ -2,6 +2,8 @@ package com.sweet.home.comment.controller;
 
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
 import com.sweet.home.comment.controller.dto.response.CommentReplyResponse;
+import com.sweet.home.comment.controller.dto.response.CommentResponse;
+import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.service.CommentService;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +36,15 @@ public class CommentRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @PostMapping("/{articleId}/comments/{commentId}")
+    public ResponseEntity<Void> createReply(@AuthenticationPrincipal String email, @PathVariable Long articleId, @PathVariable Long commentId, @RequestBody
+        CommentSaveRequest request) {
+        commentService.saveCommentReply(email, articleId, commentId, request);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/{articleId}/comments")
-    public ResponseEntity<List<CommentReplyResponse>> showComments(@PathVariable Long articleId,
+    public ResponseEntity<List<CommentResponse>> showComments(@PathVariable Long articleId,
         @PageableDefault Pageable pageable) {
         return ResponseEntity.ok().body(commentService.findAllByArticle(articleId, pageable));
     }
