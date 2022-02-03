@@ -57,14 +57,12 @@ public class MessageService {
     @Transactional
     public void deleteMessages(String email, MessageDeleteRequest request) {
         Member member = memberService.findByEmail(email);
-        for (Long id : request.getIds()) {
-            Message message = messageRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
 
-            message.checkSenderOrReceiver(member);
-
-            message.saveDeletedTime();
+        if(messageRepository.existsByIds(request.getIds())){
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID);
         }
+
+        messageRepository.bulkDeleteMessages(request.getIds());
     }
 
     // 메시지 상세 조회
