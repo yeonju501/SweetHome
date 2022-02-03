@@ -43,6 +43,13 @@ public class CommentLikeService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public boolean showCommentLikeStatus(String email, Long commentId) {
+        Member member = memberService.findByEmail(email);
+        Comment comment = commentService.findById(commentId);
+        return commentLikeRepository.existsByMemberAndComment(member, comment);
+    }
+
     @Transactional
     public void deleteLike(String email, Long commentId) {
         Member member = memberService.findByEmail(email);
