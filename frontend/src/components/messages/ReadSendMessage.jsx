@@ -11,6 +11,7 @@ function ReadSendMessage() {
 	const [page, setPage] = useState(0);
 	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
+	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
 		axios({
@@ -19,7 +20,8 @@ function ReadSendMessage() {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
-				setSendMessageArray(res.data);
+				setSendMessageArray(res.data.messages);
+				setPageSize(res.data.total_page_count);
 				console.log(res.data);
 				console.log("저장된 값 확인", sendMessageArray);
 			})
@@ -59,6 +61,21 @@ function ReadSendMessage() {
 		});
 	}
 
+	function messagePagination() {
+		let tempSize = [];
+		for (let i = 0; i < pageSize; i++) {
+			tempSize.push(<button onClick={changePage}>{i + 1}</button>);
+		}
+
+		return tempSize;
+	}
+
+	function changePage(e) {
+		console.log("체인지페이지", e.target.innerText);
+		const chosePage = Number(e.target.innerText) - 1;
+		setPage(chosePage);
+	}
+
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
@@ -79,8 +96,11 @@ function ReadSendMessage() {
 					</li>
 				))}
 			</ul>
-			<button onClick={pageDown}>이전</button>
-			<button onClick={pageUp}>다음</button>
+			<div>
+				<button onClick={pageDown}>이전</button>
+				{messagePagination()}
+				<button onClick={pageUp}>다음</button>
+			</div>
 		</div>
 	);
 }
