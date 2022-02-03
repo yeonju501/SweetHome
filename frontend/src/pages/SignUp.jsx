@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
-import style from "../style/SignIn.module.css";
 import * as inputValid from "../utils/inputValid";
+import style from "../style/SignIn.module.css";
 import SignPassword from "../components/accounts/SignPassword";
 import { SignUpButton } from "../components/accounts/SignButton";
-import { useSelector } from "react-redux";
+import errorMessage from "../store/errorMessage";
 
 function SignUp() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -44,7 +45,7 @@ function SignUp() {
 				data: inputValue,
 			})
 				.then(() => navigate("/sign-in"))
-				.catch((err) => console.log(err));
+				.catch((err) => errorMessage(err.response.data.error_code));
 		} else {
 			alert("somethings wrong");
 		}
