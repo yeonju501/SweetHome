@@ -1,4 +1,4 @@
-import style from "../style/BoardList.module.css";
+import style from "../../style/BoardList.module.css";
 
 function BoardList({ boards, setCurrentBoard, setArticleClicked }) {
 	const handleBoardClick = (board) => {

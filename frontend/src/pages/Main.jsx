@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import BoardList from "../components/BoardList";
-import CreateBoard from "../components/CreateBoard";
-import Board from "../components/Board";
+import BoardList from "../components/boards/BoardList";
+import CreateBoard from "../components/boards/CreateBoard";
+import Board from "../components/boards/Board";
 import ArticleDetail from "../components/articles/ArticleDetail";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -34,13 +34,9 @@ function Main() {
 		axios({
 			url: `${SERVER_URL}/api/boards`,
 			method: "get",
-		})
-			.then((res) => {
-				setBoards(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).then((res) => {
+			setBoards(res.data);
+		});
 	}, []);
 
 	return (
