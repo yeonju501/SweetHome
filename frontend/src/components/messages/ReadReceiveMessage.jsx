@@ -10,6 +10,7 @@ function ReadReceiveMessage() {
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 	const [page, setPage] = useState(0);
 	const size = 10;
+	const [checkItems, setCheckITems] = useState([]);
 
 	useEffect(() => {
 		axios({
