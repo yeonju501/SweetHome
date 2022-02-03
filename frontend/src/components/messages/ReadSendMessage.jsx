@@ -11,6 +11,7 @@ function ReadSendMessage() {
 	const [page, setPage] = useState(0);
 	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
+	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
 		axios({
@@ -20,6 +21,7 @@ function ReadSendMessage() {
 		})
 			.then((res) => {
 				setSendMessageArray(res.data.messages);
+				setPageSize(res.data.total_page_count);
 				console.log(res.data);
 				console.log("저장된 값 확인", sendMessageArray);
 			})
@@ -79,8 +81,10 @@ function ReadSendMessage() {
 					</li>
 				))}
 			</ul>
-			<button onClick={pageDown}>이전</button>
-			<button onClick={pageUp}>다음</button>
+			<div>
+				<button onClick={pageDown}>이전</button>
+				<button onClick={pageUp}>다음</button>
+			</div>
 		</div>
 	);
 }
