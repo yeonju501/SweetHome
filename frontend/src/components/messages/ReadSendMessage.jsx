@@ -61,6 +61,15 @@ function ReadSendMessage() {
 		});
 	}
 
+	function messagePagination() {
+		let tempSize = [];
+		for (let i = 0; i < pageSize; i++) {
+			tempSize.push(<button onClick={changePage}>{i + 1}</button>);
+		}
+
+		return tempSize;
+	}
+
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
@@ -83,6 +92,7 @@ function ReadSendMessage() {
 			</ul>
 			<div>
 				<button onClick={pageDown}>이전</button>
+				{messagePagination()}
 				<button onClick={pageUp}>다음</button>
 			</div>
 		</div>
