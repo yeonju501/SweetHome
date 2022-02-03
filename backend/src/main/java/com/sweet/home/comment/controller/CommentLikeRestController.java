@@ -1,5 +1,6 @@
 package com.sweet.home.comment.controller;
 
+import com.sweet.home.article.controller.dto.response.LikeStatusResponse;
 import com.sweet.home.comment.service.CommentLikeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -27,8 +28,8 @@ public class CommentLikeRestController {
     }
 
     @GetMapping("/{commentId}/likes")
-    public ResponseEntity<Boolean> showCommentLikeStatus(@AuthenticationPrincipal String email, @PathVariable Long commentId){
-        return ResponseEntity.ok().body(commentLikeService.showCommentLikeStatus(email, commentId));
+    public ResponseEntity<LikeStatusResponse> showCommentLikeStatus(@AuthenticationPrincipal String email, @PathVariable Long commentId){
+        return ResponseEntity.ok().body(new LikeStatusResponse(commentLikeService.showCommentLikeStatus(email, commentId)));
     }
 
     @DeleteMapping("/{commentId}/likes")

@@ -1,5 +1,6 @@
 package com.sweet.home.board.controller;
 
+import com.sweet.home.article.controller.dto.response.LikeStatusResponse;
 import com.sweet.home.board.controller.dto.response.BoardResponse;
 import com.sweet.home.board.service.BoardFavoriteService;
 import java.net.URI;
@@ -31,8 +32,8 @@ public class BoardFavoriteRestController {
     }
 
     @GetMapping("/{boardId}/favorites")
-    public ResponseEntity<Boolean> showFavoriteStatus(@AuthenticationPrincipal String email, @PathVariable Long boardId) {
-        return ResponseEntity.ok().body(boardFavoriteService.showFavoriteStatus(email, boardId));
+    public ResponseEntity<LikeStatusResponse> showFavoriteStatus(@AuthenticationPrincipal String email, @PathVariable Long boardId) {
+        return ResponseEntity.ok().body(new LikeStatusResponse(boardFavoriteService.showFavoriteStatus(email, boardId)));
     }
 
     @GetMapping("/favorites")
