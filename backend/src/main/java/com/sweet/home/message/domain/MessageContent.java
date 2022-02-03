@@ -1,15 +1,15 @@
 package com.sweet.home.message.domain;
 
+import com.sweet.home.global.domain.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class MessageContent {
+public class MessageContent extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,6 @@ public class MessageContent {
 
     @Column(name = "content", length = 400, nullable = false)
     private String content;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
     @Column(name = "read_at", nullable = true)
     private LocalDateTime readAt;

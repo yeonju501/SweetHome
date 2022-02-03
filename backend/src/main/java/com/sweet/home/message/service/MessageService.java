@@ -10,12 +10,10 @@ import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
-import com.sweet.home.message.controller.dto.response.MessageResponse;
 import com.sweet.home.message.controller.dto.response.MessagesResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -52,7 +50,7 @@ public class MessageService {
 
         message.checkSenderOrReceiver(member);
 
-        message.deleteMessage();
+        message.saveDeletedTime();
     }
 
     // 메시지 다중 삭제
@@ -65,7 +63,7 @@ public class MessageService {
 
             message.checkSenderOrReceiver(member);
 
-            message.deleteMessage();
+            message.saveDeletedTime();
         }
     }
 
