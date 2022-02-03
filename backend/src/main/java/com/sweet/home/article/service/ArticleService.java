@@ -89,6 +89,6 @@ public class ArticleService {
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
         article.checkArticleByEmail(email);
 
-        article.deleteArticle();
+        article.saveDeletedTime();
     }
 }
