@@ -35,6 +35,17 @@ function ReadSendMessage() {
 	const pageDown = () => {
 		setPage(page - 1);
 	};
+
+	const changeHandler = (checked, id) => {
+		if (checked) {
+			console.log("체크", checkItems);
+			setCheckITems([...checkItems, id]);
+		} else {
+			console.log("낫체크", checkItems);
+			setCheckITems(checkItems.filter((el) => el !== id));
+		}
+	};
+
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
@@ -42,7 +53,13 @@ function ReadSendMessage() {
 			<ul>
 				{sendMessageArray.map((sendMessage, idx) => (
 					<li key={idx}>
-						<input type="checkbox" />
+						<input
+							type="checkbox"
+							onChange={(e) => {
+								changeHandler(e.currentTarget.checked, sendMessage.message_id);
+							}}
+							checked={checkItems.includes(sendMessage.message_id) ? true : false}
+						/>
 						<Link to="/message-box/message-detail" state={{ messageId: sendMessage.message_id }}>
 							{sendMessage.message_id}
 						</Link>
