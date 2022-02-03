@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/boards")
 public class BoardFavoriteRestController {
 
     private final BoardFavoriteService boardFavoriteService;
@@ -23,19 +23,24 @@ public class BoardFavoriteRestController {
         this.boardFavoriteService = boardFavoriteService;
     }
 
-    @PostMapping("/boards/{boardId}/favorites")
+    @PostMapping("/{boardId}/favorites")
     public ResponseEntity<Void> addFavorite(@AuthenticationPrincipal String email, @PathVariable Long boardId) {
         boardFavoriteService.saveFavorite(email, boardId);
         URI uri = URI.create("/api/boards/favorites");
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/boards/favorites")
+    @GetMapping("/{boardId}/favorites")
+    public ResponseEntity<Boolean> showFavoriteStatus(@AuthenticationPrincipal String email, @PathVariable Long boardId) {
+        return ResponseEntity.ok().body(boardFavoriteService.showFavoriteStatus(email, boardId));
+    }
+
+    @GetMapping("/favorites")
     public ResponseEntity<List<BoardResponse>> showFavorites(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(boardFavoriteService.findAllFavorites(email));
     }
 
-    @DeleteMapping("/boards/{boardId}/favorites")
+    @DeleteMapping("/{boardId}/favorites")
     public ResponseEntity<Void> deleteFavorite(@AuthenticationPrincipal String email, @PathVariable Long boardId) {
         boardFavoriteService.deleteFavorite(email, boardId);
         return ResponseEntity.noContent().build();
