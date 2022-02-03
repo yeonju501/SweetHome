@@ -67,6 +67,6 @@ public class BoardFavoriteService {
         Board board = boardService.findById(boardId);
         BoardFavorite boardFavorite = boardFavoriteRepository.findByMemberAndBoard(member, board)
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_FAVORITE_NOT_FOUND));
-        boardFavoriteRepository.delete(boardFavorite);
+        boardFavorite.saveDeletedTime();
     }
 }
