@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/articles")
 public class ArticleLikeRestController {
 
     private final ArticleLikeService articleLikeService;
@@ -24,19 +24,24 @@ public class ArticleLikeRestController {
         this.articleLikeService = articleLikeService;
     }
 
-    @PostMapping("/articles/{articleId}/likes")
+    @PostMapping("/{articleId}/likes")
     public ResponseEntity<Void> likeArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
         articleLikeService.likeArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/articles/likes")
+    @GetMapping("/{articleId}/likes")
+    public ResponseEntity<Boolean> showArticleLikeStatus(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
+        return ResponseEntity.ok().body(articleLikeService.showArticleLikeStatus(email, articleId));
+    }
+
+    @GetMapping("/likes/mine")
     public ResponseEntity<List<ArticleLikeResponse>> showArticleLikes(@AuthenticationPrincipal String email, @PageableDefault
         Pageable pageable) {
         return ResponseEntity.ok().body(articleLikeService.showArticleLikes(email, pageable));
     }
 
-    @DeleteMapping("/articles/{articleId}/likes")
+    @DeleteMapping("/{articleId}/likes")
     public ResponseEntity<Void> deleteLike(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
         articleLikeService.deleteLike(email, articleId);
         return ResponseEntity.noContent().build();
