@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @EntityGraph(attributePaths = {"article"}, type = EntityGraphType.FETCH)
-    Page<Comment> findAllByArticle(Article article, Pageable pageable);
+    Page<Comment> findAllByParentIsNullAndArticle(Article article, Pageable pageable);
 }

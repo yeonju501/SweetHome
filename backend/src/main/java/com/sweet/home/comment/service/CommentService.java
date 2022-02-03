@@ -4,6 +4,7 @@ import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
 import com.sweet.home.comment.controller.dto.response.CommentReplyResponse;
+import com.sweet.home.comment.controller.dto.response.CommentResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.domain.CommentRepository;
 import com.sweet.home.global.exception.BusinessException;
@@ -42,6 +43,20 @@ public class CommentService {
         commentRepository.save(comment);
     }
 
+    @Transactional
+    public void saveCommentReply(String email, Long articleId, Long commentId, CommentSaveRequest request) {
+        Member member = memberService.findByEmail(email);
+        Article article = articleService.findById(articleId);
+        Comment parent = commentRepository.findById(commentId).orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+        Comment comment = Comment.builder()
+            .member(member)
+            .article(article)
+            .parent(parent)
+            .content(request.getContent())
+            .build();
+        commentRepository.save(comment);
+    }
+
     @Transactional(readOnly = true)
     public Comment findById(Long commentId) {
         return commentRepository.findById(commentId)
@@ -49,10 +64,10 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentReplyResponse> findAllByArticle(Long articleId, Pageable pageable) {
+    public List<CommentResponse> findAllByArticle(Long articleId, Pageable pageable) {
         Article article = articleService.findById(articleId);
-        return commentRepository.findAllByArticle(article, pageable).stream()
-            .map(CommentReplyResponse::from)
+        return commentRepository.findAllByParentIsNullAndArticle(article, pageable).stream()
+            .map(CommentResponse::from)
             .collect(Collectors.toList());
     }
 
@@ -71,6 +86,6 @@ public class CommentService {
             .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
 
         comment.checkCommentByEmail(email);
-        comment.deleteComment();
+//        comment.deleteComment();
     }
 }
