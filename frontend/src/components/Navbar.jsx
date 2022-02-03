@@ -18,7 +18,9 @@ function Navbar() {
 			{user && (
 				<div>
 					<Link to="/main">SweetHome</Link>
-					<FontAwesomeIcon icon={faEnvelope} />
+					<Link to="/message-box/">
+						<FontAwesomeIcon icon={faEnvelope} />
+					</Link>
 					<FontAwesomeIcon icon={faSignOutAlt} onClick={logOut} />
 					<Link to={`/profile/${user}`}>
 						<FontAwesomeIcon icon={faUser} />
