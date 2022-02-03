@@ -6,10 +6,20 @@ function ProfileArticles() {
 	const [articles, setArticles] = useState("");
 
 	useEffect(() => {
-		axios.get(`${URL}/api/articles/mine`).then((res) => setArticles(res.data));
-	});
+		axios(`${URL}/api/boards/articles/mine`).then((res) => setArticles(res.data));
+	}, []);
 
-	return <div>{articles && articles.map((article) => <p key={article.id}>{article}</p>)}</div>;
+	return (
+		<div>
+			{articles &&
+				articles.map((article, idx) => (
+					<div key={idx}>
+						<p>{article.title}</p>
+						<p>{article.created_at}</p>
+					</div>
+				))}
+		</div>
+	);
 }
 
 export default ProfileArticles;
