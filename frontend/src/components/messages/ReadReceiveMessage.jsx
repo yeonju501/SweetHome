@@ -20,7 +20,7 @@ function ReadReceiveMessage() {
 		})
 			.then((res) => {
 				setReceiveMessageArray(res.data);
-				console.log(res.data);
+				console.log(res.data.messages);
 				console.log("저장된 값 확인", receiveMessageArray);
 			})
 			.catch((err) => {

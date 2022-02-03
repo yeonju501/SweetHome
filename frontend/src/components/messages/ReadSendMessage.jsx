@@ -19,7 +19,7 @@ function ReadSendMessage() {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
-				setSendMessageArray(res.data);
+				setSendMessageArray(res.data.messages);
 				console.log(res.data);
 				console.log("저장된 값 확인", sendMessageArray);
 			})
