@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
-import * as inputValid from "../utils/inputValid";
+import * as inputValid from "../../utils/inputValid";
 import axios from "axios";
 import { toast } from "react-toastify";
-import DeleteAccount from "../components/accounts/DeleteAccount";
+import DeleteAccount from "../../components/accounts/DeleteAccount";
 
-function ProfileUserInfo() {
+function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const location = useLocation();
-	const user = location.state.user;
 
 	const [userInfo, setUserInfo] = useState({
 		email: "",

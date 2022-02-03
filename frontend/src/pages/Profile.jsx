@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
 import ProfileNav from "../components/Profile/ProfileNav";
+import ProfileUserInfo from "../components/Profile/ProfileUserInfo";
 
 function Profile() {
 	const location = useLocation();
@@ -22,6 +23,7 @@ function Profile() {
 				</div>
 			</div>
 			<ProfileNav />
+			<ProfileUserInfo setIntro={setIntro} intro={intro} />
 		</div>
 	);
 }
