@@ -11,6 +11,7 @@ function ReadReceiveMessage() {
 	const [page, setPage] = useState(0);
 	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
+	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
 		axios({
@@ -20,6 +21,7 @@ function ReadReceiveMessage() {
 		})
 			.then((res) => {
 				setReceiveMessageArray(res.data);
+				setPageSize(res.data.total_page_count);
 				console.log(res.data.messages);
 				console.log("저장된 값 확인", receiveMessageArray);
 			})
