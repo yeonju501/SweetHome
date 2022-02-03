@@ -70,6 +70,12 @@ function ReadSendMessage() {
 		return tempSize;
 	}
 
+	function changePage(e) {
+		console.log("체인지페이지", e.target.innerText);
+		const chosePage = Number(e.target.innerText) - 1;
+		setPage(chosePage);
+	}
+
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
