@@ -9,7 +9,7 @@ function ProfileArticles() {
 		axios.get(`${URL}/api/articles/mine`).then((res) => setArticles(res.data));
 	});
 
-	return <div>{articles && articles.map((article) => <p>article</p>)}</div>;
+	return <div>{articles && articles.map((article) => <p key={article.id}>{article}</p>)}</div>;
 }
 
 export default ProfileArticles;
