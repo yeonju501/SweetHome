@@ -44,6 +44,7 @@ function CommentUpdate({ comment, getComments }) {
 				<div>
 					<p>{comment.username}</p>
 					<p>{comment.content}</p>
+					<p>{comment.created_at}</p>
 					<button onClick={onClick}>수정</button>
 				</div>
 			)}
