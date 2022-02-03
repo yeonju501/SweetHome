@@ -51,7 +51,7 @@ function ReadSendMessage() {
 		e.preventDefault();
 		axios({
 			method: "DELETE",
-			url: `${SERVER_URL}/api/messages/`,
+			url: `${SERVER_URL}/api/messages/send`,
 			headers: { Authorization: `Bearer ${token}` },
 			data: {
 				message_ids: temp,
