@@ -3,6 +3,7 @@ package com.sweet.home.comment.service;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
+import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
 import com.sweet.home.comment.controller.dto.response.CommentReplyResponse;
 import com.sweet.home.comment.controller.dto.response.CommentResponse;
 import com.sweet.home.comment.domain.Comment;
@@ -71,6 +72,14 @@ public class CommentService {
             .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public List<CommentMineResponse> findAllByMember(String email, Pageable pageable) {
+        Member member = memberService.findByEmail(email);
+        return commentRepository.findAllByMember(member, pageable).stream()
+            .map(comment -> CommentMineResponse.from(comment))
+            .collect(Collectors.toList());
+    }
+
     @Transactional
     public void updateComment(String email, Long commentId, CommentSaveRequest request) {
         Comment comment = commentRepository.findById(commentId)
@@ -86,6 +95,6 @@ public class CommentService {
             .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
 
         comment.checkCommentByEmail(email);
-//        comment.deleteComment();
+        comment.saveDeletedTime();
     }
 }

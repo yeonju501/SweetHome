@@ -1,12 +1,14 @@
 package com.sweet.home.comment.controller;
 
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
+import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
 import com.sweet.home.comment.controller.dto.response.CommentReplyResponse;
 import com.sweet.home.comment.controller.dto.response.CommentResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.service.CommentService;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -37,7 +39,8 @@ public class CommentRestController {
     }
 
     @PostMapping("/{articleId}/comments/{commentId}")
-    public ResponseEntity<Void> createReply(@AuthenticationPrincipal String email, @PathVariable Long articleId, @PathVariable Long commentId, @RequestBody
+    public ResponseEntity<Void> createCommentReply(@AuthenticationPrincipal String email, @PathVariable Long articleId,
+        @PathVariable Long commentId, @RequestBody
         CommentSaveRequest request) {
         commentService.saveCommentReply(email, articleId, commentId, request);
         return ResponseEntity.noContent().build();
@@ -47,6 +50,12 @@ public class CommentRestController {
     public ResponseEntity<List<CommentResponse>> showComments(@PathVariable Long articleId,
         @PageableDefault Pageable pageable) {
         return ResponseEntity.ok().body(commentService.findAllByArticle(articleId, pageable));
+    }
+
+    @GetMapping("/comments/mine")
+    public ResponseEntity<List<CommentMineResponse>> showMyComments(@AuthenticationPrincipal String email,
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(commentService.findAllByMember(email, pageable));
     }
 
     @PutMapping("/comments/{commentId}")
