@@ -44,9 +44,25 @@ function ReadReceiveMessage() {
 		}
 	};
 
+	function onDeleteMessages(e) {
+		const temp = checkItems;
+		e.preventDefault();
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/messages/`,
+			headers: { Authorization: `Bearer ${token}` },
+			data: {
+				message_ids: temp,
+			},
+		}).then((res) => {
+			console.log(res);
+		});
+	}
+
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
+			<button onClick={onDeleteMessages}>삭제</button>
 			<ul>
 				{receiveMessageArray.map((receiveMessage, idx) => (
 					<li key={idx}>
