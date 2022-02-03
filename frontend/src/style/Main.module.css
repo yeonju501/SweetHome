@@ -1,0 +1,8 @@
+.main {
+	display: flex;
+}
+
+.section {
+	width: 60vw;
+	border: 1px solid black;
+}

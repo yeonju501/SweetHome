@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import CreateArticle from "./articles/CreateArticle";
+
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
