@@ -10,6 +10,7 @@ function ReadReceiveMessage() {
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 	const [page, setPage] = useState(0);
 	const size = 10;
+	const [checkItems, setCheckITems] = useState([]);
 
 	useEffect(() => {
 		axios({
@@ -34,12 +35,44 @@ function ReadReceiveMessage() {
 	const pageDown = () => {
 		setPage(page - 1);
 	};
+
+	const changeHandler = (checked, id) => {
+		if (checked) {
+			setCheckITems([...checkItems, id]);
+		} else {
+			setCheckITems(checkItems.filter((el) => el !== id));
+		}
+	};
+
+	function onDeleteMessages(e) {
+		const temp = checkItems;
+		e.preventDefault();
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/messages/`,
+			headers: { Authorization: `Bearer ${token}` },
+			data: {
+				message_ids: temp,
+			},
+		}).then((res) => {
+			console.log(res);
+		});
+	}
+
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
+			<button onClick={onDeleteMessages}>삭제</button>
 			<ul>
 				{receiveMessageArray.map((receiveMessage, idx) => (
 					<li key={idx}>
+						<input
+							type="checkbox"
+							onChange={(e) => {
+								changeHandler(e.currentTarget.checked, receiveMessage.message_id);
+							}}
+							checked={checkItems.includes(receiveMessage.message_id) ? true : false}
+						/>
 						<Link to="/message-box/message-detail" state={{ messageId: receiveMessage.message_id }}>
 							{receiveMessage.message_id}
 						</Link>
