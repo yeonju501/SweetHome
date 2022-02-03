@@ -1,6 +1,7 @@
 package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
+import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
 import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
@@ -66,6 +67,12 @@ public class ArticleRestController {
     @DeleteMapping("/articles/{articleId}")
     public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
         articleService.deleteArticle(email, articleId);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("/articles")
+    public ResponseEntity<Void> deleteArticles(@AuthenticationPrincipal String email, @RequestBody ArticlesDeleteRequest request) {
+        articleService.deleteArticles(email, request);
         return ResponseEntity.noContent().build();
     }
 }

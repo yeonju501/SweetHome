@@ -1,6 +1,7 @@
 package com.sweet.home.article.service;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
+import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
 import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
@@ -90,5 +91,14 @@ public class ArticleService {
         article.checkArticleByEmail(email);
 
         article.saveDeletedTime();
+    }
+
+    @Transactional
+    public void deleteArticles(String email, ArticlesDeleteRequest request) {
+        Member member = memberService.findByEmail(email);
+        if (articleRepository.countsArticlesByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds().size()) {
+            throw new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID);
+        }
+        articleRepository.bulkDeleteArticles(request.getIds());
     }
 }
