@@ -38,18 +38,31 @@ function ReadSendMessage() {
 
 	const changeHandler = (checked, id) => {
 		if (checked) {
-			console.log("체크", checkItems);
 			setCheckITems([...checkItems, id]);
 		} else {
-			console.log("낫체크", checkItems);
 			setCheckITems(checkItems.filter((el) => el !== id));
 		}
 	};
 
+	function onDeleteMessages(e) {
+		const temp = checkItems;
+		e.preventDefault();
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/messages/`,
+			headers: { Authorization: `Bearer ${token}` },
+			data: {
+				message_ids: temp,
+			},
+		}).then((res) => {
+			console.log(res);
+		});
+	}
+
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
-			<button>삭제</button>
+			<button onClick={onDeleteMessages}>삭제</button>
 			<ul>
 				{sendMessageArray.map((sendMessage, idx) => (
 					<li key={idx}>
