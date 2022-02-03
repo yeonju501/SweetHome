@@ -11,11 +11,12 @@ import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.controller.dto.response.MessageResponse;
+import com.sweet.home.message.controller.dto.response.MessagesResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
 import java.util.List;
-import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,21 +84,21 @@ public class MessageService {
 
     // 받은 메시지 조회
     @Transactional(readOnly = true)
-    public List<MessageResponse> viewSendMessages(Pageable pageable, String email) {
+    public MessagesResponse viewSendMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
-        return messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SENDER, pageable).stream()
-            .map(MessageResponse::from)
-            .collect(Collectors.toList());
+        Page<Message> messages = messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, SENDER, pageable);
+
+        return MessagesResponse.from(messages);
     }
 
     // 보낸 메시지 조회
     @Transactional(readOnly = true)
-    public List<MessageResponse> viewReceiveMessages(Pageable pageable, String email) {
+    public MessagesResponse viewReceiveMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
-        return messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, RECEIVER, pageable).stream()
-            .map(MessageResponse::from)
-            .collect(Collectors.toList());
+        Page<Message> messages = messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, RECEIVER, pageable);
+
+        return MessagesResponse.from(messages);
     }
 }
