@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Comments from "../comments/Comments";
 import ArticleUpdate from "./ArticleUpdate";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import ArticleDetailButtons from "./ArticleDetailButtons";
 
 function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [articleData, setArticleData] = useState();
 	const [update, setUpdate] = useState(false);
 
@@ -17,19 +17,6 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 			setArticleData(res.data);
 		});
 	}, [update]);
-
-	const handleDeleteButtonClick = () => {
-		axios({
-			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
-			method: "delete",
-		}).then(() => {
-			setArticleClicked(false);
-		});
-	};
-
-	const handleUpdateButtonClick = () => {
-		setUpdate(true);
-	};
 
 	return (
 		<div>
@@ -45,14 +32,12 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 								<p>{articleData.username}</p>
 								<p>{articleData.created_at}</p>
 							</div>
-							<div>
-								<button>쪽지</button>
-								<button>신고</button>
-							</div>
-							<div>
-								<button onClick={handleUpdateButtonClick}>수정</button>
-								<button onClick={handleDeleteButtonClick}>삭제</button>
-							</div>
+							<ArticleDetailButtons
+								articleData={articleData}
+								articleId={articleId}
+								setArticleClicked={setArticleClicked}
+								setUpdate={setUpdate}
+							/>
 							<h3>{articleData.title}</h3>
 							<p>{articleData.content}</p>
 							<div>
