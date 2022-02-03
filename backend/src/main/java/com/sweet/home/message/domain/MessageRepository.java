@@ -21,10 +21,19 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     Page<Message> findByReceiveMemberAndSenderReceiverDelimiter(Member receiveMember, SenderReceiverDelimiter delimiter,
         Pageable pageable);
 
-    @Query(nativeQuery = true, value = "select count(m.id) > 0 from Message m where m.id in (:ids)")
-    boolean existsByIds(@Param("ids") List<Long> ids);
+    @Query(nativeQuery = true, value = "select count(m.message_id) from Message m "
+        + "where m.message_id in (:ids) "
+        + "and m.deleted_at is null "
+        + "and ((:memberId) = m.receive_member_id and m.sender_receiver_delimiter = 'RECEIVER')")
+    int countsReceiveMessagesByMemberIdAndIds(@Param("ids") List<Long> ids, @Param("memberId") Long memberId);
+
+    @Query(nativeQuery = true, value = "select count(m.message_id) from Message m "
+        + "where m.message_id in (:ids) "
+        + "and m.deleted_at is null "
+        + "and ((:memberId) = m.send_member_id and m.sender_receiver_delimiter = 'SENDER')")
+    int countsSendMessagesByMemberIdAndIds(@Param("ids") List<Long> ids, @Param("memberId") Long memberId);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query(nativeQuery = true, value = "update Message m set m.deletedAt = current_timestamp where m.id in (:ids)")
+    @Query(nativeQuery = true, value = "update Message m set m.deleted_at = current_timestamp where m.message_id in (:ids)")
     int bulkDeleteMessages(@Param("ids") List<Long> ids);
 }

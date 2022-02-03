@@ -53,12 +53,25 @@ public class MessageService {
         message.saveDeletedTime();
     }
 
-    // 메시지 다중 삭제
+    // 보낸 메시지 다중 삭제
     @Transactional
-    public void deleteMessages(String email, MessageDeleteRequest request) {
+    public void deleteSendMessages(String email, MessageDeleteRequest request) {
         Member member = memberService.findByEmail(email);
 
-        if(messageRepository.existsByIds(request.getIds())){
+        if (messageRepository.countsSendMessagesByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds().size()) {
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID);
+        }
+
+        messageRepository.bulkDeleteMessages(request.getIds());
+    }
+
+    // 받은 메시지 다중 삭제
+    @Transactional
+    public void deleteReceiveMessages(String email, MessageDeleteRequest request) {
+        Member member = memberService.findByEmail(email);
+
+        if (messageRepository.countsReceiveMessagesByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds()
+            .size()) {
             throw new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID);
         }
 
