@@ -1,5 +1,6 @@
 package com.sweet.home.board.domain;
 
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.member.domain.Member;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,10 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Where;
 
 @Entity
 @Getter
-public class BoardFavorite {
+@Where(clause = "deleted_at is null")
+public class BoardFavorite extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -69,6 +69,6 @@ public class ArticleLikeService {
 
         ArticleLike articleLike = articleLikeRepository.findByMemberAndArticle(member, article)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_LIKE_NOT_FOUND));
-        articleLikeRepository.delete(articleLike);
+        articleLike.saveDeletedTime();
     }
 }

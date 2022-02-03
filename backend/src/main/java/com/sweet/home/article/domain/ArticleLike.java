@@ -1,5 +1,6 @@
 package com.sweet.home.article.domain;
 
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.member.domain.Member;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -12,11 +13,13 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Entity
-public class ArticleLike {
+@Where(clause = "deleted_at is null")
+public class ArticleLike extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,10 +33,6 @@ public class ArticleLike {
     @ManyToOne(targetEntity = Member.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
     protected ArticleLike() {
     }

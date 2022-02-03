@@ -1,16 +1,16 @@
 package com.sweet.home.board.domain;
 
+import com.sweet.home.global.domain.BaseEntity;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
-public class Board {
+@Where(clause = "deleted_at is null")
+public class Board extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,17 +29,6 @@ public class Board {
 
     @Column(name = "board_status", nullable = true)
     private Boolean boardStatus;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = true)
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     protected Board() {
     }

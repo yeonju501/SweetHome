@@ -1,6 +1,7 @@
 package com.sweet.home.article.domain;
 
 import com.sweet.home.board.domain.Board;
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -18,7 +19,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Where(clause = "deleted_at is null and blocked_at is null")
-public class Article {
+public class Article extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,19 +40,8 @@ public class Article {
     @Column(name = "content", nullable = false)
     private String content;
 
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = true)
-    private LocalDateTime updatedAt;
-
     @Column(name = "blocked_at", nullable = true)
     private LocalDateTime blockedAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from article_like al where al.article_id = article_id)")
@@ -90,10 +80,6 @@ public class Article {
         if (!Objects.isNull(content)) {
             this.content = content;
         }
-    }
-
-    public void deleteArticle() {
-        this.deletedAt = LocalDateTime.now();
     }
 
     public void checkTotalReports() {
