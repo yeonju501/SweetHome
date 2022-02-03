@@ -10,12 +10,10 @@ import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
-import com.sweet.home.message.controller.dto.response.MessageResponse;
 import com.sweet.home.message.controller.dto.response.MessagesResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
-import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -52,21 +50,32 @@ public class MessageService {
 
         message.checkSenderOrReceiver(member);
 
-        message.deleteMessage();
+        message.saveDeletedTime();
     }
 
-    // 메시지 다중 삭제
+    // 보낸 메시지 다중 삭제
     @Transactional
-    public void deleteMessages(String email, MessageDeleteRequest request) {
+    public void deleteSendMessages(String email, MessageDeleteRequest request) {
         Member member = memberService.findByEmail(email);
-        for (Long id : request.getIds()) {
-            Message message = messageRepository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID));
 
-            message.checkSenderOrReceiver(member);
-
-            message.deleteMessage();
+        if (messageRepository.countsSendMessagesByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds().size()) {
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID);
         }
+
+        messageRepository.bulkDeleteMessages(request.getIds());
+    }
+
+    // 받은 메시지 다중 삭제
+    @Transactional
+    public void deleteReceiveMessages(String email, MessageDeleteRequest request) {
+        Member member = memberService.findByEmail(email);
+
+        if (messageRepository.countsReceiveMessagesByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds()
+            .size()) {
+            throw new BusinessException(ErrorCode.MESSAGE_NOT_FOUND_BY_ID);
+        }
+
+        messageRepository.bulkDeleteMessages(request.getIds());
     }
 
     // 메시지 상세 조회

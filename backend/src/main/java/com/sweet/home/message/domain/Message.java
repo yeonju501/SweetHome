@@ -1,5 +1,6 @@
 package com.sweet.home.message.domain;
 
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -9,14 +10,13 @@ import lombok.Getter;
 import org.hibernate.annotations.Where;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 
 @Entity
 @Getter
 @Where(clause = "deleted_at is null")
-public class Message {
+public class Message extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +38,6 @@ public class Message {
     @Enumerated(EnumType.STRING)
     @Column(name = "sender_receiver_delimiter")
     private SenderReceiverDelimiter senderReceiverDelimiter;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     protected Message() {
     }
@@ -77,10 +74,6 @@ public class Message {
             .messageContent(messageContent)
             .senderReceiverDelimiter(SenderReceiverDelimiter.RECEIVER)
             .build();
-    }
-
-    public void deleteMessage() {
-        this.deletedAt = LocalDateTime.now();
     }
 
     public void checkSenderOrReceiver(Member member) {
