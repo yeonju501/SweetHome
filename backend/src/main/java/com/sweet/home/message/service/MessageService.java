@@ -97,7 +97,7 @@ public class MessageService {
     public MessagesResponse viewReceiveMessages(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
-        Page<Message> messages = messageRepository.findBySendMemberAndSenderReceiverDelimiter(member, RECEIVER, pageable);
+        Page<Message> messages = messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, RECEIVER, pageable);
 
         return MessagesResponse.from(messages);
     }
