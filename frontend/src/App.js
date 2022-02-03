@@ -37,7 +37,7 @@ function App() {
 					<Route path="/*" element={<NotFound />} />
 				</Routes>
 			</Router>
-			<ToastContainer />
+			<ToastContainer style={{ fontSize: "1.4rem" }} />
 		</>
 	);
 }

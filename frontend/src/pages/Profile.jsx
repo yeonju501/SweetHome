@@ -5,7 +5,7 @@ import * as inputValid from "../utils/inputValid";
 import axios from "axios";
 import DeleteAccount from "../components/accounts/DeleteAccount";
 import { toast } from "react-toastify";
-import ProfileNav from "../components/ProfileNav";
+import ProfileNav from "../components/Profile/ProfileNav";
 
 function Profile() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

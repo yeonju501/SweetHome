@@ -1,9 +1,9 @@
 import React from "react";
-import style from "../style/Profile.module.css";
+import style from "../../style/Profile.module.css";
 import { useState } from "react";
 function ProfileNav() {
 	const arr = ["회원정보", "내가 작성한 글", "내가 작성한 댓글", "내가 좋아요한 글"];
-	const [active, setActive] = useState(-1);
+	const [active, setActive] = useState(0);
 
 	return (
 		<div>
