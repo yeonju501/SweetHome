@@ -1,5 +1,6 @@
 package com.sweet.home.article.domain;
 
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.member.domain.Member;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -18,7 +19,7 @@ import org.springframework.data.annotation.CreatedDate;
 @Getter
 @Entity
 @Where(clause = "deleted_at is null")
-public class ArticleReport {
+public class ArticleReport extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,13 +36,6 @@ public class ArticleReport {
 
     @Column(name = "content")
     private String content;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     protected ArticleReport() {
     }
