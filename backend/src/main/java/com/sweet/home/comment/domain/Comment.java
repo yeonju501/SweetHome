@@ -1,6 +1,7 @@
 package com.sweet.home.comment.domain;
 
 import com.sweet.home.article.domain.Article;
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -26,8 +27,8 @@ import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
-@Where(clause = "blocked_at is null")
-public class Comment {
+@Where(clause = "deleted_at is null and blocked_at is null")
+public class Comment extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
