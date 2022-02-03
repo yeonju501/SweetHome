@@ -8,6 +8,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { SET_USER } from "../store/user";
+import style from "../style/Main.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -45,23 +46,30 @@ function Main() {
 	return (
 		userInfo && (
 			<div>
-				<div>nav-bar</div>
 				<Navbar />
 				<CreateBoard />
-				<BoardList boards={boards} setCurrentBoard={setCurrentBoard} />
-				{articleClicked ? (
-					<ArticleDetail
-						articleId={currentArticle}
-						currentBoard={currentBoard}
+				<div className={style.main}>
+					<BoardList
+						boards={boards}
+						setCurrentBoard={setCurrentBoard}
 						setArticleClicked={setArticleClicked}
 					/>
-				) : (
-					<Board
-						currentBoard={currentBoard}
-						setArticleClicked={setArticleClicked}
-						setCurrentArticle={setCurrentArticle}
-					/>
-				)}
+					<section className={style.section}>
+						{articleClicked ? (
+							<ArticleDetail
+								articleId={currentArticle}
+								currentBoard={currentBoard}
+								setArticleClicked={setArticleClicked}
+							/>
+						) : (
+							<Board
+								currentBoard={currentBoard}
+								setArticleClicked={setArticleClicked}
+								setCurrentArticle={setCurrentArticle}
+							/>
+						)}
+					</section>
+				</div>
 				<p>{userInfo.username}</p>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
