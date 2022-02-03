@@ -4,6 +4,7 @@ import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
 import com.sweet.home.message.controller.dto.response.MessageResponse;
+import com.sweet.home.message.controller.dto.response.MessagesResponse;
 import com.sweet.home.message.service.MessageService;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -52,13 +53,13 @@ public class MessageRestController {
     }
 
     @GetMapping("/messages/send")
-    public ResponseEntity<List<MessageResponse>> getSendMessages(@AuthenticationPrincipal String email,
+    public ResponseEntity<MessagesResponse> getSendMessages(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(messageService.viewSendMessages(pageable, email));
     }
 
     @GetMapping("/messages/receive")
-    public ResponseEntity<List<MessageResponse>> getReceiveMessages(@AuthenticationPrincipal String email,
+    public ResponseEntity<MessagesResponse> getReceiveMessages(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(messageService.viewReceiveMessages(pageable, email));
     }
