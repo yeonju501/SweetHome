@@ -35,12 +35,28 @@ function ReadReceiveMessage() {
 	const pageDown = () => {
 		setPage(page - 1);
 	};
+
+	const changeHandler = (checked, id) => {
+		if (checked) {
+			setCheckITems([...checkItems, id]);
+		} else {
+			setCheckITems(checkItems.filter((el) => el !== id));
+		}
+	};
+
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
 			<ul>
 				{receiveMessageArray.map((receiveMessage, idx) => (
 					<li key={idx}>
+						<input
+							type="checkbox"
+							onChange={(e) => {
+								changeHandler(e.currentTarget.checked, receiveMessage.message_id);
+							}}
+							checked={checkItems.includes(receiveMessage.message_id) ? true : false}
+						/>
 						<Link to="/message-box/message-detail" state={{ messageId: receiveMessage.message_id }}>
 							{receiveMessage.message_id}
 						</Link>
