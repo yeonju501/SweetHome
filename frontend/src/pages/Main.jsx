@@ -49,7 +49,11 @@ function Main() {
 				<Navbar />
 				<CreateBoard />
 				<div className={style.main}>
-					<BoardList boards={boards} setCurrentBoard={setCurrentBoard} />
+					<BoardList
+						boards={boards}
+						setCurrentBoard={setCurrentBoard}
+						setArticleClicked={setArticleClicked}
+					/>
 					<section className={style.section}>
 						{articleClicked ? (
 							<ArticleDetail

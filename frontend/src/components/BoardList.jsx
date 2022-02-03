@@ -1,8 +1,9 @@
 import style from "../style/BoardList.module.css";
 
-function BoardList({ boards, setCurrentBoard }) {
+function BoardList({ boards, setCurrentBoard, setArticleClicked }) {
 	const handleBoardClick = (board) => {
 		setCurrentBoard(board);
+		setArticleClicked(false);
 	};
 
 	return (
