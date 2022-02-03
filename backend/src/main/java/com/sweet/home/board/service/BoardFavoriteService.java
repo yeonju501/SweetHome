@@ -47,6 +47,13 @@ public class BoardFavoriteService {
     }
 
     @Transactional(readOnly = true)
+    public boolean showFavoriteStatus(String email, Long boardId) {
+        Member member = memberService.findByEmail(email);
+        Board board = boardService.findById(boardId);
+        return boardFavoriteRepository.existsByMemberAndBoard(member, board);
+    }
+
+    @Transactional(readOnly = true)
     public List<BoardResponse> findAllFavorites(String email) {
         Member member = memberService.findByEmail(email);
         return boardFavoriteRepository.findAllByMember(member).stream()
