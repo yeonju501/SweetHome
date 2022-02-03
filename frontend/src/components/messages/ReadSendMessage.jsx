@@ -10,6 +10,7 @@ function ReadSendMessage() {
 	const [sendMessageArray, setSendMessageArray] = useState([]);
 	const [page, setPage] = useState(0);
 	const size = 10;
+	const [checkItems, setCheckITems] = useState([]);
 
 	useEffect(() => {
 		axios({
@@ -37,9 +38,11 @@ function ReadSendMessage() {
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
+			<button>삭제</button>
 			<ul>
 				{sendMessageArray.map((sendMessage, idx) => (
 					<li key={idx}>
+						<input type="checkbox" />
 						<Link to="/message-box/message-detail" state={{ messageId: sendMessage.message_id }}>
 							{sendMessage.message_id}
 						</Link>
