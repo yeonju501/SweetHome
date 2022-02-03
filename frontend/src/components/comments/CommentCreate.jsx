@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function CommentCreate({ articleId, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
@@ -11,15 +12,17 @@ function CommentCreate({ articleId, getComments }) {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		axios({
-			url: `${URL}/api/articles/${articleId}/comments`,
-			method: "post",
-			headers: { "Content-Type": "application/json;charset=UTF-8" },
-			data: comment,
-		}).then(() => {
-			setComment({ content: "" });
-			getComments();
-		});
+		content.trim()
+			? axios({
+					url: `${URL}/api/articles/${articleId}/comments`,
+					method: "post",
+					headers: { "Content-Type": "application/json;charset=UTF-8" },
+					data: comment,
+			  }).then(() => {
+					setComment({ content: "" });
+					getComments();
+			  })
+			: toast.error("error");
 	};
 
 	return (

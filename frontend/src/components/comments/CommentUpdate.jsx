@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 
 function CommentUpdate({ comment, getComments }) {
 	const [update, setUpdate] = useState(false);
@@ -16,15 +17,17 @@ function CommentUpdate({ comment, getComments }) {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		axios({
-			url: `${URL}/api/articles/comments/${comment.id}`,
-			method: "put",
-			headers: { "Content-Type": "application/json" },
-			data: commentContent,
-		}).then(() => {
-			getComments();
-			onClick();
-		});
+		content.trim()
+			? axios({
+					url: `${URL}/api/articles/comments/${comment.id}`,
+					method: "put",
+					headers: { "Content-Type": "application/json" },
+					data: commentContent,
+			  }).then(() => {
+					getComments();
+					onClick();
+			  })
+			: toast.error("Error");
 	};
 
 	return (
