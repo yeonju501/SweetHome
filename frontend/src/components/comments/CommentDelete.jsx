@@ -1,6 +1,6 @@
 import axios from "axios";
 
-function CommentDelete({ id, getComments, articleId }) {
+function CommentDelete({ id, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const onClick = () => {
 		axios({
