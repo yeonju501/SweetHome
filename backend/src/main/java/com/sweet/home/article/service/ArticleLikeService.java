@@ -48,6 +48,13 @@ public class ArticleLikeService {
     }
 
     @Transactional(readOnly = true)
+    public boolean showArticleLikeStatus(String email, Long articleId) {
+        Member member = memberService.findByEmail(email);
+        Article article = articleService.findById(articleId);
+        return articleLikeRepository.existsByMemberAndArticle(member, article);
+    }
+
+    @Transactional(readOnly = true)
     public List<ArticleLikeResponse> showArticleLikes(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
         return articleLikeRepository.findAllByMember(member, pageable).stream()
