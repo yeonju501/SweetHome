@@ -3,8 +3,8 @@ package com.sweet.home.comment.service;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
+import com.sweet.home.comment.controller.dto.request.CommentsDeleteRequest;
 import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
-import com.sweet.home.comment.controller.dto.response.CommentReplyResponse;
 import com.sweet.home.comment.controller.dto.response.CommentResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.domain.CommentRepository;
@@ -48,7 +48,8 @@ public class CommentService {
     public void saveCommentReply(String email, Long articleId, Long commentId, CommentSaveRequest request) {
         Member member = memberService.findByEmail(email);
         Article article = articleService.findById(articleId);
-        Comment parent = commentRepository.findById(commentId).orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+        Comment parent = commentRepository.findById(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
         Comment comment = Comment.builder()
             .member(member)
             .article(article)
@@ -90,11 +91,20 @@ public class CommentService {
     }
 
     @Transactional
-    public void deleteComment(String email, Long commentId){
+    public void deleteComment(String email, Long commentId) {
         Comment comment = commentRepository.findById(commentId)
             .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
 
         comment.checkCommentByEmail(email);
         comment.saveDeletedTime();
+    }
+
+    @Transactional
+    public void deleteComments(String email, CommentsDeleteRequest request) {
+        Member member = memberService.findByEmail(email);
+        if (commentRepository.countsCommentsByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds().size()) {
+            throw new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID);
+        }
+        commentRepository.bulkDeleteComments(request.getIds());
     }
 }
