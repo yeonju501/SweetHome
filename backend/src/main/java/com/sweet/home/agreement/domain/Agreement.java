@@ -1,7 +1,8 @@
 package com.sweet.home.agreement.domain;
 
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
-import com.sweet.home.building.domain.Building;
+import com.sweet.home.apt.domain.Apt;
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
@@ -16,34 +17,26 @@ import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
 @Where(clause = "deleted_at is null")
-public class Agreement {
+public class Agreement extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "agreement_id")
     private Long id;
 
-    @ManyToOne(targetEntity = Building.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "building_id")
-    private Building building;
+    @ManyToOne(targetEntity = Apt.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "apt_id")
+    private Apt apt;
 
     @Column(name = "title", length = 100, nullable = false)
     private String title;
 
     @Column(name = "content", length = 400, nullable = false)
     private String content;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -55,26 +48,22 @@ public class Agreement {
     }
 
     @Builder
-    public Agreement(Building building, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
-        this.building = building;
+    public Agreement(Apt apt, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
+        this.apt = apt;
         this.title = title;
         this.content = content;
         this.startDate = startDate;
         this.endDate = endDate;
     }
 
-    public static Agreement createAgreement(Building building, AgreementRequest request) {
+    public static Agreement createAgreement(Apt apt, AgreementRequest request) {
         return Agreement.builder()
-            .building(building)
+            .apt(apt)
             .title(request.getTitle())
             .content(request.getContent())
             .startDate(request.getStartDate())
             .endDate(request.getEndDate())
             .build();
-    }
-
-    public void deleteAgreement() {
-        this.deletedAt = LocalDateTime.now();
     }
 
     public void changeTitle(String title) {
@@ -93,8 +82,8 @@ public class Agreement {
         this.endDate = endDate;
     }
 
-    public void checkBuildingRelationship(Building building) {
-        if (!building.equals(building)) {
+    public void checkAptRelationship(Apt apt) {
+        if (!this.apt.equals(apt)) {
             throw new BusinessException(ErrorCode.AGREEMENT_NOT_YOUR_APARTMENT);
         }
     }

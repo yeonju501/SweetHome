@@ -1,4 +1,4 @@
-package com.sweet.home.building.domain;
+package com.sweet.home.apt.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,16 +13,16 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class BuildingHouse {
+public class AptHouse {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "building_house_id")
+    @Column(name = "apt_house_id")
     private Long id;
 
-    @ManyToOne(targetEntity = Building.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "building_id")
-    private Building building;
+    @ManyToOne(targetEntity = Apt.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "apt_id")
+    private Apt apt;
 
     @Column(name = "dong", nullable = true)
     private String dong;
@@ -30,12 +30,12 @@ public class BuildingHouse {
     @Column(name = "ho", nullable = true)
     private String ho;
 
-    protected BuildingHouse() {
+    protected AptHouse() {
     }
 
     @Builder
-    public BuildingHouse(Building building, String dong, String ho) {
-        this.building = building;
+    public AptHouse(Apt apt, String dong, String ho) {
+        this.apt = apt;
         this.dong = dong;
         this.ho = ho;
     }

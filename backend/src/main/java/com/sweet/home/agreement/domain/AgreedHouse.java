@@ -1,8 +1,8 @@
 package com.sweet.home.agreement.domain;
 
 import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
-import com.sweet.home.building.domain.BuildingHouse;
-import java.time.LocalDateTime;
+import com.sweet.home.apt.domain.AptHouse;
+import com.sweet.home.global.domain.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,11 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Entity
-public class AgreedHouse {
+public class AgreedHouse extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,31 +27,27 @@ public class AgreedHouse {
     @JoinColumn(name = "agreement_id")
     private Agreement agreement;
 
-    @ManyToOne(targetEntity = BuildingHouse.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "building_house_id")
-    private BuildingHouse buildingHouse;
+    @ManyToOne(targetEntity = AptHouse.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "apt_house_id")
+    private AptHouse aptHouse;
 
     @Column(name = "agreement_status")
     private boolean agreement_status;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
     protected AgreedHouse() {
     }
 
     @Builder
-    public AgreedHouse(Agreement agreement, BuildingHouse buildingHouse, boolean agreement_status) {
+    public AgreedHouse(Agreement agreement, AptHouse aptHouse, boolean agreement_status) {
         this.agreement = agreement;
-        this.buildingHouse = buildingHouse;
+        this.aptHouse = aptHouse;
         this.agreement_status = agreement_status;
     }
 
-    public static AgreedHouse createAgree(Agreement agreement, BuildingHouse buildingHouse, AgreeRequest request) {
+    public static AgreedHouse createAgree(Agreement agreement, AptHouse aptHouse, AgreeRequest request) {
         return AgreedHouse.builder()
             .agreement(agreement)
-            .buildingHouse(buildingHouse)
+            .aptHouse(aptHouse)
             .agreement_status(request.getAgreementStatus())
             .build();
     }

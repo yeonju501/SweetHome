@@ -1,33 +1,39 @@
 package com.sweet.home.member.domain;
 
+import com.sweet.home.apt.domain.AptHouse;
 import com.sweet.home.auth.domain.Authority;
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
-import java.time.LocalDateTime;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Entity
 @Getter
 @Where(clause = "deleted_at is null")
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
     private Long id;
+
+    @ManyToOne(targetEntity = AptHouse.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "apt_house_id")
+    private Long AptHouseId;
 
     @Column(name = "email", length = 50, nullable = false)
     private String email;
@@ -44,17 +50,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
     private Authority authority;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = true)
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     protected Member() {
     }
@@ -101,12 +96,8 @@ public class Member {
     }
 
     public void changePhoneNumber(String phoneNumber) {
-        if (!Objects.isNull(phoneNumber)){
+        if (!Objects.isNull(phoneNumber)) {
             this.phoneNumber = phoneNumber;
         }
-    }
-
-    public void resignMember() {
-        this.deletedAt = LocalDateTime.now();
     }
 }
