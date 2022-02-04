@@ -10,7 +10,7 @@ function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 
 	useEffect(() => {
 		currentBoard && getArticles();
-	}, [currentBoard]);
+	}, [currentBoard, articles]);
 
 	const getArticles = () => {
 		axios({
@@ -32,7 +32,7 @@ function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 				<p>게시판명 : {currentBoard.name}</p>
 				<p>게시판 소개글 : {currentBoard.description}</p>
 			</div>
-			{currentBoard ? <ArticleCreate boardId={currentBoard.id} getArticles={getArticles} /> : null}
+			{currentBoard ? <ArticleCreate boardId={currentBoard.id} /> : null}
 			<ul>
 				{articles.map((article) => (
 					<li

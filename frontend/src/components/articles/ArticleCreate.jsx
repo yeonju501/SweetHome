@@ -1,15 +1,21 @@
 import { useState } from "react";
 import ArticleCreateForm from "./ArticleCreateForm";
-import CreateArticleDisabled from "./CreateArticleDisabled";
 
-function ArticleCreate({ boardId, getArticles }) {
+function ArticleCreate({ boardId }) {
 	const [disabled, setDisabled] = useState(true);
+
+	const invertDisabled = () => {
+		setDisabled((prev) => !prev);
+	};
+
 	return (
 		<div>
 			{disabled ? (
-				<CreateArticleDisabled setDisabled={setDisabled} />
+				<div onClick={invertDisabled}>
+					<p>글을 작성해보세요!</p>
+				</div>
 			) : (
-				<ArticleCreateForm setDisabled={setDisabled} boardId={boardId} getArticles={getArticles} />
+				<ArticleCreateForm invertDisabled={invertDisabled} boardId={boardId} />
 			)}
 		</div>
 	);
