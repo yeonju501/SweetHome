@@ -8,6 +8,7 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [articleData, setArticleData] = useState();
 	const [update, setUpdate] = useState(false);
+	const [isLiked, setIsLiked] = useState();
 
 	useEffect(() => {
 		axios({
@@ -16,7 +17,24 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 		}).then((res) => {
 			setArticleData(res.data);
 		});
-	}, [update]);
+		axios({
+			url: `${SERVER_URL}/api/articles/${articleId}/likes`,
+			method: "get",
+		}).then((res) => {
+			setIsLiked(res.data.is_liked);
+		});
+	}, [articleData]);
+
+	const handleHeartClick = () => {
+		const method = isLiked ? "delete" : "post";
+
+		axios({
+			url: `${SERVER_URL}/api/articles/${articleId}/likes`,
+			method: method,
+		}).then(() => {
+			setIsLiked((prev) => !prev);
+		});
+	};
 
 	return (
 		<div>
@@ -43,7 +61,7 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 							<div>
 								<span>{articleData.total_likes}</span>
 								<span>댓글 수</span>
-								<button>🤍</button>
+								<button onClick={handleHeartClick}>{isLiked ? "💗" : "🤍"}</button>
 							</div>
 						</article>
 						<Comments articleId={articleId} />
