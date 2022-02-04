@@ -45,11 +45,11 @@ public class Article extends BaseEntity {
 
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from article_like al where al.article_id = article_id and al.deleted_at is null)")
-    private long totalLikes;
+    private int totalLikes;
 
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from article_report ar where ar.article_id = article_id and ar.deleted_at is null)")
-    private long totalReports;
+    private int totalReports;
 
     private static final int BLOCK_STANDARD = 5;
 
