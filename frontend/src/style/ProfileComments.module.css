@@ -1,9 +1,30 @@
 table {
 	width: 100%;
 	font-size: 1.5rem;
+	border-collapse: collapse;
 	text-align: center;
 }
 
 thead {
-	font-weight: 800;
+	font-weight: 900;
+	border-top: 1px solid #000;
+	color: darkslategrey;
+}
+
+thead tr th {
+	padding: 1rem;
+}
+
+tbody tr td {
+	border-top: 1px solid rgb(240, 240, 240);
+	padding: 1rem 0;
+	font-weight: 300;
+}
+.check {
+	text-align: left;
+	width: auto;
+	/* width: 100%; */
+}
+.check_box {
+	width: 100%;
 }
