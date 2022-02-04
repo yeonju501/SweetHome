@@ -9,16 +9,27 @@ function ProfileComments() {
 	}, []);
 
 	return (
-		<div>
-			{/* Link로 해당 게시글로 이동 기능 추가 예정 */}
+		<tabel>
+			<thead>
+				<tr>
+					<th>게시판 이름</th>
+					<th>제목</th>
+					<th>댓글 내용</th>
+					<th>작성 날짜</th>
+				</tr>
+			</thead>
 			{comments &&
 				comments.map((comment, idx) => (
-					<div key={idx}>
-						<p>{comment.content}</p>
-						<p>{comment.created_at}</p>
-					</div>
+					<tbody>
+						<tr key={idx}>
+							<td>{comment.board_name}</td>
+							<td>{comment.article_title}</td>
+							<td>{comment.content}</td>
+							<td>{comment.created_at.slice(0, 10)}</td>
+						</tr>
+					</tbody>
 				))}
-		</div>
+		</tabel>
 	);
 }
 
