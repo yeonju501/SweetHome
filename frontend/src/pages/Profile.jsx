@@ -3,9 +3,13 @@ import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
 import ProfileNav from "../components/profile/ProfileNav";
 import ProfileUserInfo from "../components/profile/ProfileUserInfo";
+import ProfileArticles from "../components/profile/ProfileArticles";
+import ProfileComments from "../components/profile/ProfileComments";
+import ProfileLikes from "../components/profile/ProfileLikes";
 
 function Profile() {
 	const location = useLocation();
+	const [active, setActive] = useState(0);
 	const user = location.state.user;
 
 	const [intro, setIntro] = useState({
@@ -22,8 +26,11 @@ function Profile() {
 					<p className={style.email}>{intro.email}</p>
 				</div>
 			</div>
-			<ProfileNav />
+			<ProfileNav active={active} setActive={setActive} />
 			<ProfileUserInfo setIntro={setIntro} intro={intro} />
+			<ProfileArticles />
+			<ProfileComments />
+			<ProfileLikes />
 		</div>
 	);
 }
