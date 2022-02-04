@@ -3,11 +3,11 @@ package com.sweet.home.article.service;
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
-import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
+import com.sweet.home.article.controller.dto.response.ArticleReportResponse;
+import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.domain.Article;
-import com.sweet.home.article.domain.ArticleLike;
 import com.sweet.home.article.domain.ArticleRepository;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.service.BoardService;
@@ -15,7 +15,6 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
-import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -59,6 +58,12 @@ public class ArticleService {
         Member member = memberService.findByEmail(email);
         Page<Article> articles = articleRepository.findAllByMember(member, pageable);
         return ArticlesLikeResponse.fromArticle(articles);
+    }
+
+    @Transactional(readOnly = true)
+    public ArticleReportsResponse showBlockedArticles(Pageable pageable) {
+        Page<Article> articles = articleRepository.findAllByBlockedAtIsNotNull(pageable);
+        return ArticleReportsResponse.from(articles);
     }
 
     @Transactional(readOnly = true)
