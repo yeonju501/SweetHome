@@ -4,7 +4,7 @@ import Comments from "../comments/Comments";
 import ArticleUpdate from "./ArticleUpdate";
 import ArticleDetailButtons from "./ArticleDetailButtons";
 
-function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
+function ArticleDetail({ articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [articleData, setArticleData] = useState();
 	const [update, setUpdate] = useState(false);
@@ -44,18 +44,12 @@ function ArticleDetail({ articleId, currentBoard, setArticleClicked }) {
 					<ArticleUpdate articleId={articleId} setUpdate={setUpdate} />
 				) : (
 					<div>
-						<div>{currentBoard.name}</div>
 						<article>
 							<div>
 								<p>{articleData.username}</p>
 								<p>{articleData.created_at}</p>
 							</div>
-							<ArticleDetailButtons
-								articleData={articleData}
-								articleId={articleId}
-								setArticleClicked={setArticleClicked}
-								setUpdate={setUpdate}
-							/>
+							<ArticleDetailButtons />
 							<h3>{articleData.title}</h3>
 							<p>{articleData.content}</p>
 							<div>
