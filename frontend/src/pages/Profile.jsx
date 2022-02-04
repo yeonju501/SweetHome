@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import style from "../style/Profile.module.css";
-import ProfileNav from "../components/Profile/ProfileNav";
-import ProfileUserInfo from "../components/Profile/ProfileUserInfo";
+import ProfileNav from "../components/profile/ProfileNav";
+import ProfileUserInfo from "../components/profile/ProfileUserInfo";
 
 function Profile() {
 	const location = useLocation();
