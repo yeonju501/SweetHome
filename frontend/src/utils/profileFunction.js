@@ -8,6 +8,5 @@ export default function profileFunction(address, func) {
 		method: "get",
 	}).then((res) => {
 		func(res.data);
-		console.log("hi");
 	});
 }
