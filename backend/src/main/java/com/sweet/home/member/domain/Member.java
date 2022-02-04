@@ -1,5 +1,6 @@
 package com.sweet.home.member.domain;
 
+import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.apt.domain.AptHouse;
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.global.domain.BaseEntity;
@@ -33,7 +34,7 @@ public class Member extends BaseEntity {
 
     @ManyToOne(targetEntity = AptHouse.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "apt_house_id")
-    private Long AptHouseId;
+    private AptHouse aptHouse;
 
     @Column(name = "email", length = 50, nullable = false)
     private String email;
@@ -98,6 +99,12 @@ public class Member extends BaseEntity {
     public void changePhoneNumber(String phoneNumber) {
         if (!Objects.isNull(phoneNumber)) {
             this.phoneNumber = phoneNumber;
+        }
+    }
+
+    public void checkAptMember(Apt apt){
+        if (this.aptHouse.getApt().getId() != apt.getId()){
+            throw new BusinessException(ErrorCode.APT_NOT_HIS_APT);
         }
     }
 }
