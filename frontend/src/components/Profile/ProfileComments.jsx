@@ -11,6 +11,7 @@ function ProfileComments() {
 
 	return (
 		<div>
+			{/* Link로 해당 게시글로 이동 기능 추가 예정 */}
 			{comments &&
 				comments.map((comment, idx) => (
 					<div key={idx}>
