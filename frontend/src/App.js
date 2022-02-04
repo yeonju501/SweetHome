@@ -14,6 +14,8 @@ import NotFound from "./pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import ReadMessageDeatil from "./components/messages/ReadMessageDetail";
+import Board from "./components/boards/Board";
+import ArticleDetail from "./components/articles/ArticleDetail";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -26,6 +28,8 @@ function App() {
 					<Route path="/sign-up" element={<SignUp />} />
 					<Route path="" element={<PrivateRoute />}>
 						<Route path="/main" element={<Main />} />
+						<Route path="/:boardname" element={<Board />} />
+						<Route path="/articles/:articleId:" element={<ArticleDetail />} />
 						<Route path="/profile/:username" element={<Profile />} />
 					</Route>
 					<Route path="/message-box/" element={<MessageBox />}>
