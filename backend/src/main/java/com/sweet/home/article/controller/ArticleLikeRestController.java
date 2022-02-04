@@ -1,6 +1,7 @@
 package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
+import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.LikeStatusResponse;
 import com.sweet.home.article.service.ArticleLikeService;
 import java.util.List;
@@ -37,7 +38,7 @@ public class ArticleLikeRestController {
     }
 
     @GetMapping("/likes/mine")
-    public ResponseEntity<List<ArticleLikeResponse>> showArticleLikes(@AuthenticationPrincipal String email, @PageableDefault
+    public ResponseEntity<ArticlesLikeResponse> showArticleLikes(@AuthenticationPrincipal String email, @PageableDefault
         Pageable pageable) {
         return ResponseEntity.ok().body(articleLikeService.showArticleLikes(email, pageable));
     }

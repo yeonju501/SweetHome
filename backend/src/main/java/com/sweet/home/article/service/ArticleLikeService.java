@@ -1,6 +1,7 @@
 package com.sweet.home.article.service;
 
 import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
+import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleLike;
 import com.sweet.home.article.domain.ArticleLikeRepository;
@@ -10,6 +11,7 @@ import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -55,11 +57,10 @@ public class ArticleLikeService {
     }
 
     @Transactional(readOnly = true)
-    public List<ArticleLikeResponse> showArticleLikes(String email, Pageable pageable) {
+    public ArticlesLikeResponse showArticleLikes(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
-        return articleLikeRepository.findAllByMember(member, pageable).stream()
-            .map(ArticleLikeResponse::from)
-            .collect(Collectors.toList());
+        Page<ArticleLike> articles = articleLikeRepository.findAllByMember(member, pageable);
+        return ArticlesLikeResponse.from(articles);
     }
 
     @Transactional
