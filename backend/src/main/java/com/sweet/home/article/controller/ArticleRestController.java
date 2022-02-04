@@ -3,11 +3,10 @@ package com.sweet.home.article.controller;
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
-import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
-import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
+import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
+import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
-import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -46,15 +45,15 @@ public class ArticleRestController {
     }
 
     @GetMapping("/{boardId}/articles")
-    public ResponseEntity<List<ArticleTitleResponse>> showArticles(@PathVariable Long boardId,
+    public ResponseEntity<ArticlesTitleResponse> showArticlesByBoard(@PathVariable Long boardId,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok().body(articleService.findAllByBoard(boardId, pageable));
+        return ResponseEntity.ok().body(articleService.showArticlesByBoard(boardId, pageable));
     }
 
     @GetMapping("/articles/mine")
-    public ResponseEntity<List<ArticleLikeResponse>> showMyArticles(@AuthenticationPrincipal String email,
+    public ResponseEntity<ArticlesLikeResponse> showMyArticles(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok().body(articleService.findAllByMember(email, pageable));
+        return ResponseEntity.ok().body(articleService.showMyArticles(email, pageable));
     }
 
     @PutMapping("/articles/{articleId}")
