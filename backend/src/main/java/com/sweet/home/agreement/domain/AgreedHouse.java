@@ -2,7 +2,7 @@ package com.sweet.home.agreement.domain;
 
 import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.apt.domain.AptHouse;
-import java.time.LocalDateTime;
+import com.sweet.home.global.domain.BaseEntity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -13,11 +13,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
-import org.springframework.data.annotation.CreatedDate;
 
 @Getter
 @Entity
-public class AgreedHouse {
+public class AgreedHouse extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,10 +33,6 @@ public class AgreedHouse {
 
     @Column(name = "agreement_status")
     private boolean agreement_status;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
 
     protected AgreedHouse() {
     }

@@ -69,7 +69,7 @@ public class AgreementService {
 
         agreement.checkAptRelationship(apt);
 
-        agreement.deleteAgreement();
+        agreement.saveDeletedTime();
     }
 
     @Transactional

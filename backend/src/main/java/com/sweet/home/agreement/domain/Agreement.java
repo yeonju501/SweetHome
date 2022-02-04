@@ -2,6 +2,7 @@ package com.sweet.home.agreement.domain;
 
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.apt.domain.Apt;
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
@@ -16,12 +17,11 @@ import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
-import org.springframework.data.annotation.CreatedDate;
 
 @Entity
 @Getter
 @Where(clause = "deleted_at is null")
-public class Agreement {
+public class Agreement extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,13 +37,6 @@ public class Agreement {
 
     @Column(name = "content", length = 400, nullable = false)
     private String content;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     @Column(name = "start_date")
     private LocalDateTime startDate;
@@ -71,10 +64,6 @@ public class Agreement {
             .startDate(request.getStartDate())
             .endDate(request.getEndDate())
             .build();
-    }
-
-    public void deleteAgreement() {
-        this.deletedAt = LocalDateTime.now();
     }
 
     public void changeTitle(String title) {
