@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import profileFunction from "../../utils/profileFunction";
 
 function ProfileArticles() {
-	const URL = process.env.REACT_APP_SERVER_URL;
 	const [articles, setArticles] = useState("");
 
 	useEffect(() => {
-		axios(`${URL}/api/boards/articles/mine`).then((res) => setArticles(res.data));
+		profileFunction("boards/articles/mine", setArticles);
 	}, []);
 
 	return (
