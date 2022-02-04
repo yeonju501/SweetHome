@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import profileFunction from "../../utils/profileFunction";
 
 function ProfileComments() {
-	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState("");
 
 	useEffect(() => {
-		axios(`${URL}/api/articles/comments/mine`).then((res) => setComments(res.data));
+		profileFunction("articles/comments/mine", setComments);
 	}, []);
 
 	return (
