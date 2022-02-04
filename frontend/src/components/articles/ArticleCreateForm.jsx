@@ -1,19 +1,11 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
-	const token = useSelector((state) => state.token.token);
-
+function ArticleCreateForm({ invertDisabled, boardId }) {
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
-
-	const handleCancelButtonClick = () => {
-		setDisabled(true);
-	};
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
@@ -22,15 +14,10 @@ function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
 				url: `${SERVER_URL}/api/boards/${boardId}/articles/`,
 				method: "post",
 				data: articleData,
-			})
-				.then((res) => {
-					getArticles();
-					setArticleData({ title: "", content: "" });
-					setDisabled(true);
-				})
-				.catch((err) => {
-					console.log(err);
-				});
+			}).then(() => {
+				setArticleData({ title: "", content: "" });
+				invertDisabled();
+			});
 		} else {
 			alert("제목과 내용 모두 입력하세요!");
 		}
@@ -60,11 +47,13 @@ function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
 				/>
 				<hr />
 				<input type="file" />
-				<button onClick={handleCancelButtonClick}>취소</button>
-				<button onClick={handleFormSubmit}>작성</button>
+				<button type="button" onClick={invertDisabled}>
+					취소
+				</button>
+				<button type="submit">작성</button>
 			</form>
 		</div>
 	);
 }
 
-export default CreateArticleActivated;
+export default ArticleCreateForm;

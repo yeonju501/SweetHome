@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
-import CreateArticle from "../articles/CreateArticle";
+import ArticleCreate from "../articles/ArticleCreate";
 import style from "../../style/Board.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -11,7 +10,7 @@ function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 
 	useEffect(() => {
 		currentBoard && getArticles();
-	}, [currentBoard]);
+	}, [currentBoard, articles]);
 
 	const getArticles = () => {
 		axios({
@@ -33,7 +32,7 @@ function Board({ currentBoard, setArticleClicked, setCurrentArticle }) {
 				<p>게시판명 : {currentBoard.name}</p>
 				<p>게시판 소개글 : {currentBoard.description}</p>
 			</div>
-			{currentBoard ? <CreateArticle boardId={currentBoard.id} getArticles={getArticles} /> : null}
+			{currentBoard ? <ArticleCreate boardId={currentBoard.id} /> : null}
 			<ul>
 				{articles.map((article) => (
 					<li
