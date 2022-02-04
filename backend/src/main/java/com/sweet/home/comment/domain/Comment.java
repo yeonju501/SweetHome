@@ -54,11 +54,11 @@ public class Comment extends BaseEntity {
     private LocalDateTime blockedAt;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("(select count(1) from comment_like cl where cl.comment_id = comment_id)")
+    @Formula("(select count(1) from comment_like cl where cl.comment_id = comment_id and cl.deleted_at is null)")
     private long totalLikes;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("(select count(1) from comment_report cr where cr.comment_id = comment_id)")
+    @Formula("(select count(1) from comment_report cr where cr.comment_id = comment_id and cr.deleted_at is null)")
     private long totalReports;
 
     @OneToMany(mappedBy = "parent")

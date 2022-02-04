@@ -44,11 +44,11 @@ public class Article extends BaseEntity {
     private LocalDateTime blockedAt;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("(select count(1) from article_like al where al.article_id = article_id)")
+    @Formula("(select count(1) from article_like al where al.article_id = article_id and al.deleted_at is null)")
     private long totalLikes;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("(select count(1) from article_report ar where ar.article_id = article_id)")
+    @Formula("(select count(1) from article_report ar where ar.article_id = article_id and ar.deleted_at is null)")
     private long totalReports;
 
     private static final int BLOCK_STANDARD = 5;
