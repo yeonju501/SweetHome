@@ -5,15 +5,16 @@ import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
 import com.sweet.home.comment.controller.dto.request.CommentsDeleteRequest;
 import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
-import com.sweet.home.comment.controller.dto.response.CommentResponse;
+import com.sweet.home.comment.controller.dto.response.CommentsMineResponse;
+import com.sweet.home.comment.controller.dto.response.CommentsResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.domain.CommentRepository;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
-import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -66,19 +67,17 @@ public class CommentService {
     }
 
     @Transactional(readOnly = true)
-    public List<CommentResponse> findAllByArticle(Long articleId, Pageable pageable) {
+    public CommentsResponse showCommentsByArticle(Long articleId, Pageable pageable) {
         Article article = articleService.findById(articleId);
-        return commentRepository.findAllByParentIsNullAndArticle(article, pageable).stream()
-            .map(CommentResponse::from)
-            .collect(Collectors.toList());
+        Page<Comment> comments = commentRepository.findAllByParentIsNullAndArticle(article, pageable);
+        return CommentsResponse.from(comments);
     }
 
     @Transactional(readOnly = true)
-    public List<CommentMineResponse> findAllByMember(String email, Pageable pageable) {
+    public CommentsMineResponse showCommentsByMember(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
-        return commentRepository.findAllByMember(member, pageable).stream()
-            .map(comment -> CommentMineResponse.from(comment))
-            .collect(Collectors.toList());
+        Page<Comment> comments = commentRepository.findAllByMember(member, pageable);
+        return CommentsMineResponse.from(comments);
     }
 
     @Transactional

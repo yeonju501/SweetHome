@@ -3,7 +3,8 @@ package com.sweet.home.comment.controller;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
 import com.sweet.home.comment.controller.dto.request.CommentsDeleteRequest;
 import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
-import com.sweet.home.comment.controller.dto.response.CommentResponse;
+import com.sweet.home.comment.controller.dto.response.CommentsMineResponse;
+import com.sweet.home.comment.controller.dto.response.CommentsResponse;
 import com.sweet.home.comment.service.CommentService;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -46,15 +47,15 @@ public class CommentRestController {
     }
 
     @GetMapping("/{articleId}/comments")
-    public ResponseEntity<List<CommentResponse>> showComments(@PathVariable Long articleId,
+    public ResponseEntity<CommentsResponse> showCommentsByArticle(@PathVariable Long articleId,
         @PageableDefault Pageable pageable) {
-        return ResponseEntity.ok().body(commentService.findAllByArticle(articleId, pageable));
+        return ResponseEntity.ok().body(commentService.showCommentsByArticle(articleId, pageable));
     }
 
     @GetMapping("/comments/mine")
-    public ResponseEntity<List<CommentMineResponse>> showMyComments(@AuthenticationPrincipal String email,
+    public ResponseEntity<CommentsMineResponse> showMyComments(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok().body(commentService.findAllByMember(email, pageable));
+        return ResponseEntity.ok().body(commentService.showCommentsByMember(email, pageable));
     }
 
     @PutMapping("/comments/{commentId}")
