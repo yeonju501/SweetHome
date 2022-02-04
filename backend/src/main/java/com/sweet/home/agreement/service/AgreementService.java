@@ -11,6 +11,7 @@ import com.sweet.home.agreement.domain.AgreementRepository;
 import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.apt.domain.AptHouse;
 import com.sweet.home.apt.domain.AptRepository;
+import com.sweet.home.apt.service.AptService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -25,33 +26,26 @@ import org.springframework.transaction.annotation.Transactional;
 public class AgreementService {
 
     private final AgreementRepository agreementRepository;
-    private final MemberService memberService;
-    private final AptRepository aptRepository; // 이건 나중에 aptService로 빼낼 것
     private final AgreedHouseRepository agreedHouseRepository;
+    private final MemberService memberService;
+    private final AptService aptService;
 
-    public AgreementService(AgreementRepository agreementRepository, MemberService memberService,
-        AptRepository aptRepository, AgreedHouseRepository agreedHouseRepository) {
+    public AgreementService(AgreementRepository agreementRepository, AgreedHouseRepository agreedHouseRepository,
+        MemberService memberService, AptService aptService) {
         this.agreementRepository = agreementRepository;
-        this.memberService = memberService;
-        this.aptRepository = aptRepository; // 이건 나중에 aptService로 빼낼 것
         this.agreedHouseRepository = agreedHouseRepository;
+        this.memberService = memberService;
+        this.aptService = aptService;
     }
 
     @Transactional
     public void createAgreement(String email, AgreementRequest request) {
-        // 이메일로 유저 아이디 찾고
         Member member = memberService.findByEmail(email);
+        Apt apt = aptService.findById(request.getAptId());
 
-        //TODO: 로그인한 유저가 아파트 관리자인지 판별 및 어느 아파트 관리자인지 파악
-        // 찾은 유저 아이디로 어느 건물 관리자인지 찾고
-        // AptMember aptMember = aptMemberService.findByMemberId(member.getId());
-        // 찾은 건물 아이디를 동의서 아파트 id에 넣어야 하고
-        // agreementRepository.saveAll(Agreement.createAgreement(aptMember.getAptId(), request));
+        member.checkAptMember(apt);
 
-        //다음은 임시 코드
-        Apt apt = aptRepository.getById(1L);
         agreementRepository.save(Agreement.createAgreement(apt, request));
-        // 임시코드 끝
     }
 
     @Transactional
@@ -64,7 +58,7 @@ public class AgreementService {
         // 임시코드
         // Member에서 찾은 AptMember에서의 apt_id 필요
 
-        Apt apt = aptRepository.getById(1L);
+        Apt apt = aptService.findById(1L);
         // 임시코드 끝
 
         agreement.checkAptRelationship(apt);
@@ -81,7 +75,7 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트를 관리하는지 확인하는 로직
         // 임시코드
         // member에서 찾은 aptMember에서의 apt_id 필요
-        Apt apt = aptRepository.getById(1L);
+        Apt apt = aptService.findById(1L);
         // 임시코드 끝
 
         agreement.checkAptRelationship(apt);
@@ -101,7 +95,7 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트에서 살고있는지 확인하는 로직
         // 임시코드
         // member에서 찾은 aptHouseMember에서 찾은 aptHouse 의 apt_id 필요
-        Apt apt = aptRepository.getById(1L);
+        Apt apt = aptService.findById(1L);
         // 임시코드 끝
 
         agreement.checkAptRelationship(apt);
@@ -116,7 +110,7 @@ public class AgreementService {
         //TODO: 멤버가 이 동의서의 아파트에서 살고있는지 확인하는 로직
         // 임시코드
         // member에서 찾은 aptHouseMember에서 찾은 aptHouse 의 apt_id 필요
-        Apt apt = aptRepository.getById(1L);
+        Apt apt = aptService.findById(1L);
         // 임시코드 끝
 
         return agreementRepository.findByApt(apt, pageable).stream()
