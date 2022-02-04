@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import profileFunction from "../../utils/profileFunction";
+import style from "../../style/ProfileComments.module.css";
 
 function ProfileComments() {
 	const [comments, setComments] = useState("");
@@ -9,10 +10,11 @@ function ProfileComments() {
 	}, []);
 
 	return (
-		<tabel>
+		<table>
 			<thead>
 				<tr>
-					<th>게시판 이름</th>
+					<th></th>
+					<th className={style.tabel_board_name}>게시판 이름</th>
 					<th>제목</th>
 					<th>댓글 내용</th>
 					<th>작성 날짜</th>
@@ -22,6 +24,7 @@ function ProfileComments() {
 				comments.map((comment, idx) => (
 					<tbody>
 						<tr key={idx}>
+							<input type="checkbox" />
 							<td>{comment.board_name}</td>
 							<td>{comment.article_title}</td>
 							<td>{comment.content}</td>
@@ -29,7 +32,7 @@ function ProfileComments() {
 						</tr>
 					</tbody>
 				))}
-		</tabel>
+		</table>
 	);
 }
 
