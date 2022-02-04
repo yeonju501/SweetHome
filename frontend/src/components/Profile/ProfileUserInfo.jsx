@@ -3,6 +3,7 @@ import * as inputValid from "../../utils/inputValid";
 import axios from "axios";
 import { toast } from "react-toastify";
 import DeleteAccount from "../../components/accounts/DeleteAccount";
+import profileFunction from "../../utils/profileFunction";
 
 function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -15,10 +16,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 	});
 
 	useEffect(() => {
-		axios({
-			url: `${SERVER_URL}/api/members/my-profile`,
-			method: "get",
-		}).then((res) => setUserInfo(res.data));
+		profileFunction("members/my-profile", setUserInfo);
 	}, []);
 
 	const { email, username, phone_number, password } = userInfo;
