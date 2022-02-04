@@ -39,7 +39,7 @@ public class MemberService {
     public void resignMember(String email) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
-        member.resignMember();
+        member.saveDeletedTime();
     }
 
     @Transactional(readOnly = true)

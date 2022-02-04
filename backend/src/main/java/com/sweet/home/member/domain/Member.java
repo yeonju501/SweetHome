@@ -1,6 +1,7 @@
 package com.sweet.home.member.domain;
 
 import com.sweet.home.auth.domain.Authority;
+import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
@@ -22,7 +23,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @Entity
 @Getter
 @Where(clause = "deleted_at is null")
-public class Member {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,17 +45,6 @@ public class Member {
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
     private Authority authority;
-
-    @CreatedDate
-    @Column(name = "created_at")
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    @Column(name = "updated_at", nullable = true)
-    private LocalDateTime updatedAt;
-
-    @Column(name = "deleted_at", nullable = true)
-    private LocalDateTime deletedAt;
 
     protected Member() {
     }
@@ -101,12 +91,8 @@ public class Member {
     }
 
     public void changePhoneNumber(String phoneNumber) {
-        if (!Objects.isNull(phoneNumber)){
+        if (!Objects.isNull(phoneNumber)) {
             this.phoneNumber = phoneNumber;
         }
-    }
-
-    public void resignMember() {
-        this.deletedAt = LocalDateTime.now();
     }
 }
