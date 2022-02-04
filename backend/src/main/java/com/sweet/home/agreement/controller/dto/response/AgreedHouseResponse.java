@@ -32,8 +32,8 @@ public class AgreedHouseResponse {
 
     public static AgreedHouseResponse from(AgreedHouse agreedHouse) {
         return new AgreedHouseResponse(
-            agreedHouse.getBuildingHouse().getDong(),
-            agreedHouse.getBuildingHouse().getHo(),
+            agreedHouse.getAptHouse().getDong(),
+            agreedHouse.getAptHouse().getHo(),
             agreedHouse.isAgreement_status(),
             agreedHouse.getCreatedAt()
         );

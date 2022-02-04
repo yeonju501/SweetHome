@@ -32,11 +32,8 @@ public enum ErrorCode {
     AGREEMENT_NOT_YOUR_APARTMENT(HttpStatus.UNAUTHORIZED, "해당 아파트의 관리자가 아닙니다.", "D02"),
     AGREEMENT_ALREADY_AGREED(HttpStatus.CONFLICT, "이미 서명한 세대입니다.", "D03"),
 
-    // buildingHouseMember
-    BUILDING_HOUSE_MEMBER_NOT_FOUND_ID(HttpStatus.NOT_FOUND, "존재하지 않는 세대주 입니다.", "C05"),
-
-    // building (Building)
-    BUILDING_NOT_MATCH_BY_BUILDING_ID(HttpStatus.BAD_REQUEST, "빌딩 ID가 일치하지 않습니다.", "C06"),
+    // apt (Apt)
+    APT_NOT_MATCH_BY_APT_ID(HttpStatus.BAD_REQUEST, "아파트 ID가 일치하지 않습니다.", "C06"),
 
     // message
     MESSAGE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 메시지 ID 입니다.", "E01"),

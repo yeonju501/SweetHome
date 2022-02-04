@@ -1,4 +1,4 @@
-package com.sweet.home.building.domain;
+package com.sweet.home.apt.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,21 +10,21 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Building {
+public class Apt {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "building_id")
+    @Column(name = "apt_id")
     private Long id;
 
     @Column(name = "name")
     private String name;
 
-    public Building() {
+    public Apt() {
     }
 
     @Builder
-    public Building(String name) {
+    public Apt(String name) {
         this.name = name;
     }
 }
