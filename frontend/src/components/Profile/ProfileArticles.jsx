@@ -9,16 +9,25 @@ function ProfileArticles() {
 	}, []);
 
 	return (
-		<div>
-			{/* Link로 해당 게시글로 이동 기능 추가 예정 */}
+		<tabel>
+			<thead>
+				<tr>
+					<th>제목</th>
+					<th>게시판 이름</th>
+					<th>작성 날짜</th>
+				</tr>
+			</thead>
 			{articles &&
 				articles.map((article, idx) => (
-					<div key={idx}>
-						<p>{article.title}</p>
-						<p>{article.created_at}</p>
-					</div>
+					<tbody>
+						<tr key={idx}>
+							<td>{article.title}</td>
+							<td>{article.board_name}</td>
+							<td>{article.created_at.slice(0, 10)}</td>
+						</tr>
+					</tbody>
 				))}
-		</div>
+		</tabel>
 	);
 }
 
