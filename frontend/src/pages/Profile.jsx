@@ -27,10 +27,10 @@ function Profile() {
 				</div>
 			</div>
 			<ProfileNav active={active} setActive={setActive} />
-			<ProfileUserInfo setIntro={setIntro} intro={intro} />
-			<ProfileArticles />
-			<ProfileComments />
-			<ProfileLikes />
+			{active === 0 && <ProfileUserInfo setIntro={setIntro} intro={intro} />}
+			{active === 1 && <ProfileArticles />}
+			{active === 2 && <ProfileComments />}
+			{active === 3 && <ProfileLikes />}
 		</div>
 	);
 }
