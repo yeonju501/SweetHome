@@ -5,15 +5,12 @@ import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreedHouseResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
-import com.sweet.home.agreement.domain.AgreedHouse;
 import com.sweet.home.agreement.domain.AgreedHouseRepository;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
 import com.sweet.home.building.domain.Building;
 import com.sweet.home.building.domain.BuildingHouse;
-import com.sweet.home.building.domain.BuildingHouseMember;
 import com.sweet.home.building.domain.BuildingRepository;
-import com.sweet.home.building.service.BuildingHouseMemberService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -29,16 +26,13 @@ public class AgreementService {
 
     private final AgreementRepository agreementRepository;
     private final MemberService memberService;
-    private final BuildingHouseMemberService buildingHouseMemberService;
     private final BuildingRepository buildingRepository;
     private final AgreedHouseRepository agreedHouseRepository;
 
     public AgreementService(AgreementRepository agreementRepository, MemberService memberService,
-        BuildingHouseMemberService buildingHouseMemberService, BuildingRepository buildingRepository,
-        AgreedHouseRepository agreedHouseRepository) {
+        BuildingRepository buildingRepository, AgreedHouseRepository agreedHouseRepository) {
         this.agreementRepository = agreementRepository;
         this.memberService = memberService;
-        this.buildingHouseMemberService = buildingHouseMemberService;
         this.buildingRepository = buildingRepository;
         this.agreedHouseRepository = agreedHouseRepository;
     }
@@ -134,29 +128,29 @@ public class AgreementService {
         //멤버 찾기
         Member member = memberService.findByEmail(email);
         //멤버의 buildingHouseMember 찾기
-        BuildingHouseMember buildingHouseMember = buildingHouseMemberService.findByMember(member);
+        //BuildingHouseMember buildingHouseMember = buildingHouseMemberService.findByMember(member);
         //동의서 ID 찾기
         Agreement agreement = agreementRepository.findById(agreementId)
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
 
         //동의서의 buildingId와 멤버에서 찾은 BuildingHouse의 BuildingID 가 같은지 확인
-        checkSameBuilding(agreement.getBuilding(), buildingHouseMember.getBuildingHouse().getBuilding());
+        //checkSameBuilding(agreement.getBuilding(), buildingHouseMember.getBuildingHouse().getBuilding());
         //이미 서명한 세대인지 확인
-        checkDuplicateHouse(buildingHouseMember.getBuildingHouse());
+        //checkDuplicateHouse(buildingHouseMember.getBuildingHouse());
 
-        agreedHouseRepository.save(AgreedHouse.createAgree(agreement, buildingHouseMember.getBuildingHouse(), request));
+        //agreedHouseRepository.save(AgreedHouse.createAgree(agreement, buildingHouseMember.getBuildingHouse(), request));
     }
 
-    private void checkSameBuilding (Building firstBuilding, Building secondBuilding){
+    private void checkSameBuilding(Building firstBuilding, Building secondBuilding) {
         if (!firstBuilding.equals(secondBuilding)) {
             throw new BusinessException(ErrorCode.BUILDING_NOT_MATCH_BY_BUILDING_ID);
         }
     }
 
-    private void checkDuplicateHouse (BuildingHouse buildingHouse){
-        if (agreedHouseRepository.existsByBuildingHouse(buildingHouse)){
+    private void checkDuplicateHouse(BuildingHouse buildingHouse) {
+        if (agreedHouseRepository.existsByBuildingHouse(buildingHouse)) {
             throw new BusinessException(ErrorCode.AGREEMENT_ALREADY_AGREED);
-        };
+        }
     }
 
     @Transactional(readOnly = true)
