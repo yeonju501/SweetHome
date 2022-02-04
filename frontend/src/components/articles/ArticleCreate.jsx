@@ -1,22 +1,18 @@
 import { useState } from "react";
-import CreateArticleActivated from "./CreateArticleActivated";
+import ArticleCreateForm from "./ArticleCreateForm";
 import CreateArticleDisabled from "./CreateArticleDisabled";
 
-function CreateArticle({ boardId, getArticles }) {
+function ArticleCreate({ boardId, getArticles }) {
 	const [disabled, setDisabled] = useState(true);
 	return (
 		<div>
 			{disabled ? (
 				<CreateArticleDisabled setDisabled={setDisabled} />
 			) : (
-				<CreateArticleActivated
-					setDisabled={setDisabled}
-					boardId={boardId}
-					getArticles={getArticles}
-				/>
+				<ArticleCreateForm setDisabled={setDisabled} boardId={boardId} getArticles={getArticles} />
 			)}
 		</div>
 	);
 }
 
-export default CreateArticle;
+export default ArticleCreate;

@@ -1,13 +1,9 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
-	const token = useSelector((state) => state.token.token);
-
+function ArticleCreateForm({ setDisabled, boardId, getArticles }) {
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
 
@@ -67,4 +63,4 @@ function CreateArticleActivated({ setDisabled, boardId, getArticles }) {
 	);
 }
 
-export default CreateArticleActivated;
+export default ArticleCreateForm;
