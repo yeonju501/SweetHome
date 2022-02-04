@@ -26,10 +26,10 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<SignUp />} />
+					<Route path="/:boardname" element={<Board />} />
+					<Route path="/articles/:articleId:" element={<ArticleDetail />} />
 					<Route path="" element={<PrivateRoute />}>
 						<Route path="/main" element={<Main />} />
-						<Route path="/:boardname" element={<Board />} />
-						<Route path="/articles/:articleId:" element={<ArticleDetail />} />
 						<Route path="/profile/:username" element={<Profile />} />
 					</Route>
 					<Route path="/message-box/" element={<MessageBox />}>
