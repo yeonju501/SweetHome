@@ -3,6 +3,7 @@ package com.sweet.home.article.controller;
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
+import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.service.ArticleService;
@@ -56,6 +57,12 @@ public class ArticleRestController {
         return ResponseEntity.ok().body(articleService.showMyArticles(email, pageable));
     }
 
+    @GetMapping("/articles/reports")
+    public ResponseEntity<ArticleReportsResponse> showBlockedArticles(
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(articleService.showBlockedArticles(pageable));
+    }
+
     @PutMapping("/articles/{articleId}")
     public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request,
         @PathVariable Long articleId) {
@@ -70,7 +77,8 @@ public class ArticleRestController {
     }
 
     @DeleteMapping("/articles")
-    public ResponseEntity<Void> deleteArticles(@AuthenticationPrincipal String email, @RequestBody ArticlesDeleteRequest request) {
+    public ResponseEntity<Void> deleteArticles(@AuthenticationPrincipal String email,
+        @RequestBody ArticlesDeleteRequest request) {
         articleService.deleteArticles(email, request);
         return ResponseEntity.noContent().build();
     }

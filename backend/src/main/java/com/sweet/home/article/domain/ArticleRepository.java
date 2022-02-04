@@ -20,6 +20,9 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
     Page<Article> findAllByMember(Member member, Pageable pageable);
 
+    @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
+    Page<Article> findAllByBlockedAtIsNotNull(Pageable pageable);
+
     @Query(nativeQuery = true, value = "select count(a.article_id) from Article a "
         + "where a.article_id in (:ids) "
         + "and a.deleted_at is null "
