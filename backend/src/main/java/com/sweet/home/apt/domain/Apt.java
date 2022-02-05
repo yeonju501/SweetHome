@@ -20,22 +20,22 @@ public class Apt {
     @Column(name = "adm_code")
     private Integer admCode;
 
-    @Column(name = "sido", nullable = true)
+    @Column(name = "sido")
     private String sido;
 
-    @Column(name = "road_name", nullable = true)
+    @Column(name = "road_name")
     private String roadName;
 
-    @Column(name = "road_code", nullable = true)
+    @Column(name = "road_code")
     private Integer roadCode;
 
-    @Column(name = "apt_main_num", nullable = true)
+    @Column(name = "apt_main_num")
     private Integer aptMainNum;
 
-    @Column(name = "apt_sub_num", nullable = true)
+    @Column(name = "apt_sub_num")
     private Integer aptSubNum;
 
-    @Column(name = "name", nullable = true)
+    @Column(name = "name")
     private String name;
 
     public Apt() {
