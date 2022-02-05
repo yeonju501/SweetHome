@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import profileFunction from "../../utils/profileFunction";
+import * as axiosRequest from "../../utils/profileFunction";
 import style from "../../style/ProfileComments.module.css";
 
 function ProfileArticles() {
-	const [articles, setArticles] = useState("");
+	const [articles, setArticles] = useState([]);
 
 	useEffect(() => {
-		profileFunction("boards/articles/mine", setArticles);
+		axiosRequest.GETMYDATA("boards/articles/mine", setArticles, "articles");
 	}, []);
 
 	return (
@@ -19,7 +19,7 @@ function ProfileArticles() {
 				</tr>
 			</thead>
 			<tbody>
-				{articles ? (
+				{articles.length > 0 ? (
 					articles.map((article, idx) => (
 						<tr key={idx}>
 							<td className={style.check}>
