@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "../../style/Board.module.css";
 import Navbar from "../Navbar";
@@ -36,14 +37,17 @@ function Board() {
 				<p>게시판 소개글 : {boardDescription}</p>
 			</div>
 			<ArticleCreate boardId={boardId} getArticles={getArticles} />
+			<hr />
 			{articles && (
 				<ul>
-					{articles.map((article) => (
-						<li className={style.article} key={article.id} id={article.id}>
-							<p>{article.username}</p>
-							<p>{article.created_at}</p>
-							<h3>{article.title}</h3>
-							<p>{article.content}</p>
+					{articles.map(({ id, username, title, content, created_at }) => (
+						<li className={style.article} key={id}>
+							<Link to={`/articles/${id}`} state={{ id }}>
+								<p>{username}</p>
+								<p>{created_at}</p>
+								<h3>{title}</h3>
+								<p>{content}</p>
+							</Link>
 						</li>
 					))}
 				</ul>

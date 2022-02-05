@@ -1,28 +1,29 @@
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-function ArticleDetailButtons({ articleData, articleId, setUpdate, setArticleClicked }) {
+function ArticleDetailButtons({ articleData, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const username = useSelector((state) => state.userInfo.username);
+	const navigate = useNavigate();
 
 	const handleDeleteButtonClick = () => {
 		axios({
 			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 			method: "delete",
 		}).then(() => {
-			setArticleClicked(false);
+			navigate(-1);
 		});
-	};
-
-	const handleUpdateButtonClick = () => {
-		setUpdate(true);
 	};
 
 	return (
 		<div>
 			{articleData.username === username ? (
 				<div>
-					<button onClick={handleUpdateButtonClick}>수정</button>
+					<Link to={`/articles/${articleId}/update`} state={{ articleId }}>
+						수정
+					</Link>
 					<button onClick={handleDeleteButtonClick}>삭제</button>
 				</div>
 			) : (

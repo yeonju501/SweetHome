@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react";
+import { Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import Sidebar from "../Sidebar";
 
-function ArticleUpdate({ articleId, setUpdate }) {
+function ArticleUpdate() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
+	const location = useLocation();
+	const articleId = location.state.articleId;
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios({
@@ -26,9 +32,9 @@ function ArticleUpdate({ articleId, setUpdate }) {
 				url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 				method: "put",
 				data: articleData,
-			}).then((res) => {
+			}).then(() => {
 				setArticleData({ title: "", content: "" });
-				setUpdate(false);
+				navigate(-1);
 			});
 		} else {
 			alert("제목과 내용 모두 입력하세요!");
@@ -36,11 +42,12 @@ function ArticleUpdate({ articleId, setUpdate }) {
 	};
 
 	const handleCancelButtonClick = () => {
-		setUpdate(false);
+		navigate(-1);
 	};
 
 	return (
 		<div>
+			<Sidebar />
 			<form onSubmit={handleFormSubmit}>
 				<input type="text" id="title" value={articleData.title} onChange={handleInputChange} />
 				<hr />
