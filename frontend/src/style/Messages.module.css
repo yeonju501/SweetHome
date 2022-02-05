@@ -1,0 +1,14 @@
+.side {
+	width: 30%;
+	height: 100%;
+	border: 1px solid;
+}
+
+.main {
+	width: 70%;
+	height: 100%;
+	border: 1px solid;
+}
+
+.link {
+}
