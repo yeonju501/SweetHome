@@ -83,23 +83,35 @@ function ReadSendMessage() {
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
-			<button onClick={onDeleteMessages}>삭제</button>
-			<ul>
+
+			<table>
+				<th>선택</th>
+				<th>제목</th>
+				<th>받는 사람</th>
+				<th>보낸 날짜</th>
+				<button onClick={onDeleteMessages}>삭제</button>
 				{sendMessageArray.map((sendMessage, idx) => (
-					<li key={idx}>
-						<input
-							type="checkbox"
-							onChange={(e) => {
-								changeHandler(e.currentTarget.checked, sendMessage.message_id);
-							}}
-							checked={checkItems.includes(sendMessage.message_id) ? true : false}
-						/>
-						<Link to="/message-box/message-detail" state={{ messageId: sendMessage.message_id }}>
-							{sendMessage.message_id}
-						</Link>
-					</li>
+					<tr key={idx}>
+						<td>
+							<input
+								type="checkbox"
+								onChange={(e) => {
+									changeHandler(e.currentTarget.checked, sendMessage.message_id);
+								}}
+								checked={checkItems.includes(sendMessage.message_id) ? true : false}
+							/>
+						</td>
+
+						<td>
+							<Link to="/message-box/message-detail" state={{ messageId: sendMessage.message_id }}>
+								{sendMessage.title}
+							</Link>
+						</td>
+						<td>{sendMessage.receiver_username}</td>
+						<td>{sendMessage.send_at}</td>
+					</tr>
 				))}
-			</ul>
+			</table>
 			<div>
 				<button onClick={pageDown}>이전</button>
 				{messagePagination()}
