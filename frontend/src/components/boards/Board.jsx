@@ -15,8 +15,11 @@ function Board() {
 	const boardName = location.state.name;
 	const boardDescription = location.state.description;
 
+	const [isStarred, setIsStarred] = useState(false);
+
 	useEffect(() => {
 		getArticles();
+		getStarred();
 	}, [boardId]);
 
 	const getArticles = () => {
@@ -28,6 +31,15 @@ function Board() {
 		});
 	};
 
+	const getStarred = () => {
+		axios({
+			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+			method: "get",
+		}).then((res) => {
+			setIsStarred(res.data.is_liked);
+		});
+	};
+
 	return (
 		<div>
 			<Navbar />
@@ -35,6 +47,7 @@ function Board() {
 			<div className={style.board_info}>
 				<p>게시판명 : {boardName}</p>
 				<p>게시판 소개글 : {boardDescription}</p>
+				<button onClick="">{isStarred ? "⭐" : "☆"}</button>
 			</div>
 			<ArticleCreate boardId={boardId} getArticles={getArticles} />
 			<hr />
