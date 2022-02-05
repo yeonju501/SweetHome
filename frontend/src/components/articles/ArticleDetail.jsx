@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Comments from "../comments/Comments";
 import ArticleUpdate from "./ArticleUpdate";
 import ArticleDetailButtons from "./ArticleDetailButtons";
+import Sidebar from "../Sidebar";
 
-function ArticleDetail({ articleId }) {
+function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const location = useLocation();
+	const articleId = location.state.id;
+
 	const [articleData, setArticleData] = useState();
 	const [update, setUpdate] = useState(false);
 	const [isLiked, setIsLiked] = useState();
@@ -17,13 +22,17 @@ function ArticleDetail({ articleId }) {
 		}).then((res) => {
 			setArticleData(res.data);
 		});
+		getTotalLikes();
+	}, [isLiked]);
+
+	const getTotalLikes = () => {
 		axios({
 			url: `${SERVER_URL}/api/articles/${articleId}/likes`,
 			method: "get",
 		}).then((res) => {
 			setIsLiked(res.data.is_liked);
 		});
-	}, [articleData]);
+	};
 
 	const handleHeartClick = () => {
 		const method = isLiked ? "delete" : "post";
@@ -38,6 +47,7 @@ function ArticleDetail({ articleId }) {
 
 	return (
 		<div>
+			<Sidebar />
 			<nav>nav-bar</nav>
 			{articleData &&
 				(update ? (
@@ -49,7 +59,11 @@ function ArticleDetail({ articleId }) {
 								<p>{articleData.username}</p>
 								<p>{articleData.created_at}</p>
 							</div>
-							<ArticleDetailButtons />
+							<ArticleDetailButtons
+								articleData={articleData}
+								articleId={articleId}
+								setUpdate={setUpdate}
+							/>
 							<h3>{articleData.title}</h3>
 							<p>{articleData.content}</p>
 							<div>
@@ -58,7 +72,7 @@ function ArticleDetail({ articleId }) {
 								<button onClick={handleHeartClick}>{isLiked ? "💗" : "🤍"}</button>
 							</div>
 						</article>
-						<Comments articleId={articleId} />
+						{/* <Comments articleId={articleId} /> */}
 					</div>
 				))}
 		</div>
