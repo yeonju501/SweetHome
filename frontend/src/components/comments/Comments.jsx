@@ -1,27 +1,18 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import * as axiosRequest from "../../utils/profileFunction";
 import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 
 function Comments({ articleId }) {
-	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
 
-	const getComments = () => {
-		axios({
-			url: `${URL}/api/articles/${articleId}/comments`,
-			method: "get",
-		}).then((res) => {
-			setComments(res.data);
-		});
-	};
 	useEffect(() => {
-		getComments();
+		axiosRequest.GETDATA(`articles/${articleId}/comments`, setComments, "comments");
 	}, []);
 
 	return (
 		<div>
-			{comments ? (
+			{comments.length > 0 ? (
 				<CommentsList articleId={articleId} comments={comments} getComments={getComments} />
 			) : (
 				<p>작성된 댓글이 없습니다</p>
