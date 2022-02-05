@@ -33,7 +33,9 @@ public enum ErrorCode {
     AGREEMENT_ALREADY_AGREED(HttpStatus.CONFLICT, "이미 서명한 세대입니다.", "D03"),
 
     // apt (Apt)
+    APT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 아파트 ID 입니다.", "C05"),
     APT_NOT_MATCH_BY_APT_ID(HttpStatus.BAD_REQUEST, "아파트 ID가 일치하지 않습니다.", "C06"),
+    APT_NOT_HIS_APT(HttpStatus.BAD_REQUEST, "본인의 아파트가 아닙니다.", "C07"),
 
     // message
     MESSAGE_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 메시지 ID 입니다.", "E01"),

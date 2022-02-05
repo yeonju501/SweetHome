@@ -32,7 +32,7 @@ public class AgreementRestController {
         this.agreementService = agreementService;
     }
 
-    //동의서 생성
+    //동의서 생성 / 권한: 아파트 관리자 이상
     @PostMapping("/agreements")
     public ResponseEntity<Void> createAgreement(@AuthenticationPrincipal String email, @RequestBody AgreementRequest request) {
         agreementService.createAgreement(email, request);
@@ -40,7 +40,7 @@ public class AgreementRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    //동의서 삭제
+    //동의서 삭제 / 권한: 아파트 관리자 이상
     @DeleteMapping("/agreements/{agreement_id}")
     public ResponseEntity<Void> deleteAgreement(@AuthenticationPrincipal String email,
         @PathVariable(value = "agreement_id") Long agreementId) {
@@ -48,7 +48,7 @@ public class AgreementRestController {
         return ResponseEntity.noContent().build();
     }
 
-    //동의서 수정
+    //동의서 수정 / 권한: 아파트 관리자 이상
     @PutMapping("/agreements/{agreement_id}")
     public ResponseEntity<Void> updateAgreement(@AuthenticationPrincipal String email, @RequestBody AgreementRequest request,
         @PathVariable(value = "agreement_id") Long agreementId) {
@@ -80,7 +80,7 @@ public class AgreementRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    //서명한 사람 목록 받아오기
+    //서명한 사람 목록 받아오기 / 권한: 아파트 관리자 이상
     @GetMapping("/agreements/agree/{agreement_id}")
     public ResponseEntity<List<AgreedHouseResponse>> getAgreedHouses(@AuthenticationPrincipal String email,
         @PathVariable(value = "agreement_id") Long agreementId) {

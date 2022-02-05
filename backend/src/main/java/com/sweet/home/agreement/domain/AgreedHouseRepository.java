@@ -8,5 +8,5 @@ public interface AgreedHouseRepository extends JpaRepository<AgreedHouse, Long> 
 
     List<AgreedHouse> findByAgreement(Agreement agreement);
 
-    boolean existsByAptHouse(AptHouse aptHouse);
+    boolean existsByIdAndAptHouse(Long id, AptHouse aptHouse);
 }

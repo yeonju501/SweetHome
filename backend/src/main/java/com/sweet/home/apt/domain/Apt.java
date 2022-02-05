@@ -18,7 +18,7 @@ public class Apt {
     private Long id;
 
     @Column(name = "adm_code")
-    private int admCode;
+    private Integer admCode;
 
     @Column(name = "sido")
     private String sido;
@@ -27,13 +27,13 @@ public class Apt {
     private String roadName;
 
     @Column(name = "road_code")
-    private int roadCode;
+    private Integer roadCode;
 
     @Column(name = "apt_main_num")
-    private int aptMainNum;
+    private Integer aptMainNum;
 
     @Column(name = "apt_sub_num")
-    private int aptSubNum;
+    private Integer aptSubNum;
 
     @Column(name = "name")
     private String name;
@@ -42,7 +42,8 @@ public class Apt {
     }
 
     @Builder
-    public Apt(Long id, int admCode, String sido, String roadName, int roadCode, int aptMainNum, int aptSubNum, String name) {
+    public Apt(Long id, Integer admCode, String sido, String roadName, Integer roadCode, Integer aptMainNum,
+        Integer aptSubNum, String name) {
         this.id = id;
         this.admCode = admCode;
         this.sido = sido;
