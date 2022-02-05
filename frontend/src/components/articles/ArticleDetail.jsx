@@ -64,7 +64,7 @@ function ArticleDetail() {
 							<button onClick={handleHeartClick}>{isLiked ? "💗" : "🤍"}</button>
 						</div>
 					</article>
-					{/* <Comments articleId={articleId} /> */}
+					<Comments articleId={articleId} />
 				</div>
 			)}
 		</div>
