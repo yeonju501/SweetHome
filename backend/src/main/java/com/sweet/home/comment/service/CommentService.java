@@ -4,7 +4,6 @@ import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
 import com.sweet.home.comment.controller.dto.request.CommentsDeleteRequest;
-import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
 import com.sweet.home.comment.controller.dto.response.CommentsMineResponse;
 import com.sweet.home.comment.controller.dto.response.CommentsResponse;
 import com.sweet.home.comment.domain.Comment;
@@ -13,7 +12,6 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
-import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -95,7 +93,7 @@ public class CommentService {
             .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
 
         comment.checkCommentByEmail(email);
-        comment.saveDeletedTime();
+        comment.deleteComment();
     }
 
     @Transactional
