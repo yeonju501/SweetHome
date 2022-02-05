@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
-import * as axiosRequest from "../../utils/profileFunction";
+import axios from "axios";
 import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 
 function Comments({ articleId }) {
+	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
 
+	const getComments = () => {
+		axios({
+			url: `${URL}/api/articles/${articleId}/comments`,
+			method: "get",
+		}).then((res) => {
+			setComments(res.data.comments);
+		});
+	};
 	useEffect(() => {
-		axiosRequest.GETDATA(`articles/${articleId}/comments`, setComments, "comments");
+		getComments();
 	}, []);
 
 	return (
