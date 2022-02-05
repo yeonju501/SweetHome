@@ -10,7 +10,7 @@ export function GETUSERINFO(func) {
 	});
 }
 
-export function GETMYDATA(address, func, which) {
+export function GETDATA(address, func, which) {
 	axios({
 		url: `${SERVER_URL}/api/${address}`,
 		method: "get",
