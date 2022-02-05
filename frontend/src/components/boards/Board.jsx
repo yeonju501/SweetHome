@@ -40,6 +40,17 @@ function Board() {
 		});
 	};
 
+	const handleStarClick = () => {
+		const method = isStarred ? "delete" : "post";
+
+		axios({
+			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+			method: method,
+		}).then(() => {
+			setIsStarred((prev) => !prev);
+		});
+	};
+
 	return (
 		<div>
 			<Navbar />
@@ -47,7 +58,7 @@ function Board() {
 			<div className={style.board_info}>
 				<p>게시판명 : {boardName}</p>
 				<p>게시판 소개글 : {boardDescription}</p>
-				<button onClick="">{isStarred ? "⭐" : "☆"}</button>
+				<button onClick={handleStarClick}>{isStarred ? "⭐" : "☆"}</button>
 			</div>
 			<ArticleCreate boardId={boardId} getArticles={getArticles} />
 			<hr />
