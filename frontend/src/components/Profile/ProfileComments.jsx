@@ -6,7 +6,7 @@ function ProfileComments() {
 	const [comments, setComments] = useState([]);
 
 	useEffect(() => {
-		axiosRequest.GETMYDATA("articles/comments/mine", setComments, "comments");
+		axiosRequest.GETDATA("articles/comments/mine", setComments, "comments");
 	}, []);
 
 	return (

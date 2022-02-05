@@ -5,7 +5,7 @@ function ProfileLikes() {
 	const [articles, setArticles] = useState([]);
 
 	useEffect(() => {
-		axiosRequest.GETMYDATA("articles/likes/mine", setArticles, "likes");
+		axiosRequest.GETDATA("articles/likes/mine", setArticles, "likes");
 	}, []);
 
 	return (
