@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import profileFunction from "../../utils/profileFunction";
+import * as axiosRequest from "../../utils/profileFunction";
 import style from "../../style/ProfileComments.module.css";
 
 function ProfileComments() {
-	const [comments, setComments] = useState("");
+	const [comments, setComments] = useState([]);
 
 	useEffect(() => {
-		profileFunction("articles/comments/mine", setComments);
+		axiosRequest.GETMYDATA("articles/comments/mine", setComments, "comments");
 	}, []);
 
 	return (
@@ -22,7 +22,7 @@ function ProfileComments() {
 				</tr>
 			</thead>
 			<tbody>
-				{comments ? (
+				{comments.length > 0 ? (
 					comments.map((comment, idx) => (
 						<tr key={idx}>
 							<td className={style.check}>

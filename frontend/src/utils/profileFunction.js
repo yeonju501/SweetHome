@@ -1,12 +1,20 @@
 import axios from "axios";
 
-export default function profileFunction(address, func) {
-	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+export function GETUSERINFO(func) {
+	axios({
+		url: `${SERVER_URL}/api/members/my-profile`,
+		method: "get",
+	}).then((res) => {
+		func(res.data);
+	});
+}
 
+export function GETMYDATA(address, func, which) {
 	axios({
 		url: `${SERVER_URL}/api/${address}`,
 		method: "get",
 	}).then((res) => {
-		func(res.data);
+		func(res.data[which]);
 	});
 }

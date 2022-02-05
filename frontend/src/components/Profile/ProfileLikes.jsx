@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
-import profileFunction from "../../utils/profileFunction";
+import * as axiosRequest from "../../utils/profileFunction";
 
 function ProfileLikes() {
-	const [articles, setArticles] = useState("");
+	const [articles, setArticles] = useState([]);
 
 	useEffect(() => {
-		profileFunction("articles/likes/mine", setArticles);
+		axiosRequest.GETMYDATA("articles/likes/mine", setArticles, "likes");
 	}, []);
 
 	return (
