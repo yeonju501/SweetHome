@@ -22,7 +22,7 @@ function ReadReceiveMessage() {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
-				setReceiveMessageArray(res.data);
+				setReceiveMessageArray(res.data.messages);
 				setPageSize(res.data.total_page_count);
 				console.log(res.data.messages);
 				console.log("저장된 값 확인", receiveMessageArray);
