@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -7,6 +8,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SendMessage() {
 	const token = useSelector((state) => state.token.accessToken);
+	const navigate = useNavigate();
 
 	const [sendMessage, setSendMessage] = useState({
 		receiver_name: "",
@@ -37,6 +39,10 @@ function SendMessage() {
 			});
 		}
 		console.log(e.target.checkValidity());
+	}
+
+	function onCancel() {
+		navigate("/message-box");
 	}
 
 	const { receiver_name, title, content } = sendMessage;
@@ -70,6 +76,7 @@ function SendMessage() {
 				/>
 
 				<button>Send</button>
+				<button onClick={onCancel}>Cancle</button>
 			</form>
 		</div>
 	);
