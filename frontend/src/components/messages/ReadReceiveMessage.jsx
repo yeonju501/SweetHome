@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -57,6 +58,7 @@ function ReadReceiveMessage() {
 				message_ids: temp,
 			},
 		}).then((res) => {
+			toast.success("메시지 삭제 완료");
 			console.log(res);
 		});
 	}

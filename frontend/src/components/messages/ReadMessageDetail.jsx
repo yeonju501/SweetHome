@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -41,6 +42,7 @@ function ReadMessageDeatil() {
 			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
 			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => {
+			toast.success("메시지 삭제 완료");
 			console.log(res);
 		});
 	}
