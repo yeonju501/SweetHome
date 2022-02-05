@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -30,6 +31,8 @@ function SendMessage() {
 				headers: { Authorization: `Bearer ${token}` },
 				data: sendMessage,
 			}).then((res) => {
+				toast.success("메시지 전송 완료");
+				setSendMessage({ receiver_name: "", title: "", content: "" });
 				console.log(res);
 			});
 		}
