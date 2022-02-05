@@ -8,9 +8,6 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Getter
 public class AgreementRequest {
 
-    @JsonProperty("apt_id")
-    private Long aptId;
-
     @JsonProperty("title")
     private String title;
 
@@ -28,8 +25,7 @@ public class AgreementRequest {
     public AgreementRequest() {
     }
 
-    public AgreementRequest(Long aptId, String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
-        this.aptId = aptId;
+    public AgreementRequest(String title, String content, LocalDateTime startDate, LocalDateTime endDate) {
         this.title = title;
         this.content = content;
         this.startDate = startDate;

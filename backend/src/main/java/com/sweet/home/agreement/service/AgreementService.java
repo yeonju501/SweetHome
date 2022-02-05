@@ -9,9 +9,7 @@ import com.sweet.home.agreement.domain.AgreedHouse;
 import com.sweet.home.agreement.domain.AgreedHouseRepository;
 import com.sweet.home.agreement.domain.Agreement;
 import com.sweet.home.agreement.domain.AgreementRepository;
-import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.apt.domain.AptHouse;
-import com.sweet.home.apt.service.AptService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -28,24 +26,19 @@ public class AgreementService {
     private final AgreementRepository agreementRepository;
     private final AgreedHouseRepository agreedHouseRepository;
     private final MemberService memberService;
-    private final AptService aptService;
 
     public AgreementService(AgreementRepository agreementRepository, AgreedHouseRepository agreedHouseRepository,
-        MemberService memberService, AptService aptService) {
+        MemberService memberService) {
         this.agreementRepository = agreementRepository;
         this.agreedHouseRepository = agreedHouseRepository;
         this.memberService = memberService;
-        this.aptService = aptService;
     }
 
     @Transactional
     public void createAgreement(String email, AgreementRequest request) {
         Member member = memberService.findByEmail(email);
-        Apt apt = aptService.findById(request.getAptId());
 
-        member.checkAptMember(apt);
-
-        agreementRepository.save(Agreement.createAgreement(apt, request));
+        agreementRepository.save(Agreement.createAgreement(member.getAptHouse().getApt(), request));
     }
 
     @Transactional
