@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import style from "../../style/Messages.module.css";
+import style from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -90,7 +90,9 @@ function ReadReceiveMessage() {
 				<th>제목</th>
 				<th>받는 사람</th>
 				<th>보낸 날짜</th>
-				<button onClick={onDeleteMessages}>삭제</button>
+				<button className={style.delete} onClick={onDeleteMessages}>
+					삭제
+				</button>
 				{receiveMessageArray.map((receiveMessage, idx) => (
 					<tr key={idx}>
 						<td>

@@ -11,4 +11,15 @@
 }
 
 .link {
+	text-decoration: none;
+}
+
+.delete {
+	color: red;
+	background-color: transparent;
+}
+
+.send {
+	color: blue;
+	background-color: transparent;
 }

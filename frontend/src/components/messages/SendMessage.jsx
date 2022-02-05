@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-// import style from "../../style/Messages.module.css";
+import style from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -51,6 +51,7 @@ function SendMessage() {
 		<div>
 			<h1>SendMessage</h1>
 			<form onSubmit={onSend}>
+				<p>받는 사람</p>
 				<input
 					type="text"
 					placeholder="receiver_name"
@@ -59,6 +60,7 @@ function SendMessage() {
 					onChange={onChange}
 					required
 				/>
+				<p>제목</p>
 				<input
 					type="text"
 					placeholder="title"
@@ -67,6 +69,7 @@ function SendMessage() {
 					onChange={onChange}
 					required
 				/>
+				<p>내용</p>
 				<input
 					type="text"
 					placeholder="content"
@@ -75,9 +78,12 @@ function SendMessage() {
 					onChange={onChange}
 					required
 				/>
-
-				<button>Send</button>
-				<button onClick={onCancel}>Cancle</button>
+				<div>
+					<button className={style.send}>Send</button>
+					<button className={style.delete} onClick={onCancel}>
+						Cancle
+					</button>
+				</div>
 			</form>
 		</div>
 	);
