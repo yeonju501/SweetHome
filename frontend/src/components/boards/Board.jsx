@@ -6,10 +6,9 @@ import style from "../../style/Board.module.css";
 import Navbar from "../Navbar";
 import Sidebar from "../Sidebar";
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
-function Board({ setArticleClicked, setCurrentArticle }) {
-	const [articles, setArticles] = useState([]);
+function Board() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const [articles, setArticles] = useState("");
 	const location = useLocation();
 	const boardId = location.state.id;
 	const boardName = location.state.name;
@@ -17,14 +16,14 @@ function Board({ setArticleClicked, setCurrentArticle }) {
 
 	useEffect(() => {
 		getArticles();
-	}, [articles]);
+	}, [boardId]);
 
 	const getArticles = () => {
 		axios({
 			url: `${SERVER_URL}/api/boards/${boardId}/articles`,
 			method: "get",
 		}).then((res) => {
-			setArticles(res.data);
+			setArticles(res.data.articles);
 		});
 	};
 
@@ -36,17 +35,19 @@ function Board({ setArticleClicked, setCurrentArticle }) {
 				<p>게시판명 : {boardName}</p>
 				<p>게시판 소개글 : {boardDescription}</p>
 			</div>
-			<ArticleCreate boardId={boardId} />
-			<ul>
-				{articles.map((article) => (
-					<li className={style.article} key={article.id} id={article.id}>
-						<p>{article.username}</p>
-						<p>{article.created_at}</p>
-						<h3>{article.title}</h3>
-						<p>{article.content}</p>
-					</li>
-				))}
-			</ul>
+			<ArticleCreate boardId={boardId} getArticles={getArticles} />
+			{articles && (
+				<ul>
+					{articles.map((article) => (
+						<li className={style.article} key={article.id} id={article.id}>
+							<p>{article.username}</p>
+							<p>{article.created_at}</p>
+							<h3>{article.title}</h3>
+							<p>{article.content}</p>
+						</li>
+					))}
+				</ul>
+			)}
 		</div>
 	);
 }
