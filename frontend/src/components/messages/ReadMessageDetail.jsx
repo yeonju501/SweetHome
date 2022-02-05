@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -9,6 +9,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function ReadMessageDeatil() {
 	const token = useSelector((state) => state.token.accessToken);
 	const location = useLocation();
+	const navigate = useNavigate();
 	const [messageDetail, setMessageDetail] = useState({
 		sender_username: "",
 		sender_email: "",
@@ -43,6 +44,7 @@ function ReadMessageDeatil() {
 			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => {
 			toast.success("메시지 삭제 완료");
+			navigate("/message-box");
 			console.log(res);
 		});
 	}

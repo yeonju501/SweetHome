@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
@@ -13,6 +13,7 @@ function ReadReceiveMessage() {
 	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
 	const [pageSize, setPageSize] = useState(0);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios({
@@ -59,6 +60,7 @@ function ReadReceiveMessage() {
 			},
 		}).then((res) => {
 			toast.success("메시지 삭제 완료");
+			navigate("/message-box");
 			console.log(res);
 		});
 	}
