@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ArticleCreateForm from "./ArticleCreateForm";
 
 function ArticleCreate({ boardId, getArticles }) {
 	const [disabled, setDisabled] = useState(true);
+
+	useEffect(() => {
+		setDisabled(true);
+	}, [boardId]);
 
 	const invertDisabled = () => {
 		setDisabled((prev) => !prev);

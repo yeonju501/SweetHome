@@ -12,7 +12,6 @@ function ArticleDetail() {
 	const articleId = location.state.id;
 
 	const [articleData, setArticleData] = useState();
-	const [update, setUpdate] = useState(false);
 	const [isLiked, setIsLiked] = useState();
 
 	useEffect(() => {
@@ -49,32 +48,25 @@ function ArticleDetail() {
 		<div>
 			<Sidebar />
 			<nav>nav-bar</nav>
-			{articleData &&
-				(update ? (
-					<ArticleUpdate articleId={articleId} setUpdate={setUpdate} />
-				) : (
-					<div>
-						<article>
-							<div>
-								<p>{articleData.username}</p>
-								<p>{articleData.created_at}</p>
-							</div>
-							<ArticleDetailButtons
-								articleData={articleData}
-								articleId={articleId}
-								setUpdate={setUpdate}
-							/>
-							<h3>{articleData.title}</h3>
-							<p>{articleData.content}</p>
-							<div>
-								<span>{articleData.total_likes}</span>
-								<span>댓글 수</span>
-								<button onClick={handleHeartClick}>{isLiked ? "💗" : "🤍"}</button>
-							</div>
-						</article>
-						{/* <Comments articleId={articleId} /> */}
-					</div>
-				))}
+			{articleData && (
+				<div>
+					<article>
+						<div>
+							<p>{articleData.username}</p>
+							<p>{articleData.created_at}</p>
+						</div>
+						<ArticleDetailButtons articleData={articleData} articleId={articleId} />
+						<h3>{articleData.title}</h3>
+						<p>{articleData.content}</p>
+						<div>
+							<span>{articleData.total_likes}</span>
+							<span>댓글 수</span>
+							<button onClick={handleHeartClick}>{isLiked ? "💗" : "🤍"}</button>
+						</div>
+					</article>
+					{/* <Comments articleId={articleId} /> */}
+				</div>
+			)}
 		</div>
 	);
 }

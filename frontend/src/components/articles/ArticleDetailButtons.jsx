@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 function ArticleDetailButtons({ articleData, articleId }) {
@@ -16,13 +17,13 @@ function ArticleDetailButtons({ articleData, articleId }) {
 		});
 	};
 
-	const handleUpdateButtonClick = () => {};
-
 	return (
 		<div>
 			{articleData.username === username ? (
 				<div>
-					<button onClick={handleUpdateButtonClick}>수정</button>
+					<Link to={`/articles/${articleId}/update`} state={{ articleId }}>
+						수정
+					</Link>
 					<button onClick={handleDeleteButtonClick}>삭제</button>
 				</div>
 			) : (
