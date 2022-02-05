@@ -19,7 +19,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Transient;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Formula;
@@ -53,18 +52,20 @@ public class Comment extends BaseEntity {
     @Column(name = "blocked_at", nullable = true)
     private LocalDateTime blockedAt;
 
+    @Column(name = "is_removed")
+    private Boolean isRemoved;
+
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from comment_like cl where cl.comment_id = comment_id and cl.deleted_at is null)")
-    private long totalLikes;
+    private int totalLikes;
 
     @Basic(fetch = FetchType.LAZY)
     @Formula("(select count(1) from comment_report cr where cr.comment_id = comment_id and cr.deleted_at is null)")
-    private long totalReports;
+    private int totalReports;
 
     @OneToMany(mappedBy = "parent")
     private List<Comment> childList = new ArrayList<>();
 
-    @Transient
     private static final int BLOCK_STANDARD = 5;
 
     protected Comment() {
@@ -93,6 +94,36 @@ public class Comment extends BaseEntity {
     public void checkTotalReports() {
         if (this.totalReports >= BLOCK_STANDARD) {
             this.blockedAt = LocalDateTime.now();
+        }
+    }
+
+    public boolean checkParentOrChild() {
+        if (Objects.isNull(this.getParent())) {
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasChildList() {
+        return this.getChildList().stream()
+            .filter(c -> Objects.isNull(c.getDeletedAt()))
+            .findAny()
+            .map(c -> true)
+            .orElse(false);
+    }
+
+    public void removeComment() {
+        this.isRemoved = true;
+    }
+
+    public void deleteComment() {
+        if (this.checkParentOrChild() && this.hasChildList()) {
+            this.removeComment();
+            return;
+        }
+        this.saveDeletedTime();
+        if (!this.checkParentOrChild() && this.getParent().getIsRemoved() && !this.getParent().hasChildList()) {
+            this.getParent().saveDeletedTime();
         }
     }
 }

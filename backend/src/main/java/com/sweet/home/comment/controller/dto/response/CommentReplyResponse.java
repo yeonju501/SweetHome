@@ -30,13 +30,13 @@ public class CommentReplyResponse {
     private LocalDateTime updatedAt;
 
     @JsonProperty("total_likes")
-    private long totalLikes;
+    private int totalLikes;
 
     protected CommentReplyResponse() {
     }
 
     public CommentReplyResponse(Long id, Long parentId, String username, String content, LocalDateTime createdAt,
-        LocalDateTime updatedAt, long totalLikes) {
+        LocalDateTime updatedAt, int totalLikes) {
         this.id = id;
         this.parentId = parentId;
         this.username = username;
