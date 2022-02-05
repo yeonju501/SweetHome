@@ -93,13 +93,13 @@ public class AgreementService {
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
 
         member.checkAptMember(agreement.getApt());
-        checkDuplicateHouse(member.getAptHouse());
+        checkDuplicateHouse(agreementId, member.getAptHouse());
 
         agreedHouseRepository.save(AgreedHouse.createAgree(agreement, member.getAptHouse(), request));
     }
 
-    private void checkDuplicateHouse(AptHouse aptHouse) {
-        if (agreedHouseRepository.existsByAptHouse(aptHouse)) {
+    private void checkDuplicateHouse(Long agreementId, AptHouse aptHouse) {
+        if (agreedHouseRepository.existsByIdAndAptHouse(agreementId, aptHouse)) {
             throw new BusinessException(ErrorCode.AGREEMENT_ALREADY_AGREED);
         }
     }
