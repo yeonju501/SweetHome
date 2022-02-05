@@ -83,23 +83,38 @@ function ReadReceiveMessage() {
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
-			<button onClick={onDeleteMessages}>삭제</button>
-			<ul>
+
+			<table>
+				<th></th>
+				<th>제목</th>
+				<th>받는 사람</th>
+				<th>보낸 날짜</th>
+				<button onClick={onDeleteMessages}>삭제</button>
 				{receiveMessageArray.map((receiveMessage, idx) => (
-					<li key={idx}>
-						<input
-							type="checkbox"
-							onChange={(e) => {
-								changeHandler(e.currentTarget.checked, receiveMessage.message_id);
-							}}
-							checked={checkItems.includes(receiveMessage.message_id) ? true : false}
-						/>
-						<Link to="/message-box/message-detail" state={{ messageId: receiveMessage.message_id }}>
-							{receiveMessage.message_id}
-						</Link>
-					</li>
+					<tr key={idx}>
+						<td>
+							<input
+								type="checkbox"
+								onChange={(e) => {
+									changeHandler(e.currentTarget.checked, receiveMessage.message_id);
+								}}
+								checked={checkItems.includes(receiveMessage.message_id) ? true : false}
+							/>
+						</td>
+
+						<td>
+							<Link
+								to="/message-box/message-detail"
+								state={{ messageId: receiveMessage.message_id }}
+							>
+								{receiveMessage.title}
+							</Link>
+						</td>
+						<td>{receiveMessage.receiver_username}</td>
+						<td>{receiveMessage.send_at.substring(0, 10)}</td>
+					</tr>
 				))}
-			</ul>
+			</table>
 			<div>
 				<button onClick={pageDown}>이전</button>
 				{messagePagination()}

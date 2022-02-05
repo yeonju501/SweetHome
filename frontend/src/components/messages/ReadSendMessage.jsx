@@ -85,7 +85,7 @@ function ReadSendMessage() {
 			<h1>ReadSendMessage</h1>
 
 			<table>
-				<th>선택</th>
+				<th></th>
 				<th>제목</th>
 				<th>받는 사람</th>
 				<th>보낸 날짜</th>
@@ -108,7 +108,7 @@ function ReadSendMessage() {
 							</Link>
 						</td>
 						<td>{sendMessage.receiver_username}</td>
-						<td>{sendMessage.send_at}</td>
+						<td>{sendMessage.send_at.substring(0, 10)}</td>
 					</tr>
 				))}
 			</table>
