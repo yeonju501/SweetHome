@@ -5,7 +5,7 @@ import CommentsList from "./CommentsList";
 
 function Comments({ articleId }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
-	const [comments, setComments] = useState("");
+	const [comments, setComments] = useState([]);
 
 	const getComments = () => {
 		axios({
