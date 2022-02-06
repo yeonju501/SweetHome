@@ -34,3 +34,17 @@ export function messagePagination(pageSize, setPage) {
 	}
 	return tempSize;
 }
+
+export function getDetailMessageFromServer(id, funDetail) {
+	axios({
+		method: "GET",
+		url: `${SERVER_URL}/api/messages/${id}`,
+	})
+		.then((res) => {
+			console.log(res.data);
+			funDetail(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
