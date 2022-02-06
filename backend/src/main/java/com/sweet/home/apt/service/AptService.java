@@ -1,6 +1,7 @@
 package com.sweet.home.apt.service;
 
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.apt.domain.AptRepository;
 import com.sweet.home.apt.domain.RegisterAptHouse;
@@ -44,5 +45,14 @@ public class AptService {
         if (registerAptHouseRepository.existsByMember(member)) {
             throw new BusinessException(ErrorCode.MEMBER_ALREADY_REQUEST_APT_HOUSE);
         }
+    }
+
+    @Transactional
+    public MyRegisterAptHouseResponse viewMyRegisterApt(String email) {
+        Member member = memberService.findByEmail(email);
+        RegisterAptHouse registerAptHouse = registerAptHouseRepository.findByMember(member)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
+
+        return MyRegisterAptHouseResponse.from(registerAptHouse);
     }
 }
