@@ -27,7 +27,7 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<SignUp />} />
-					<Route path="/:boardname" element={<Board />} />
+					<Route path="/boards/boardId" element={<Board />} />
 					<Route path="/articles/:articleId" element={<ArticleDetail />} />
 					<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
 					<Route path="" element={<PrivateRoute />}>
