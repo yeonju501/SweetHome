@@ -53,7 +53,9 @@ function ProfileComments() {
 					))
 				) : (
 					<tr>
-						<td>아직 작성한 댓글이 없습니다</td>
+						<td colSpan="5" className={style.nothing}>
+							아직 작성한 댓글이 없습니다
+						</td>
 					</tr>
 				)}
 			</tbody>
