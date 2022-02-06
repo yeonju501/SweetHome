@@ -1,5 +1,12 @@
 package com.sweet.home.apt.controller;
 
+import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.service.AptService;
+import java.net.URI;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -7,8 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api")
 public class AptRestController {
 
+    private final AptService aptService;
+
+    public AptRestController(AptService aptService) {
+        this.aptService = aptService;
+    }
+
     //일반 회원 영역
     //등록 요청 - 회원의 아파트 등록 요청 = POST
+    @PostMapping("/apts/register")
+    public ResponseEntity<Void> createRegisterApt(@AuthenticationPrincipal String email,
+        @RequestBody RegisterAptHouseRequest request) {
+        aptService.createRegisterApt(email, request);
+        URI uri = URI.create("/api/register/");
+        return ResponseEntity.created(uri).build();
+    }
 
     //등록 요청 - 회원의 아파트 등록 취소 = DELETE
 
