@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../../style/Messages.module.css";
+import { getMessagesFromServer } from "../../utils/messagesFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -16,19 +17,7 @@ function ReadReceiveMessage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		axios({
-			method: "GET",
-			url: `${SERVER_URL}/api/messages/receive?page=${page}&size=${size}`,
-		})
-			.then((res) => {
-				setReceiveMessageArray(res.data.messages);
-				setPageSize(res.data.total_page_count);
-				console.log(res.data.messages);
-				console.log("저장된 값 확인", receiveMessageArray);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		getMessagesFromServer("receive", page, size, setReceiveMessageArray, setPageSize);
 	}, [page]);
 
 	const pageUp = () => {
