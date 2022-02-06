@@ -24,8 +24,8 @@ public enum ErrorCode {
     MEMBER_NOT_FOUND_BY_EMAIL(HttpStatus.NOT_FOUND, "존재하지 않는 유저의 이메일입니다.", "C01"),
     MEMBER_NOT_FOUND_BY_USERNAME(HttpStatus.NOT_FOUND, "존재하지 않는 유저의 이름입니다.", "C02"),
     MEMBER_LOGIN_ERROR_BY_PASSWORD(HttpStatus.UNAUTHORIZED, "비밀번호가 일치하지 않는 유저입니다.", "C03"),
-
     MEMBER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 중복된 이메일의 회원 정보가 존재합니다.", "C04"),
+    MEMBER_ALREADY_REQUEST_APT_HOUSE(HttpStatus.CONFLICT, "이미 아파트 등록 신청한 회원입니다.", "C05"),
 
     // agreement
     AGREEMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 동의서 ID 입니다.", "D01"),
