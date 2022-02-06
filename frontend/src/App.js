@@ -27,12 +27,12 @@ function App() {
 					<Route path="/" element={<Home />} />
 					<Route path="/sign-in" element={<SignIn />} />
 					<Route path="/sign-up" element={<SignUp />} />
-					<Route path="/boards/:boardId" element={<Board />} />
-					<Route path="/articles/:articleId" element={<ArticleDetail />} />
-					<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
 					<Route path="" element={<PrivateRoute />}>
 						<Route path="/main" element={<Main />} />
 						<Route path="/profile/:username" element={<Profile />} />
+						<Route path="/boards/:boardId" element={<Board />} />
+						<Route path="/articles/:articleId" element={<ArticleDetail />} />
+						<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
 					</Route>
 					<Route path="/message-box/" element={<MessageBox />}>
 						<Route path="read-receive-message" element={<ReadReceiveMessage />} />
