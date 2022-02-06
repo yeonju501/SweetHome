@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import style from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -12,6 +14,7 @@ function ReadReceiveMessage() {
 	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
 	const [pageSize, setPageSize] = useState(0);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios({
@@ -20,7 +23,7 @@ function ReadReceiveMessage() {
 			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
-				setReceiveMessageArray(res.data);
+				setReceiveMessageArray(res.data.messages);
 				setPageSize(res.data.total_page_count);
 				console.log(res.data.messages);
 				console.log("저장된 값 확인", receiveMessageArray);
@@ -57,6 +60,8 @@ function ReadReceiveMessage() {
 				message_ids: temp,
 			},
 		}).then((res) => {
+			toast.success("메시지 삭제 완료");
+			navigate("/message-box");
 			console.log(res);
 		});
 	}
@@ -79,23 +84,40 @@ function ReadReceiveMessage() {
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
-			<button onClick={onDeleteMessages}>삭제</button>
-			<ul>
+
+			<table>
+				<th></th>
+				<th>제목</th>
+				<th>받는 사람</th>
+				<th>보낸 날짜</th>
+				<button className={style.delete} onClick={onDeleteMessages}>
+					삭제
+				</button>
 				{receiveMessageArray.map((receiveMessage, idx) => (
-					<li key={idx}>
-						<input
-							type="checkbox"
-							onChange={(e) => {
-								changeHandler(e.currentTarget.checked, receiveMessage.message_id);
-							}}
-							checked={checkItems.includes(receiveMessage.message_id) ? true : false}
-						/>
-						<Link to="/message-box/message-detail" state={{ messageId: receiveMessage.message_id }}>
-							{receiveMessage.message_id}
-						</Link>
-					</li>
+					<tr key={idx}>
+						<td>
+							<input
+								type="checkbox"
+								onChange={(e) => {
+									changeHandler(e.currentTarget.checked, receiveMessage.message_id);
+								}}
+								checked={checkItems.includes(receiveMessage.message_id) ? true : false}
+							/>
+						</td>
+
+						<td>
+							<Link
+								to="/message-box/message-detail"
+								state={{ messageId: receiveMessage.message_id }}
+							>
+								{receiveMessage.title}
+							</Link>
+						</td>
+						<td>{receiveMessage.receiver_username}</td>
+						<td>{receiveMessage.send_at.substring(0, 10)}</td>
+					</tr>
 				))}
-			</ul>
+			</table>
 			<div>
 				<button onClick={pageDown}>이전</button>
 				{messagePagination()}

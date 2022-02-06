@@ -1,11 +1,15 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import style from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SendMessage() {
 	const token = useSelector((state) => state.token.accessToken);
+	const navigate = useNavigate();
 
 	const [sendMessage, setSendMessage] = useState({
 		receiver_name: "",
@@ -30,10 +34,16 @@ function SendMessage() {
 				headers: { Authorization: `Bearer ${token}` },
 				data: sendMessage,
 			}).then((res) => {
+				toast.success("메시지 전송 완료");
+				setSendMessage({ receiver_name: "", title: "", content: "" });
 				console.log(res);
 			});
 		}
 		console.log(e.target.checkValidity());
+	}
+
+	function onCancel() {
+		navigate("/message-box");
 	}
 
 	const { receiver_name, title, content } = sendMessage;
@@ -41,6 +51,7 @@ function SendMessage() {
 		<div>
 			<h1>SendMessage</h1>
 			<form onSubmit={onSend}>
+				<p>받는 사람</p>
 				<input
 					type="text"
 					placeholder="receiver_name"
@@ -49,6 +60,7 @@ function SendMessage() {
 					onChange={onChange}
 					required
 				/>
+				<p>제목</p>
 				<input
 					type="text"
 					placeholder="title"
@@ -57,6 +69,7 @@ function SendMessage() {
 					onChange={onChange}
 					required
 				/>
+				<p>내용</p>
 				<input
 					type="text"
 					placeholder="content"
@@ -65,8 +78,12 @@ function SendMessage() {
 					onChange={onChange}
 					required
 				/>
-
-				<button>Send</button>
+				<div>
+					<button className={style.send}>Send</button>
+					<button className={style.delete} onClick={onCancel}>
+						Cancle
+					</button>
+				</div>
 			</form>
 		</div>
 	);

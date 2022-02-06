@@ -1,0 +1,39 @@
+.side {
+	width: 30%;
+	height: 100%;
+	border: 1px solid;
+}
+
+.main {
+	width: 70%;
+	height: 100%;
+	border: 1px solid;
+}
+
+.link {
+	text-decoration: none;
+}
+
+.delete {
+	color: red;
+	background-color: transparent;
+}
+
+.send {
+	color: blue;
+	background-color: transparent;
+}
+
+.button {
+	color: blue;
+	background-color: transparent;
+}
+
+.message_box_container {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.li_link {
+	font-size: 25px;
+}

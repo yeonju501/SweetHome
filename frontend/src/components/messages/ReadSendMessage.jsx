@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { toast } from "react-toastify";
+import style from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -12,6 +14,7 @@ function ReadSendMessage() {
 	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
 	const [pageSize, setPageSize] = useState(0);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		axios({
@@ -57,6 +60,8 @@ function ReadSendMessage() {
 				message_ids: temp,
 			},
 		}).then((res) => {
+			toast.success("메시지 삭제 완료");
+			navigate("/message-box");
 			console.log(res);
 		});
 	}
@@ -79,23 +84,37 @@ function ReadSendMessage() {
 	return (
 		<div>
 			<h1>ReadSendMessage</h1>
-			<button onClick={onDeleteMessages}>삭제</button>
-			<ul>
+
+			<table>
+				<th></th>
+				<th>제목</th>
+				<th>받는 사람</th>
+				<th>보낸 날짜</th>
+				<button className={style.delete} onClick={onDeleteMessages}>
+					삭제
+				</button>
 				{sendMessageArray.map((sendMessage, idx) => (
-					<li key={idx}>
-						<input
-							type="checkbox"
-							onChange={(e) => {
-								changeHandler(e.currentTarget.checked, sendMessage.message_id);
-							}}
-							checked={checkItems.includes(sendMessage.message_id) ? true : false}
-						/>
-						<Link to="/message-box/message-detail" state={{ messageId: sendMessage.message_id }}>
-							{sendMessage.message_id}
-						</Link>
-					</li>
+					<tr key={idx}>
+						<td>
+							<input
+								type="checkbox"
+								onChange={(e) => {
+									changeHandler(e.currentTarget.checked, sendMessage.message_id);
+								}}
+								checked={checkItems.includes(sendMessage.message_id) ? true : false}
+							/>
+						</td>
+
+						<td>
+							<Link to="/message-box/message-detail" state={{ messageId: sendMessage.message_id }}>
+								{sendMessage.title}
+							</Link>
+						</td>
+						<td>{sendMessage.receiver_username}</td>
+						<td>{sendMessage.send_at.substring(0, 10)}</td>
+					</tr>
 				))}
-			</ul>
+			</table>
 			<div>
 				<button onClick={pageDown}>이전</button>
 				{messagePagination()}
