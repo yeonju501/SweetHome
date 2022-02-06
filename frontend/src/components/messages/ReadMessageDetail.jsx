@@ -4,6 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../../style/Messages.module.css";
+import { getDetailMessageFromServer } from "../../utils/messagesFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -22,17 +23,7 @@ function ReadMessageDeatil() {
 	});
 
 	useEffect(() => {
-		axios({
-			method: "GET",
-			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
-		})
-			.then((res) => {
-				console.log(res.data);
-				setMessageDetail(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		getDetailMessageFromServer(location.state.messageId, setMessageDetail);
 	}, []);
 
 	function onDeleteMessage(e) {
