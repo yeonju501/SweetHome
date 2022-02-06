@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import * as axiosRequest from "../../utils/profileFunction";
+import style from "../../style/ProfileComments.module.css";
 
 function ProfileLikes() {
 	const [articles, setArticles] = useState([]);
