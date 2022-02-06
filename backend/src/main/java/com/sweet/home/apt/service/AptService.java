@@ -36,15 +36,26 @@ public class AptService {
     public void createRegisterApt(String email, RegisterAptHouseRequest request) {
         Member member = memberService.findByEmail(email);
         Apt apt = findById(request.getAptId());
-        checkDuplicateMember(member);
+        checkDuplicateRegisterMember(member);
+
+        // TODO: 이미 본인이 살고 있는 아파트면 에러 출력
 
         registerAptHouseRepository.save(RegisterAptHouse.createRegisterAptHouse(member, apt, request));
     }
 
-    private void checkDuplicateMember(Member member) {
+    private void checkDuplicateRegisterMember(Member member) {
         if (registerAptHouseRepository.existsByMember(member)) {
             throw new BusinessException(ErrorCode.MEMBER_ALREADY_REQUEST_APT_HOUSE);
         }
+    }
+
+    @Transactional
+    public void deleteRegisterApt(String email){
+        Member member = memberService.findByEmail(email);
+        RegisterAptHouse registerAptHouse = registerAptHouseRepository.findByMember(member)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
+
+        registerAptHouse.saveDeletedTime();
     }
 
     @Transactional
