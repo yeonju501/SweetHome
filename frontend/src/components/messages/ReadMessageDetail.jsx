@@ -4,11 +4,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../../style/Messages.module.css";
+import { getDetailMessageFromServer } from "../../utils/messagesFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadMessageDeatil() {
-	const token = useSelector((state) => state.token.accessToken);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [messageDetail, setMessageDetail] = useState({
@@ -23,18 +23,7 @@ function ReadMessageDeatil() {
 	});
 
 	useEffect(() => {
-		axios({
-			method: "GET",
-			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
-			headers: { Authorization: `Bearer ${token}` },
-		})
-			.then((res) => {
-				console.log(res.data);
-				setMessageDetail(res.data);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		getDetailMessageFromServer(location.state.messageId, setMessageDetail);
 	}, []);
 
 	function onDeleteMessage(e) {
@@ -42,7 +31,6 @@ function ReadMessageDeatil() {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
-			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => {
 			toast.success("메시지 삭제 완료");
 			navigate("/message-box");

@@ -4,11 +4,11 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../../style/Messages.module.css";
+import { getMessagesFromServer, messagePagination } from "../../utils/messagesFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadSendMessage() {
-	const token = useSelector((state) => state.token.accessToken);
 	const [sendMessageArray, setSendMessageArray] = useState([]);
 	const [page, setPage] = useState(0);
 	const size = 10;
@@ -17,20 +17,7 @@ function ReadSendMessage() {
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		axios({
-			method: "GET",
-			url: `${SERVER_URL}/api/messages/send?page=${page}&size=${size}`,
-			headers: { Authorization: `Bearer ${token}` },
-		})
-			.then((res) => {
-				setSendMessageArray(res.data.messages);
-				setPageSize(res.data.total_page_count);
-				console.log(res.data);
-				console.log("저장된 값 확인", sendMessageArray);
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		getMessagesFromServer("send", page, size, setSendMessageArray, setPageSize);
 	}, [page]);
 
 	const pageUp = () => {
@@ -55,7 +42,6 @@ function ReadSendMessage() {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/messages/send`,
-			headers: { Authorization: `Bearer ${token}` },
 			data: {
 				message_ids: temp,
 			},
@@ -64,21 +50,6 @@ function ReadSendMessage() {
 			navigate("/message-box");
 			console.log(res);
 		});
-	}
-
-	function messagePagination() {
-		let tempSize = [];
-		for (let i = 0; i < pageSize; i++) {
-			tempSize.push(<button onClick={changePage}>{i + 1}</button>);
-		}
-
-		return tempSize;
-	}
-
-	function changePage(e) {
-		console.log("체인지페이지", e.target.innerText);
-		const chosePage = Number(e.target.innerText) - 1;
-		setPage(chosePage);
 	}
 
 	return (
@@ -116,9 +87,13 @@ function ReadSendMessage() {
 				))}
 			</table>
 			<div>
-				<button onClick={pageDown}>이전</button>
-				{messagePagination()}
-				<button onClick={pageUp}>다음</button>
+				<button className={style.button} onClick={pageDown}>
+					이전
+				</button>
+				{messagePagination(pageSize, setPage)}
+				<button className={style.button} onClick={pageUp}>
+					다음
+				</button>
 			</div>
 		</div>
 	);
