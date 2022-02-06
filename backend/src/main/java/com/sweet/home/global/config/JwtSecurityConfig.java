@@ -1,6 +1,7 @@
 package com.sweet.home.global.config;
 
 import com.sweet.home.auth.infrastructure.JwtTokenProvider;
+import com.sweet.home.global.security.JwtExceptionFilter;
 import com.sweet.home.global.security.JwtFilter;
 import org.springframework.security.config.annotation.SecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -18,6 +19,8 @@ public class JwtSecurityConfig extends SecurityConfigurerAdapter<DefaultSecurity
     @Override
     public void configure(HttpSecurity http) {
         JwtFilter jwtFilter = new JwtFilter(jwtTokenProvider);
-        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        JwtExceptionFilter jwtExceptionFilter = new JwtExceptionFilter();
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+            .addFilterBefore(jwtExceptionFilter, JwtFilter.class);
     }
 }
