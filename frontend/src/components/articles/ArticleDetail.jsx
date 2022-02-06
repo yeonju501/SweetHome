@@ -4,7 +4,7 @@ import axios from "axios";
 import Comments from "../comments/Comments";
 import ArticleUpdate from "./ArticleUpdate";
 import ArticleDetailButtons from "./ArticleDetailButtons";
-import Sidebar from "../Sidebar";
+import SidebarBoards from "../SidebarBoards";
 
 function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -46,7 +46,7 @@ function ArticleDetail() {
 
 	return (
 		<div>
-			<Sidebar />
+			<SidebarBoards />
 			<nav>nav-bar</nav>
 			{articleData && (
 				<div>
