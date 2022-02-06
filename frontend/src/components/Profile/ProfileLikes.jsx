@@ -13,7 +13,7 @@ function ProfileLikes() {
 		<table>
 			<thead>
 				<tr>
-					<th colSpan="2" className={style.tabel_board_name}>
+					<th colSpan="2" className={style.table_board_name}>
 						게시판 이름
 					</th>
 					<th>제목</th>
@@ -32,7 +32,11 @@ function ProfileLikes() {
 							<td>{article.board_name}</td>
 
 							<td>
-								<Link to={`/articles/${article.article_id}`} state={{ id: article.article_id }}>
+								<Link
+									to={`/articles/${article.article_id}`}
+									state={{ id: article.article_id }}
+									className={style.article_title}
+								>
 									{article.title}
 								</Link>
 							</td>
@@ -41,7 +45,9 @@ function ProfileLikes() {
 					))
 				) : (
 					<tr>
-						<td>아직 좋아요한 게시글이 없습니다</td>
+						<td colSpan="5" className={style.nothing}>
+							아직 좋아요한 게시글이 없습니다
+						</td>
 					</tr>
 				)}
 			</tbody>

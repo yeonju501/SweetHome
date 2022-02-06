@@ -28,3 +28,22 @@ tbody tr td {
 .check_box {
 	width: 100%;
 }
+
+.table_board_name {
+	width: 30%;
+}
+
+.nothing {
+	width: 100%;
+	padding: 5rem;
+	font-size: 1.8rem;
+}
+
+.article_title {
+	text-decoration: none;
+	color: #000;
+}
+
+.article_title:hover {
+	text-decoration: underline;
+}
