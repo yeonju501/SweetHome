@@ -16,3 +16,21 @@ export function getMessagesFromServer(api, page, size, funcArray, funcSize) {
 			console.log(err);
 		});
 }
+
+export function messagePagination(pageSize, setPage) {
+	console.log("하이");
+	let tempSize = [];
+	for (let i = 0; i < pageSize; i++) {
+		tempSize.push(
+			<button
+				className={style.button}
+				onClick={(e) => {
+					setPage(i);
+				}}
+			>
+				{i + 1}
+			</button>,
+		);
+	}
+	return tempSize;
+}
