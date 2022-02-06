@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../../style/Messages.module.css";
-import { getMessagesFromServer } from "../../utils/messagesFunction";
+import { getMessagesFromServer, messagePagination } from "../../utils/messagesFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -52,21 +52,6 @@ function ReadReceiveMessage() {
 		});
 	}
 
-	function messagePagination() {
-		let tempSize = [];
-		for (let i = 0; i < pageSize; i++) {
-			tempSize.push(<button onClick={changePage}>{i + 1}</button>);
-		}
-
-		return tempSize;
-	}
-
-	function changePage(e) {
-		console.log("체인지페이지", e.target.innerText);
-		const chosePage = Number(e.target.innerText) - 1;
-		setPage(chosePage);
-	}
-
 	return (
 		<div>
 			<h1>ReadReciveMessage</h1>
@@ -105,9 +90,13 @@ function ReadReceiveMessage() {
 				))}
 			</table>
 			<div>
-				<button onClick={pageDown}>이전</button>
-				{messagePagination()}
-				<button onClick={pageUp}>다음</button>
+				<button className={style.button} onClick={pageDown}>
+					이전
+				</button>
+				{messagePagination(pageSize, setPage)}
+				<button className={style.button} onClick={pageUp}>
+					다음
+				</button>
 			</div>
 		</div>
 	);
