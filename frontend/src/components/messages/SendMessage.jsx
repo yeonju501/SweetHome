@@ -8,7 +8,6 @@ import style from "../../style/Messages.module.css";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SendMessage() {
-	const token = useSelector((state) => state.token.accessToken);
 	const navigate = useNavigate();
 
 	const [sendMessage, setSendMessage] = useState({
@@ -31,7 +30,6 @@ function SendMessage() {
 			axios({
 				method: "POST",
 				url: `${SERVER_URL}/api/messages/`,
-				headers: { Authorization: `Bearer ${token}` },
 				data: sendMessage,
 			}).then((res) => {
 				toast.success("메시지 전송 완료");

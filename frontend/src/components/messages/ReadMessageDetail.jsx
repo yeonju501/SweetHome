@@ -8,7 +8,6 @@ import style from "../../style/Messages.module.css";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadMessageDeatil() {
-	const token = useSelector((state) => state.token.accessToken);
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [messageDetail, setMessageDetail] = useState({
@@ -26,7 +25,6 @@ function ReadMessageDeatil() {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
-			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
 				console.log(res.data);
@@ -42,7 +40,6 @@ function ReadMessageDeatil() {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/messages/${location.state.messageId}`,
-			headers: { Authorization: `Bearer ${token}` },
 		}).then((res) => {
 			toast.success("메시지 삭제 완료");
 			navigate("/message-box");

@@ -8,7 +8,6 @@ import style from "../../style/Messages.module.css";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadReceiveMessage() {
-	const token = useSelector((state) => state.token.accessToken);
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 	const [page, setPage] = useState(0);
 	const size = 10;
@@ -20,7 +19,6 @@ function ReadReceiveMessage() {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/messages/receive?page=${page}&size=${size}`,
-			headers: { Authorization: `Bearer ${token}` },
 		})
 			.then((res) => {
 				setReceiveMessageArray(res.data.messages);
@@ -55,7 +53,6 @@ function ReadReceiveMessage() {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/messages/receive`,
-			headers: { Authorization: `Bearer ${token}` },
 			data: {
 				message_ids: temp,
 			},
