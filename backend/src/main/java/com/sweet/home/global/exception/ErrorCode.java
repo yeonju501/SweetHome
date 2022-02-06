@@ -27,6 +27,9 @@ public enum ErrorCode {
     MEMBER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 중복된 이메일의 회원 정보가 존재합니다.", "C04"),
     MEMBER_ALREADY_REQUEST_APT_HOUSE(HttpStatus.CONFLICT, "이미 아파트 등록 신청한 회원입니다.", "C05"),
 
+    // register Apt House
+    REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER(HttpStatus.NOT_FOUND, "아파트 등록 요청을 하지 않은 회원입니다.", "I01"),
+
     // agreement
     AGREEMENT_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 동의서 ID 입니다.", "D01"),
     AGREEMENT_NOT_YOUR_APARTMENT(HttpStatus.UNAUTHORIZED, "해당 아파트의 관리자가 아닙니다.", "D02"),

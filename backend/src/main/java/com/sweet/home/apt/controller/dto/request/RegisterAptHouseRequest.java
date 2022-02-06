@@ -5,6 +5,7 @@ import lombok.Getter;
 
 @Getter
 public class RegisterAptHouseRequest {
+
     @JsonProperty("apt_id")
     private Long aptId;
 

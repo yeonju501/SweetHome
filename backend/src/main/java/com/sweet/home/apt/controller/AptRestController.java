@@ -1,10 +1,12 @@
 package com.sweet.home.apt.controller;
 
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.service.AptService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,10 @@ public class AptRestController {
     //등록 요청 - 회원의 아파트 등록 취소 = DELETE
 
     //등록 요청 - 현재 요청중인 아파트 보기 = GET
+    @GetMapping("/apts/register/my-request")
+    public ResponseEntity<MyRegisterAptHouseResponse> viewMyRegisterApt(@AuthenticationPrincipal String email){
+        return ResponseEntity.ok().body(aptService.viewMyRegisterApt(email));
+    }
 
     //관리자영역
     //등록 요청 - 아파트 등록 요청 회원 목록 보기 = GET
