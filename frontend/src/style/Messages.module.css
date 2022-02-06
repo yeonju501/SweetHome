@@ -23,3 +23,17 @@
 	color: blue;
 	background-color: transparent;
 }
+
+.button {
+	color: blue;
+	background-color: transparent;
+}
+
+.message_box_container {
+	display: flex;
+	justify-content: flex-start;
+}
+
+.li_link {
+	font-size: 25px;
+}
