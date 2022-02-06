@@ -39,7 +39,15 @@ function ProfileComments() {
 									{comment.article_title}
 								</Link>
 							</td>
-							<td>{comment.content}</td>
+							<td>
+								<Link
+									to={`/articles/${comment.article_id}`}
+									state={{ id: comment.article_id }}
+									className={style.article_title}
+								>
+									{comment.content}
+								</Link>
+							</td>
 							<td>{comment.created_at.slice(0, 10)}</td>
 						</tr>
 					))
