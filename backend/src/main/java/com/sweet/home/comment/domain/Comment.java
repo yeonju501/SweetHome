@@ -106,10 +106,7 @@ public class Comment extends BaseEntity {
 
     public boolean hasChildList() {
         return this.getChildList().stream()
-            .filter(c -> Objects.isNull(c.getDeletedAt()))
-            .findAny()
-            .map(c -> true)
-            .orElse(false);
+            .anyMatch(c -> Objects.isNull(c.getDeletedAt()));
     }
 
     public void removeComment() {
@@ -122,7 +119,7 @@ public class Comment extends BaseEntity {
             return;
         }
         this.saveDeletedTime();
-        if (!this.checkParentOrChild() && this.getParent().getIsRemoved() && !this.getParent().hasChildList()) {
+        if (!this.checkParentOrChild() && Objects.nonNull(this.getParent().getIsRemoved()) && !this.getParent().hasChildList()) {
             this.getParent().saveDeletedTime();
         }
     }
