@@ -6,6 +6,7 @@ import com.sweet.home.apt.service.AptService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,10 +34,15 @@ public class AptRestController {
     }
 
     //등록 요청 - 회원의 아파트 등록 취소 = DELETE
+    @DeleteMapping("/apts/register/my-request")
+    public ResponseEntity<Void> deleteRegisterApt(@AuthenticationPrincipal String email) {
+        aptService.deleteRegisterApt(email);
+        return ResponseEntity.noContent().build();
+    }
 
     //등록 요청 - 현재 요청중인 아파트 보기 = GET
     @GetMapping("/apts/register/my-request")
-    public ResponseEntity<MyRegisterAptHouseResponse> viewMyRegisterApt(@AuthenticationPrincipal String email){
+    public ResponseEntity<MyRegisterAptHouseResponse> viewMyRegisterApt(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(aptService.viewMyRegisterApt(email));
     }
 
