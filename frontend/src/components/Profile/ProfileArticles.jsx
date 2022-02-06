@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import * as axiosRequest from "../../utils/profileFunction";
 import style from "../../style/ProfileComments.module.css";
 
@@ -13,7 +14,9 @@ function ProfileArticles() {
 		<table>
 			<thead>
 				<tr>
-					<th colSpan="2">게시판 이름</th>
+					<th colSpan="2" className={style.table_board_name}>
+						게시판 이름
+					</th>
 					<th>제목</th>
 					<th>작성 날짜</th>
 				</tr>
@@ -26,7 +29,15 @@ function ProfileArticles() {
 								<input type="checkbox" className={style.check_box} />
 							</td>
 							<td>{article.board_name}</td>
-							<td>{article.title}</td>
+							<td>
+								<Link
+									to={`/articles/${article.article_id}`}
+									state={{ id: article.article_id }}
+									className={style.article_title}
+								>
+									{article.title}
+								</Link>
+							</td>
 							<td>{article.created_at.slice(0, 10)}</td>
 						</tr>
 					))
