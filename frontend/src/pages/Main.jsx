@@ -6,7 +6,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 import { SET_USER } from "../store/user";
 import style from "../style/Main.module.css";
-import Sidebar from "../components/Sidebar";
+import SidebarBoards from "../components/SidebarBoards";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -30,7 +30,7 @@ function Main() {
 				<Navbar />
 				<CreateBoard />
 				<div className={style.main}>
-					<Sidebar />
+					<SidebarBoards />
 				</div>
 				<div>최신글</div>
 				<p>{userInfo.username}</p>

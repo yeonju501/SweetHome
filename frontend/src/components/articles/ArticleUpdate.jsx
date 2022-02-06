@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import Sidebar from "../Sidebar";
+import SidebarBoards from "../SidebarBoards";
 
 function ArticleUpdate() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -47,7 +47,7 @@ function ArticleUpdate() {
 
 	return (
 		<div>
-			<Sidebar />
+			<SidebarBoards />
 			<form onSubmit={handleFormSubmit}>
 				<input type="text" id="title" value={articleData.title} onChange={handleInputChange} />
 				<hr />

@@ -5,26 +5,23 @@ import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "../../style/Board.module.css";
 import Navbar from "../Navbar";
-import Sidebar from "../Sidebar";
+import SidebarBoards from "../SidebarBoards";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [articles, setArticles] = useState("");
-	const location = useLocation();
-	const boardId = location.state.id;
-	const boardName = location.state.name;
-	const boardDescription = location.state.description;
-
 	const [isStarred, setIsStarred] = useState(false);
+	const location = useLocation();
+	const board = location.state.board || location.state.favorite;
 
 	useEffect(() => {
 		getArticles();
 		getStarred();
-	}, [boardId]);
+	}, [board.id]);
 
 	const getArticles = () => {
 		axios({
-			url: `${SERVER_URL}/api/boards/${boardId}/articles`,
+			url: `${SERVER_URL}/api/boards/${board.id}/articles`,
 			method: "get",
 		}).then((res) => {
 			setArticles(res.data.articles);
@@ -33,7 +30,7 @@ function Board() {
 
 	const getStarred = () => {
 		axios({
-			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+			url: `${SERVER_URL}/api/boards/${board.id}/favorites`,
 			method: "get",
 		}).then((res) => {
 			setIsStarred(res.data.is_liked);
@@ -44,7 +41,7 @@ function Board() {
 		const method = isStarred ? "delete" : "post";
 
 		axios({
-			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+			url: `${SERVER_URL}/api/boards/${board.id}/favorites`,
 			method: method,
 		}).then(() => {
 			setIsStarred((prev) => !prev);
@@ -54,13 +51,13 @@ function Board() {
 	return (
 		<div>
 			<Navbar />
-			<Sidebar />
+			<SidebarBoards />
 			<div className={style.board_info}>
-				<p>게시판명 : {boardName}</p>
-				<p>게시판 소개글 : {boardDescription}</p>
+				<p>게시판명 : {board.name}</p>
+				<p>게시판 소개글 : {board.Description}</p>
 				<button onClick={handleStarClick}>{isStarred ? "⭐" : "☆"}</button>
 			</div>
-			<ArticleCreate boardId={boardId} getArticles={getArticles} />
+			<ArticleCreate boardId={board.id} getArticles={getArticles} />
 			<hr />
 			{articles && (
 				<ul>
