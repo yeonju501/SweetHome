@@ -5,6 +5,9 @@ import com.sweet.home.apt.domain.RegisterAptHouse;
 
 public class AptRegisterMemberResponse {
 
+    @JsonProperty("id")
+    private Long id;
+
     @JsonProperty("name")
     private String name;
 
@@ -23,7 +26,8 @@ public class AptRegisterMemberResponse {
     public AptRegisterMemberResponse() {
     }
 
-    public AptRegisterMemberResponse(String name, String email, String phoneNumber, String dong, String ho) {
+    public AptRegisterMemberResponse(Long id, String name, String email, String phoneNumber, String dong, String ho) {
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -33,6 +37,7 @@ public class AptRegisterMemberResponse {
 
     public static AptRegisterMemberResponse from(RegisterAptHouse registerAptHouse) {
         return new AptRegisterMemberResponse(
+            registerAptHouse.getMember().getId(),
             registerAptHouse.getMember().getUsername(),
             registerAptHouse.getMember().getEmail(),
             registerAptHouse.getMember().getPhoneNumber(),
