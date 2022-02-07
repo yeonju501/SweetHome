@@ -3,8 +3,8 @@ package com.sweet.home.article.controller;
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
+import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
-import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.service.ArticleService;
@@ -66,7 +66,7 @@ public class ArticleRestController {
     }
 
     @GetMapping("/articles/popular")
-    public ResponseEntity<List<ArticleTitleResponse>> showPopularArticles(
+    public ResponseEntity<List<ArticleLikeResponse>> showPopularArticles(
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showPopularArticles(pageable));
     }
