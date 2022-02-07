@@ -4,15 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Getter;
 
 @Getter
-public class AllowAptHouseMemberRequest {
+public class AptHouseMemberRequest {
 
     @JsonProperty("apt_house_member_id")
     private Long id;
 
-    public AllowAptHouseMemberRequest() {
+    public AptHouseMemberRequest() {
     }
 
-    public AllowAptHouseMemberRequest(Long id) {
+    public AptHouseMemberRequest(Long id) {
         this.id = id;
     }
 }
