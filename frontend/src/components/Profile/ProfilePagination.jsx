@@ -1,3 +1,5 @@
+import style from "../../style/Pagination.module.css";
+
 function ProfilePagination({ total, page, setData }) {
 	return (
 		<>
