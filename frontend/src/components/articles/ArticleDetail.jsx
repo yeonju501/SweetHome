@@ -52,7 +52,7 @@ function ArticleDetail() {
 					<article>
 						<div>
 							<p>{articleData.username}</p>
-							<p>{articleData.created_at}</p>
+							<p>{articleData.created_at.slice(0, 10)}</p>
 						</div>
 						<ArticleDetailButtons articleData={articleData} articleId={articleId} />
 						<h3>{articleData.title}</h3>
