@@ -1,5 +1,5 @@
 import axios from "axios";
-import style from "../style/Messages.module.css";
+import style from "../style/Pagination.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -18,12 +18,11 @@ export function getMessagesFromServer(api, page, size, funcArray, funcSize) {
 }
 
 export function messagePagination(pageSize, setPage) {
-	console.log("하이");
 	let tempSize = [];
 	for (let i = 0; i < pageSize; i++) {
 		tempSize.push(
 			<button
-				className={style.button}
+				className={style.btn_pagination}
 				onClick={(e) => {
 					setPage(i);
 				}}

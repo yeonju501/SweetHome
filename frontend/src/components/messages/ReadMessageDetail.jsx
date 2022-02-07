@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "../../style/Messages.module.css";
@@ -21,6 +20,7 @@ function ReadMessageDeatil() {
 		send_at: "",
 		read_at: "",
 	});
+	const position = location.state.position;
 
 	useEffect(() => {
 		getDetailMessageFromServer(location.state.messageId, setMessageDetail);
@@ -41,10 +41,48 @@ function ReadMessageDeatil() {
 	return (
 		<div>
 			<h1>ReadMessageDetail</h1>
-			{messageDetail.title}
-			<button className={style.delete} onClick={onDeleteMessage}>
-				삭제
-			</button>
+			<div className={style.btn_container}>
+				{position === "receive" ? (
+					<Link to="/read-send-message/message-detail/send-message">
+						<button className={style.send}>답장</button>
+					</Link>
+				) : (
+					<></>
+				)}
+
+				<button className={style.delete} onClick={onDeleteMessage}>
+					삭제
+				</button>
+
+				<button className={style.delete}>신고</button>
+			</div>
+			<div className={style.detail_container}>
+				{position === "send" ? (
+					<>
+						<span className={style.p_title}>받는 사람 : </span>
+						<span className={style.p_content}>{messageDetail.receiver_username}</span>
+						<br />
+					</>
+				) : (
+					<>
+						<span className={style.p_title}>보낸 사람 : </span>
+						<span className={style.p_content}> {messageDetail.sender_username}</span>
+						<br />
+					</>
+				)}
+				<>
+					<span className={style.p_title}>날짜 : </span>
+					<span className={style.p_content}>{messageDetail.send_at.substring(0, 10)}</span>
+					<br />
+				</>
+			</div>
+			<div className={style.detail_container}>
+				<span className={style.p_title}>제목 : </span>
+				<span className={style.p_content}>{messageDetail.title}</span>
+				<br />
+				<span className={style.p_title}>내용 : </span>
+				<span className={style.p_content}>{messageDetail.content}</span>
+			</div>
 		</div>
 	);
 }

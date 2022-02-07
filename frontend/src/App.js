@@ -46,7 +46,15 @@ function App() {
 								<Route path="read-receive-message" element={<ReadReceiveMessage />} />
 								<Route path="read-send-message" element={<ReadSendMessage />} />
 								<Route path="send-message" element={<SendMessage />} />
-								<Route path="message-detail" element={<ReadMessageDeatil />} />
+								<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
+								<Route
+									path="/read-receive-message/message-detail"
+									element={<ReadMessageDeatil />}
+								/>
+								<Route
+									path="/read-send-message/message-detail/send-message"
+									element={<SendMessage />}
+								/>
 							</Route>
 							<Route path="/*" element={<NotFound />} />
 						</Routes>
