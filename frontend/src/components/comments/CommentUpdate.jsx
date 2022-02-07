@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
 
-function CommentUpdate({ comment, getComments }) {
+function CommentUpdate({ comment, getComments, user }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const { content } = commentContent;
@@ -44,8 +44,8 @@ function CommentUpdate({ comment, getComments }) {
 				<div>
 					<p>{comment.username}</p>
 					<p>{comment.content}</p>
-					<p>{comment.created_at}</p>
-					<button onClick={onClick}>수정</button>
+					<p>{comment.created_at.slice(0, 10)}</p>
+					{user === comment.username && <button onClick={onClick}>수정</button>}
 				</div>
 			)}
 		</>
