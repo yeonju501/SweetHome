@@ -1,6 +1,6 @@
 package com.sweet.home.apt.controller;
 
-import com.sweet.home.apt.controller.dto.request.AllowAptHouseMemberRequest;
+import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
@@ -60,7 +60,7 @@ public class AptRestController {
     //등록 요청 - 아파트 등록 요청 승인하기 = POST
     @PostMapping("/admin/apts/register")
     public ResponseEntity<Void> allowAptHouseMember(@AuthenticationPrincipal String email,
-        @RequestBody AllowAptHouseMemberRequest request) {
+        @RequestBody AptHouseMemberRequest request) {
         aptService.allowAptHouseMember(email, request);
         URI uri = URI.create("/api/register/");
         return ResponseEntity.created(uri).build();
@@ -68,7 +68,13 @@ public class AptRestController {
 
     //등록 요청 - 아파트 등록 요청 다중 승인하기 = POST / 나중에 할 것
 
-    //등록 요청 - 아파트 등록 요청 거절하기 = ??
+    //등록 요청 - 아파트 등록 요청 거절하기 = DELDETE
+    @DeleteMapping("/admin/apts/register")
+    public ResponseEntity<Void> rejectAptHouseMember(@AuthenticationPrincipal String email,
+        @RequestBody AptHouseMemberRequest request) {
+        aptService.rejectAptHouseMember(email, request);
+        return ResponseEntity.noContent().build();
+    }
 
     //등록 요청 - 아파트 등록 요청 다중 거절하기 = ?? / 나중에 할것
 
