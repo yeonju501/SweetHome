@@ -1,19 +1,18 @@
-.side {
-	width: 30%;
-	height: 100%;
+.message_container {
+	border-radius: 8px;
 	border: 1px solid;
+	margin: 20px;
 }
 
-.main {
-	width: 70%;
-	height: 100%;
+.detail_container {
 	border: 1px solid;
+	margin: 10px;
 }
 
-.link {
-	text-decoration: none;
+.btn_container {
+	display: flex;
+	justify-content: center;
 }
-
 .delete {
 	color: red;
 	background-color: transparent;
@@ -24,16 +23,23 @@
 	background-color: transparent;
 }
 
-.button {
-	color: blue;
-	background-color: transparent;
+.form {
+	padding: 10px;
 }
 
-.message_box_container {
-	display: flex;
-	justify-content: flex-start;
+.input_p {
+	margin-bottom: 10px;
 }
 
-.li_link {
-	font-size: 25px;
+.input_box {
+	background-color: white;
+}
+
+.p_title {
+	font-size: 15px;
+	font-weight: 800;
+}
+
+.p_content {
+	font-size: 15px;
 }
