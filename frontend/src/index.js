@@ -5,7 +5,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import rootReducer from "./store/index";
 import { createStore } from "redux";
-
+import "./interceptors/tokenRequest";
 const store = createStore(rootReducer);
 
 ReactDOM.render(
