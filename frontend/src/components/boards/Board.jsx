@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "../../style/Board.module.css";
-import Navbar from "../Navbar";
-import SidebarBoards from "../SidebarBoards";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -14,19 +12,45 @@ function Board() {
 	const location = useLocation();
 	const board = location.state.board || location.state.favorite;
 
+	const [pageNumber, setPageNumber] = useState(0);
+	const [loading, setLoading] = useState(true);
+	const pageEnd = useRef();
+	const [maxPage, setMaxPage] = useState(1);
+
 	useEffect(() => {
 		getArticles();
 		getStarred();
-	}, [board.id]);
+	}, [board.id, pageNumber]);
 
 	const getArticles = () => {
 		axios({
-			url: `${SERVER_URL}/api/boards/${board.id}/articles`,
+			url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=5`,
 			method: "get",
 		}).then((res) => {
-			setArticles(res.data.articles);
+			setArticles((prev) => [...prev, ...res.data.articles]);
+			setMaxPage(res.data.total_page_count);
+			setLoading(false);
 		});
 	};
+
+	const loadMore = () => {
+		setPageNumber((prev) => prev + 1);
+	};
+
+	useEffect(() => {
+		if (loading) {
+			const observer = new IntersectionObserver(
+				(entries) => {
+					if (entries[0].isIntersecting) {
+						loadMore();
+						if (pageNumber >= maxPage) observer.unobserve(pageEnd.current);
+					}
+				},
+				{ threshold: 0.5 },
+			);
+			observer.observe(pageEnd.current);
+		}
+	}, [loading]);
 
 	const getStarred = () => {
 		axios({
@@ -55,22 +79,32 @@ function Board() {
 				<p>게시판 소개글 : {board.Description}</p>
 				<button onClick={handleStarClick}>{isStarred ? "⭐" : "☆"}</button>
 			</div>
-			<ArticleCreate boardId={board.id} getArticles={getArticles} />
+			<ArticleCreate
+				boardId={board.id}
+				getArticles={getArticles}
+				setPageNumber={setPageNumber}
+				setArticles={setArticles}
+			/>
 			<hr />
-			{articles && (
-				<ul>
-					{articles.map(({ id, username, title, content, created_at }) => (
-						<li className={style.article} key={id}>
-							<Link to={`/articles/${id}`} state={{ id }}>
-								<p>{username}</p>
-								<p>{created_at}</p>
-								<h3>{title}</h3>
-								<p>{content}</p>
-							</Link>
-						</li>
-					))}
-				</ul>
+			{loading ? (
+				<p>loading...</p>
+			) : (
+				articles && (
+					<ul>
+						{articles.map((article) => (
+							<li className={style.article} key={article.id}>
+								<Link to={`/articles/${article.id}`} state={{ id: article.id }}>
+									<p>{article.username}</p>
+									<p>{article.created_at}</p>
+									<h3>{article.title}</h3>
+									<p>{article.content}</p>
+								</Link>
+							</li>
+						))}
+					</ul>
+				)
 			)}
+			<div ref={pageEnd}></div>
 		</div>
 	);
 }

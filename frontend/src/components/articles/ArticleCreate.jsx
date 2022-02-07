@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ArticleCreateForm from "./ArticleCreateForm";
 
-function ArticleCreate({ boardId, getArticles }) {
+function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 	const [disabled, setDisabled] = useState(true);
 
 	useEffect(() => {
@@ -10,6 +10,11 @@ function ArticleCreate({ boardId, getArticles }) {
 
 	const invertDisabled = () => {
 		setDisabled((prev) => !prev);
+	};
+
+	const getArticlesAfterCreate = () => {
+		setPageNumber(0);
+		setArticles("");
 		getArticles();
 	};
 
@@ -20,7 +25,11 @@ function ArticleCreate({ boardId, getArticles }) {
 					<p>글을 작성해보세요!</p>
 				</div>
 			) : (
-				<ArticleCreateForm invertDisabled={invertDisabled} boardId={boardId} />
+				<ArticleCreateForm
+					invertDisabled={invertDisabled}
+					boardId={boardId}
+					getArticlesAfterCreate={getArticlesAfterCreate}
+				/>
 			)}
 		</div>
 	);

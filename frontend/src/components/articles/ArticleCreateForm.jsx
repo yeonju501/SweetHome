@@ -3,7 +3,7 @@ import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function ArticleCreateForm({ invertDisabled, boardId }) {
+function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) {
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
 
@@ -17,6 +17,7 @@ function ArticleCreateForm({ invertDisabled, boardId }) {
 			}).then(() => {
 				setArticleData({ title: "", content: "" });
 				invertDisabled();
+				getArticlesAfterCreate();
 			});
 		} else {
 			alert("제목과 내용 모두 입력하세요!");
