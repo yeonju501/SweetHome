@@ -12,7 +12,7 @@ function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 		setDisabled((prev) => !prev);
 	};
 
-	const test = () => {
+	const getArticlesAfterCreate = () => {
 		setPageNumber(0);
 		setArticles("");
 		getArticles();
@@ -25,7 +25,11 @@ function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 					<p>글을 작성해보세요!</p>
 				</div>
 			) : (
-				<ArticleCreateForm invertDisabled={invertDisabled} boardId={boardId} test={test} />
+				<ArticleCreateForm
+					invertDisabled={invertDisabled}
+					boardId={boardId}
+					getArticlesAfterCreate={getArticlesAfterCreate}
+				/>
 			)}
 		</div>
 	);
