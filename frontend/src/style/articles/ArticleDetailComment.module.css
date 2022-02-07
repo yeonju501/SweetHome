@@ -1,0 +1,66 @@
+.comments_box p {
+	margin: 0.6rem 0;
+	padding-left: 1rem;
+	font-size: 1.2rem;
+}
+#comment_username {
+	font-size: 1.5rem;
+	font-weight: 600;
+}
+
+.comments_li {
+	list-style: none;
+	border-top: 1px solid #dedede;
+}
+
+.comments_li:first-child {
+	list-style: none;
+	border-top: none;
+}
+
+.nestedComments {
+	display: flex;
+}
+
+.btn_nested_comments {
+	display: flex;
+	flex-direction: row-reverse;
+}
+
+.btn_nested {
+	background: #fff;
+	color: black;
+	width: 5rem;
+}
+
+.btn_nested:disabled {
+	color: darkgray;
+}
+
+textarea {
+	margin: 1rem auto 0;
+	width: 95%;
+	height: 5rem;
+	border: 1px solid #dedede;
+	border-radius: 3px;
+	resize: none;
+	padding: 1rem;
+}
+
+textarea:focus {
+	outline: none;
+}
+.date_btn {
+	display: flex;
+	align-items: center;
+}
+
+.create_form {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-end;
+}
+
+.comments_nsted {
+	padding-left: 2rem;
+}

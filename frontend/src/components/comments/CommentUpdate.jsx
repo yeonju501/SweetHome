@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-
-function CommentUpdate({ comment, getComments }) {
+import CommentNested from "./CommentNested";
+import style from "../../style/articles/ArticleDetailComment.module.css";
+function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
+	const [activate, setActivate] = useState(true);
+
 	const { content } = commentContent;
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const onChange = (e) => {
@@ -13,6 +16,15 @@ function CommentUpdate({ comment, getComments }) {
 
 	const onClick = () => {
 		setUpdate(!update);
+	};
+
+	const commentDelete = () => {
+		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
+			axios({
+				url: `${URL}/api/articles/comments/${id}`,
+				method: "delete",
+			}).then(() => getComments());
+		}
 	};
 
 	const onSubmit = (e) => {
@@ -36,18 +48,37 @@ function CommentUpdate({ comment, getComments }) {
 				<div>
 					<form onSubmit={onSubmit}>
 						<p>{comment.username}</p>
-						<input type="text" value={content || ""} onChange={onChange} />
+						<textarea type="text" value={content || ""} onChange={onChange} />
 						<button>확인</button>
 					</form>
 				</div>
 			) : (
-				<div>
-					<p>{comment.username}</p>
+				<div className={style.comments_box}>
+					<p id={style.comment_username}>{comment.username}</p>
 					<p>{comment.content}</p>
-					<p>{comment.created_at}</p>
-					<button onClick={onClick}>수정</button>
+					<div className={style.date_btn}>
+						<p>{comment.created_at.slice(0, 10)}</p>
+						<p onClick={() => setActivate(!activate)}>댓글 달기</p>
+					</div>
+					{user === comment.username && activate && (
+						<div className={style.btn_nested_comments}>
+							<button className={style.btn_nested} onClick={onClick}>
+								수정
+							</button>
+							<button className={style.btn_nested} onClick={commentDelete}>
+								삭제
+							</button>
+						</div>
+					)}
 				</div>
 			)}
+			<CommentNested
+				id={comment.id}
+				articleId={articleId}
+				getComments={getComments}
+				activate={activate}
+				setActivate={setActivate}
+			/>
 		</>
 	);
 }
