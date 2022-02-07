@@ -1,4 +1,4 @@
-function ProfilePagination() {
+function ProfilePagination({ total, page, setData }) {
 	return (
 		<>
 			<nav className={style.pagination}>
