@@ -17,12 +17,14 @@ import ReadMessageDeatil from "./components/messages/ReadMessageDetail";
 import Board from "./components/boards/Board";
 import ArticleDetail from "./components/articles/ArticleDetail";
 import ArticleUpdate from "./components/articles/ArticleUpdate";
+import Navbar from "./components/Navbar";
 
 axios.defaults.withCredentials = true;
 function App() {
 	return (
 		<>
 			<Router>
+				<Navbar />
 				<Routes>
 					<Route path="/" element={<Home />} />
 					<Route path="/sign-in" element={<SignIn />} />
@@ -33,8 +35,7 @@ function App() {
 						<Route path="/boards/:boardId" element={<Board />} />
 						<Route path="/articles/:articleId" element={<ArticleDetail />} />
 						<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
-					</Route>
-					<Route path="/message-box/" element={<MessageBox />}>
+						<Route path="/message-box/" element={<MessageBox />}></Route>
 						<Route path="read-receive-message" element={<ReadReceiveMessage />} />
 						<Route path="read-send-message" element={<ReadSendMessage />} />
 						<Route path="send-message" element={<SendMessage />} />
