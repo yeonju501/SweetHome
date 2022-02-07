@@ -102,6 +102,18 @@ public class Member extends BaseEntity {
         }
     }
 
+    public void changeAptHouse(AptHouse aptHouse) {
+        if (!Objects.isNull(aptHouse)) {
+            this.aptHouse = aptHouse;
+        }
+    }
+
+    public void changeAuthority(Authority authority) {
+        if (!Objects.isNull(authority)) {
+            this.authority = authority;
+        }
+    }
+
     public void checkAptMember(Apt apt){
         if (this.aptHouse.getApt().getId() != apt.getId()){
             throw new BusinessException(ErrorCode.APT_NOT_HIS_APT);
