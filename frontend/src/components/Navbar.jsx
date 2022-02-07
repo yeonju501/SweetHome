@@ -9,6 +9,9 @@ import { DELETE_TOKEN } from "../store/token";
 function Navbar() {
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.userInfo.username);
+	const toggle = useSelector((state) => state.toggle.toggleValue);
+	const position = useSelector((state) => state.toggle.position);
+
 	const logOut = () => {
 		dispatch(DELETE_TOKEN());
 	};
