@@ -4,8 +4,6 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "../../style/Board.module.css";
-import Navbar from "../Navbar";
-import SidebarBoards from "../SidebarBoards";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

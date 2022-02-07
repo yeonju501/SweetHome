@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Comments from "../comments/Comments";
 import ArticleDetailButtons from "./ArticleDetailButtons";
-import SidebarBoards from "../SidebarBoards";
 import style from "../../style/articles/ArticleDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
@@ -49,7 +48,6 @@ function ArticleDetail() {
 
 	return (
 		<div>
-			<SidebarBoards />
 			<section className={style.article_detail}>
 				<nav>게시판 돌아가기</nav>
 				{articleData && (
