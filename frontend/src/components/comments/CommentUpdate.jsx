@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-import style from "../../style/Profile.module.css";
-function CommentUpdate({ comment, getComments, user, id }) {
+import style from "../../style/articles/ArticleDetailComment.module.css";
+function CommentUpdate({ comment, getComments, user, id, setActivate, activate }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const { content } = commentContent;
@@ -45,7 +45,7 @@ function CommentUpdate({ comment, getComments, user, id }) {
 				<div>
 					<form onSubmit={onSubmit}>
 						<p>{comment.username}</p>
-						<input type="text" value={content || ""} onChange={onChange} />
+						<textarea type="text" value={content || ""} onChange={onChange} />
 						<button>확인</button>
 					</form>
 				</div>
@@ -53,11 +53,18 @@ function CommentUpdate({ comment, getComments, user, id }) {
 				<div className={style.comments_box}>
 					<p className={style.comment_username}>{comment.username}</p>
 					<p>{comment.content}</p>
-					<span>{comment.created_at.slice(0, 10)}</span>
-					{user === comment.username && (
-						<div>
-							<button onClick={onClick}>수정</button>
-							<button onClick={commentDelete}>삭제</button>;
+					<div className={style.date_btn}>
+						<p>{comment.created_at.slice(0, 10)}</p>
+						<p onClick={() => setActivate(!activate)}>댓글 달기</p>
+					</div>
+					{user === comment.username && activate && (
+						<div className={style.btn_nested_comments}>
+							<button className={style.btn_nested} onClick={onClick}>
+								수정
+							</button>
+							<button className={style.btn_nested} onClick={commentDelete}>
+								삭제
+							</button>
 						</div>
 					)}
 				</div>

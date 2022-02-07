@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
+import style from "../../style/articles/ArticleDetailComment.module.css";
 
 function CommentCreate({ articleId, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
@@ -27,9 +28,14 @@ function CommentCreate({ articleId, getComments }) {
 
 	return (
 		<div>
-			<form onSubmit={onSubmit}>
-				<input type="text" onChange={onChange} value={content} placeholder="댓글을 남겨 보세요" />
-				<button>작성</button>
+			<form onSubmit={onSubmit} className={style.create_form}>
+				<textarea
+					type="text"
+					onChange={onChange}
+					value={content}
+					placeholder="댓글을 남겨 보세요"
+				/>
+				<button className={style.btn_nested}>작성</button>
 			</form>
 		</div>
 	);
