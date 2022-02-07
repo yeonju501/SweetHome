@@ -1,8 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
-
-function CommentUpdate({ comment, getComments, user }) {
+import style from "../../style/Profile.module.css";
+function CommentUpdate({ comment, getComments, user, id }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const { content } = commentContent;
@@ -13,6 +13,15 @@ function CommentUpdate({ comment, getComments, user }) {
 
 	const onClick = () => {
 		setUpdate(!update);
+	};
+
+	const commentDelete = () => {
+		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
+			axios({
+				url: `${URL}/api/articles/comments/${id}`,
+				method: "delete",
+			}).then(() => getComments());
+		}
 	};
 
 	const onSubmit = (e) => {
@@ -41,11 +50,16 @@ function CommentUpdate({ comment, getComments, user }) {
 					</form>
 				</div>
 			) : (
-				<div>
-					<p>{comment.username}</p>
+				<div className={style.comments_box}>
+					<p className={style.comment_username}>{comment.username}</p>
 					<p>{comment.content}</p>
-					<p>{comment.created_at.slice(0, 10)}</p>
-					{user === comment.username && <button onClick={onClick}>수정</button>}
+					<span>{comment.created_at.slice(0, 10)}</span>
+					{user === comment.username && (
+						<div>
+							<button onClick={onClick}>수정</button>
+							<button onClick={commentDelete}>삭제</button>;
+						</div>
+					)}
 				</div>
 			)}
 		</>
