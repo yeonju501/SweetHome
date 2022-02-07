@@ -1,6 +1,6 @@
 package com.sweet.home.apt.service;
 
-import com.sweet.home.apt.controller.dto.request.AllowAptHouseMemberRequest;
+import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
@@ -61,22 +61,21 @@ public class AptService {
     @Transactional
     public void deleteRegisterApt(String email) {
         Member member = memberService.findByEmail(email);
-        RegisterAptHouse registerAptHouse = registerAptHouseRepository.findByMember(member)
-            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
+        RegisterAptHouse registerAptHouse = getRegisterAptHouse(member);
 
         registerAptHouse.saveDeletedTime();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public MyRegisterAptHouseResponse viewMyRegisterApt(String email) {
         Member member = memberService.findByEmail(email);
-        RegisterAptHouse registerAptHouse = registerAptHouseRepository.findByMember(member)
-            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
+        RegisterAptHouse registerAptHouse = getRegisterAptHouse(member);
 
         return MyRegisterAptHouseResponse.from(registerAptHouse);
     }
 
-    @Transactional
+
+    @Transactional(readOnly = true)
     public AptRegisterMembersResponse viewAptRegisterMembers(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
@@ -86,11 +85,10 @@ public class AptService {
     }
 
     @Transactional
-    public void allowAptHouseMember(String email, AllowAptHouseMemberRequest request) {
-        Member adminMember = memberService.findByEmail(email); // 관리자
+    public void allowAptHouseMember(String email, AptHouseMemberRequest request) {
+        Member adminMember = memberService.findByEmail(email);
         Member aptHouseMember = memberService.findById(request.getId());
-        RegisterAptHouse registerAptHouse = registerAptHouseRepository.findByMember(aptHouseMember)
-            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
+        RegisterAptHouse registerAptHouse = getRegisterAptHouse(aptHouseMember);
 
         if (!adminMember.getAptHouse().getApt().equals(registerAptHouse.getApt())) {
             throw new BusinessException(ErrorCode.REGISTER_NOT_YOUR_APT);
@@ -105,5 +103,23 @@ public class AptService {
             aptHouseMember.changeAuthority(Authority.ROLE_REGULAR_MEMBER);
         }
         aptHouseMember.changeAptHouse(aptHouse);
+    }
+
+    @Transactional
+    public void rejectAptHouseMember(String email, AptHouseMemberRequest request) {
+        Member adminMember = memberService.findByEmail(email);
+        Member aptHouseMember = memberService.findById(request.getId());
+        RegisterAptHouse registerAptHouse = getRegisterAptHouse(aptHouseMember);
+
+        if (!adminMember.getAptHouse().getApt().equals(registerAptHouse.getApt())) {
+            throw new BusinessException(ErrorCode.REGISTER_NOT_YOUR_APT);
+        }
+
+        registerAptHouse.saveDeletedTime();
+    }
+
+    private RegisterAptHouse getRegisterAptHouse(Member Member) {
+        return registerAptHouseRepository.findByMember(Member)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
     }
 }
