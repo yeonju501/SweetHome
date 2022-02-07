@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Comments from "../comments/Comments";
-import ArticleUpdate from "./ArticleUpdate";
 import ArticleDetailButtons from "./ArticleDetailButtons";
 import SidebarBoards from "../SidebarBoards";
 
