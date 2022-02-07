@@ -1,6 +1,7 @@
 package com.sweet.home.apt.service;
 
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.apt.domain.AptRepository;
@@ -10,6 +11,8 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -50,7 +53,7 @@ public class AptService {
     }
 
     @Transactional
-    public void deleteRegisterApt(String email){
+    public void deleteRegisterApt(String email) {
         Member member = memberService.findByEmail(email);
         RegisterAptHouse registerAptHouse = registerAptHouseRepository.findByMember(member)
             .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
@@ -65,5 +68,14 @@ public class AptService {
             .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
 
         return MyRegisterAptHouseResponse.from(registerAptHouse);
+    }
+
+    @Transactional
+    public AptRegisterMembersResponse viewAptRegisterMembers(Pageable pageable, String email) {
+        Member member = memberService.findByEmail(email);
+
+        Page<RegisterAptHouse> registerAptHouses = registerAptHouseRepository.findByApt(member.getAptHouse().getApt(), pageable);
+
+        return AptRegisterMembersResponse.from(registerAptHouses);
     }
 }

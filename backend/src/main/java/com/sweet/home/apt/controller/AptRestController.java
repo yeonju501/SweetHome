@@ -1,9 +1,11 @@
 package com.sweet.home.apt.controller;
 
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.service.AptService;
 import java.net.URI;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -48,7 +50,11 @@ public class AptRestController {
 
     //관리자영역
     //등록 요청 - 아파트 등록 요청 회원 목록 보기 = GET
-
+    @GetMapping("/apts/register")
+    public ResponseEntity<AptRegisterMembersResponse> viewAptRegisterMembers(@AuthenticationPrincipal String email,
+        Pageable pageable) {
+        return ResponseEntity.ok().body(aptService.viewAptRegisterMembers(pageable, email));
+    }
     //등록 요청 - 아파트 등록 요청 승인하기 = POST
 
     //등록 요청 - 아파트 등록 요청 다중 승인하기 = POST
