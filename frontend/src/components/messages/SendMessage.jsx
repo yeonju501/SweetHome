@@ -46,37 +46,38 @@ function SendMessage() {
 
 	const { receiver_name, title, content } = sendMessage;
 	return (
-		<div>
+		<div className={style.message_container}>
 			<h1>SendMessage</h1>
-			<form onSubmit={onSend}>
-				<p>받는 사람</p>
+			<form className={style.form} onSubmit={onSend}>
+				<p className={style.input_p}>받는 사람</p>
 				<input
+					autoFocus="autofocus"
+					className={style.input_box}
 					type="text"
-					placeholder="receiver_name"
 					id="receiver_name"
 					value={receiver_name}
 					onChange={onChange}
 					required
 				/>
-				<p>제목</p>
+				<p className={style.input_p}>제목</p>
 				<input
+					className={style.input_box}
 					type="text"
-					placeholder="title"
 					id="title"
 					value={title}
 					onChange={onChange}
 					required
 				/>
-				<p>내용</p>
+				<p className={style.input_p}>내용</p>
 				<input
+					className={style.input_box}
 					type="text"
-					placeholder="content"
 					id="content"
 					value={content}
 					onChange={onChange}
 					required
 				/>
-				<div>
+				<div className={style.btn_container}>
 					<button className={style.send}>Send</button>
 					<button className={style.delete} onClick={onCancel}>
 						Cancle
