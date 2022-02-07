@@ -1,9 +1,10 @@
 .comments_box p {
 	margin: 0.6rem 0;
 	padding-left: 1rem;
+	font-size: 1.2rem;
 }
-.comment_username {
-	font-size: 1.4rem;
+#comment_username {
+	font-size: 1.5rem;
 	font-weight: 600;
 }
 
@@ -30,6 +31,10 @@
 	background: #fff;
 	color: black;
 	width: 5rem;
+}
+
+.btn_nested:disabled {
+	color: darkgray;
 }
 
 textarea {

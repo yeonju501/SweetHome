@@ -35,7 +35,9 @@ function CommentCreate({ articleId, getComments }) {
 					value={content}
 					placeholder="댓글을 남겨 보세요"
 				/>
-				<button className={style.btn_nested}>작성</button>
+				<button className={style.btn_nested} disabled={Boolean(content) === false}>
+					작성
+				</button>
 			</form>
 		</div>
 	);

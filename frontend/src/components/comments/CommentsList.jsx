@@ -27,6 +27,7 @@ function CommentsList({ comments, articleId, getComments }) {
 							articleId={articleId}
 							getComments={getComments}
 							activate={activate}
+							setActivate={setActivate}
 						/>
 						{comment.replies.map((nestedComment) => (
 							<div key={nestedComment.id}>

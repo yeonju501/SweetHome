@@ -51,7 +51,7 @@ function CommentUpdate({ comment, getComments, user, id, setActivate, activate }
 				</div>
 			) : (
 				<div className={style.comments_box}>
-					<p className={style.comment_username}>{comment.username}</p>
+					<p id={style.comment_username}>{comment.username}</p>
 					<p>{comment.content}</p>
 					<div className={style.date_btn}>
 						<p>{comment.created_at.slice(0, 10)}</p>
