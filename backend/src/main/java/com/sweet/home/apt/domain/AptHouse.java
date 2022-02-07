@@ -39,4 +39,12 @@ public class AptHouse {
         this.dong = dong;
         this.ho = ho;
     }
+
+    public static AptHouse createAptHouse(RegisterAptHouse registerAptHouse) {
+        return AptHouse.builder()
+            .apt(registerAptHouse.getApt())
+            .dong(registerAptHouse.getDong())
+            .ho(registerAptHouse.getHo())
+            .build();
+    }
 }
