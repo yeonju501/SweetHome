@@ -1,0 +1,37 @@
+.pagination {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 4px;
+	margin: 16px;
+}
+
+.btn_pagination {
+	border: none;
+	border-radius: 8px;
+	padding: 8px;
+	margin: 0;
+	background: transparent;
+	color: black;
+	font-size: 1.5rem;
+}
+
+.btn_pagination:hover {
+	background: tomato;
+	cursor: pointer;
+	transform: translateY(-2px);
+}
+
+.btn_pagination:disabled {
+	background: transparent;
+	cursor: revert;
+	transform: revert;
+}
+
+.btn_pagination[aria-current] {
+	background: #0094fd;
+	font-weight: bold;
+	color: white;
+	cursor: revert;
+	transform: revert;
+}
