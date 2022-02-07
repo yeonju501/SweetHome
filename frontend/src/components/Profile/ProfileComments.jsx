@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import GETDATA from "../../utils/profileFunction";
+import * as axiosRequest from "../../utils/profileAxios";
 import style from "../../style/ProfileComments.module.css";
 
 function ProfileComments() {
@@ -8,7 +8,7 @@ function ProfileComments() {
 	const { comments, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		GETDATA("articles/comments/mine", setData, currentPage);
+		axiosRequest.GETDATA("articles/comments/mine", setData, currentPage);
 	}, [currentPage]);
 
 	return (

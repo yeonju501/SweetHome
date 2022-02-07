@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import * as axiosRequest from "../../utils/profileFunction";
+import * as axiosRequest from "../../utils/profileAxios";
 import style from "../../style/ProfileComments.module.css";
 import { Link } from "react-router-dom";
 function ProfileLikes() {
