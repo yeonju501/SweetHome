@@ -63,6 +63,7 @@ function SignIn() {
 			axios({
 				url: `${SERVER_URL}/api/members/login`,
 				method: "POST",
+				withCredentials: true,
 				headers: {
 					"Content-type": "application/json",
 				},
@@ -75,6 +76,12 @@ function SignIn() {
 						secure: true,
 						// httpOnly: true,
 						expires: new Date(Date.now() + expires),
+					});
+					cookies.set("accessToken", res.data.access_token, {
+						path: "/",
+						secure: true,
+						// httpOnly: true,
+						expires: new Date(Date.now() + 1000 * 60 * 30),
 					});
 					navigate("/main");
 					axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.access_token}`;
