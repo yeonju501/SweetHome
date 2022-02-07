@@ -35,7 +35,7 @@ function Navbar() {
 					<FontAwesomeIcon onClick={toggleMenu} icon={faBars} />
 					{toggle && checkPosition(position)}
 					<Link to="/main">SweetHome</Link>
-					<Link to="/message-box/read-receive-message">
+					<Link to="/message-box/">
 						<FontAwesomeIcon icon={faEnvelope} />
 					</Link>
 					<FontAwesomeIcon icon={faSignOutAlt} onClick={logOut} />
