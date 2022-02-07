@@ -9,7 +9,7 @@ function ProfileComments() {
 	const { comments, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETDATA("articles/comments/mine", setData, currentPage);
+		axiosRequest.GETMYCOMMENTS(setData, currentPage);
 	}, [currentPage]);
 
 	return (

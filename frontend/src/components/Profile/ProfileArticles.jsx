@@ -8,7 +8,7 @@ function ProfileArticles() {
 	const { articles, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETMYARTICLES(setData, currentPage);
+		axiosRequest.GETMYARTICLES(setData, "boards/articles/mine", currentPage);
 	}, [currentPage]);
 
 	return (
