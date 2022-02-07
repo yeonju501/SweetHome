@@ -23,7 +23,7 @@ function Navbar() {
 		dispatch(SET_TOGGLE(toggle, position));
 	};
 
-	function checkPositon(position) {
+	function checkPosition(position) {
 		if (position === "main") return <SidebarBoards />;
 		else if (position === "message") return <SidebarMessage />;
 	}
