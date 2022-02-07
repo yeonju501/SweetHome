@@ -50,8 +50,6 @@ function Board() {
 
 	return (
 		<div>
-			<Navbar />
-			<SidebarBoards />
 			<div className={style.board_info}>
 				<p>게시판명 : {board.name}</p>
 				<p>게시판 소개글 : {board.Description}</p>
