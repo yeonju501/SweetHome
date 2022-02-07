@@ -13,6 +13,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import java.awt.SystemTray;
 import java.security.Key;
 import java.util.Arrays;
 import java.util.Collection;
@@ -23,6 +24,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -77,7 +80,14 @@ public class JwtTokenProvider {
 
     public Authentication resolveAccessToken(String accessToken) {
         try {
-            return getAuthentication(accessToken);
+            Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
+                .parseClaimsJws(accessToken).getBody();
+
+            Collection<? extends GrantedAuthority> authorities =
+                Arrays.stream(claims.get(JWT_PAYLOAD_AUTHORITY_TYPE).toString().split(","))
+                    .map(SimpleGrantedAuthority::new)
+                    .collect(Collectors.toList());
+            return new UsernamePasswordAuthenticationToken(claims.getSubject(), accessToken, authorities);
         } catch (ExpiredJwtException e) {
             throw new JwtException(ErrorCode.INVALID_EXPIRED_JWT);
         } catch (SecurityException | MalformedJwtException e) {
@@ -90,14 +100,26 @@ public class JwtTokenProvider {
     }
 
     public Authentication getAuthentication(String accessToken) {
-        Claims claims = Jwts.parserBuilder().setSigningKey(key).build()
-            .parseClaimsJws(accessToken).getBody();
+        Claims claims = parseClaims(accessToken);
+
+        if (claims.get(JWT_PAYLOAD_AUTHORITY_TYPE) == null) {
+            throw new BusinessException(ErrorCode.INVALID_NOT_FOUND_AUTHORITY);
+        }
 
         Collection<? extends GrantedAuthority> authorities =
             Arrays.stream(claims.get(JWT_PAYLOAD_AUTHORITY_TYPE).toString().split(","))
                 .map(SimpleGrantedAuthority::new)
                 .collect(Collectors.toList());
+
         return new UsernamePasswordAuthenticationToken(claims.getSubject(), accessToken, authorities);
+    }
+
+    private Claims parseClaims(String accessToken) {
+        try {
+            return Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(accessToken).getBody();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims();
+        }
     }
 
     public Authority getAuthority(Authentication authentication) {
