@@ -10,11 +10,17 @@ export function GETUSERINFO(func) {
 	});
 }
 
-export function GETDATA(address, func, which) {
+export function GETDATA(address, func1, page) {
 	axios({
-		url: `${SERVER_URL}/api/${address}`,
+		url: `${SERVER_URL}/api/${address}/?page=${page}`,
 		method: "get",
 	}).then((res) => {
-		func(res.data[which]);
+		console.log(res.data);
+		func1((prev) => ({
+			...prev,
+			comments: res.data.comments,
+			totalPage: res.data.total_page_count,
+			currentPage: res.data.current_page_count,
+		}));
 	});
 }
