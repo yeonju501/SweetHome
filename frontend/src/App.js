@@ -18,6 +18,8 @@ import Board from "./components/boards/Board";
 import ArticleDetail from "./components/articles/ArticleDetail";
 import ArticleUpdate from "./components/articles/ArticleUpdate";
 import Navbar from "./components/Navbar";
+import Sidebar from "./pages/Sidebar";
+import style from "./style/App.module.css";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -25,24 +27,31 @@ function App() {
 		<>
 			<Router>
 				<Navbar />
-				<Routes>
-					<Route path="/" element={<Home />} />
-					<Route path="/sign-in" element={<SignIn />} />
-					<Route path="/sign-up" element={<SignUp />} />
-					<Route path="" element={<PrivateRoute />}>
-						<Route path="/main" element={<Main />} />
-						<Route path="/profile/:username" element={<Profile />} />
-						<Route path="/boards/:boardId" element={<Board />} />
-						<Route path="/articles/:articleId" element={<ArticleDetail />} />
-						<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
-						<Route path="/message-box/" element={<MessageBox />}></Route>
-						<Route path="read-receive-message" element={<ReadReceiveMessage />} />
-						<Route path="read-send-message" element={<ReadSendMessage />} />
-						<Route path="send-message" element={<SendMessage />} />
-						<Route path="message-detail" element={<ReadMessageDeatil />} />
-					</Route>
-					<Route path="/*" element={<NotFound />} />
-				</Routes>
+				<div className={style.div}>
+					<side>
+						<Sidebar />
+					</side>
+					<main>
+						<Routes>
+							<Route path="/" element={<Home />} />
+							<Route path="/sign-in" element={<SignIn />} />
+							<Route path="/sign-up" element={<SignUp />} />
+							<Route path="" element={<PrivateRoute />}>
+								<Route path="/main" element={<Main />} />
+								<Route path="/profile/:username" element={<Profile />} />
+								<Route path="/boards/:boardId" element={<Board />} />
+								<Route path="/articles/:articleId" element={<ArticleDetail />} />
+								<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
+								<Route path="/message-box/" element={<MessageBox />}></Route>
+								<Route path="read-receive-message" element={<ReadReceiveMessage />} />
+								<Route path="read-send-message" element={<ReadSendMessage />} />
+								<Route path="send-message" element={<SendMessage />} />
+								<Route path="message-detail" element={<ReadMessageDeatil />} />
+							</Route>
+							<Route path="/*" element={<NotFound />} />
+						</Routes>
+					</main>
+				</div>
 			</Router>
 			<ToastContainer style={{ fontSize: "1.4rem" }} />
 		</>
