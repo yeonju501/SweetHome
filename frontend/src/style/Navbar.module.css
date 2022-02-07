@@ -1,0 +1,37 @@
+.navbar_main {
+	margin-top: 10px;
+	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.navbar_container {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+
+.toggle_container {
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+
+.icon_container {
+	display: flex;
+	flex-direction: row;
+	margin-right: 25px;
+	margin-top: 10px;
+}
+
+.icon {
+	font-size: 20px;
+	margin-right: 10px;
+	cursor: pointer;
+	color: black;
+}
+.icon:hover {
+	color: #319cff;
+}
+
+.main_home {
+	font-size: 25px;
+	color: black;
+}

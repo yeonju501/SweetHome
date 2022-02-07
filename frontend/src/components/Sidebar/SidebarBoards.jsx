@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import style from "../../style/Sidebar.module.css";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -31,23 +32,31 @@ function SidebarBoards() {
 	};
 
 	return (
-		<div>
-			<p>즐겨찾는 게시판</p>
-			<ul>
+		<div className={style.sidebar_container}>
+			<p className={style.sidebar_like}>⭐즐겨찾는 게시판</p>
+			<ul className={style.sidebar_list}>
 				{favorites &&
 					favorites.map((favorite) => (
-						<li key={favorite.id}>
-							<Link to={`/boards/${favorite.id}`} state={{ favorite }}>
+						<li className={style.sidebar_back} key={favorite.id}>
+							<Link
+								className={style.sidebar_link}
+								to={`/boards/${favorite.id}`}
+								state={{ favorite }}
+							>
 								{favorite.name}
 							</Link>
 						</li>
 					))}
 			</ul>
 			<hr />
-			<ul>
+			<ul className={style.sidebar_list}>
 				{boards.map((board) => (
-					<li key={board.id}>
-						<Link to={`/boards/${board.id}`} state={{ board: board }}>
+					<li className={style.sidebar_back} key={board.id}>
+						<Link
+							className={style.sidebar_link}
+							to={`/boards/${board.id}`}
+							state={{ board: board }}
+						>
 							{board.name}
 						</Link>
 					</li>
