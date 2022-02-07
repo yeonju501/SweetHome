@@ -27,6 +27,7 @@ function CommentNested({ articleId, id, getComments, activate, setActivate }) {
 			}).then(() => {
 				onClick();
 				getComments();
+				setActivate(!activate);
 			});
 	};
 	return (
@@ -41,7 +42,13 @@ function CommentNested({ articleId, id, getComments, activate, setActivate }) {
 						value={content}
 					/>
 					<div className={style.btn_nested_comments}>
-						<button onClick={() => setActivate(!activate)} className={style.btn_nested}>
+						<button
+							onClick={() => {
+								setComment("");
+								setActivate(!activate);
+							}}
+							className={style.btn_nested}
+						>
 							취소
 						</button>
 						<button className={style.btn_nested} disabled={Boolean(content) === false}>

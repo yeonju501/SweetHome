@@ -1,10 +1,13 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import CommentNested from "./CommentNested";
 import style from "../../style/articles/ArticleDetailComment.module.css";
-function CommentUpdate({ comment, getComments, user, id, setActivate, activate }) {
+function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
+	const [activate, setActivate] = useState(true);
+
 	const { content } = commentContent;
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const onChange = (e) => {
@@ -69,6 +72,13 @@ function CommentUpdate({ comment, getComments, user, id, setActivate, activate }
 					)}
 				</div>
 			)}
+			<CommentNested
+				id={comment.id}
+				articleId={articleId}
+				getComments={getComments}
+				activate={activate}
+				setActivate={setActivate}
+			/>
 		</>
 	);
 }

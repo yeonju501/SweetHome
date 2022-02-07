@@ -6,7 +6,6 @@ import CommentUpdate from "./CommentUpdate";
 
 function CommentsList({ comments, articleId, getComments }) {
 	const user = useSelector((state) => state.userInfo.username);
-	const [activate, setActivate] = useState(true);
 
 	return (
 		<ul>
@@ -18,19 +17,12 @@ function CommentsList({ comments, articleId, getComments }) {
 							getComments={getComments}
 							user={user}
 							id={comment.id}
-							activate={activate}
-							setActivate={setActivate}
+							articleId={articleId}
 						/>
 
-						<CommentNested
-							id={comment.id}
-							articleId={articleId}
-							getComments={getComments}
-							activate={activate}
-							setActivate={setActivate}
-						/>
+						{/* <CommentNested id={comment.id} articleId={articleId} getComments={getComments} /> */}
 						{comment.replies.map((nestedComment) => (
-							<div key={nestedComment.id}>
+							<div key={nestedComment.id} className={style.comments_nsted}>
 								<CommentUpdate
 									comment={nestedComment}
 									getComments={getComments}
