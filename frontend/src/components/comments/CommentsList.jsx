@@ -19,8 +19,6 @@ function CommentsList({ comments, articleId, getComments }) {
 							id={comment.id}
 							articleId={articleId}
 						/>
-
-						{/* <CommentNested id={comment.id} articleId={articleId} getComments={getComments} /> */}
 						{comment.replies.map((nestedComment) => (
 							<div key={nestedComment.id} className={style.comments_nsted}>
 								<CommentUpdate
@@ -29,13 +27,6 @@ function CommentsList({ comments, articleId, getComments }) {
 									user={user}
 									id={nestedComment.id}
 								/>
-								{/* {user === nestedComment.username && (
-									<CommentDelete
-										id={nestedComment.id}
-										articleId={articleId}
-										getComments={getComments}
-									/>
-								)} */}
 							</div>
 						))}
 					</li>
