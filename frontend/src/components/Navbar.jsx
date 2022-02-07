@@ -6,6 +6,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { DELETE_TOKEN } from "../store/token";
 import { SET_TOGGLE } from "../store/toggle";
+import SidebarBoards from "./SidebarBoards";
+import SidebarMessage from "./SideBarMessages";
 
 function Navbar() {
 	const dispatch = useDispatch();
@@ -20,6 +22,11 @@ function Navbar() {
 	const toggleMenu = () => {
 		dispatch(SET_TOGGLE(toggle, position));
 	};
+
+	function checkPositon(position) {
+		if (position === "main") return <SidebarBoards />;
+		else if (position === "message") return <SidebarMessage />;
+	}
 
 	return (
 		<nav>
