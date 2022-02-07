@@ -4,10 +4,12 @@ import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
 import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
 import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
+import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
+import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -61,6 +63,12 @@ public class ArticleRestController {
     public ResponseEntity<ArticleReportsResponse> showBlockedArticles(
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showBlockedArticles(pageable));
+    }
+
+    @GetMapping("/articles/popular")
+    public ResponseEntity<List<ArticleTitleResponse>> showPopularArticles(
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(articleService.showPopularArticles(pageable));
     }
 
     @PutMapping("/articles/{articleId}")

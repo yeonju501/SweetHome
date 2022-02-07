@@ -5,6 +5,7 @@ import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
 import com.sweet.home.article.controller.dto.response.ArticleReportResponse;
 import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
+import com.sweet.home.article.controller.dto.response.ArticleTitleResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.domain.Article;
@@ -15,6 +16,12 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -64,6 +71,14 @@ public class ArticleService {
     public ArticleReportsResponse showBlockedArticles(Pageable pageable) {
         Page<Article> articles = articleRepository.findAllByBlockedAtIsNotNull(pageable);
         return ArticleReportsResponse.from(articles);
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleTitleResponse> showPopularArticles(Pageable pageable) {
+        List<Article> articles = articleRepository.findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime.now().minusHours(24), LocalDateTime.now(), pageable);
+        return articles.stream()
+            .map(ArticleTitleResponse::from)
+            .collect(Collectors.toList());
     }
 
     @Transactional(readOnly = true)
