@@ -17,3 +17,22 @@ export const SET_POSITION = (currentToggle, currentPositon) => ({
 	currentToggle,
 	currentPositon,
 });
+
+const toggle = (state = toggleState, action) => {
+	switch (action.type) {
+		case CLICK_TOGGLE:
+			return {
+				toggleValue: !action.currentToggle,
+				position: action.currentPositon,
+			};
+		case CHANGE_POSITION:
+			return {
+				toggleValue: action.currentToggle,
+				position: action.currentPositon,
+			};
+		default:
+			return state;
+	}
+};
+
+export default toggle;
