@@ -8,6 +8,7 @@ import { DELETE_TOKEN } from "../store/token";
 import { SET_TOGGLE } from "../store/toggle";
 import SidebarBoards from "./SidebarBoards";
 import SidebarMessage from "./SideBarMessages";
+import style from "../style/Navbar.module.css";
 
 function Navbar() {
 	const dispatch = useDispatch();
@@ -29,19 +30,23 @@ function Navbar() {
 	}
 
 	return (
-		<nav>
+		<nav className={style.navbar_container}>
 			{user && (
 				<div>
-					<FontAwesomeIcon onClick={toggleMenu} icon={faBars} />
-					{toggle && checkPosition(position)}
-					<Link to="/main">SweetHome</Link>
-					<Link to="/message-box/">
-						<FontAwesomeIcon icon={faEnvelope} />
-					</Link>
-					<FontAwesomeIcon icon={faSignOutAlt} onClick={logOut} />
-					<Link to={`/profile/${user}`}>
-						<FontAwesomeIcon icon={faUser} />
-					</Link>
+					<div className={style.toggle_container}>
+						<FontAwesomeIcon onClick={toggleMenu} icon={faBars} />
+						{toggle && checkPosition(position)}
+					</div>
+					<div className={style.icon_container}>
+						<Link to="/main">SweetHome</Link>
+						<Link to="/message-box/">
+							<FontAwesomeIcon icon={faEnvelope} />
+						</Link>
+						<FontAwesomeIcon icon={faSignOutAlt} onClick={logOut} />
+						<Link to={`/profile/${user}`}>
+							<FontAwesomeIcon icon={faUser} />
+						</Link>
+					</div>
 				</div>
 			)}
 		</nav>
