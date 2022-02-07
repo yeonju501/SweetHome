@@ -45,8 +45,11 @@ public class Member extends BaseEntity {
     @Column(name = "username", length = 20, nullable = false)
     private String username;
 
-    @Column(name = "phone_number", length = 11, nullable = false)
+    @Column(name = "phone_number", length = 11)
     private String phoneNumber;
+
+    @Column(name = "kakao_id")
+    private String kakaoId;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "authority")
@@ -56,11 +59,12 @@ public class Member extends BaseEntity {
     }
 
     @Builder
-    public Member(String email, String password, String username, String phoneNumber, Authority authority) {
+    public Member(String email, String password, String username, String phoneNumber, String kakaoId, Authority authority) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.kakaoId = kakaoId;
         this.authority = authority;
     }
 
