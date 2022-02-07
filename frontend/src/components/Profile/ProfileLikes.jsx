@@ -3,11 +3,12 @@ import * as axiosRequest from "../../utils/profileAxios";
 import style from "../../style/ProfileComments.module.css";
 import { Link } from "react-router-dom";
 function ProfileLikes() {
-	const [articles, setArticles] = useState([]);
+	const [data, setData] = useState({ articles: [], totalPage: 0, currentPage: 0 });
+	const { articles, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETDATA("articles/likes/mine", setArticles, "articles");
-	}, []);
+		axiosRequest.GETMYLIKES(setData, currentPage);
+	}, [currentPage]);
 
 	return (
 		<table>
