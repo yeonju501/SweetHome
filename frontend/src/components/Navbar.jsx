@@ -1,6 +1,6 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSignOutAlt, faUser, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faUser, faEnvelope, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
@@ -25,6 +25,7 @@ function Navbar() {
 		<nav>
 			{user && (
 				<div>
+					<FontAwesomeIcon onClick={toggleMenu} icon={faBars} />
 					<Link to="/main">SweetHome</Link>
 					<Link to="/message-box/read-receive-message">
 						<FontAwesomeIcon icon={faEnvelope} />
