@@ -33,6 +33,7 @@ function Navbar() {
 			{user && (
 				<div>
 					<FontAwesomeIcon onClick={toggleMenu} icon={faBars} />
+					{toggle && checkPosition(position)}
 					<Link to="/main">SweetHome</Link>
 					<Link to="/message-box/read-receive-message">
 						<FontAwesomeIcon icon={faEnvelope} />
