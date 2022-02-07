@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import CreateBoard from "../components/boards/CreateBoard";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +11,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function Main() {
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
+	const toggle = useSelector((state) => state.toggle.toggleValue);
 
 	useEffect(() => {
 		axios({
