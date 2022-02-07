@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { DELETE_TOKEN } from "../store/token";
+import { SET_TOGGLE } from "../store/toggle";
 
 function Navbar() {
 	const dispatch = useDispatch();
@@ -14,6 +15,10 @@ function Navbar() {
 
 	const logOut = () => {
 		dispatch(DELETE_TOKEN());
+	};
+
+	const toggleMenu = () => {
+		dispatch(SET_TOGGLE(toggle, position));
 	};
 
 	return (
