@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { SET_USER } from "../store/user";
 import style from "../style/Main.module.css";
+import { SET_POSITION } from "../store/toggle";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -21,6 +22,7 @@ function Main() {
 			setUserInfo(res.data);
 			dispatch(SET_USER(res.data));
 		});
+		dispatch(SET_POSITION(toggle, "main"));
 	}, []);
 
 	return (
