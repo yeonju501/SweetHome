@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import * as axiosRequest from "../../utils/profileFunction";
+import GETDATA from "../../utils/profileFunction";
 import style from "../../style/ProfileComments.module.css";
 
 function ProfileComments() {
-	const [comments, setComments] = useState([]);
+	const [data, setData] = useState({ comments: [], totalPage: 0, currentPage: 0 });
+	const { comments, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETDATA("articles/comments/mine", setComments, "comments");
-	}, []);
+		GETDATA("articles/comments/mine", setData, currentPage);
+	}, [currentPage]);
 
 	return (
 		<table>
