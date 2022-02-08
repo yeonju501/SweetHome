@@ -23,9 +23,11 @@ import style from "./style/App.module.css";
 import { useEffect, useState } from "react";
 import { onReissueFail, tokenReissue } from "./utils/manageToken";
 import Spinner from "./components/Spinner";
+import { useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 function App() {
+	const user = useSelector((state) => state.token.accessToken);
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		try {
@@ -43,12 +45,12 @@ function App() {
 		return (
 			<>
 				<Router>
-					<Navbar />
+					{user && <Navbar />}
 					<div className={style.div}>
-						<side>
+						<side className={style.side}>
 							<Sidebar />
 						</side>
-						<main>
+						<main className={style.main}>
 							<Routes>
 								<Route path="/" element={<Home />} />
 								<Route path="/sign-in" element={<SignIn />} />
