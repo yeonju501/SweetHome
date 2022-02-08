@@ -9,7 +9,7 @@ function SidebarMessage() {
 
 	useEffect(() => {
 		getUnReadMessageCount(setUnReadMessage);
-	});
+	}, []);
 
 	return (
 		<div className={style.sidebar_container}>
