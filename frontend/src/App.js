@@ -21,7 +21,7 @@ import Navbar from "./components/Navbar";
 import Sidebar from "./pages/Sidebar";
 import style from "./style/App.module.css";
 import { useEffect, useState } from "react";
-import { tokenReissue } from "./utils/loginFunction";
+import { onReissueFail, tokenReissue } from "./utils/manageToken";
 import Spinner from "./components/Spinner";
 
 axios.defaults.withCredentials = true;
@@ -31,12 +31,12 @@ function App() {
 		try {
 			tokenReissue(loginCallBack);
 		} catch (e) {
-			console.log(e);
+			onReissueFail(loginCallBack);
 		}
 	}, []);
 
-	function loginCallBack() {
-		setLoading(true);
+	function loginCallBack(isLoading) {
+		setLoading(isLoading);
 	}
 
 	if (loading) {
