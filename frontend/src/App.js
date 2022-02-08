@@ -23,14 +23,10 @@ import style from "./style/App.module.css";
 import { useEffect, useState } from "react";
 import { onReissueFail, tokenReissue } from "./utils/manageToken";
 import Spinner from "./components/Spinner";
-import Cookies from "universal-cookie";
 import AccountKakao from "./components/accounts/AccountKakao";
 
 axios.defaults.withCredentials = true;
 function App() {
-	const cookies = new Cookies();
-	const user = cookies.get("accessToken");
-
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		try {
@@ -48,7 +44,7 @@ function App() {
 		return (
 			<>
 				<Router>
-					{user && <Navbar />}
+					<Navbar />
 					<div className={style.div}>
 						<div className={style.side}>
 							<Sidebar />

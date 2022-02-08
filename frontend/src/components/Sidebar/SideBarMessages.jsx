@@ -5,18 +5,18 @@ import style from "../../style/Sidebar.module.css";
 import { getUnReadMessageCount } from "../../utils/messagesFunction";
 
 function SidebarMessage() {
-	const [unReadMessage, setUnReadMessage] = useState;
+	const [unReadMessage, setUnReadMessage] = useState("");
 
 	useEffect(() => {
 		getUnReadMessageCount(setUnReadMessage);
-	});
+	}, []);
 
 	return (
 		<div className={style.sidebar_container}>
 			<ul className={style.sidebar_list}>
 				<li className={style.sidebar_back}>
 					<Link className={style.sidebar_link} to="read-receive-message">
-						받은 메시지 {unReadMessage}
+						받은 메시지 {unReadMessage.unread_count}
 					</Link>
 				</li>
 				<li className={style.sidebar_back}>
