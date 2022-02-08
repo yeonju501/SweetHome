@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import * as inputValid from "../utils/inputValid";
 import style from "../style/SignIn.module.css";
 import SignPassword from "../components/accounts/SignPassword";
 import { SignUpButton } from "../components/accounts/SignButton";
 import errorMessage from "../store/errorMessage";
+import Cookies from "universal-cookie";
 
 function SignUp() {
+	const cookies = new Cookies();
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const token = useSelector((state) => state.token.token);
+	const token = cookies.get("accessToken");
 	const navigate = useNavigate();
 
 	const [inputValue, setInputValue] = useState({
