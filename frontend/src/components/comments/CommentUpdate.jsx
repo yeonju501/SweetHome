@@ -15,6 +15,11 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [isLike, setIsLike] = useState(false);
 	const { content } = commentContent;
 	const URL = process.env.REACT_APP_SERVER_URL;
+
+	useEffect(() => {
+		isLiked();
+	}, []);
+
 	const onChange = (e) => {
 		setCommentContent({ content: e.target.value });
 	};
