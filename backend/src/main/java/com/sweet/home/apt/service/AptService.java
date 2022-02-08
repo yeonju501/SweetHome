@@ -91,9 +91,7 @@ public class AptService {
         Member aptHouseMember = memberService.findById(request.getId());
         RegisterAptHouse registerAptHouse = getRegisterAptHouse(aptHouseMember);
 
-        if (!adminMember.getAptHouse().getApt().equals(registerAptHouse.getApt())) {
-            throw new BusinessException(ErrorCode.REGISTER_NOT_YOUR_APT);
-        }
+        isYourAptMember(adminMember.getAptHouse().getApt(), registerAptHouse.getApt());
 
         AptHouse aptHouse = aptHouseRepository.findByAptAndDongAndHo(registerAptHouse.getApt(), registerAptHouse.getDong(),
                 registerAptHouse.getHo())
@@ -112,9 +110,7 @@ public class AptService {
         Member aptHouseMember = memberService.findById(request.getId());
         RegisterAptHouse registerAptHouse = getRegisterAptHouse(aptHouseMember);
 
-        if (!adminMember.getAptHouse().getApt().equals(registerAptHouse.getApt())) {
-            throw new BusinessException(ErrorCode.REGISTER_NOT_YOUR_APT);
-        }
+        isYourAptMember(adminMember.getAptHouse().getApt(), registerAptHouse.getApt());
 
         registerAptHouse.saveDeletedTime();
     }
@@ -135,6 +131,18 @@ public class AptService {
 
     @Transactional
     public void deleteAptMember(String email, Long memberId) {
+        Member adminMember = memberService.findByEmail(email);
+        Member deleteMember = memberService.findById(memberId);
 
+        isYourAptMember(adminMember.getAptHouse().getApt(), deleteMember.getAptHouse().getApt());
+
+        deleteMember.changeAuthority(Authority.ROLE_ASSOCIATE_MEMBER);
+        deleteMember.changeAptHouse(null);
+    }
+
+    private void isYourAptMember(Apt adminApt, Apt memberApt) {
+        if(!adminApt.equals(memberApt)) {
+            throw new BusinessException(ErrorCode.REGISTER_NOT_YOUR_APT);
+        }
     }
 }
