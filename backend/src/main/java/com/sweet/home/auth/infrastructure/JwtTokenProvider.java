@@ -133,13 +133,13 @@ public class JwtTokenProvider {
         try {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(refreshToken);
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
-            throw new JwtException(ErrorCode.INVALID_MALFORMED_JWT);
+            throw new JwtException(ErrorCode.INVALID_MALFORMED_REFRESH_TOKEN);
         } catch (ExpiredJwtException e) {
-            throw new JwtException(ErrorCode.INVALID_EXPIRED_JWT);
+            throw new JwtException(ErrorCode.INVALID_EXPIRED_REFRESH_TOKEN);
         } catch (UnsupportedJwtException e) {
-            throw new JwtException(ErrorCode.INVALID_UNSUPPORTED_JWT);
+            throw new JwtException(ErrorCode.INVALID_UNSUPPORTED_REFRESH_TOKEN);
         } catch (IllegalArgumentException e) {
-            throw new JwtException(ErrorCode.INVALID_ILLEGAL_ARGUMENT_JWT);
+            throw new JwtException(ErrorCode.INVALID_ILLEGAL_ARGUMENT_REFRESH_TOKEN);
         }
     }
 }
