@@ -4,8 +4,8 @@ import axios from "axios";
 import { useNavigate } from "react-router";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
-import SignPassword from "./SignPassword";
-import { SignInButton } from "./SignButton";
+import SignPassword from "./AccountPassword";
+import { SignInButton } from "./AccountButton";
 import errorMessage from "../../store/errorMessage";
 import { onLoginSuccess } from "../../utils/manageToken";
 

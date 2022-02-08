@@ -3,7 +3,7 @@ import * as inputValid from "../../utils/inputValid";
 import * as axiosRequest from "../../utils/profileAxios";
 import axios from "axios";
 import { toast } from "react-toastify";
-import DeleteAccount from "../accounts/DeleteAccount";
+import AccountDelete from "../accounts/AccountDelete";
 
 function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -66,7 +66,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 
 			<div style={{ display: "flex", alignItems: "center" }}>
 				<button style={{ marginRight: "25rem" }}>저장</button>
-				<DeleteAccount />
+				<AccountDelete />
 			</div>
 		</form>
 	);
