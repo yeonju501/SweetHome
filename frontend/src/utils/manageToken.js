@@ -22,9 +22,28 @@ export function tokenReissue(loginCallBack) {
 			},
 		})
 			.then((res) => {
-				onLoginSucess(res);
+				onLoginSuccess(res);
 				loginCallBack();
 			})
 			.catch((err) => loginCallBack());
 	}
+}
+
+export function onLoginSuccess(res) {
+	const { access_token, refresh_token } = res.data;
+	axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
+	cookies.set("refreshToken", refresh_token, {
+		path: "/",
+		secure: true,
+		// httpOnly: true,
+		expires: new Date(Date.now() + 1000 * 3600 * 24 * 7),
+	});
+
+	cookies.set("accessToken", access_token, {
+		path: "/",
+		secure: true,
+		// httpOnly: true,
+		expires: new Date(Date.now() + 1000 * 60 * 30),
+	});
+	setTimeout(tokenReissue, JWT_EXPIRE_TIME - 60000);
 }
