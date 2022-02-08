@@ -10,6 +10,8 @@ import errorMessage from "../../store/errorMessage";
 import { onLoginSuccess } from "../../utils/manageToken";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+const API = process.env.REACT_APP_KAKAO_API_KEY;
+const KAKAO_URI = process.env.REACT_APP_KAKAO_URI;
 
 function SignIn() {
 	const navigate = useNavigate();
@@ -21,6 +23,11 @@ function SignIn() {
 	const { email, password } = inputValue;
 
 	const isValid = inputValid.signInValid(email, password);
+
+	const loginWithKakao = () => {
+		window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${API}&redirect_uri=${KAKAO_URI}&response_type=code`;
+		navigate("/oauth2/code/kakao");
+	};
 
 	function onChange(e) {
 		setInputValue({
@@ -61,7 +68,9 @@ function SignIn() {
 					{isValid ? <SignInButton valid="activated" /> : <SignInButton valid="" />}
 				</form>
 
-				<button className={style.kakao_button}>카카오로 시작하기</button>
+				<button className={style.kakao_button} onClick={loginWithKakao}>
+					카카오로 시작하기
+				</button>
 				<Link className={style.Link} to="/">
 					비밀번호를 잊으셨나요?
 				</Link>
