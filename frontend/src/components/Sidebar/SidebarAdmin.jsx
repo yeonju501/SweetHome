@@ -7,7 +7,7 @@ function SidebarAdmin() {
 		<div className={style.sidebar_container}>
 			<ul className={style.sidebar_list}>
 				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="">
+					<Link className={style.sidebar_link} to="member-manage">
 						👨‍👩‍👧‍👦회원 관리
 					</Link>
 				</li>
