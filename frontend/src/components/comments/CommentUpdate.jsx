@@ -23,6 +23,20 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 		setUpdate(!update);
 	};
 
+	const likeOrCancelLike = () => {
+		const method = isLike ? "delete" : "post";
+
+		axios({
+			url: `${URL}/api/comments/${comment.id}/likes`,
+			method: method,
+		})
+			.then(() => {
+				setIsLike((prev) => !prev);
+				getComments();
+			})
+			.catch((err) => console.log);
+	};
+
 	const commentDelete = () => {
 		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
 			axios({
