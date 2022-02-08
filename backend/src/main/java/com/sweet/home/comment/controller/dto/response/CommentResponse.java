@@ -14,6 +14,9 @@ public class CommentResponse {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("email")
+    private String email;
+
     @JsonProperty("username")
     private String username;
 
@@ -40,8 +43,9 @@ public class CommentResponse {
     protected CommentResponse() {
     }
 
-    public CommentResponse(Long id, String username, String content, LocalDateTime createdAt, LocalDateTime updatedAt, int totalLikes, Boolean isRemoved, List<CommentReplyResponse> replies) {
+    public CommentResponse(Long id, String email, String username, String content, LocalDateTime createdAt, LocalDateTime updatedAt, int totalLikes, Boolean isRemoved, List<CommentReplyResponse> replies) {
         this.id = id;
+        this.email = email;
         this.username = username;
         this.content = content;
         if (Objects.nonNull(isRemoved)) {
@@ -57,6 +61,7 @@ public class CommentResponse {
     public static CommentResponse from(Comment comment) {
         return new CommentResponse(
             comment.getId(),
+            comment.getMember().getEmail(),
             comment.getMember().getUsername(),
             comment.getContent(),
             comment.getCreatedAt(),
