@@ -22,6 +22,7 @@ import Sidebar from "./pages/Sidebar";
 import style from "./style/App.module.css";
 import { useEffect, useState } from "react";
 import { tokenReissue } from "./utils/loginFunction";
+import Spinner from "./components/Spinner";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -38,47 +39,51 @@ function App() {
 		setLoading(true);
 	}
 
-	return (
-		<>
-			<Router>
-				<Navbar />
-				<div className={style.div}>
-					<side>
-						<Sidebar />
-					</side>
-					<main>
-						<Routes>
-							<Route path="/" element={<Home />} />
-							<Route path="/sign-in" element={<SignIn />} />
-							<Route path="/sign-up" element={<SignUp />} />
-							<Route path="" element={<PrivateRoute />}>
-								<Route path="/main" element={<Main />} />
-								<Route path="/profile/:username" element={<Profile />} />
-								<Route path="/boards/:boardId" element={<Board />} />
-								<Route path="/articles/:articleId" element={<ArticleDetail />} />
-								<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
-								<Route path="/message-box/" element={<MessageBox />}></Route>
-								<Route path="read-receive-message" element={<ReadReceiveMessage />} />
-								<Route path="read-send-message" element={<ReadSendMessage />} />
-								<Route path="send-message" element={<SendMessage />} />
-								<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
-								<Route
-									path="/read-receive-message/message-detail"
-									element={<ReadMessageDeatil />}
-								/>
-								<Route
-									path="/read-send-message/message-detail/send-message"
-									element={<SendMessage />}
-								/>
-							</Route>
-							<Route path="/*" element={<NotFound />} />
-						</Routes>
-					</main>
-				</div>
-			</Router>
-			<ToastContainer style={{ fontSize: "1.4rem" }} />
-		</>
-	);
+	if (loading) {
+		return (
+			<>
+				<Router>
+					<Navbar />
+					<div className={style.div}>
+						<side>
+							<Sidebar />
+						</side>
+						<main>
+							<Routes>
+								<Route path="/" element={<Home />} />
+								<Route path="/sign-in" element={<SignIn />} />
+								<Route path="/sign-up" element={<SignUp />} />
+								<Route path="" element={<PrivateRoute />}>
+									<Route path="/main" element={<Main />} />
+									<Route path="/profile/:username" element={<Profile />} />
+									<Route path="/boards/:boardId" element={<Board />} />
+									<Route path="/articles/:articleId" element={<ArticleDetail />} />
+									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
+									<Route path="/message-box/" element={<MessageBox />}></Route>
+									<Route path="read-receive-message" element={<ReadReceiveMessage />} />
+									<Route path="read-send-message" element={<ReadSendMessage />} />
+									<Route path="send-message" element={<SendMessage />} />
+									<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
+									<Route
+										path="/read-receive-message/message-detail"
+										element={<ReadMessageDeatil />}
+									/>
+									<Route
+										path="/read-send-message/message-detail/send-message"
+										element={<SendMessage />}
+									/>
+								</Route>
+								<Route path="/*" element={<NotFound />} />
+							</Routes>
+						</main>
+					</div>
+				</Router>
+				<ToastContainer style={{ fontSize: "1.4rem" }} />
+			</>
+		);
+	} else {
+		return <Spinner />;
+	}
 }
 
 export default App;
