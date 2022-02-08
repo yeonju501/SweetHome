@@ -9,11 +9,10 @@ import { SignInButton } from "./AccountButton";
 import errorMessage from "../../store/errorMessage";
 import { onLoginSuccess } from "../../utils/manageToken";
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-const API = process.env.REACT_APP_KAKAO_API_KEY;
-const KAKAO_URI = process.env.REACT_APP_KAKAO_URI;
-
 function SignIn() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const API = process.env.REACT_APP_KAKAO_API_KEY;
+	const KAKAO_URI = process.env.REACT_APP_KAKAO_URI;
 	const navigate = useNavigate();
 	const [inputValue, setInputValue] = useState({
 		email: "",
