@@ -86,3 +86,16 @@ export function getReceiveMessageCount(funcReaceive) {
 			console.log(err);
 		});
 }
+
+export function getSendMessageCount(funcSend) {
+	axios({
+		method: "GET",
+		url: `${SERVER_URL}/api/messages/send/all-count`,
+	})
+		.then((res) => {
+			funcSend(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
