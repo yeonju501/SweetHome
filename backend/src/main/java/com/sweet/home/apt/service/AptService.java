@@ -132,4 +132,9 @@ public class AptService {
 
         return AptMembersResponse.from(aptMembers);
     }
+
+    @Transactional
+    public void deleteAptMember(String email, Long memberId) {
+
+    }
 }

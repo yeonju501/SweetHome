@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,7 +44,7 @@ public class AptAdminRestController {
 
     //등록 요청 - 아파트 등록 요청 다중 승인하기 = POST / 나중에 할 것
 
-    //등록 요청 - 아파트 등록 요청 거절하기 = DELDETE
+    //등록 요청 - 아파트 등록 요청 거절하기 = DELETE
     @DeleteMapping("/apts/register")
     public ResponseEntity<Void> rejectAptHouseMember(@AuthenticationPrincipal String email,
         @RequestBody AptHouseMemberRequest request) {
@@ -60,4 +61,10 @@ public class AptAdminRestController {
     }
 
     //아파트 회원 관리 - 회원을 아파트 멤버에서 제외하기 = DELETE
+    @DeleteMapping("/apts/members/{member_id}")
+    public ResponseEntity<Void> deleteAptMember(@AuthenticationPrincipal String email,
+        @PathVariable(value = "member_id") Long MemberId) {
+        aptService.deleteAptMember(email, MemberId);
+        return ResponseEntity.noContent().build();
+    }
 }
