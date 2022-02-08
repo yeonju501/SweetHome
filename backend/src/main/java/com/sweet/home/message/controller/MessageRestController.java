@@ -1,8 +1,8 @@
 package com.sweet.home.message.controller;
 
-import com.sweet.home.member.controller.dto.response.AllCountResponse;
-import com.sweet.home.member.controller.dto.response.CountsResponse;
-import com.sweet.home.member.controller.dto.response.UnreadCountResponse;
+import com.sweet.home.message.controller.dto.response.AllCountResponse;
+import com.sweet.home.message.controller.dto.response.CountsResponse;
+import com.sweet.home.message.controller.dto.response.UnreadCountResponse;
 import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;

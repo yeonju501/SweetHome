@@ -5,9 +5,9 @@ import static com.sweet.home.message.domain.SenderReceiverDelimiter.SENDER;
 
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
-import com.sweet.home.member.controller.dto.response.AllCountResponse;
-import com.sweet.home.member.controller.dto.response.CountsResponse;
-import com.sweet.home.member.controller.dto.response.UnreadCountResponse;
+import com.sweet.home.message.controller.dto.response.AllCountResponse;
+import com.sweet.home.message.controller.dto.response.CountsResponse;
+import com.sweet.home.message.controller.dto.response.UnreadCountResponse;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
