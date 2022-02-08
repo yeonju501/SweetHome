@@ -20,9 +20,20 @@ import ArticleUpdate from "./components/articles/ArticleUpdate";
 import Navbar from "./components/Navbar";
 import Sidebar from "./pages/Sidebar";
 import style from "./style/App.module.css";
+import { useEffect, useState } from "react";
+import { tokenReissue } from "./utils/loginFunction";
 
 axios.defaults.withCredentials = true;
 function App() {
+	const [loading, setLoading] = useState(false);
+	useEffect(() => {
+		try {
+			tokenReissue(loginCallBack);
+		} catch (e) {
+			console.log(e);
+		}
+	}, []);
+
 	return (
 		<>
 			<Router>
