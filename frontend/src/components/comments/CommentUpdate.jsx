@@ -1,13 +1,18 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CommentNested from "./CommentNested";
+import errorMessage from "../../store/errorMessage";
 import style from "../../style/articles/ArticleDetailComment.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+
 function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const [activate, setActivate] = useState(true);
-
+	const [isLike, setIsLike] = useState(false);
 	const { content } = commentContent;
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const onChange = (e) => {
@@ -58,8 +63,22 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 					<p>{comment.content}</p>
 					<div className={style.date_btn}>
 						<p>{comment.created_at.slice(0, 10)}</p>
+						{comment.total_likes === 0 ? null : comment.total_likes === 1 ? (
+							<p>{comment.total_likes}like</p>
+						) : (
+							<p>{comment.total_likes}likes</p>
+						)}
 						<p onClick={() => setActivate(!activate)}>댓글 달기</p>
+
+						<p onClick={likeOrCancelLike} className={style.btn_comment_like}>
+							{isLike ? (
+								<FontAwesomeIcon icon={fasHeart} color="red" />
+							) : (
+								<FontAwesomeIcon icon={farHeart} color="gray" />
+							)}
+						</p>
 					</div>
+
 					{user === comment.email && activate && (
 						<div className={style.btn_nested_comments}>
 							<button className={style.btn_nested} onClick={onClick}>
