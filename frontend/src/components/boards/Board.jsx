@@ -15,28 +15,31 @@ function Board() {
 	const [pageNumber, setPageNumber] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const pageEnd = useRef();
-	const [maxPageNumber, setMaxPageNumber] = useState(1);
+	const maxPageNumber = 500;
 
 	useEffect(() => {
-		setPageNumber(0);
+		setLoading(true);
 		setArticles("");
-	}, [board.id]);
+		setPageNumber(0);
+		console.log("게시판바뀜");
+	}, [board]);
 
 	useEffect(() => {
 		getArticles();
-	}, [pageNumber, board.id]);
+	}, [pageNumber]);
 
 	const getArticles = () => {
+		console.log(pageNumber, maxPageNumber);
 		if (pageNumber < maxPageNumber) {
 			axios({
-				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=6`,
+				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=7`,
 				method: "get",
 			}).then((res) => {
 				console.log(`${pageNumber}번 페이지 getArticle`);
-				console.log(res.data);
-				setMaxPageNumber(res.data.total_page_count);
-				setArticles((prev) => [...prev, ...res.data.articles]);
-				setLoading(false);
+				if (pageNumber < res.data.total_page_count) {
+					setArticles((prev) => [...prev, ...res.data.articles]);
+					setLoading(false);
+				}
 			});
 		}
 	};
@@ -54,12 +57,10 @@ function Board() {
 			);
 			observer.observe(pageEnd.current);
 		}
-	}, [loading]);
+	}, [loading, board]);
 
 	const loadMore = () => {
-		console.log(pageNumber);
 		setPageNumber((prev) => prev + 1);
-		console.log(pageNumber);
 	};
 
 	return (
