@@ -60,3 +60,16 @@ export function getUnReadMessageCount(funUnRead) {
 			console.log(err);
 		});
 }
+
+export function getMessageAllCount(position, funcAll) {
+	axios({
+		method: "GET",
+		url: `${SERVER_URL}/api/messages/${position}/all-count`,
+	})
+		.then((res) => {
+			funcAll(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
