@@ -49,6 +49,7 @@ public enum ErrorCode {
 
     // board
     BOARD_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 게시판입니다.", "F01"),
+    BOARD_NOT_FOUND_BY_ID_AND_BOARD_STATUS(HttpStatus.BAD_REQUEST, "승인에 유효하지 않은 게시판입니다.", "F04"),
 
     // boardFavorite
     BOARD_FAVORITE_ALREADY_EXISTS(HttpStatus.BAD_REQUEST, "이미 즐겨찾기된 게시판입니다.", "F02"),
