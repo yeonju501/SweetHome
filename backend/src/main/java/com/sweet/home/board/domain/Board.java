@@ -1,6 +1,7 @@
 package com.sweet.home.board.domain;
 
 import com.sweet.home.global.domain.BaseEntity;
+import java.util.Objects;
 import lombok.Builder;
 import lombok.Getter;
 import org.hibernate.annotations.Where;
@@ -38,5 +39,21 @@ public class Board extends BaseEntity {
         this.name = name;
         this.description = description;
         this.boardStatus = boardStatus;
+    }
+
+    public void changeName(String name) {
+        if (Objects.nonNull(name)) {
+            this.name = name;
+        }
+    }
+
+    public void changeDescription(String description) {
+        if (Objects.nonNull(description)) {
+            this.description = description;
+        }
+    }
+
+    public void changeBoardStatus() {
+        boardStatus = true;
     }
 }
