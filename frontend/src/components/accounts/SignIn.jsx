@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { useNavigate } from "react-router";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
 import { SignInButton } from "./SignButton";
 import errorMessage from "../../store/errorMessage";
+import { onLoginSuccess } from "../../utils/manageToken";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SignIn() {
+	const navigate = useNavigate();
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -38,7 +41,10 @@ function SignIn() {
 				},
 				data: inputValue,
 			})
-				.then((res) => {})
+				.then((res) => {
+					onLoginSuccess(res);
+					navigate("/main");
+				})
 				.catch((err) => {
 					errorMessage(err.response.data.error_code);
 				});
