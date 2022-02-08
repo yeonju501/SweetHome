@@ -27,19 +27,18 @@ function Board() {
 	}, [pageNumber, board.id]);
 
 	const getArticles = () => {
-		axios({
-			url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=5`,
-			method: "get",
-		}).then((res) => {
-			console.log(board.id, pageNumber);
-			setArticles((prev) => [...prev, ...res.data.articles]);
-			setMaxPageNumber(res.data.total_page_count);
-			setLoading(false);
-		});
-	};
-
-	const loadMore = () => {
-		setPageNumber((prev) => prev + 1);
+		if (pageNumber < maxPageNumber) {
+			axios({
+				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=6`,
+				method: "get",
+			}).then((res) => {
+				console.log(`${pageNumber}번 페이지 getArticle`);
+				console.log(res.data);
+				setMaxPageNumber(res.data.total_page_count);
+				setArticles((prev) => [...prev, ...res.data.articles]);
+				setLoading(false);
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -47,15 +46,21 @@ function Board() {
 			const observer = new IntersectionObserver(
 				(entries) => {
 					if (entries[0].isIntersecting) {
+						console.log("감지!");
 						loadMore();
-						// if (pageNumber > maxPageNumber) observer.unobserve(pageEnd.current);
 					}
 				},
 				{ threshold: 1 },
 			);
 			observer.observe(pageEnd.current);
 		}
-	}, [loading, maxPageNumber]);
+	}, [loading]);
+
+	const loadMore = () => {
+		console.log(pageNumber);
+		setPageNumber((prev) => prev + 1);
+		console.log(pageNumber);
+	};
 
 	return (
 		<div>
@@ -72,8 +77,8 @@ function Board() {
 			) : (
 				articles && (
 					<ul>
-						{articles.map((article) => (
-							<li className={style.article} key={article.id}>
+						{articles.map((article, idx) => (
+							<li className={style.article} key={idx}>
 								<Link to={`/articles/${article.id}`} state={{ id: article.id }}>
 									<p>{article.username}</p>
 									<p>{article.created_at}</p>
