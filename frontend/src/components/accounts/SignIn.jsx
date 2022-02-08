@@ -1,9 +1,6 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import Cookies from "universal-cookie";
+import { Link } from "react-router-dom";
 import axios from "axios";
-import { SET_TOKEN, DELETE_TOKEN } from "../../store/token";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./SignPassword";
@@ -13,10 +10,6 @@ import errorMessage from "../../store/errorMessage";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SignIn() {
-	const accessToken = useSelector((state) => state.token.accessToken);
-	const refreshToken = useSelector((state) => state.token.refreshToken);
-	const navigate = useNavigate();
-	const dispatch = useDispatch();
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -33,31 +26,7 @@ function SignIn() {
 		});
 	}
 
-	function onSilentRefresh() {
-		axios({
-			url: `${SERVER_URL}/api/members/reissue`,
-			method: "POST",
-			headers: {
-				"Content-type": "application/json",
-			},
-			data: {
-				access_token: accessToken,
-				refresh_token: refreshToken,
-			},
-		})
-			.then((res) => {
-				dispatch(SET_TOKEN(res.data));
-				navigate("/main");
-			})
-			.catch(() => {
-				alert("로그인을 다시 해주세요");
-				dispatch(DELETE_TOKEN());
-				navigate("/sign-in");
-			});
-	}
 	function onSubmit(e) {
-		const cookies = new Cookies();
-		const expires = 1000 * 3600 * 24 * 7;
 		e.preventDefault();
 		if (isValid) {
 			axios({
@@ -69,24 +38,7 @@ function SignIn() {
 				},
 				data: inputValue,
 			})
-				.then((res) => {
-					dispatch(SET_TOKEN(res.data));
-					cookies.set("refreshToken", res.data.refresh_token, {
-						path: "/",
-						secure: true,
-						// httpOnly: true,
-						expires: new Date(Date.now() + expires),
-					});
-					cookies.set("accessToken", res.data.access_token, {
-						path: "/",
-						secure: true,
-						// httpOnly: true,
-						expires: new Date(Date.now() + 1000 * 60 * 30),
-					});
-					navigate("/main");
-					axios.defaults.headers.common["Authorization"] = `Bearer ${res.data.access_token}`;
-					setTimeout(onSilentRefresh, 1000 * 60 * 30 - 6000);
-				})
+				.then((res) => {})
 				.catch((err) => {
 					errorMessage(err.response.data.error_code);
 				});
