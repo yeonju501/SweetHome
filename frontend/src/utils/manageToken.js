@@ -25,7 +25,13 @@ export function tokenReissue(loginCallBack) {
 				onLoginSuccess(res);
 				loginCallBack();
 			})
-			.catch((err) => loginCallBack());
+			.catch((err) => {
+				if (err.response.data.error_code === "A08") {
+					onReissueFail();
+				}
+			});
+	} else {
+		onReissueFail();
 	}
 }
 
@@ -46,4 +52,10 @@ export function onLoginSuccess(res) {
 		expires: new Date(Date.now() + 1000 * 60 * 30),
 	});
 	setTimeout(tokenReissue, JWT_EXPIRE_TIME - 60000);
+}
+
+export function onReissueFail() {
+	cookies.remove("accessToken");
+	cookies.remove("refreshToken");
+	window.location.href("/");
 }
