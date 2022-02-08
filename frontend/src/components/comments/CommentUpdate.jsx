@@ -37,6 +37,13 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 			.catch((err) => console.log);
 	};
 
+	const isLiked = () => {
+		axios({
+			url: `${URL}/api/comments/${comment.id}/likes`,
+			method: "get",
+		}).then((res) => setIsLike(res.data.is_liked));
+	};
+
 	const commentDelete = () => {
 		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
 			axios({
