@@ -23,39 +23,43 @@ export function tokenReissue(loginCallBack) {
 		})
 			.then((res) => {
 				onLoginSuccess(res);
-				loginCallBack();
+				console.log("i");
+				loginCallBack(true);
 			})
 			.catch((err) => {
 				if (err.response.data.error_code === "A08") {
+					loginCallBack(true);
 					onReissueFail();
 				}
 			});
 	} else {
+		loginCallBack(true);
 		onReissueFail();
 	}
 }
 
 export function onLoginSuccess(res) {
+	const expire = 1000 * 3600 * 24 * 7;
 	const { access_token, refresh_token } = res.data;
 	axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
 	cookies.set("refreshToken", refresh_token, {
 		path: "/",
 		secure: true,
 		// httpOnly: true,
-		expires: new Date(Date.now() + 1000 * 3600 * 24 * 7),
+		expires: new Date(Date.now() + expire),
 	});
 
 	cookies.set("accessToken", access_token, {
 		path: "/",
 		secure: true,
 		// httpOnly: true,
-		expires: new Date(Date.now() + 1000 * 60 * 30),
+		expires: new Date(Date.now() + expire),
 	});
 	setTimeout(tokenReissue, JWT_EXPIRE_TIME - 60000);
 }
 
-export function onReissueFail() {
+export function onReissueFail(callback) {
 	cookies.remove("accessToken");
 	cookies.remove("refreshToken");
-	window.location.href("/");
+	callback(true);
 }
