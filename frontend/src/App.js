@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { onReissueFail, tokenReissue } from "./utils/manageToken";
 import Spinner from "./components/Spinner";
 import AccountKakao from "./components/accounts/AccountKakao";
+import Admin from "./pages/Admin";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -75,6 +76,7 @@ function App() {
 										element={<SendMessage />}
 									/>
 								</Route>
+								<Route path="/admin" element={<Admin />} />
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
 						</main>
