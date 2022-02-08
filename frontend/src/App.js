@@ -24,6 +24,7 @@ import { useEffect, useState } from "react";
 import { onReissueFail, tokenReissue } from "./utils/manageToken";
 import Spinner from "./components/Spinner";
 import Cookies from "universal-cookie";
+import AccountKakao from "./components/accounts/AccountKakao";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -57,6 +58,7 @@ function App() {
 								<Route path="/" element={<Home />} />
 								<Route path="/sign-in" element={<SignIn />} />
 								<Route path="/sign-up" element={<SignUp />} />
+								<Route path="/oauth2/code/kakao" element={<AccountKakao />} />
 								<Route path="" element={<PrivateRoute />}>
 									<Route path="/main" element={<Main />} />
 									<Route path="/profile/:username" element={<Profile />} />
