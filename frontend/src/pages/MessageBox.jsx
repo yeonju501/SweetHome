@@ -9,14 +9,19 @@ function MessageBox() {
 	const dispatch = useDispatch();
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const [receiveMessageCnt, setReceiveMessageCnt] = useState({
-		unread_count: "",
 		all_count: "",
+		unread_count: "",
 	});
 	useEffect(() => {
 		dispatch(SET_POSITION(toggle, "message"));
 		getReceiveMessageCount(setReceiveMessageCnt);
 	});
-	return <>{receiveMessageCnt}</>;
+	return (
+		<>
+			<p>받은 메시지 : {receiveMessageCnt.all_count}</p>
+			<p>안 읽은 메시지 : {receiveMessageCnt.unread_count}</p>
+		</>
+	);
 }
 
 export default MessageBox;
