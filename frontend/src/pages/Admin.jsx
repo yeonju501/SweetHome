@@ -10,7 +10,11 @@ function Admin() {
 	useEffect(() => {
 		dispatch(SET_POSITION(toggle, "admin"));
 	}, []);
-	return <></>;
+	return (
+		<>
+			<h1>Admin Page</h1>
+		</>
+	);
 }
 
 export default Admin;
