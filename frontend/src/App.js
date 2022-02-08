@@ -25,6 +25,7 @@ import { onReissueFail, tokenReissue } from "./utils/manageToken";
 import Spinner from "./components/Spinner";
 import AccountKakao from "./components/accounts/AccountKakao";
 import Admin from "./pages/Admin";
+import AdminMemberManage from "./components/admin/AdminMemberManage";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -77,6 +78,7 @@ function App() {
 									/>
 								</Route>
 								<Route path="/admin" element={<Admin />} />
+								<Route path="member-manage" element={<AdminMemberManage />} />
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
 						</main>
