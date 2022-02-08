@@ -6,6 +6,7 @@ import axios from "axios";
 import { SET_USER } from "../store/user";
 import style from "../style/Main.module.css";
 import { SET_POSITION } from "../store/toggle";
+import AgreementCreate from "../components/agreements/AgreementCreate";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -28,6 +29,7 @@ function Main() {
 	return (
 		userInfo && (
 			<div>
+				<AgreementCreate />
 				<CreateBoard />
 				<div>최신글</div>
 				<p>{userInfo.username}</p>
