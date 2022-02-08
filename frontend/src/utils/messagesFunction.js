@@ -61,19 +61,6 @@ export function getUnReadMessageCount(funUnRead) {
 		});
 }
 
-export function getMessageAllCount(position, funcAll) {
-	axios({
-		method: "GET",
-		url: `${SERVER_URL}/api/messages/${position}/all-count`,
-	})
-		.then((res) => {
-			funcAll(res.data);
-		})
-		.catch((err) => {
-			console.log(err);
-		});
-}
-
 export function getReceiveMessageCount(funcReaceive) {
 	axios({
 		method: "GET",
@@ -94,6 +81,19 @@ export function getSendMessageCount(funcSend) {
 	})
 		.then((res) => {
 			funcSend(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
+
+export function getMessageAllCount(position, funcAll) {
+	axios({
+		method: "GET",
+		url: `${SERVER_URL}/api/messages/${position}/all-count`,
+	})
+		.then((res) => {
+			funcAll(res.data);
 		})
 		.catch((err) => {
 			console.log(err);
