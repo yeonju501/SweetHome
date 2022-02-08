@@ -20,18 +20,20 @@ import ArticleUpdate from "./components/articles/ArticleUpdate";
 import Navbar from "./components/Navbar";
 import Sidebar from "./pages/Sidebar";
 import style from "./style/App.module.css";
+import { useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 function App() {
+	const user = useSelector((state) => state.token.accessToken);
 	return (
 		<>
 			<Router>
-				<Navbar />
+				{user && <Navbar />}
 				<div className={style.div}>
-					<side>
+					<side className={style.side}>
 						<Sidebar />
 					</side>
-					<main>
+					<main className={style.main}>
 						<Routes>
 							<Route path="/" element={<Home />} />
 							<Route path="/sign-in" element={<SignIn />} />

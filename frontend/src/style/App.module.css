@@ -1,4 +1,11 @@
 .div {
+}
+
+.side {
+	float: left;
+}
+
+.main {
 	display: flex;
-	justify-content: flex-start;
+	justify-content: center;
 }
