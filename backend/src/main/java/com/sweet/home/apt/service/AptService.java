@@ -2,6 +2,7 @@ package com.sweet.home.apt.service;
 
 import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
 import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.domain.Apt;
@@ -121,5 +122,14 @@ public class AptService {
     private RegisterAptHouse getRegisterAptHouse(Member Member) {
         return registerAptHouseRepository.findByMember(Member)
             .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER));
+    }
+
+    @Transactional(readOnly = true)
+    public AptMembersResponse viewAptMembers(String email, Pageable pageable) {
+        Member adminMember = memberService.findByEmail(email);
+
+        Page<Member> aptMembers = memberService.findByAptId(adminMember.getAptHouse().getApt().getId(), pageable);
+
+        return AptMembersResponse.from(aptMembers);
     }
 }

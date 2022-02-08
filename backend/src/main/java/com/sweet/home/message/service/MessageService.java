@@ -5,6 +5,9 @@ import static com.sweet.home.message.domain.SenderReceiverDelimiter.SENDER;
 
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.message.controller.dto.response.AllCountResponse;
+import com.sweet.home.message.controller.dto.response.CountsResponse;
+import com.sweet.home.message.controller.dto.response.UnreadCountResponse;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
@@ -14,6 +17,7 @@ import com.sweet.home.message.controller.dto.response.MessagesResponse;
 import com.sweet.home.message.domain.Message;
 import com.sweet.home.message.domain.MessageContent;
 import com.sweet.home.message.domain.MessageRepository;
+import com.sweet.home.message.domain.SenderReceiverDelimiter;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -109,5 +113,45 @@ public class MessageService {
         Page<Message> messages = messageRepository.findByReceiveMemberAndSenderReceiverDelimiter(member, RECEIVER, pageable);
 
         return MessagesResponse.from(messages);
+    }
+
+    @Transactional(readOnly = true)
+    public UnreadCountResponse getUnreadReceiveMessagesCount(String email) {
+        Member member = memberService.findByEmail(email);
+
+        return UnreadCountResponse.from(unreadReceiveMessagesCount(member));
+    }
+
+    @Transactional(readOnly = true)
+    public AllCountResponse getAllReceiveMessagesCount(String email) {
+        Member member = memberService.findByEmail(email);
+
+        return AllCountResponse.from(allReceiveMessagesCount(member, RECEIVER));
+    }
+
+    @Transactional(readOnly = true)
+    public CountsResponse getReceiveMessagesCounts(String email) {
+        Member member = memberService.findByEmail(email);
+
+        return CountsResponse.from(unreadReceiveMessagesCount(member), allReceiveMessagesCount(member, RECEIVER));
+    }
+
+    @Transactional(readOnly = true)
+    public AllCountResponse getAllSendMessagesCount(String email) {
+        Member member = memberService.findByEmail(email);
+
+        return AllCountResponse.from(allSendMessagesCount(member, SENDER));
+    }
+
+    private Long unreadReceiveMessagesCount(Member member) {
+        return messageRepository.countsUnreadMessagesByReceiveMemberId(member.getId());
+    }
+
+    private Long allReceiveMessagesCount(Member member, SenderReceiverDelimiter delimiter) {
+        return messageRepository.countByReceiveMemberAndSenderReceiverDelimiter(member, delimiter);
+    }
+
+    private Long allSendMessagesCount(Member member, SenderReceiverDelimiter delimiter) {
+        return messageRepository.countBySendMemberAndSenderReceiverDelimiter(member, delimiter);
     }
 }

@@ -36,4 +36,15 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query(nativeQuery = true, value = "update Message m set m.deleted_at = current_timestamp where m.message_id in (:ids)")
     int bulkDeleteMessages(@Param("ids") List<Long> ids);
+
+    @Query(nativeQuery = true, value = "select count(*) from message m "
+        + "join message_content mc on m.message_content_id = mc. message_content_id "
+        + "where mc.read_at is null "
+        + "and m.receive_member_id = (:receiveMemberId) "
+        + "and m.sender_receiver_delimiter = 'RECEIVER'")
+    Long countsUnreadMessagesByReceiveMemberId(@Param("receiveMemberId") Long receiveMemberId);
+
+    Long countByReceiveMemberAndSenderReceiverDelimiter(Member receiveMember, SenderReceiverDelimiter delimiter);
+
+    Long countBySendMemberAndSenderReceiverDelimiter(Member sendMember, SenderReceiverDelimiter delimiter);
 }

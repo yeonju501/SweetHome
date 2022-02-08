@@ -1,12 +1,13 @@
 package com.sweet.home.message.controller;
 
+import com.sweet.home.message.controller.dto.response.AllCountResponse;
+import com.sweet.home.message.controller.dto.response.CountsResponse;
+import com.sweet.home.message.controller.dto.response.UnreadCountResponse;
 import com.sweet.home.message.controller.dto.request.MessageDeleteRequest;
 import com.sweet.home.message.controller.dto.request.MessageSendRequest;
 import com.sweet.home.message.controller.dto.response.MessageDetailResponse;
-import com.sweet.home.message.controller.dto.response.MessageResponse;
 import com.sweet.home.message.controller.dto.response.MessagesResponse;
 import com.sweet.home.message.service.MessageService;
-import java.util.List;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -70,5 +71,25 @@ public class MessageRestController {
     public ResponseEntity<MessagesResponse> getReceiveMessages(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(messageService.viewReceiveMessages(pageable, email));
+    }
+
+    @GetMapping("messages/receive/unread-count")
+    public ResponseEntity<UnreadCountResponse> getUnreadReceiveMessagesCount(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok(messageService.getUnreadReceiveMessagesCount(email));
+    }
+
+    @GetMapping("messages/receive/all-count")
+    public ResponseEntity<AllCountResponse> getAllReceiveMessagesCount(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok(messageService.getAllReceiveMessagesCount(email));
+    }
+
+    @GetMapping("messages/receive/counts")
+    public ResponseEntity<CountsResponse> getReceiveMessagesCounts(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok(messageService.getReceiveMessagesCounts(email));
+    }
+
+    @GetMapping("messages/send/all-count")
+    public ResponseEntity<AllCountResponse> getAllSendMessagesCount(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok(messageService.getAllSendMessagesCount(email));
     }
 }

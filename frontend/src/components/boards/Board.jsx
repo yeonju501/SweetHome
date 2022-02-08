@@ -4,37 +4,41 @@ import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "../../style/Board.module.css";
+import BoardInfo from "./BoardInfo";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [articles, setArticles] = useState("");
-	const [isStarred, setIsStarred] = useState(false);
 	const location = useLocation();
 	const board = location.state.board || location.state.favorite;
 
 	const [pageNumber, setPageNumber] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const pageEnd = useRef();
-	const [maxPage, setMaxPage] = useState(1);
+	const [maxPageNumber, setMaxPageNumber] = useState(1);
+
+	useEffect(() => {
+		setPageNumber(0);
+		setArticles("");
+	}, [board.id]);
 
 	useEffect(() => {
 		getArticles();
-		getStarred();
-	}, [board.id, pageNumber]);
+	}, [pageNumber, board.id]);
 
 	const getArticles = () => {
-		axios({
-			url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=5`,
-			method: "get",
-		}).then((res) => {
-			setArticles((prev) => [...prev, ...res.data.articles]);
-			setMaxPage(res.data.total_page_count);
-			setLoading(false);
-		});
-	};
-
-	const loadMore = () => {
-		setPageNumber((prev) => prev + 1);
+		if (pageNumber < maxPageNumber) {
+			axios({
+				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=6`,
+				method: "get",
+			}).then((res) => {
+				console.log(`${pageNumber}번 페이지 getArticle`);
+				console.log(res.data);
+				setMaxPageNumber(res.data.total_page_count);
+				setArticles((prev) => [...prev, ...res.data.articles]);
+				setLoading(false);
+			});
+		}
 	};
 
 	useEffect(() => {
@@ -42,43 +46,25 @@ function Board() {
 			const observer = new IntersectionObserver(
 				(entries) => {
 					if (entries[0].isIntersecting) {
+						console.log("감지!");
 						loadMore();
-						if (pageNumber >= maxPage) observer.unobserve(pageEnd.current);
 					}
 				},
-				{ threshold: 0.5 },
+				{ threshold: 1 },
 			);
 			observer.observe(pageEnd.current);
 		}
 	}, [loading]);
 
-	const getStarred = () => {
-		axios({
-			url: `${SERVER_URL}/api/boards/${board.id}/favorites`,
-			method: "get",
-		}).then((res) => {
-			setIsStarred(res.data.is_liked);
-		});
-	};
-
-	const handleStarClick = () => {
-		const method = isStarred ? "delete" : "post";
-
-		axios({
-			url: `${SERVER_URL}/api/boards/${board.id}/favorites`,
-			method: method,
-		}).then(() => {
-			setIsStarred((prev) => !prev);
-		});
+	const loadMore = () => {
+		console.log(pageNumber);
+		setPageNumber((prev) => prev + 1);
+		console.log(pageNumber);
 	};
 
 	return (
 		<div>
-			<div className={style.board_info}>
-				<p>게시판명 : {board.name}</p>
-				<p>게시판 소개글 : {board.Description}</p>
-				<button onClick={handleStarClick}>{isStarred ? "⭐" : "☆"}</button>
-			</div>
+			<BoardInfo board={board} />
 			<ArticleCreate
 				boardId={board.id}
 				getArticles={getArticles}
@@ -91,8 +77,8 @@ function Board() {
 			) : (
 				articles && (
 					<ul>
-						{articles.map((article) => (
-							<li className={style.article} key={article.id}>
+						{articles.map((article, idx) => (
+							<li className={style.article} key={idx}>
 								<Link to={`/articles/${article.id}`} state={{ id: article.id }}>
 									<p>{article.username}</p>
 									<p>{article.created_at}</p>
