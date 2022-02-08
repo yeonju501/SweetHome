@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import SignIn from "../components/accounts/SignIn";
+import SignIn from "../components/accounts/AccountSignIn";
 import style from "../style/Home.module.css";
 import { ReactComponent as Apart } from "../assets/main_apartment.svg";
 function Home() {

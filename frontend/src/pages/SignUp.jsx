@@ -3,8 +3,8 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import * as inputValid from "../utils/inputValid";
 import style from "../style/SignIn.module.css";
-import SignPassword from "../components/accounts/SignPassword";
-import { SignUpButton } from "../components/accounts/SignButton";
+import SignPassword from "../components/accounts/AccountPassword";
+import { SignUpButton } from "../components/accounts/AccountButton";
 import errorMessage from "../store/errorMessage";
 import Cookies from "universal-cookie";
 
