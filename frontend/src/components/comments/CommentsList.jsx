@@ -5,7 +5,7 @@ import CommentNested from "./CommentNested";
 import CommentUpdate from "./CommentUpdate";
 
 function CommentsList({ comments, articleId, getComments }) {
-	const user = useSelector((state) => state.userInfo.username);
+	const user = useSelector((state) => state.userInfo.email);
 
 	return (
 		<ul>
