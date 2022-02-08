@@ -60,7 +60,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 						<p>{comment.created_at.slice(0, 10)}</p>
 						<p onClick={() => setActivate(!activate)}>댓글 달기</p>
 					</div>
-					{user === comment.username && activate && (
+					{user === comment.email && activate && (
 						<div className={style.btn_nested_comments}>
 							<button className={style.btn_nested} onClick={onClick}>
 								수정
