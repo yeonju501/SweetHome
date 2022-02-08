@@ -5,6 +5,8 @@ import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -58,5 +60,10 @@ public class MemberService {
     public Member findById(Long id) {
         return memberRepository.findById(id)
             .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_ID));
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Member> findByAptId(Long aptId, Pageable pageable){
+        return memberRepository.findByAptId(aptId, pageable);
     }
 }
