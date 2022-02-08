@@ -1,4 +1,4 @@
-package com.sweet.home.member.controller.dto.response;
+package com.sweet.home.message.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
