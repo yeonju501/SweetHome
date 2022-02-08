@@ -1,10 +1,9 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import Cookies from "universal-cookie";
 import { Navigate, Outlet } from "react-router-dom";
 
 function PrivateRoute() {
-	const token = useSelector((state) => state.token.accessToken);
-
+	const cookies = new Cookies();
+	const token = cookies.get("accessToken");
 	return token ? <Outlet /> : <Navigate to="/sign-in" />;
 }
 
