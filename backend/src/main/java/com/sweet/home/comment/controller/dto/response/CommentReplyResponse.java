@@ -15,6 +15,9 @@ public class CommentReplyResponse {
     @JsonProperty("parent_id")
     private Long parentId;
 
+    @JsonProperty("email")
+    private String email;
+
     @JsonProperty("username")
     private String username;
 
@@ -35,10 +38,11 @@ public class CommentReplyResponse {
     protected CommentReplyResponse() {
     }
 
-    public CommentReplyResponse(Long id, Long parentId, String username, String content, LocalDateTime createdAt,
+    public CommentReplyResponse(Long id, Long parentId, String email, String username, String content, LocalDateTime createdAt,
         LocalDateTime updatedAt, int totalLikes) {
         this.id = id;
         this.parentId = parentId;
+        this.email = email;
         this.username = username;
         this.content = content;
         this.createdAt = createdAt;
@@ -50,6 +54,7 @@ public class CommentReplyResponse {
         return new CommentReplyResponse(
             comment.getId(),
             comment.getParent().getId(),
+            comment.getMember().getEmail(),
             comment.getMember().getUsername(),
             comment.getContent(),
             comment.getCreatedAt(),
