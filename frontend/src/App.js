@@ -34,6 +34,10 @@ function App() {
 		}
 	}, []);
 
+	function loginCallBack() {
+		setLoading(true);
+	}
+
 	return (
 		<>
 			<Router>
