@@ -1,6 +1,7 @@
 package com.sweet.home.apt.controller;
 
 import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
+import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
 import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.service.AptService;
 import java.net.URI;
@@ -53,6 +54,10 @@ public class AptAdminRestController {
     //등록 요청 - 아파트 등록 요청 다중 거절하기 = ?? / 나중에 할것
 
     //아파트 회원 관리 - 관리하는 아파트의 회원 조회하기 = GET
+    @GetMapping("/apts/members")
+    public ResponseEntity<AptMembersResponse> viewAptMembers(@AuthenticationPrincipal String email, Pageable pageable) {
+        return ResponseEntity.ok().body(null);
+    }
 
     //아파트 회원 관리 - 회원을 아파트 멤버에서 제외하기 = DELETE
 }
