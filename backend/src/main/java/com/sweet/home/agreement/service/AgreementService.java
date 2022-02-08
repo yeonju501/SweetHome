@@ -4,7 +4,7 @@ import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreedHouseResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
-import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
+import com.sweet.home.agreement.controller.dto.response.AgreementsResponse;
 import com.sweet.home.agreement.domain.AgreedHouse;
 import com.sweet.home.agreement.domain.AgreedHouseRepository;
 import com.sweet.home.agreement.domain.Agreement;
@@ -16,6 +16,7 @@ import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -78,12 +79,12 @@ public class AgreementService {
     }
 
     @Transactional(readOnly = true)
-    public List<AgreementResponse> viewAgreements(Pageable pageable, String email) {
+    public AgreementsResponse viewAgreements(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
-        return agreementRepository.findByApt(member.getAptHouse().getApt(), pageable).stream()
-            .map(AgreementResponse::from)
-            .collect(Collectors.toList());
+        Page<Agreement> agreements = agreementRepository.findByApt(member.getAptHouse().getApt(), pageable);
+
+        return AgreementsResponse.from(agreements);
     }
 
     @Transactional
