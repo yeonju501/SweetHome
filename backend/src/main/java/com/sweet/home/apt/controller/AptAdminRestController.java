@@ -63,8 +63,8 @@ public class AptAdminRestController {
     //아파트 회원 관리 - 회원을 아파트 멤버에서 제외하기 = DELETE
     @DeleteMapping("/apts/members/{member_id}")
     public ResponseEntity<Void> deleteAptMember(@AuthenticationPrincipal String email,
-        @PathVariable(value = "member_id") Long MemberId) {
-        aptService.deleteAptMember(email, MemberId);
+        @PathVariable(value = "member_id") Long memberId) {
+        aptService.deleteAptMember(email, memberId);
         return ResponseEntity.noContent().build();
     }
 }
