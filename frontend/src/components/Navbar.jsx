@@ -10,7 +10,6 @@ import {
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { DELETE_TOKEN } from "../store/token";
 import { SET_TOGGLE } from "../store/toggle";
 import style from "../style/Navbar.module.css";
 
@@ -21,7 +20,7 @@ function Navbar() {
 	const position = useSelector((state) => state.toggle.position);
 
 	const logOut = () => {
-		dispatch(DELETE_TOKEN());
+		console.log("temp");
 	};
 
 	const toggleMenu = () => {
