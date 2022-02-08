@@ -6,6 +6,7 @@ import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import java.time.LocalDateTime;
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import lombok.Builder;
 import lombok.Getter;
+import org.hibernate.annotations.Formula;
 import org.hibernate.annotations.Where;
 
 @Entity
@@ -43,6 +45,18 @@ public class Agreement extends BaseEntity {
 
     @Column(name = "end_date")
     private LocalDateTime endDate;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("select count(1) from agreed_house ah where ah.agreement_id = agreement_id and ah.agreement_status = true and ah.deleted_at is null")
+    private Long totalAgreed;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("select count(1) from agreed_house ah where ah.agreement_id = agreement_id and ah.agreement_status = false and ah.deleted_at is null")
+    private Long totalDisagreed;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("select count(1) from apt_house ah where ah.apt_id = apt_id")
+    private Long totalAptHouse;
 
     protected Agreement() {
     }

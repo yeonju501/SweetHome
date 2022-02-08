@@ -25,17 +25,29 @@ public class AgreementResponse {
     @JsonProperty("end_date")
     private LocalDateTime endDate;
 
+    @JsonProperty("total_agreed")
+    private Long totalAgreed;
+
+    @JsonProperty("total_disagreed")
+    private Long totalDisagreed;
+
+    @JsonProperty("total_apt_house")
+    private Long totalAptHouse;
+
 
     public AgreementResponse() {
     }
 
-    public AgreementResponse(Long id, String title, LocalDateTime createdAt, LocalDateTime startDate,
-        LocalDateTime endDate) {
+    public AgreementResponse(Long id, String title, LocalDateTime createdAt, LocalDateTime startDate, LocalDateTime endDate,
+        Long totalAgreed, Long totalDisagreed, Long totalAptHouse) {
         this.id = id;
         this.title = title;
         this.createdAt = createdAt;
         this.startDate = startDate;
         this.endDate = endDate;
+        this.totalAgreed = totalAgreed;
+        this.totalDisagreed = totalDisagreed;
+        this.totalAptHouse = totalAptHouse;
     }
 
     public static AgreementResponse from(Agreement agreement) {
@@ -44,7 +56,10 @@ public class AgreementResponse {
             agreement.getTitle(),
             agreement.getCreatedAt(),
             agreement.getStartDate(),
-            agreement.getEndDate()
+            agreement.getEndDate(),
+            agreement.getTotalAgreed(),
+            agreement.getTotalDisagreed(),
+            agreement.getTotalAptHouse()
         );
     }
 }
