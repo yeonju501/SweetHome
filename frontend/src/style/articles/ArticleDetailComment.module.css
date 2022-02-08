@@ -1,7 +1,11 @@
+.comments_box {
+	position: relative;
+}
+
 .comments_box p {
 	margin: 0.6rem 0;
 	padding-left: 1rem;
-	font-size: 1.2rem;
+	font-size: 1.3rem;
 }
 #comment_username {
 	font-size: 1.5rem;
@@ -63,4 +67,9 @@ textarea:focus {
 
 .comments_nsted {
 	padding-left: 2rem;
+}
+
+.btn_comment_like {
+	position: absolute;
+	right: 1rem;
 }
