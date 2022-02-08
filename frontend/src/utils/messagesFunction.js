@@ -47,3 +47,16 @@ export function getDetailMessageFromServer(id, funDetail) {
 			console.log(err);
 		});
 }
+
+export function getUnReadMessageCount(funUnRead) {
+	axios({
+		method: "GET",
+		url: `${SERVER_URL}/api/messages/receive/unread-count`,
+	})
+		.then((res) => {
+			funUnRead(res.data);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+}
