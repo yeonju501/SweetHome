@@ -4,7 +4,7 @@ import com.sweet.home.agreement.controller.dto.request.AgreeRequest;
 import com.sweet.home.agreement.controller.dto.request.AgreementRequest;
 import com.sweet.home.agreement.controller.dto.response.AgreedHouseResponse;
 import com.sweet.home.agreement.controller.dto.response.AgreementDetailResponse;
-import com.sweet.home.agreement.controller.dto.response.AgreementResponse;
+import com.sweet.home.agreement.controller.dto.response.AgreementsResponse;
 import com.sweet.home.agreement.service.AgreementService;
 import java.net.URI;
 import java.util.List;
@@ -65,7 +65,7 @@ public class AgreementRestController {
 
     //동의서 목록조회
     @GetMapping("/agreements/")
-    public ResponseEntity<List<AgreementResponse>> getAgreements(@AuthenticationPrincipal String email,
+    public ResponseEntity<AgreementsResponse> getAgreements(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(agreementService.viewAgreements(pageable, email));
     }
