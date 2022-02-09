@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import * as inputValid from "../utils/inputValid";
 import style from "../style/SignIn.module.css";
-import SignPassword from "../components/accounts/AccountPassword";
+import AccountInput from "../components/accounts/AccountInput";
 import { SignUpButton } from "../components/accounts/AccountButton";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "../components/accounts/AccountKakaoButton";
@@ -51,16 +51,7 @@ function SignUp() {
 					</Link>
 				</span>
 				<form onSubmit={onSubmit} className={style.form}>
-					<input
-						type="text"
-						placeholder="이메일 주소"
-						onChange={onChange}
-						value={email}
-						id="email"
-					/>
-
-					<SignPassword onChange={onChange} password={password} />
-
+					<AccountInput onChange={onChange} password={password} />
 					<input
 						type="text"
 						placeholder="사용자 이름"
