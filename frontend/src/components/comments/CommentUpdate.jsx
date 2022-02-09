@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import CommentNested from "./CommentNested";
 import style from "../../style/articles/ArticleDetailComment.module.css";
 import CommentLike from "./CommentLike";
+import { commnetAxios, deleteOrSubmit } from "../../utils/commentAxios";
 
 function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
@@ -28,30 +29,22 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const likeOrCancelLike = () => {
 		const method = isLike ? "delete" : "post";
 
-		axios({
-			url: `${URL}/api/comments/${comment.id}/likes`,
-			method: method,
-		})
-			.then(() => {
-				setIsLike((prev) => !prev);
-				getComments();
-			})
-			.catch((err) => console.log);
+		const res = commnetAxios(comment.id, method);
+		if (res) {
+			setIsLike((prev) => !prev);
+			getComments();
+		}
 	};
 
-	const isLiked = () => {
-		axios({
-			url: `${URL}/api/comments/${comment.id}/likes`,
-			method: "get",
-		}).then((res) => setIsLike(res.data.is_liked));
+	const isLiked = async () => {
+		const res = await commnetAxios(comment.id, "get");
+		res && setIsLike(res.data.is_liked);
 	};
 
-	const commentDelete = () => {
+	const commentDelete = async () => {
 		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
-			axios({
-				url: `${URL}/api/articles/comments/${id}`,
-				method: "delete",
-			}).then(() => getComments());
+			const res = await deleteOrSubmit(id, "delete");
+			res && getComments();
 		}
 	};
 
