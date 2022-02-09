@@ -89,7 +89,7 @@ public class Member extends BaseEntity {
     }
 
     public void changePassword(PasswordEncoder passwordEncoder, String password) {
-        if (!Objects.isNull(password) && passwordEncoder.matches(password, this.password)) {
+        if (!Objects.isNull(password)) {
             this.password = passwordEncoder.encode(password);
         }
     }
@@ -117,7 +117,7 @@ public class Member extends BaseEntity {
     }
 
     public void checkAptMember(Apt apt) {
-        if (this.aptHouse.getApt().getId() != apt.getId()) {
+        if (this.aptHouse.getApt().getId().equals(apt.getId())) {
             throw new BusinessException(ErrorCode.APT_NOT_HIS_APT);
         }
     }
