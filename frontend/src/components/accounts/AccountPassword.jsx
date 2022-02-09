@@ -11,10 +11,9 @@ function SignInPassword({ onChange, password }) {
 
 	const changePasswordType = () => {
 		setPasswordType(() => {
-			if (!passwordType.visible) {
-				return { type: "text", visible: true };
-			}
-			return { type: "password", visible: false };
+			if (passwordType.visible) return { type: "password", visible: false };
+
+			return { type: "text", visible: true };
 		});
 	};
 
