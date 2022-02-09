@@ -3,6 +3,7 @@ import CommentNested from "./CommentNested";
 import style from "../../style/articles/ArticleDetailComment.module.css";
 import CommentLike from "./CommentLike";
 import { commnetAxios, deleteOrSubmit } from "../../utils/commentAxios";
+import CommentButton from "./CommentButton";
 
 function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
@@ -25,7 +26,6 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 
 	const likeOrCancelLike = () => {
 		const method = isLike ? "delete" : "post";
-
 		const res = commnetAxios(comment.id, method);
 		if (res) {
 			setIsLike((prev) => !prev);
@@ -36,13 +36,6 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const isLiked = async () => {
 		const res = await commnetAxios(comment.id, "get");
 		res && setIsLike(res.data.is_liked);
-	};
-
-	const commentDelete = async () => {
-		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
-			const res = await deleteOrSubmit(id, "delete");
-			res && getComments();
-		}
 	};
 
 	const onSubmit = async (e) => {
@@ -77,16 +70,14 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 						likeOrCancelLike={likeOrCancelLike}
 						isLike={isLike}
 					/>
-					{user === comment.email && activate && (
-						<div className={style.btn_nested_comments}>
-							<button className={style.btn_nested} onClick={onClick}>
-								수정
-							</button>
-							<button className={style.btn_nested} onClick={commentDelete}>
-								삭제
-							</button>
-						</div>
-					)}
+					<CommentButton
+						user={user}
+						comment={comment}
+						activate={activate}
+						onClick={onClick}
+						id={id}
+						getComments={getComments}
+					/>
 				</div>
 			)}
 			<CommentNested
