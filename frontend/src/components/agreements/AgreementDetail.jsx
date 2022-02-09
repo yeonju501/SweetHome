@@ -8,10 +8,13 @@ function AgreementDetail() {
 				<p>동의서 내용</p>
 				<p>몇 동 몇 호 이름</p>
 				<p>오늘 날짜</p>
-				<input type="radio" id="agree" name="status" checked />
-				<label htmlFor="agree">동의</label>
-				<input type="radio" id="disagree" name="status" />
-				<label htmlFor="disagree">반대</label>
+				<form>
+					<input type="radio" id="agree" name="status" checked />
+					<label htmlFor="agree">동의</label>
+					<input type="radio" id="disagree" name="status" />
+					<label htmlFor="disagree">반대</label>
+					<button>제출</button>
+				</form>
 			</article>
 		</div>
 	);
