@@ -1,6 +1,4 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import CommentNested from "./CommentNested";
 import style from "../../style/articles/ArticleDetailComment.module.css";
 import CommentLike from "./CommentLike";
@@ -12,7 +10,6 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [activate, setActivate] = useState(true);
 	const [isLike, setIsLike] = useState(false);
 	const { content } = commentContent;
-	const URL = process.env.REACT_APP_SERVER_URL;
 
 	useEffect(() => {
 		isLiked();
@@ -48,19 +45,15 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 		}
 	};
 
-	const onSubmit = (e) => {
+	const onSubmit = async (e) => {
 		e.preventDefault();
-		content.trim()
-			? axios({
-					url: `${URL}/api/articles/comments/${comment.id}`,
-					method: "put",
-					headers: { "Content-Type": "application/json" },
-					data: commentContent,
-			  }).then(() => {
-					getComments();
-					onClick();
-			  })
-			: toast.error("Error");
+		if (content.trim()) {
+			const res = await deleteOrSubmit(comment.id, "put", commentContent);
+			if (res) {
+				getComments();
+				onClick();
+			}
+		}
 	};
 
 	return (
