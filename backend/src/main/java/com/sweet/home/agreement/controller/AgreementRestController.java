@@ -64,7 +64,7 @@ public class AgreementRestController {
     }
 
     //동의서 목록조회
-    @GetMapping("/agreements/")
+    @GetMapping("/agreements")
     public ResponseEntity<AgreementsResponse> getAgreements(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(agreementService.viewAgreements(pageable, email));
