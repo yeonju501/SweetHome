@@ -6,9 +6,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 
-public class AptRegisterMembersResponse {
+public class RegisterAptMembersResponse {
+
     @JsonProperty("register_members")
-    private List<AptRegisterMemberResponse> aptRegisterMemberResponse;
+    private List<RegisterAptMemberResponse> registerAptMemberResponse;
 
     @JsonProperty("total_page_count")
     private int totalPageCount;
@@ -16,20 +17,20 @@ public class AptRegisterMembersResponse {
     @JsonProperty("current_page_count")
     private int currentPageCount;
 
-    public AptRegisterMembersResponse() {
+    public RegisterAptMembersResponse() {
     }
 
-    public AptRegisterMembersResponse(
-        List<AptRegisterMemberResponse> aptRegisterMemberResponse, int totalPageCount, int currentPageCount) {
-        this.aptRegisterMemberResponse = aptRegisterMemberResponse;
+    public RegisterAptMembersResponse(
+        List<RegisterAptMemberResponse> registerAptMemberResponse, int totalPageCount, int currentPageCount) {
+        this.registerAptMemberResponse = registerAptMemberResponse;
         this.totalPageCount = totalPageCount;
         this.currentPageCount = currentPageCount;
     }
 
-    public static AptRegisterMembersResponse from(Page<RegisterAptHouse> registerAptHouses){
-        return new AptRegisterMembersResponse(
+    public static RegisterAptMembersResponse from(Page<RegisterAptHouse> registerAptHouses) {
+        return new RegisterAptMembersResponse(
             registerAptHouses.stream()
-                .map(AptRegisterMemberResponse::from)
+                .map(RegisterAptMemberResponse::from)
                 .collect(Collectors.toList()),
             registerAptHouses.getTotalPages(),
             registerAptHouses.getNumber()

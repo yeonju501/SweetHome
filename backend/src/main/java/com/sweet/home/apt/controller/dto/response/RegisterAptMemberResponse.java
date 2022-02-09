@@ -3,7 +3,7 @@ package com.sweet.home.apt.controller.dto.response;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sweet.home.apt.domain.RegisterAptHouse;
 
-public class AptRegisterMemberResponse {
+public class RegisterAptMemberResponse {
 
     @JsonProperty("id")
     private Long id;
@@ -23,10 +23,10 @@ public class AptRegisterMemberResponse {
     @JsonProperty("ho")
     private String ho;
 
-    public AptRegisterMemberResponse() {
+    public RegisterAptMemberResponse() {
     }
 
-    public AptRegisterMemberResponse(Long id, String name, String email, String phoneNumber, String dong, String ho) {
+    public RegisterAptMemberResponse(Long id, String name, String email, String phoneNumber, String dong, String ho) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -35,8 +35,8 @@ public class AptRegisterMemberResponse {
         this.ho = ho;
     }
 
-    public static AptRegisterMemberResponse from(RegisterAptHouse registerAptHouse) {
-        return new AptRegisterMemberResponse(
+    public static RegisterAptMemberResponse from(RegisterAptHouse registerAptHouse) {
+        return new RegisterAptMemberResponse(
             registerAptHouse.getMember().getId(),
             registerAptHouse.getMember().getUsername(),
             registerAptHouse.getMember().getEmail(),
