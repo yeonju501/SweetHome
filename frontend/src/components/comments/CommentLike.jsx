@@ -12,7 +12,7 @@ function CommentLike({ comment, setActivate, activate, likeOrCancelLike, isLike 
 			) : (
 				<p>{comment.total_likes}likes</p>
 			)}
-			<p onClick={() => setActivate(!activate)}>댓글 달기</p>
+			{comment.replies ? <p onClick={() => setActivate(!activate)}>댓글 달기</p> : null}
 
 			<p onClick={likeOrCancelLike} className={style.btn_comment_like}>
 				{isLike ? (
