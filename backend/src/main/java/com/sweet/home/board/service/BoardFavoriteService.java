@@ -69,4 +69,9 @@ public class BoardFavoriteService {
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_FAVORITE_NOT_FOUND));
         boardFavorite.saveDeletedTime();
     }
+
+    @Transactional
+    public void deleteAllByBoard(Long boardId){
+        boardFavoriteRepository.deleteBoardFavoritesByBoard(boardId);
+    }
 }

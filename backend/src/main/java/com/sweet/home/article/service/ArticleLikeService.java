@@ -1,6 +1,5 @@
 package com.sweet.home.article.service;
 
-import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleLike;
@@ -9,8 +8,6 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
-import java.util.List;
-import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -71,5 +68,15 @@ public class ArticleLikeService {
         ArticleLike articleLike = articleLikeRepository.findByMemberAndArticle(member, article)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_LIKE_NOT_FOUND));
         articleLike.saveDeletedTime();
+    }
+
+    @Transactional
+    public void deleteAllByArticle(Long articleId) {
+        articleLikeRepository.deleteAllByArticle(articleId);
+    }
+
+    @Transactional
+    public void deleteAllByBoard(Long boardId) {
+        articleLikeRepository.deleteAllByBoard(boardId);
     }
 }

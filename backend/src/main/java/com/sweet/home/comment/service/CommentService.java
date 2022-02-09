@@ -12,6 +12,7 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
+import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -85,23 +86,5 @@ public class CommentService {
 
         comment.checkCommentByEmail(email);
         comment.changeContent(request.getContent());
-    }
-
-    @Transactional
-    public void deleteComment(String email, Long commentId) {
-        Comment comment = commentRepository.findById(commentId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
-
-        comment.checkCommentByEmail(email);
-        comment.deleteComment();
-    }
-
-    @Transactional
-    public void deleteComments(String email, CommentsDeleteRequest request) {
-        Member member = memberService.findByEmail(email);
-        if (commentRepository.countsCommentsByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds().size()) {
-            throw new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID);
-        }
-        commentRepository.bulkDeleteComments(request.getIds());
     }
 }

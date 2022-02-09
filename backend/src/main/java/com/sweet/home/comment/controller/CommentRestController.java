@@ -5,6 +5,7 @@ import com.sweet.home.comment.controller.dto.request.CommentsDeleteRequest;
 import com.sweet.home.comment.controller.dto.response.CommentMineResponse;
 import com.sweet.home.comment.controller.dto.response.CommentsMineResponse;
 import com.sweet.home.comment.controller.dto.response.CommentsResponse;
+import com.sweet.home.comment.service.CommentDeleteService;
 import com.sweet.home.comment.service.CommentService;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -26,9 +27,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class CommentRestController {
 
     private final CommentService commentService;
+    private final CommentDeleteService commentDeleteService;
 
-    public CommentRestController(CommentService commentService) {
+    public CommentRestController(CommentService commentService,
+        CommentDeleteService commentDeleteService) {
         this.commentService = commentService;
+        this.commentDeleteService = commentDeleteService;
     }
 
     @PostMapping("/{articleId}/comments")
@@ -67,14 +71,7 @@ public class CommentRestController {
 
     @DeleteMapping("/comments/{commentId}")
     public ResponseEntity<Void> deleteComment(@AuthenticationPrincipal String email, @PathVariable Long commentId) {
-        commentService.deleteComment(email, commentId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/comments")
-    public ResponseEntity<Void> deleteComments(@AuthenticationPrincipal String email,
-        @RequestBody CommentsDeleteRequest request) {
-        commentService.deleteComments(email, request);
+        commentDeleteService.deleteComment(email, commentId);
         return ResponseEntity.noContent().build();
     }
 }

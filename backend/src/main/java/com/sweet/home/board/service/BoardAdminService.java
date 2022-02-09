@@ -1,6 +1,5 @@
 package com.sweet.home.board.service;
 
-import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardsResponse;
 import com.sweet.home.board.domain.Board;
@@ -16,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardAdminService {
 
     private final BoardRepository boardRepository;
-    private final ArticleService articleService;
+    private final BoardDeleteService boardDeleteService;
 
-    public BoardAdminService(BoardRepository boardRepository, ArticleService articleService) {
+    public BoardAdminService(BoardRepository boardRepository, BoardDeleteService boardDeleteService) {
         this.boardRepository = boardRepository;
-        this.articleService = articleService;
+        this.boardDeleteService = boardDeleteService;
     }
 
     @Transactional(readOnly = true)
@@ -48,11 +47,6 @@ public class BoardAdminService {
 
     @Transactional
     public void deleteBoard(Long boardId){
-        Board board = boardRepository.findById(boardId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
-
-        board.saveDeletedTime();
-        boardRepository.DeleteBoardFavorites(boardId);
-        boardRepository.DeleteArticles(boardId);
+        boardDeleteService.cascadeDeleteBoard(boardId);
     }
 }

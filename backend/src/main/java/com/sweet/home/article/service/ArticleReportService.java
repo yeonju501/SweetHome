@@ -46,4 +46,14 @@ public class ArticleReportService {
             throw new BusinessException(ErrorCode.ARTICLE_REPORT_ALREADY_EXISTS);
         }
     }
+
+    @Transactional
+    public void deleteAllByArticle(Long articleId) {
+        articleReportRepository.deleteAllByArticle(articleId);
+    }
+
+    @Transactional
+    public void deleteAllByBoard(Long boardId) {
+        articleReportRepository.deleteAllByBoard(boardId);
+    }
 }

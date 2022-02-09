@@ -24,15 +24,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
     Page<Article> findAllByBlockedAtIsNotNull(Pageable pageable);
 
-    @Query(nativeQuery = true, value = "select count(a.article_id) from Article a "
-        + "where a.article_id in (:ids) "
-        + "and a.deleted_at is null "
-        + "and a.member_id = (:memberId)")
-    int countsArticlesByMemberIdAndIds(@Param("ids") List<Long> ids, @Param("memberId") Long memberId);
+    List<Article> findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime start, LocalDateTime end, Pageable pageable);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query(nativeQuery = true, value = "update Article a set a.deleted_at = current_timestamp where a.article_id in (:ids)")
-    int bulkDeleteArticles(@Param("ids") List<Long> ids);
+    @Query(nativeQuery = true, value = "update article a set a.deleted_at = current_timestamp where a.board_id = (:id) and a.deleted_at is null")
+    int deleteArticlesByBoard(@Param("id") Long id);
 
-    List<Article> findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime start, LocalDateTime end, Pageable pageable);
+
 }

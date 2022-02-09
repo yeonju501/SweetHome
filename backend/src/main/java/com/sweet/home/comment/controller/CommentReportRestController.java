@@ -26,6 +26,4 @@ public class CommentReportRestController {
         commentReportService.reportComment(email, commentId, request);
         return ResponseEntity.noContent().build();
     }
-
-
 }

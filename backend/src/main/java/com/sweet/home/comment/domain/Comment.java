@@ -112,15 +112,4 @@ public class Comment extends BaseEntity {
     public void removeComment() {
         this.isRemoved = true;
     }
-
-    public void deleteComment() {
-        if (this.checkParentOrChild() && this.hasChildList()) {
-            this.removeComment();
-            return;
-        }
-        this.saveDeletedTime();
-        if (!this.checkParentOrChild() && Objects.nonNull(this.getParent().getIsRemoved()) && !this.getParent().hasChildList()) {
-            this.getParent().saveDeletedTime();
-        }
-    }
 }

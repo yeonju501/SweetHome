@@ -11,6 +11,7 @@ import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.service.BoardService;
+import com.sweet.home.comment.service.CommentService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -30,7 +31,8 @@ public class ArticleService {
     private final MemberService memberService;
     private final BoardService boardService;
 
-    public ArticleService(ArticleRepository articleRepository, MemberService memberService, BoardService boardService) {
+    public ArticleService(ArticleRepository articleRepository, MemberService memberService,
+        BoardService boardService) {
         this.articleRepository = articleRepository;
         this.memberService = memberService;
         this.boardService = boardService;
@@ -71,7 +73,8 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<ArticleLikeResponse> showPopularArticles(Pageable pageable) {
-        List<Article> articles = articleRepository.findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime.now().minusHours(24), LocalDateTime.now(), pageable);
+        List<Article> articles = articleRepository.findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime.now().minusHours(24),
+            LocalDateTime.now(), pageable);
         return articles.stream()
             .map(ArticleLikeResponse::from)
             .collect(Collectors.toList());
@@ -98,23 +101,5 @@ public class ArticleService {
 
         article.changeTitle(request.getTitle());
         article.changeContent(request.getContent());
-    }
-
-    @Transactional
-    public void deleteArticle(String email, Long articleId) {
-        Article article = articleRepository.findById(articleId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
-        article.checkArticleByEmail(email);
-
-        article.saveDeletedTime();
-    }
-
-    @Transactional
-    public void deleteArticles(String email, ArticlesDeleteRequest request) {
-        Member member = memberService.findByEmail(email);
-        if (articleRepository.countsArticlesByMemberIdAndIds(request.getIds(), member.getId()) != request.getIds().size()) {
-            throw new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID);
-        }
-        articleRepository.bulkDeleteArticles(request.getIds());
     }
 }

@@ -16,11 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-    private final MemberService memberService;
 
-    public BoardService(BoardRepository boardRepository, MemberService memberService) {
+    public BoardService(BoardRepository boardRepository) {
         this.boardRepository = boardRepository;
-        this.memberService = memberService;
     }
 
     @Transactional(readOnly = true)
