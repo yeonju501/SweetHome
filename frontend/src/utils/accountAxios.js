@@ -1,7 +1,7 @@
 import axios from "axios";
 import errorMessage from "../store/errorMessage";
 import { onLoginSuccess } from "./manageToken";
-export function submitAxios(api, inputValue, moveUrl, login?) {
+export function submitAxios(api, inputValue, moveUrl, login = false) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	axios({
 		method: "post",
