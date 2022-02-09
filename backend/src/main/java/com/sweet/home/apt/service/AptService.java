@@ -6,6 +6,7 @@ import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
 import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
+import com.sweet.home.apt.controller.dto.response.MyRegisterAptManagerResponse;
 import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.apt.domain.AptHouse;
 import com.sweet.home.apt.domain.AptHouseRepository;
@@ -166,5 +167,18 @@ public class AptService {
         if (registerAptManagerRepository.existsByMember(member)) {
             throw new BusinessException(ErrorCode.MEMBER_ALREADY_REQUEST_APT_MANAGER);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public MyRegisterAptManagerResponse viewMyRegisterManager(String email) {
+        Member member = memberService.findByEmail(email);
+        RegisterAptManager registerAptManager = getRegisterAptManager(member);
+
+        return MyRegisterAptManagerResponse.from(registerAptManager);
+    }
+
+    private RegisterAptManager getRegisterAptManager(Member Member) {
+        return registerAptManagerRepository.findByMember(Member)
+            .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_MANAGER_NOT_FOUND_BY_MEMBER));
     }
 }
