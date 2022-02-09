@@ -3,6 +3,7 @@ package com.sweet.home.apt.controller;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
+import com.sweet.home.apt.controller.dto.response.MyRegisterAptManagerResponse;
 import com.sweet.home.apt.service.AptService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
@@ -34,14 +35,14 @@ public class AptRestController {
     }
 
     //등록 요청 - 회원의 아파트 등록 취소 = DELETE
-    @DeleteMapping("/apts/register/my-request")
+    @DeleteMapping("/apts/register")
     public ResponseEntity<Void> deleteRegisterApt(@AuthenticationPrincipal String email) {
         aptService.deleteRegisterApt(email);
         return ResponseEntity.noContent().build();
     }
 
     //등록 요청 - 현재 요청중인 아파트 보기 = GET
-    @GetMapping("/apts/register/my-request")
+    @GetMapping("/apts/register")
     public ResponseEntity<MyRegisterAptHouseResponse> viewMyRegisterApt(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(aptService.viewMyRegisterApt(email));
     }
@@ -53,5 +54,11 @@ public class AptRestController {
         aptService.createRegisterAptManager(email, request);
         URI uri = URI.create("/api/apt-manager/");
         return ResponseEntity.created(uri).build();
+    }
+
+    //아파트 관리자 등록 요청 - 현재 아파트 관리자 요청 보기 = GET
+    @GetMapping("/apts/apt-manager")
+    public ResponseEntity<MyRegisterAptManagerResponse> viewMyRegisterManager(@AuthenticationPrincipal String email) {
+        return ResponseEntity.ok().body(aptService.viewMyRegisterManager(email));
     }
 }
