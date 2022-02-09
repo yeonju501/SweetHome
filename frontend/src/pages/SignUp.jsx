@@ -37,9 +37,7 @@ function SignUp() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (isValid) {
-			submitAxios("join", inputValue, "/");
-		}
+		isValid && submitAxios("join", inputValue, "/");
 	};
 
 	return (

@@ -26,9 +26,7 @@ function SignIn() {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		if (isValid) {
-			submitAxios("login", inputValue, "/main", true);
-		}
+		isValid && submitAxios("login", inputValue, "/main", true);
 	}
 
 	return (
