@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 
 function AdminMemberList() {
 	const [aptMembers, setAptMembers] = useState({
@@ -9,6 +10,8 @@ function AdminMemberList() {
 		dong: "",
 		ho: "",
 	});
+
+	useEffect(() => {}, []);
 	return <></>;
 }
 
