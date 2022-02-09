@@ -48,10 +48,8 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 				/>
 				<hr />
 				<input type="file" />
-				<button type="button" onClick={invertDisabled}>
-					취소
-				</button>
-				<button type="submit">작성</button>
+				<button onClick={invertDisabled}>취소</button>
+				<button>작성</button>
 			</form>
 		</div>
 	);

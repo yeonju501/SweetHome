@@ -2,14 +2,14 @@ import { useEffect, useState } from "react";
 import ArticleCreateForm from "./ArticleCreateForm";
 
 function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
-	const [disabled, setDisabled] = useState(true);
+	const [formOpen, setFormOpen] = useState(false);
 
 	useEffect(() => {
-		setDisabled(true);
+		setFormOpen(false);
 	}, [boardId]);
 
 	const invertDisabled = () => {
-		setDisabled((prev) => !prev);
+		setFormOpen((prev) => !prev);
 	};
 
 	const getArticlesAfterCreate = () => {
@@ -20,16 +20,16 @@ function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 
 	return (
 		<div>
-			{disabled ? (
-				<div onClick={invertDisabled}>
-					<p>글을 작성해보세요!</p>
-				</div>
-			) : (
+			{formOpen ? (
 				<ArticleCreateForm
 					invertDisabled={invertDisabled}
 					boardId={boardId}
 					getArticlesAfterCreate={getArticlesAfterCreate}
 				/>
+			) : (
+				<div onClick={invertDisabled}>
+					<p>글을 작성해보세요!</p>
+				</div>
 			)}
 		</div>
 	);

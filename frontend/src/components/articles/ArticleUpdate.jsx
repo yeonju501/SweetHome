@@ -53,7 +53,7 @@ function ArticleUpdate() {
 				<hr />
 				<input type="file" />
 				<button onClick={handleCancelButtonClick}>취소</button>
-				<button onSubmit={handleFormSubmit}>수정</button>
+				<button>수정</button>
 			</form>
 		</div>
 	);
