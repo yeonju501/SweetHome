@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
@@ -13,7 +14,21 @@ function AdminMemberRegister() {
 		message: "",
 		phone_number: "",
 	});
-	useEffect(() => {}, []);
+	useEffect(() => {
+		console.log("실행");
+		axios({
+			method: "GET",
+			url: `${SERVER_URL}/api/admin/apts/register`,
+		})
+			.then((res) => {
+				console.log(res.data);
+				setAptMemberRegister(res.data.register_members);
+				console.log(aptMemberRegister);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 	return;
 }
 
