@@ -3,9 +3,7 @@ import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import CommentNested from "./CommentNested";
 import style from "../../style/articles/ArticleDetailComment.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import CommentLike from "./CommentLike";
 
 function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
@@ -86,24 +84,13 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 				<div className={style.comments_box}>
 					<p id={style.comment_username}>{comment.username}</p>
 					<p>{comment.content}</p>
-					<div className={style.date_btn}>
-						<p>{comment.created_at.slice(0, 10)}</p>
-						{comment.total_likes === 0 ? null : comment.total_likes === 1 ? (
-							<p>{comment.total_likes}like</p>
-						) : (
-							<p>{comment.total_likes}likes</p>
-						)}
-						<p onClick={() => setActivate(!activate)}>댓글 달기</p>
-
-						<p onClick={likeOrCancelLike} className={style.btn_comment_like}>
-							{isLike ? (
-								<FontAwesomeIcon icon={fasHeart} color="red" />
-							) : (
-								<FontAwesomeIcon icon={farHeart} color="gray" />
-							)}
-						</p>
-					</div>
-
+					<CommentLike
+						comment={comment}
+						setActivate={setActivate}
+						activate={activate}
+						likeOrCancelLike={likeOrCancelLike}
+						isLike={isLike}
+					/>
 					{user === comment.email && activate && (
 						<div className={style.btn_nested_comments}>
 							<button className={style.btn_nested} onClick={onClick}>
