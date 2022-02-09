@@ -13,18 +13,18 @@
 	border: 1px solid #dedede;
 }
 
-.article_detail_article {
+.article {
 	border-bottom: 1px solid #dedede;
 	padding: 1rem;
 }
 
-.article_detail_top {
+.article_top {
 	display: flex;
 	justify-content: space-between;
 	margin-bottom: 1.3rem;
 }
 
-.article_detail_profile {
+.profile {
 	display: flex;
 }
 
@@ -34,10 +34,6 @@
 	border-radius: 50%;
 	border: 1px solid black;
 	margin-right: 0.5rem;
-}
-
-.profile_info {
-	font-size: 0.5rem;
 }
 
 .article_title {

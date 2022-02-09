@@ -52,19 +52,21 @@ function ArticleDetail() {
 				<nav>게시판 돌아가기</nav>
 				{articleData && (
 					<div className={style.article_detail_box}>
-						<article className={style.article_detail_article}>
-							<div className={style.article_detail_top}>
-								<div className={style.article_detail_profile}>
+						<article className={style.article}>
+							<div className={style.article_top}>
+								<div className={style.profile}>
 									<div className={style.profile_img}></div>
-									<div className={style.profile_info}>
+									<div>
 										<p>{articleData.username}</p>
 										<p>{articleData.created_at.slice(0, 10)}</p>
 									</div>
 								</div>
 								<ArticleDetailButtons articleData={articleData} articleId={articleId} />
 							</div>
+
 							<h3 className={style.article_title}>{articleData.title}</h3>
 							<p className={style.article_content}>{articleData.content}</p>
+
 							<div className={style.article_bottom}>
 								<div className={style.article_bottom_info}>
 									<span style={{ marginRight: "0.4rem" }}>
