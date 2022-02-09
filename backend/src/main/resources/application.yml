@@ -20,6 +20,8 @@ spring:
       path: /h2-console
   profiles:
     include: oauth
+  jpa:
+    defer-datasource-initialization: true
 
 server:
   port: 8080
