@@ -2,6 +2,7 @@ package com.sweet.home.apt.service;
 
 import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
 import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
@@ -11,6 +12,8 @@ import com.sweet.home.apt.domain.AptHouseRepository;
 import com.sweet.home.apt.domain.AptRepository;
 import com.sweet.home.apt.domain.RegisterAptHouse;
 import com.sweet.home.apt.domain.RegisterAptHouseRepository;
+import com.sweet.home.apt.domain.RegisterAptManager;
+import com.sweet.home.apt.domain.RegisterAptManagerRepository;
 import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
@@ -27,13 +30,16 @@ public class AptService {
     private final AptRepository aptRepository;
     private final AptHouseRepository aptHouseRepository;
     private final RegisterAptHouseRepository registerAptHouseRepository;
+    private final RegisterAptManagerRepository registerAptManagerRepository;
     private final MemberService memberService;
 
     public AptService(AptRepository aptRepository, AptHouseRepository aptHouseRepository,
-        RegisterAptHouseRepository registerAptHouseRepository, MemberService memberService) {
+        RegisterAptHouseRepository registerAptHouseRepository,
+        RegisterAptManagerRepository registerAptManagerRepository, MemberService memberService) {
         this.aptRepository = aptRepository;
         this.aptHouseRepository = aptHouseRepository;
         this.registerAptHouseRepository = registerAptHouseRepository;
+        this.registerAptManagerRepository = registerAptManagerRepository;
         this.memberService = memberService;
     }
 
@@ -141,8 +147,24 @@ public class AptService {
     }
 
     private void isYourAptMember(Apt adminApt, Apt memberApt) {
-        if(!adminApt.equals(memberApt)) {
+        if (!adminApt.equals(memberApt)) {
             throw new BusinessException(ErrorCode.REGISTER_NOT_YOUR_APT);
+        }
+    }
+
+    @Transactional
+    public void createRegisterAptManager(String email, RegisterAptManagerRequest request) {
+        Member member = memberService.findByEmail(email);
+        Apt apt = findById(request.getAptId());
+
+        checkDuplicateRegisterManager(member);
+
+        registerAptManagerRepository.save(RegisterAptManager.createRegisterAptManager(member, apt, request.getMessage()));
+    }
+
+    private void checkDuplicateRegisterManager(Member member) {
+        if (registerAptManagerRepository.existsByMember(member)) {
+            throw new BusinessException(ErrorCode.MEMBER_ALREADY_REQUEST_APT_MANAGER);
         }
     }
 }

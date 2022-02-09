@@ -33,6 +33,7 @@ public enum ErrorCode {
     MEMBER_EMAIL_DUPLICATED(HttpStatus.CONFLICT, "이미 중복된 이메일의 회원 정보가 존재합니다.", "C04"),
     MEMBER_ALREADY_REQUEST_APT_HOUSE(HttpStatus.CONFLICT, "이미 아파트 등록 신청한 회원입니다.", "C05"),
     MEMBER_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 유저의 고유 ID입니다.", "C06"),
+    MEMBER_ALREADY_REQUEST_APT_MANAGER(HttpStatus.CONFLICT, "이미 아파트 관리자 신청한 회원입니다.", "C07"),
 
     // register Apt House
     REGISTER_APT_HOUSE_NOT_FOUND_BY_MEMBER(HttpStatus.NOT_FOUND, "아파트 등록 요청을 하지 않은 회원입니다.", "I01"),
