@@ -1,5 +1,6 @@
 package com.sweet.home.member.controller;
 
+import com.sweet.home.member.controller.dto.request.FindPasswordRequest;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.service.MemberService;
 import java.net.URI;
@@ -32,5 +33,12 @@ public class MemberRestController {
     public ResponseEntity<Void> resignMember(@AuthenticationPrincipal String email) {
         memberService.resignMember(email);
         return ResponseEntity.noContent().build();
+    }
+
+    @PostMapping("/members/find-pw")
+    public ResponseEntity<Void> findPassword(@RequestBody FindPasswordRequest request) {
+        memberService.findPassword(request);
+        URI uri = URI.create("/api/members/");
+        return ResponseEntity.created(uri).build();
     }
 }

@@ -2,6 +2,7 @@ package com.sweet.home.member.service;
 
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.member.controller.dto.request.FindPasswordRequest;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
@@ -16,10 +17,13 @@ public class MemberService {
 
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final MailService mailService;
 
-    public MemberService(MemberRepository memberRepository, PasswordEncoder passwordEncoder) {
+    public MemberService(MemberRepository memberRepository,
+        PasswordEncoder passwordEncoder, MailService mailService) {
         this.memberRepository = memberRepository;
         this.passwordEncoder = passwordEncoder;
+        this.mailService = mailService;
     }
 
     @Transactional
@@ -63,7 +67,16 @@ public class MemberService {
     }
 
     @Transactional(readOnly = true)
-    public Page<Member> findByAptId(Long aptId, Pageable pageable){
+    public Page<Member> findByAptId(Long aptId, Pageable pageable) {
         return memberRepository.findByAptId(aptId, pageable);
+    }
+
+    @Transactional
+    public void findPassword(FindPasswordRequest request) {
+        Member member = findByEmail(request.getEmail());
+
+        String password = mailService.randomPassword();
+        member.changePassword(passwordEncoder, password);
+        mailService.sendMailChangePassword(member, password);
     }
 }
