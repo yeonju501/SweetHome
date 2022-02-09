@@ -202,4 +202,12 @@ public class AptService {
         member.changeAuthority(Authority.ROLE_MANAGER);
         member.changeAptHouse(aptHouse);
     }
+
+    @Transactional
+    public void rejectAptManager(AptManagerRequest request) {
+        Member member = memberService.findById(request.getMemberId());
+        RegisterAptManager registerAptManager = getRegisterAptManager(member);
+
+        registerAptManager.saveDeletedTime();
+    }
 }

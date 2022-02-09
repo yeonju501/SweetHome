@@ -6,7 +6,7 @@ import com.sweet.home.apt.service.AptService;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-//import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,5 +38,9 @@ public class AptSuperAdminRestController {
     }
 
     // 아파트 관리자 등록 거절하기 = DELETE
-//    @DeleteMapping("/apts/apt-manager")
+    @DeleteMapping("/apts/apt-manager")
+    public ResponseEntity<Void> rejectAptManager(@RequestBody AptManagerRequest request) {
+        aptService.rejectAptManager(request);
+        return ResponseEntity.noContent().build();
+    }
 }
