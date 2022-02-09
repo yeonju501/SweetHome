@@ -9,6 +9,7 @@ function ProfileAptEnroll() {
 		apt_id: "",
 		dong: "",
 		ho: "",
+		message: "",
 	});
 
 	const onSubmit = (e) => {
@@ -37,6 +38,8 @@ function ProfileAptEnroll() {
 				<input type="text" id="dong" onChange={onChange} />
 				<label htmlFor="ho">호</label>
 				<input type="text" id="ho" onChange={onChange} />
+				<label htmlFor="message">메시지</label>
+				<input type="text" id="message" onChange={onChange} />
 
 				<div style={{ display: "flex", alignItems: "center" }}>
 					<button style={{ marginRight: "25rem" }}>변경</button>
