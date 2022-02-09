@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import errorMessage from "../../store/errorMessage";
 
 function AgreementCreate() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -23,14 +24,18 @@ function AgreementCreate() {
 				start_date: `${start_date}T00:00:00`,
 				end_date: `${end_date}T23:59:59`,
 			},
-		}).then((res) => {
-			setAgreementData({
-				title: "",
-				content: "",
-				start_date: "",
-				end_date: "",
+		})
+			.then(() => {
+				setAgreementData({
+					title: "",
+					content: "",
+					start_date: "",
+					end_date: "",
+				});
+			})
+			.catch((err) => {
+				errorMessage(err.response.data.error_code);
 			});
-		});
 	};
 
 	const handleInputChange = (e) => {
