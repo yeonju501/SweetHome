@@ -23,7 +23,6 @@ export function tokenReissue(loginCallBack) {
 		})
 			.then((res) => {
 				onLoginSuccess(res);
-				console.log("i");
 				loginCallBack(true);
 			})
 			.catch((err) => {
@@ -38,28 +37,30 @@ export function tokenReissue(loginCallBack) {
 	}
 }
 
-export function onLoginSuccess(res) {
+export function cookieSet(keyName, Value) {
 	const expire = 1000 * 3600 * 24 * 7;
+	cookies.set(keyName, Value, {
+		path: "/",
+		secure: true,
+		// httpOnly: true,
+		expires: new Date(Date.now() + expire),
+	});
+}
+
+export function cookieDelete() {
+	cookies.remove("accessToken");
+	cookies.remove("refreshToken");
+}
+
+export function onLoginSuccess(res) {
 	const { access_token, refresh_token } = res.data;
 	axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
-	cookies.set("refreshToken", refresh_token, {
-		path: "/",
-		secure: true,
-		// httpOnly: true,
-		expires: new Date(Date.now() + expire),
-	});
-
-	cookies.set("accessToken", access_token, {
-		path: "/",
-		secure: true,
-		// httpOnly: true,
-		expires: new Date(Date.now() + expire),
-	});
+	cookieSet("accessToken", access_token);
+	cookieSet("refreshToken", refresh_token);
 	setTimeout(tokenReissue, JWT_EXPIRE_TIME - 60000);
 }
 
 export function onReissueFail(callback) {
-	cookies.remove("accessToken");
-	cookies.remove("refreshToken");
+	cookieDelete();
 	callback(true);
 }

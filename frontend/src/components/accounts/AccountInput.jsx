@@ -1,10 +1,9 @@
-import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import style from "../../style/SignIn.module.css";
 
-function SignInPassword({ onChange, password }) {
+function SignInPassword({ onChange, password, email }) {
 	const [passwordType, setPasswordType] = useState({
 		type: "password",
 		visible: false,
@@ -12,15 +11,15 @@ function SignInPassword({ onChange, password }) {
 
 	const changePasswordType = () => {
 		setPasswordType(() => {
-			if (!passwordType.visible) {
-				return { type: "text", visible: true };
-			}
-			return { type: "password", visible: false };
+			if (passwordType.visible) return { type: "password", visible: false };
+
+			return { type: "text", visible: true };
 		});
 	};
 
 	return (
 		<div className={style.password}>
+			<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
 			<input
 				type={passwordType.type}
 				placeholder="숫자 + 문자로 비밀번호를 입력하세요"

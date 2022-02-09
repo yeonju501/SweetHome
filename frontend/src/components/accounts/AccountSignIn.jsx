@@ -1,19 +1,16 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router";
+import { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
-import SignPassword from "./AccountPassword";
+import AccountInput from "./AccountInput";
 import { SignInButton } from "./AccountButton";
-import errorMessage from "../../store/errorMessage";
-import { onLoginSuccess } from "../../utils/manageToken";
+import AccountKakaoButton from "./AccountKakaoButton";
+import { submitAxios } from "../../utils/accountAxios";
 
 function SignIn() {
-	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const API = process.env.REACT_APP_KAKAO_API_KEY;
-	const KAKAO_URI = process.env.REACT_APP_KAKAO_URI;
-	const navigate = useNavigate();
+	const cookies = new Cookies();
+	const token = cookies.get("accessToken");
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -22,11 +19,6 @@ function SignIn() {
 	const { email, password } = inputValue;
 
 	const isValid = inputValid.signInValid(email, password);
-
-	const loginWithKakao = () => {
-		window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${API}&redirect_uri=${KAKAO_URI}&response_type=code`;
-		navigate("/oauth2/code/kakao");
-	};
 
 	function onChange(e) {
 		setInputValue({
@@ -37,39 +29,19 @@ function SignIn() {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		if (isValid) {
-			axios({
-				url: `${SERVER_URL}/api/members/login`,
-				method: "POST",
-				withCredentials: true,
-				headers: {
-					"Content-type": "application/json",
-				},
-				data: inputValue,
-			})
-				.then((res) => {
-					onLoginSuccess(res);
-					navigate("/main");
-				})
-				.catch((err) => {
-					errorMessage(err.response.data.error_code);
-				});
-		}
+		isValid && submitAxios("login", inputValue, "/main", true);
 	}
 
-	return (
+	return !token ? (
 		<div className={style.sign_in}>
 			<div className={style.sign_in_div}>
 				<h1 className={style.title}>Sweet Home</h1>
 				<form onSubmit={onSubmit} className={style.form}>
-					<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
-					<SignPassword onChange={onChange} password={password} />
+					<AccountInput onChange={onChange} password={password} email={email} />
 					{isValid ? <SignInButton valid="activated" /> : <SignInButton valid="" />}
 				</form>
 
-				<button className={style.kakao_button} onClick={loginWithKakao}>
-					카카오로 시작하기
-				</button>
+				<AccountKakaoButton />
 				<Link className={style.Link} to="/">
 					비밀번호를 잊으셨나요?
 				</Link>
@@ -78,6 +50,8 @@ function SignIn() {
 				</Link>
 			</div>
 		</div>
+	) : (
+		<Navigate to="/main" />
 	);
 }
 
