@@ -4,7 +4,8 @@ import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
-import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
+import com.sweet.home.apt.controller.dto.response.RegisterAptManagersResponse;
+import com.sweet.home.apt.controller.dto.response.RegisterAptMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptManagerResponse;
 import com.sweet.home.apt.domain.Apt;
@@ -84,12 +85,12 @@ public class AptService {
 
 
     @Transactional(readOnly = true)
-    public AptRegisterMembersResponse viewAptRegisterMembers(Pageable pageable, String email) {
+    public RegisterAptMembersResponse viewAptRegisterMembers(Pageable pageable, String email) {
         Member member = memberService.findByEmail(email);
 
         Page<RegisterAptHouse> registerAptHouses = registerAptHouseRepository.findByApt(member.getAptHouse().getApt(), pageable);
 
-        return AptRegisterMembersResponse.from(registerAptHouses);
+        return RegisterAptMembersResponse.from(registerAptHouses);
     }
 
     @Transactional
@@ -180,5 +181,10 @@ public class AptService {
     private RegisterAptManager getRegisterAptManager(Member Member) {
         return registerAptManagerRepository.findByMember(Member)
             .orElseThrow(() -> new BusinessException(ErrorCode.REGISTER_APT_MANAGER_NOT_FOUND_BY_MEMBER));
+    }
+
+    @Transactional(readOnly = true)
+    public RegisterAptManagersResponse viewAptRegisterManagers(Pageable pageable) {
+        return RegisterAptManagersResponse.from(registerAptManagerRepository.findAll(pageable));
     }
 }
