@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import { useSelector } from "react-redux";
 import style from "../../style/articles/ArticleDetailComment.module.css";
-import CommentNested from "./CommentNested";
 import CommentUpdate from "./CommentUpdate";
 
 function CommentsList({ comments, articleId, getComments }) {

@@ -1,12 +1,9 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { toast } from "react-toastify";
 import CommentNested from "./CommentNested";
-import errorMessage from "../../store/errorMessage";
 import style from "../../style/articles/ArticleDetailComment.module.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
-import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import CommentLike from "./CommentLike";
+import { commnetAxios, deleteOrSubmit } from "../../utils/commentAxios";
+import CommentButton from "./CommentButton";
 
 function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [update, setUpdate] = useState(false);
@@ -14,7 +11,6 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	const [activate, setActivate] = useState(true);
 	const [isLike, setIsLike] = useState(false);
 	const { content } = commentContent;
-	const URL = process.env.REACT_APP_SERVER_URL;
 
 	useEffect(() => {
 		isLiked();
@@ -30,47 +26,27 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 
 	const likeOrCancelLike = () => {
 		const method = isLike ? "delete" : "post";
-
-		axios({
-			url: `${URL}/api/comments/${comment.id}/likes`,
-			method: method,
-		})
-			.then(() => {
-				setIsLike((prev) => !prev);
-				getComments();
-			})
-			.catch((err) => console.log);
-	};
-
-	const isLiked = () => {
-		axios({
-			url: `${URL}/api/comments/${comment.id}/likes`,
-			method: "get",
-		}).then((res) => setIsLike(res.data.is_liked));
-	};
-
-	const commentDelete = () => {
-		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
-			axios({
-				url: `${URL}/api/articles/comments/${id}`,
-				method: "delete",
-			}).then(() => getComments());
+		const res = commnetAxios(comment.id, method);
+		if (res) {
+			setIsLike((prev) => !prev);
+			getComments();
 		}
 	};
 
-	const onSubmit = (e) => {
+	const isLiked = async () => {
+		const res = await commnetAxios(comment.id, "get");
+		res && setIsLike(res.data.is_liked);
+	};
+
+	const onSubmit = async (e) => {
 		e.preventDefault();
-		content.trim()
-			? axios({
-					url: `${URL}/api/articles/comments/${comment.id}`,
-					method: "put",
-					headers: { "Content-Type": "application/json" },
-					data: commentContent,
-			  }).then(() => {
-					getComments();
-					onClick();
-			  })
-			: toast.error("Error");
+		if (content.trim()) {
+			const res = await deleteOrSubmit(comment.id, "put", commentContent);
+			if (res) {
+				getComments();
+				onClick();
+			}
+		}
 	};
 
 	return (
@@ -87,34 +63,21 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 				<div className={style.comments_box}>
 					<p id={style.comment_username}>{comment.username}</p>
 					<p>{comment.content}</p>
-					<div className={style.date_btn}>
-						<p>{comment.created_at.slice(0, 10)}</p>
-						{comment.total_likes === 0 ? null : comment.total_likes === 1 ? (
-							<p>{comment.total_likes}like</p>
-						) : (
-							<p>{comment.total_likes}likes</p>
-						)}
-						<p onClick={() => setActivate(!activate)}>댓글 달기</p>
-
-						<p onClick={likeOrCancelLike} className={style.btn_comment_like}>
-							{isLike ? (
-								<FontAwesomeIcon icon={fasHeart} color="red" />
-							) : (
-								<FontAwesomeIcon icon={farHeart} color="gray" />
-							)}
-						</p>
-					</div>
-
-					{user === comment.email && activate && (
-						<div className={style.btn_nested_comments}>
-							<button className={style.btn_nested} onClick={onClick}>
-								수정
-							</button>
-							<button className={style.btn_nested} onClick={commentDelete}>
-								삭제
-							</button>
-						</div>
-					)}
+					<CommentLike
+						comment={comment}
+						setActivate={setActivate}
+						activate={activate}
+						likeOrCancelLike={likeOrCancelLike}
+						isLike={isLike}
+					/>
+					<CommentButton
+						user={user}
+						comment={comment}
+						activate={activate}
+						onClick={onClick}
+						id={id}
+						getComments={getComments}
+					/>
 				</div>
 			)}
 			<CommentNested
