@@ -27,6 +27,8 @@ function AdminMemberList() {
 				console.log(err);
 			});
 	}, []);
+
+	const expelMember = (id) => {};
 	return (
 		<table>
 			<thead>
@@ -46,6 +48,7 @@ function AdminMemberList() {
 							<td>{aptMember.dong}</td>
 							<td>{aptMember.ho}</td>
 							<td>{aptMember.message}</td>
+							<button>추방</button>
 						</tr>
 					))
 				) : (
