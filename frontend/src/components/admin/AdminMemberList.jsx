@@ -28,7 +28,19 @@ function AdminMemberList() {
 			});
 	}, []);
 
-	const expelMember = (id) => {};
+	const expelMember = (id) => {
+		console.log(id);
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/admin/apts/members/${id}`,
+		})
+			.then((res) => {
+				console.log("추방");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<table>
 			<thead>
@@ -48,7 +60,13 @@ function AdminMemberList() {
 							<td>{aptMember.dong}</td>
 							<td>{aptMember.ho}</td>
 							<td>{aptMember.message}</td>
-							<button>추방</button>
+							<button
+								onClick={(e) => {
+									expelMember(aptMember.id);
+								}}
+							>
+								추방
+							</button>
 						</tr>
 					))
 				) : (
