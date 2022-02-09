@@ -18,17 +18,22 @@ public class MyRegisterAptHouseResponse {
     @JsonProperty("ho")
     private String ho;
 
+    @JsonProperty("message")
+    private String message;
+
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
 
     public MyRegisterAptHouseResponse() {
     }
 
-    public MyRegisterAptHouseResponse(Long apiId, String aptName, String dong, String ho, LocalDateTime createdAt) {
+    public MyRegisterAptHouseResponse(Long apiId, String aptName, String dong, String ho, String message,
+        LocalDateTime createdAt) {
         this.apiId = apiId;
         this.aptName = aptName;
         this.dong = dong;
         this.ho = ho;
+        this.message = message;
         this.createdAt = createdAt;
     }
 
@@ -38,6 +43,7 @@ public class MyRegisterAptHouseResponse {
             registerAptHouse.getApt().getName(),
             registerAptHouse.getDong(),
             registerAptHouse.getHo(),
+            registerAptHouse.getMessage(),
             registerAptHouse.getCreatedAt()
         );
     }

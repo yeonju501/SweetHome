@@ -39,15 +39,19 @@ public class RegisterAptHouse extends BaseEntity {
     @Column(name = "ho", nullable = true)
     private String ho;
 
+    @Column(name = "message", length = 400, nullable = false)
+    private String message;
+
     protected RegisterAptHouse() {
     }
 
     @Builder
-    public RegisterAptHouse(Member member, Apt apt, String dong, String ho) {
+    public RegisterAptHouse(Member member, Apt apt, String dong, String ho, String message) {
         this.member = member;
         this.apt = apt;
         this.dong = dong;
         this.ho = ho;
+        this.message = message;
     }
 
     public static RegisterAptHouse createRegisterAptHouse(Member member, Apt apt, RegisterAptHouseRequest request) {
@@ -56,6 +60,7 @@ public class RegisterAptHouse extends BaseEntity {
             .apt(apt)
             .dong(request.getDong())
             .ho(request.getHo())
+            .message(request.getMessage())
             .build();
     }
 }
