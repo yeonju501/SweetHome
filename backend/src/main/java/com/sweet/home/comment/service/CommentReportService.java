@@ -45,4 +45,19 @@ public class CommentReportService {
             throw new BusinessException(ErrorCode.COMMENT_REPORT_ALREADY_EXISTS);
         }
     }
+
+    @Transactional
+    public void deleteAllByComment(Long commentId) {
+        commentReportRepository.deleteAllByComment(commentId);
+    }
+
+    @Transactional
+    public void deleteAllByArticle(Long articleId) {
+        commentReportRepository.deleteAllByArticle(articleId);
+    }
+
+    @Transactional
+    public void deleteAllByBoard(Long boardId) {
+        commentReportRepository.deleteAllByBoard(boardId);
+    }
 }
