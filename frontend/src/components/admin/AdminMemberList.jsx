@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 
@@ -13,7 +14,18 @@ function AdminMemberList() {
 		ho: "",
 	});
 
-	useEffect(() => {}, []);
+	useEffect(() => {
+		axios({
+			method: "GET",
+			url: `${SERVER_URL}/api/admin/apts/members`,
+		})
+			.then((res) => {
+				console.log(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 	return <></>;
 }
 
