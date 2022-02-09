@@ -19,7 +19,6 @@ axios.interceptors.response.use(
 			return axios(originalRequest);
 		} else {
 			refresh = false;
-			onReissueFail();
 			return Promise.reject(err);
 		}
 	},
