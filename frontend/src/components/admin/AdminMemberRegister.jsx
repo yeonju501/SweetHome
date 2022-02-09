@@ -33,6 +33,7 @@ function AdminMemberRegister() {
 	}, []);
 
 	const registerMember = (method_, id) => {
+		console.log(method_, id);
 		axios({
 			method: method_,
 			url: `${SERVER_URL}/api/admin/apts/register`,
@@ -68,13 +69,25 @@ function AdminMemberRegister() {
 								<td>{aptMember.dong}</td>
 								<td>{aptMember.ho}</td>
 								<td>{aptMember.message}</td>
-								<button onClick={registerMember("POST", aptMember.id)}>승인</button>
-								<button>거절</button>
+								<button
+									onClick={(e) => {
+										registerMember("POST", aptMember.id);
+									}}
+								>
+									승인
+								</button>
+								<button
+									onClick={(e) => {
+										registerMember("DELETE", aptMember.id);
+									}}
+								>
+									거절
+								</button>
 							</tr>
 						))
 					) : (
 						<tr>
-							<td>신청자가 업습니다</td>
+							<td>신청자가 없습니다</td>
 						</tr>
 					)}
 				</tbody>
