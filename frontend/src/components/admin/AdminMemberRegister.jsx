@@ -31,6 +31,22 @@ function AdminMemberRegister() {
 				console.log(err);
 			});
 	}, []);
+
+	const registerMember = (method_, id) => {
+		axios({
+			method: method_,
+			url: `${SERVER_URL}/api/admin/apts/register`,
+			data: {
+				apt_house_member_id: id,
+			},
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<>
 			<table>
@@ -52,7 +68,7 @@ function AdminMemberRegister() {
 								<td>{aptMember.dong}</td>
 								<td>{aptMember.ho}</td>
 								<td>{aptMember.message}</td>
-								<button>승인</button>
+								<button onClick={registerMember("POST", aptMember.id)}>승인</button>
 								<button>거절</button>
 							</tr>
 						))
