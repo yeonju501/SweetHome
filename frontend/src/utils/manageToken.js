@@ -47,6 +47,11 @@ export function cookieSet(keyName, Value) {
 	});
 }
 
+export function cookieDelete() {
+	cookies.remove("accessToken");
+	cookies.remove("refreshToken");
+}
+
 export function onLoginSuccess(res) {
 	const { access_token, refresh_token } = res.data;
 	axios.defaults.headers.common["Authorization"] = `Bearer ${access_token}`;
@@ -56,7 +61,6 @@ export function onLoginSuccess(res) {
 }
 
 export function onReissueFail(callback) {
-	cookies.remove("accessToken");
-	cookies.remove("refreshToken");
+	cookieDelete();
 	callback(true);
 }

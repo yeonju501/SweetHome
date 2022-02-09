@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import errorMessage from "../../store/errorMessage";
 
 function DeleteAccount() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -12,9 +13,8 @@ function DeleteAccount() {
 				url: `${SERVER_URL}/api/members`,
 				method: "delete",
 			})
-				.then(console.log("temp"))
 				.then(navigate("/"))
-				.catch(toast.error("회원 탈퇴에 실패 하였습니다."));
+				.catch((err) => errorMessage(err.response.data.error_code));
 	};
 
 	return (
