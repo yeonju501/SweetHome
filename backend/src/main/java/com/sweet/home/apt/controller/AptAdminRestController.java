@@ -2,7 +2,7 @@ package com.sweet.home.apt.controller;
 
 import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
 import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
-import com.sweet.home.apt.controller.dto.response.AptRegisterMembersResponse;
+import com.sweet.home.apt.controller.dto.response.RegisterAptMembersResponse;
 import com.sweet.home.apt.service.AptService;
 import java.net.URI;
 import org.springframework.data.domain.Pageable;
@@ -27,8 +27,8 @@ public class AptAdminRestController {
     }
 
     //등록 요청 - 아파트 등록 요청 회원 목록 보기 = GET
-    @GetMapping("/apts/register/")
-    public ResponseEntity<AptRegisterMembersResponse> viewAptRegisterMembers(@AuthenticationPrincipal String email,
+    @GetMapping("/apts/register")
+    public ResponseEntity<RegisterAptMembersResponse> viewAptRegisterMembers(@AuthenticationPrincipal String email,
         Pageable pageable) {
         return ResponseEntity.ok().body(aptService.viewAptRegisterMembers(pageable, email));
     }
