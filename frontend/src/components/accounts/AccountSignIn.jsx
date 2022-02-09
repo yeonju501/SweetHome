@@ -11,8 +11,7 @@ import { onLoginSuccess } from "../../utils/manageToken";
 
 function SignIn() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const API = process.env.REACT_APP_KAKAO_API_KEY;
-	const KAKAO_URI = process.env.REACT_APP_KAKAO_URI;
+
 	const navigate = useNavigate();
 	const [inputValue, setInputValue] = useState({
 		email: "",
@@ -22,11 +21,6 @@ function SignIn() {
 	const { email, password } = inputValue;
 
 	const isValid = inputValid.signInValid(email, password);
-
-	const loginWithKakao = () => {
-		window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${API}&redirect_uri=${KAKAO_URI}&response_type=code`;
-		navigate("/oauth2/code/kakao");
-	};
 
 	function onChange(e) {
 		setInputValue({
