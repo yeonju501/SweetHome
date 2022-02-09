@@ -1,6 +1,7 @@
 package com.sweet.home.apt.controller;
 
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
+import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.service.AptService;
 import java.net.URI;
@@ -43,5 +44,14 @@ public class AptRestController {
     @GetMapping("/apts/register/my-request")
     public ResponseEntity<MyRegisterAptHouseResponse> viewMyRegisterApt(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(aptService.viewMyRegisterApt(email));
+    }
+
+    // 아파트 관리자 등록 요청 - 회원의 아파트 관리자 등록 요청 = POST
+    @PostMapping("/apts/apt-manager")
+    public ResponseEntity<Void> createRegisterAptManager(@AuthenticationPrincipal String email,
+        @RequestBody RegisterAptManagerRequest request) {
+        aptService.createRegisterAptManager(email, request);
+        URI uri = URI.create("/api/apt-manager/");
+        return ResponseEntity.created(uri).build();
     }
 }
