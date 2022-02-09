@@ -29,7 +29,16 @@ function AdminMemberRegister() {
 				console.log(err);
 			});
 	}, []);
-	return;
+	return (
+		<>
+			<h2>회원등록</h2>
+			{aptMemberRegister.length > 0 ? (
+				aptMemberRegister.map((aptMember, idx) => <p>{aptMember.name}</p>)
+			) : (
+				<p>신청자가 없습니다</p>
+			)}
+		</>
+	);
 }
 
 export default AdminMemberRegister;
