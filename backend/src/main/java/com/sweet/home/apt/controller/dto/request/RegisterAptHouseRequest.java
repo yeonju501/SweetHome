@@ -15,6 +15,9 @@ public class RegisterAptHouseRequest {
     @JsonProperty("ho")
     private String ho;
 
+    @JsonProperty("message")
+    private String message;
+
     public RegisterAptHouseRequest() {
     }
 

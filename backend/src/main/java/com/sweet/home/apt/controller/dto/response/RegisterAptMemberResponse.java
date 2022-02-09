@@ -23,16 +23,21 @@ public class RegisterAptMemberResponse {
     @JsonProperty("ho")
     private String ho;
 
+    @JsonProperty("message")
+    private String message;
+
     public RegisterAptMemberResponse() {
     }
 
-    public RegisterAptMemberResponse(Long id, String name, String email, String phoneNumber, String dong, String ho) {
+    public RegisterAptMemberResponse(Long id, String name, String email, String phoneNumber, String dong, String ho,
+        String message) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.dong = dong;
         this.ho = ho;
+        this.message = message;
     }
 
     public static RegisterAptMemberResponse from(RegisterAptHouse registerAptHouse) {
@@ -42,7 +47,8 @@ public class RegisterAptMemberResponse {
             registerAptHouse.getMember().getEmail(),
             registerAptHouse.getMember().getPhoneNumber(),
             registerAptHouse.getDong(),
-            registerAptHouse.getHo()
+            registerAptHouse.getHo(),
+            registerAptHouse.getMessage()
         );
     }
 }
