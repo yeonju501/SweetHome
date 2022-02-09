@@ -85,6 +85,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(POST, "/api/members/join").permitAll()
             .antMatchers(POST, "/api/members/reissue").permitAll()
             .antMatchers(POST, "/api/members/login").permitAll()
+            .antMatchers(POST, "/api/members/find-pw").permitAll()
             .anyRequest().authenticated()
             .and()
             .formLogin()
