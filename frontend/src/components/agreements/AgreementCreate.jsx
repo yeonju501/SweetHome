@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import errorMessage from "../../store/errorMessage";
+import { useNavigate } from "react-router-dom";
 
 function AgreementCreate() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -11,6 +12,7 @@ function AgreementCreate() {
 		end_date: "",
 	});
 	const { title, content, start_date, end_date } = agreementData;
+	const navigate = useNavigate();
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
@@ -42,10 +44,15 @@ function AgreementCreate() {
 		setAgreementData({ ...agreementData, [e.target.id]: e.target.value });
 	};
 
+	const handleCancelButton = (e) => {
+		e.preventDefault();
+		navigate("/agreements");
+	};
+
 	return (
 		<div>
 			<h1>동의서 작성</h1>
-			<form>
+			<form onSubmit={handleFormSubmit}>
 				<input
 					type="text"
 					id="title"
@@ -64,8 +71,8 @@ function AgreementCreate() {
 					value={content}
 					onChange={handleInputChange}
 				></textarea>
-				<button onClick={handleFormSubmit}>작성</button>
-				<button type="button">취소</button>
+				<button>작성</button>
+				<button onClick={handleCancelButton}>취소</button>
 			</form>
 		</div>
 	);
