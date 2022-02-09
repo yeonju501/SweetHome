@@ -7,6 +7,7 @@ import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
+import com.sweet.home.article.service.ArticleDeleteService;
 import com.sweet.home.article.service.ArticleService;
 import java.net.URI;
 import java.util.List;
@@ -29,9 +30,12 @@ import org.springframework.web.bind.annotation.RestController;
 public class ArticleRestController {
 
     private final ArticleService articleService;
+    private final ArticleDeleteService articleDeleteService;
 
-    public ArticleRestController(ArticleService articleService) {
+    public ArticleRestController(ArticleService articleService,
+        ArticleDeleteService articleDeleteService) {
         this.articleService = articleService;
+        this.articleDeleteService = articleDeleteService;
     }
 
     @PostMapping("/{boardId}/articles")
@@ -80,14 +84,7 @@ public class ArticleRestController {
 
     @DeleteMapping("/articles/{articleId}")
     public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
-        articleService.deleteArticle(email, articleId);
-        return ResponseEntity.noContent().build();
-    }
-
-    @DeleteMapping("/articles")
-    public ResponseEntity<Void> deleteArticles(@AuthenticationPrincipal String email,
-        @RequestBody ArticlesDeleteRequest request) {
-        articleService.deleteArticles(email, request);
+        articleDeleteService.deleteArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
 }
