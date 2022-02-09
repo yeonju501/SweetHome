@@ -1,4 +1,3 @@
-import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
 	faSignOutAlt,
@@ -7,20 +6,23 @@ import {
 	faBars,
 	faHome,
 } from "@fortawesome/free-solid-svg-icons";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { SET_TOGGLE } from "../store/toggle";
 import style from "../style/Navbar.module.css";
 
 function Navbar() {
+	const cookies = new Cookies();
 	const dispatch = useDispatch();
 	const user = useSelector((state) => state.userInfo.username);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const position = useSelector((state) => state.toggle.position);
 
 	const logOut = () => {
-		console.log("temp");
+		cookies.remove("accessToken");
+		cookies.remove("refreshToken");
+		window.location.replace("/");
 	};
 
 	const toggleMenu = () => {
