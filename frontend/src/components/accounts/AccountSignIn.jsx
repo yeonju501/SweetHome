@@ -7,8 +7,8 @@ import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./AccountPassword";
 import { SignInButton } from "./AccountButton";
 import errorMessage from "../../store/errorMessage";
-import { onLoginSuccess } from "../../utils/manageToken";
 import AccountKakaoButton from "./AccountKakaoButton";
+import { submitAxios } from "../../utils/accountAxios";
 
 function SignIn() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -33,22 +33,7 @@ function SignIn() {
 	function onSubmit(e) {
 		e.preventDefault();
 		if (isValid) {
-			axios({
-				url: `${SERVER_URL}/api/members/login`,
-				method: "POST",
-				withCredentials: true,
-				headers: {
-					"Content-type": "application/json",
-				},
-				data: inputValue,
-			})
-				.then((res) => {
-					onLoginSuccess(res);
-					navigate("/main");
-				})
-				.catch((err) => {
-					errorMessage(err.response.data.error_code);
-				});
+			submitAxios("login", inputValue, "/main", true);
 		}
 	}
 

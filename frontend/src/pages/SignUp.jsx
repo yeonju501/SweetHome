@@ -8,6 +8,7 @@ import { SignUpButton } from "../components/accounts/AccountButton";
 import errorMessage from "../store/errorMessage";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "../components/accounts/AccountKakaoButton";
+import { submitAxios } from "../utils/accountAxios";
 
 function SignUp() {
 	const cookies = new Cookies();
@@ -41,13 +42,7 @@ function SignUp() {
 		e.preventDefault();
 
 		if (isValid) {
-			axios({
-				method: "post",
-				url: `${SERVER_URL}/api/members/join`,
-				data: inputValue,
-			})
-				.then(() => navigate("/sign-in"))
-				.catch((err) => errorMessage(err.response.data.error_code));
+			submitAxios("join", inputValue, "/");
 		} else {
 			alert("somethings wrong");
 		}
