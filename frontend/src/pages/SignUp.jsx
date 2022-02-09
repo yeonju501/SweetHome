@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import * as inputValid from "../utils/inputValid";
 import style from "../style/SignIn.module.css";
 import SignPassword from "../components/accounts/AccountPassword";
 import { SignUpButton } from "../components/accounts/AccountButton";
-import errorMessage from "../store/errorMessage";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "../components/accounts/AccountKakaoButton";
 import { submitAxios } from "../utils/accountAxios";
 
 function SignUp() {
 	const cookies = new Cookies();
-	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const token = cookies.get("accessToken");
 	const navigate = useNavigate();
 
@@ -40,11 +37,8 @@ function SignUp() {
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-
 		if (isValid) {
 			submitAxios("join", inputValue, "/");
-		} else {
-			alert("somethings wrong");
 		}
 	};
 

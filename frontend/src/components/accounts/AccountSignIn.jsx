@@ -1,19 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
-import { useNavigate } from "react-router";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import SignPassword from "./AccountPassword";
 import { SignInButton } from "./AccountButton";
-import errorMessage from "../../store/errorMessage";
 import AccountKakaoButton from "./AccountKakaoButton";
 import { submitAxios } from "../../utils/accountAxios";
 
 function SignIn() {
-	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
-	const navigate = useNavigate();
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
