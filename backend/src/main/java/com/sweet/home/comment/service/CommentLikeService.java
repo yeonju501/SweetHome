@@ -59,4 +59,19 @@ public class CommentLikeService {
             .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_LIKE_NOT_FOUND));
         commentLikeRepository.delete(commentLike);
     }
+
+    @Transactional
+    public void deleteAllByComment(Long commentId) {
+        commentLikeRepository.deleteAllByComment(commentId);
+    }
+
+    @Transactional
+    public void deleteAllByArticle(Long articleId){
+        commentLikeRepository.deleteAllByArticle(articleId);
+    }
+
+    @Transactional
+    public void deleteAllByBoard(Long boardId) {
+        commentLikeRepository.deleteAllByBoard(boardId);
+    }
 }
