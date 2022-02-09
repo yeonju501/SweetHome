@@ -29,10 +29,10 @@ function Main() {
 	return (
 		userInfo && (
 			<div>
-				<AgreementCreate />
 				<CreateBoard />
 				<div>최신글</div>
 				<p>{userInfo.username}</p>
+				<Link to={"/agreements"}>동의서</Link>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
 				</Link>

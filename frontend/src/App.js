@@ -26,6 +26,8 @@ import Spinner from "./components/Spinner";
 import AccountKakao from "./components/accounts/AccountKakao";
 import Admin from "./pages/Admin";
 import AdminMemberManage from "./components/admin/AdminMemberManage";
+import Agreements from "./components/agreements/Agreements";
+import AgreementCreate from "./components/agreements/AgreementCreate";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -60,6 +62,8 @@ function App() {
 								<Route path="" element={<PrivateRoute />}>
 									<Route path="/main" element={<Main />} />
 									<Route path="/profile/:username" element={<Profile />} />
+									<Route path="/agreements" element={<Agreements />} />
+									<Route path="/agreement/create" element={<AgreementCreate />} />
 									<Route path="/boards/:boardId" element={<Board />} />
 									<Route path="/articles/:articleId" element={<ArticleDetail />} />
 									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />

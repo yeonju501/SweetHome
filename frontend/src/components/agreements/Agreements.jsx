@@ -20,7 +20,7 @@ function Agreements() {
 					</tr>
 				</tbody>
 			</table>
-			<Link>작성</Link>
+			<Link to={"/agreement/create"}>작성</Link>
 			<footer>페이지네이션</footer>
 		</div>
 	);
