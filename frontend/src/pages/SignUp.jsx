@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, Navigate } from "react-router-dom";
 import * as inputValid from "../utils/inputValid";
 import style from "../style/SignIn.module.css";
 import AccountInput from "../components/accounts/AccountInput";
@@ -11,7 +11,6 @@ import { submitAxios } from "../utils/accountAxios";
 function SignUp() {
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
-	const navigate = useNavigate();
 
 	const [inputValue, setInputValue] = useState({
 		email: "",
@@ -23,10 +22,6 @@ function SignUp() {
 	const { email, password, username, phone_number } = inputValue;
 
 	const isValid = inputValid.signUpValid(email, password, phone_number);
-
-	useEffect(() => {
-		token && navigate("/main");
-	}, []);
 
 	const onChange = (e) => {
 		setInputValue({
@@ -40,7 +35,7 @@ function SignUp() {
 		isValid && submitAxios("join", inputValue, "/");
 	};
 
-	return (
+	return !token ? (
 		<div className={style.sign_in}>
 			<div className={style.sign_in_div}>
 				<h1 className={style.title}>회원가입</h1>
@@ -72,6 +67,8 @@ function SignUp() {
 				<AccountKakaoButton />
 			</div>
 		</div>
+	) : (
+		<Navigate to="/main" />
 	);
 }
 
