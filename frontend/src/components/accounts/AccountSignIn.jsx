@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 import style from "../../style/SignIn.module.css";
 import * as inputValid from "../../utils/inputValid";
 import AccountInput from "./AccountInput";
@@ -8,6 +9,8 @@ import AccountKakaoButton from "./AccountKakaoButton";
 import { submitAxios } from "../../utils/accountAxios";
 
 function SignIn() {
+	const cookies = new Cookies();
+	const token = cookies.get("accessToken");
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -29,7 +32,7 @@ function SignIn() {
 		isValid && submitAxios("login", inputValue, "/main", true);
 	}
 
-	return (
+	return !token ? (
 		<div className={style.sign_in}>
 			<div className={style.sign_in_div}>
 				<h1 className={style.title}>Sweet Home</h1>
@@ -47,6 +50,8 @@ function SignIn() {
 				</Link>
 			</div>
 		</div>
+	) : (
+		<Navigate to="/main" />
 	);
 }
 
