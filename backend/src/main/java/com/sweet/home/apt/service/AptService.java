@@ -1,6 +1,7 @@
 package com.sweet.home.apt.service;
 
 import com.sweet.home.apt.controller.dto.request.AptHouseMemberRequest;
+import com.sweet.home.apt.controller.dto.request.AptManagerRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
@@ -103,7 +104,8 @@ public class AptService {
 
         AptHouse aptHouse = aptHouseRepository.findByAptAndDongAndHo(registerAptHouse.getApt(), registerAptHouse.getDong(),
                 registerAptHouse.getHo())
-            .orElseGet(() -> aptHouseRepository.save(AptHouse.createAptHouse(registerAptHouse)));
+            .orElseGet(() -> aptHouseRepository.save(
+                AptHouse.createAptHouse(registerAptHouse.getApt(), registerAptHouse.getDong(), registerAptHouse.getHo())));
 
         registerAptHouse.saveDeletedTime();
         if (aptHouseMember.getAuthority().equals(Authority.ROLE_ASSOCIATE_MEMBER)) {
@@ -186,5 +188,18 @@ public class AptService {
     @Transactional(readOnly = true)
     public RegisterAptManagersResponse viewAptRegisterManagers(Pageable pageable) {
         return RegisterAptManagersResponse.from(registerAptManagerRepository.findAll(pageable));
+    }
+
+    @Transactional
+    public void allowAptManager(AptManagerRequest request) {
+        Member member = memberService.findById(request.getMemberId());
+        RegisterAptManager registerAptManager = getRegisterAptManager(member);
+
+        AptHouse aptHouse = aptHouseRepository.findByAptAndDongAndHo(registerAptManager.getApt(), null, null)
+            .orElseGet(() -> aptHouseRepository.save(AptHouse.createAptHouse(registerAptManager.getApt(), null, null)));
+
+        registerAptManager.saveDeletedTime();
+        member.changeAuthority(Authority.ROLE_MANAGER);
+        member.changeAptHouse(aptHouse);
     }
 }

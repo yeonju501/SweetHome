@@ -40,11 +40,11 @@ public class AptHouse {
         this.ho = ho;
     }
 
-    public static AptHouse createAptHouse(RegisterAptHouse registerAptHouse) {
+    public static AptHouse createAptHouse(Apt apt, String dong, String ho) {
         return AptHouse.builder()
-            .apt(registerAptHouse.getApt())
-            .dong(registerAptHouse.getDong())
-            .ho(registerAptHouse.getHo())
+            .apt(apt)
+            .dong(dong)
+            .ho(ho)
             .build();
     }
 }
