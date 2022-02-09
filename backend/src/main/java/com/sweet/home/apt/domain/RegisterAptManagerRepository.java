@@ -14,6 +14,6 @@ public interface RegisterAptManagerRepository extends JpaRepository<RegisterAptM
 
     Optional<RegisterAptManager> findByMember(Member member);
 
-    @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
-    Page<RegisterAptManager> findByApt(Apt apt, Pageable pageable);
+    @EntityGraph(attributePaths = {"member", "apt"}, type = EntityGraphType.FETCH)
+    Page<RegisterAptManager> findAll(Pageable pageable);
 }
