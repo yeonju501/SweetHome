@@ -7,12 +7,11 @@ import SignPassword from "../components/accounts/AccountPassword";
 import { SignUpButton } from "../components/accounts/AccountButton";
 import errorMessage from "../store/errorMessage";
 import Cookies from "universal-cookie";
+import AccountKakaoButton from "../components/accounts/AccountKakaoButton";
 
 function SignUp() {
 	const cookies = new Cookies();
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const API = process.env.REACT_APP_KAKAO_API_KEY;
-	const KAKAO_URI = process.env.REACT_APP_KAKAO_URI;
 	const token = cookies.get("accessToken");
 	const navigate = useNavigate();
 
@@ -31,10 +30,6 @@ function SignUp() {
 		token && navigate("/main");
 	}, []);
 
-	const loginWithKakao = () => {
-		window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${API}&redirect_uri=${KAKAO_URI}&response_type=code`;
-		navigate("/oauth2/code/kakao");
-	};
 	const onChange = (e) => {
 		setInputValue({
 			...inputValue,
@@ -96,9 +91,7 @@ function SignUp() {
 					{isValid ? <SignUpButton valid="activated" /> : <SignUpButton valid="" />}
 				</form>
 
-				<button className={style.kakao_button} onClick={loginWithKakao}>
-					카카오로 시작하기
-				</button>
+				<AccountKakaoButton />
 			</div>
 		</div>
 	);

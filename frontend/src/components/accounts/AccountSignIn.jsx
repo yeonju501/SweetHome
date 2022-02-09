@@ -8,6 +8,7 @@ import SignPassword from "./AccountPassword";
 import { SignInButton } from "./AccountButton";
 import errorMessage from "../../store/errorMessage";
 import { onLoginSuccess } from "../../utils/manageToken";
+import AccountKakaoButton from "./AccountKakaoButton";
 
 function SignIn() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -61,9 +62,7 @@ function SignIn() {
 					{isValid ? <SignInButton valid="activated" /> : <SignInButton valid="" />}
 				</form>
 
-				<button className={style.kakao_button} onClick={loginWithKakao}>
-					카카오로 시작하기
-				</button>
+				<AccountKakaoButton />
 				<Link className={style.Link} to="/">
 					비밀번호를 잊으셨나요?
 				</Link>
