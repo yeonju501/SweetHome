@@ -3,7 +3,7 @@ import axios from "axios";
 import { useLocation } from "react-router-dom";
 import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
-import style from "../../style/Board.module.css";
+import style from "style/Board.module.css";
 import BoardInfo from "./BoardInfo";
 
 function Board() {

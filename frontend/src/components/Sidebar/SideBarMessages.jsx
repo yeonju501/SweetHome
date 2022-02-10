@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import style from "../../style/Sidebar.module.css";
-import { getUnReadMessageCount } from "../../utils/messagesFunction";
+import style from "style/Sidebar.module.css";
+import { getUnReadMessageCount } from "utils/messagesFunction";
 
 function SidebarMessage() {
 	const [unReadMessage, setUnReadMessage] = useState("");

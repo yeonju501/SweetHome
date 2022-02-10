@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import CreateBoard from "../components/boards/CreateBoard";
+import CreateBoard from "components/boards/CreateBoard";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { SET_USER } from "../store/user";
-import style from "../style/Main.module.css";
-import { SET_POSITION } from "../store/toggle";
-import AgreementCreate from "../components/agreements/AgreementCreate";
+import { SET_USER } from "store/user";
+import style from "style/Main.module.css";
+import { SET_POSITION } from "store/toggle";
+import AgreementCreate from "components/agreements/AgreementCreate";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 

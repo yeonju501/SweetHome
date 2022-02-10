@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import style from "../../style/SignIn.module.css";
+import style from "style/SignIn.module.css";
 
 function SignInPassword({ onChange, password, email }) {
 	const [passwordType, setPasswordType] = useState({

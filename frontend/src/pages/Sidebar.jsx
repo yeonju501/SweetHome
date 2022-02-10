@@ -1,8 +1,8 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import SidebarAdmin from "../components/Sidebar/SidebarAdmin";
-import SidebarBoards from "../components/Sidebar/SidebarBoards";
-import SidebarMessage from "../components/Sidebar/SideBarMessages";
+import SidebarAdmin from "components/Sidebar/SidebarAdmin";
+import SidebarBoards from "components/Sidebar/SidebarBoards";
+import SidebarMessage from "components/Sidebar/SideBarMessages";
 
 function Sidebar() {
 	const toggle = useSelector((state) => state.toggle.toggleValue);

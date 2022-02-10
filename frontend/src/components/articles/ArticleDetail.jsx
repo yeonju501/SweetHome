@@ -3,7 +3,7 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import Comments from "../comments/Comments";
 import ArticleDetailButtons from "./ArticleDetailButtons";
-import style from "../../style/articles/ArticleDetail.module.css";
+import style from "style/articles/ArticleDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";

@@ -9,8 +9,8 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
-import { SET_TOGGLE } from "../store/toggle";
-import style from "../style/Navbar.module.css";
+import { SET_TOGGLE } from "store/toggle";
+import style from "style/Navbar.module.css";
 
 function Navbar() {
 	const cookies = new Cookies();

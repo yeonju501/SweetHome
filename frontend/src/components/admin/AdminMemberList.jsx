@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import msgStyle from "../../style/Messages.module.css";
+import msgStyle from "style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 

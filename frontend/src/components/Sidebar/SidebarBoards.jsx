@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import style from "../../style/Sidebar.module.css";
+import style from "style/Sidebar.module.css";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

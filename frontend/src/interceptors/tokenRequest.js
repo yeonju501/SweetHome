@@ -1,6 +1,6 @@
 import axios from "axios";
 import Cookies from "universal-cookie";
-import { tokenReissue } from "../utils/manageToken";
+import { tokenReissue } from "utils/manageToken";
 
 axios.defaults.baseURL = `${URL}/api/`;
 let refresh = false;

@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import CommentNested from "./CommentNested";
-import style from "../../style/articles/ArticleDetailComment.module.css";
+import style from "style/articles/ArticleDetailComment.module.css";
 import CommentLike from "./CommentLike";
-import { commnetAxios, deleteOrSubmit } from "../../utils/commentAxios";
+import { commnetAxios, deleteOrSubmit } from "utils/commentAxios";
 import CommentButton from "./CommentButton";
 
 function CommentUpdate({ comment, getComments, user, id, articleId }) {

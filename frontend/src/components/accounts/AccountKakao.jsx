@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { onLoginSuccess } from "../../utils/manageToken";
+import { onLoginSuccess } from "utils/manageToken";
 import Spinner from "../Spinner";
 
 function AccountKakao() {

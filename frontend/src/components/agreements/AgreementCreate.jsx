@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import errorMessage from "../../store/errorMessage";
+import errorMessage from "store/errorMessage";
 import { useNavigate } from "react-router-dom";
 
 function AgreementCreate() {

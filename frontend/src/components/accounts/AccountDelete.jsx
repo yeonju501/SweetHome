@@ -1,6 +1,6 @@
 import axios from "axios";
-import errorMessage from "../../store/errorMessage";
-import { cookieDelete } from "../../utils/manageToken";
+import errorMessage from "store/errorMessage";
+import { cookieDelete } from "utils/manageToken";
 
 function DeleteAccount() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

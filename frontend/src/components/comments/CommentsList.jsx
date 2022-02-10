@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import style from "../../style/articles/ArticleDetailComment.module.css";
+import style from "style/articles/ArticleDetailComment.module.css";
 import CommentUpdate from "./CommentUpdate";
 
 function CommentsList({ comments, articleId, getComments }) {
