@@ -63,9 +63,11 @@ function ProfileComments() {
 					)}
 				</tbody>
 			</table>
-			<footer>
-				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
-			</footer>
+			{comments.length > 0 && (
+				<footer>
+					<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
+				</footer>
+			)}
 		</>
 	);
 }
