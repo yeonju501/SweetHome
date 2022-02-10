@@ -9,13 +9,16 @@ function ProfileAptEnroll() {
 		message: "",
 	});
 
+	const onChange = (e) => {
+		setAptAdminEnroll({ ...aptAdminEnroll, [e.target.id]: e.target.value });
+	};
 	return (
 		<>
 			<form onSubmit={onSubmit}>
 				<label htmlFor="apt_id">아파트 id</label>
-				<input type="text" id="apt_id" />
+				<input type="text" id="apt_id" onChange={onChange} />
 				<label htmlFor="message">메시지</label>
-				<input type="text" id="message" />
+				<input type="text" id="message" onChange={onChange} />
 
 				<div style={{ display: "flex", alignItems: "center" }}>
 					<button style={{ marginRight: "25rem" }}>변경</button>
