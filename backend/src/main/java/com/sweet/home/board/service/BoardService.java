@@ -23,7 +23,7 @@ public class BoardService {
 
     @Transactional(readOnly = true)
     public List<BoardResponse> findAllBoards() {
-        return boardRepository.findAll().stream()
+        return boardRepository.findAllByBoardStatusIsNotNull().stream()
             .map(BoardResponse::from)
             .collect(Collectors.toList());
     }
