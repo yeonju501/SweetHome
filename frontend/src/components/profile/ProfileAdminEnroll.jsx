@@ -1,6 +1,12 @@
 import React from "react";
+import { useState } from "react";
 
 function ProfileAptEnroll() {
+	const [aptAdminEnroll, setAptAdminEnroll] = useState({
+		apt_id: "",
+		message: "",
+	});
+
 	return (
 		<>
 			<form onSubmit={onSubmit}>
