@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import style from "style/articles/ArticleDetailButtons.module.css";
 
-function ArticleDetailButtons({ articleData, articleId }) {
+function ArticleDetailButtons({ article, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const username = useSelector((state) => state.userInfo.username);
 	const navigate = useNavigate();
@@ -20,7 +20,7 @@ function ArticleDetailButtons({ articleData, articleId }) {
 
 	return (
 		<div className={style.button_box}>
-			{articleData.username === username ? (
+			{article.username === username ? (
 				<div>
 					<Link
 						to={`/articles/${articleId}/update`}
