@@ -32,13 +32,13 @@ public class AgreedHouse extends BaseEntity {
     private AptHouse aptHouse;
 
     @Column(name = "agreement_status")
-    private boolean agreement_status;
+    private Boolean agreement_status;
 
     protected AgreedHouse() {
     }
 
     @Builder
-    public AgreedHouse(Agreement agreement, AptHouse aptHouse, boolean agreement_status) {
+    public AgreedHouse(Agreement agreement, AptHouse aptHouse, Boolean agreement_status) {
         this.agreement = agreement;
         this.aptHouse = aptHouse;
         this.agreement_status = agreement_status;
