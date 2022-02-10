@@ -3,6 +3,7 @@ package com.sweet.home.global.config;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 
+import com.sweet.home.auth.domain.Authority;
 import com.sweet.home.auth.infrastructure.JwtTokenProvider;
 import com.sweet.home.global.security.JwtAccessDeniedHandler;
 import com.sweet.home.global.security.JwtAuthenticationEntryPoint;
@@ -79,6 +80,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(POST, "/api/members/reissue").permitAll()
             .antMatchers(POST, "/api/members/login").permitAll()
             .antMatchers(POST, "/api/members/find-pw").permitAll()
+            .antMatchers("/api/admin/**")
+            .hasAnyAuthority(Authority.ROLE_MANAGER.getAuthorityCode(), Authority.ROLE_ADMIN.getAuthorityCode())
+            .antMatchers("/api/superadmin/**").hasAnyAuthority(Authority.ROLE_ADMIN.getAuthorityCode())
             .anyRequest().authenticated()
             .and()
             .formLogin()
