@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import ProfilePagination from "./ProfilePagination";
-import * as axiosRequest from "../../utils/profileAxios";
-import style from "../../style/ProfileComments.module.css";
+import * as axiosRequest from "utils/profileAxios";
+import style from "style/ProfileComments.module.css";
 
 function ProfileLikes() {
 	const [data, setData] = useState({ articles: [], totalPage: 0, currentPage: 0 });

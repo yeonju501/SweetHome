@@ -1,5 +1,5 @@
 import axios from "axios";
-import style from "../style/Pagination.module.css";
+import style from "style/Pagination.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 

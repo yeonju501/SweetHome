@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 

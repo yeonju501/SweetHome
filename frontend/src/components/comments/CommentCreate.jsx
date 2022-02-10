@@ -1,7 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
-import style from "../../style/articles/ArticleDetailComment.module.css";
+import style from "style/articles/ArticleDetailComment.module.css";
 
 function CommentCreate({ articleId, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;

@@ -1,5 +1,5 @@
 import React from "react";
-import style from "../../style/Profile.module.css";
+import style from "style/Profile.module.css";
 
 function ProfileNav({ active, setActive }) {
 	const arr = [

@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-import style from "../../style/articles/ArticleDetailButtons.module.css";
+import style from "style/articles/ArticleDetailButtons.module.css";
 
 function ArticleDetailButtons({ articleData, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

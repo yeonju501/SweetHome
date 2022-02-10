@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
-import { SET_REPORT } from "../../store/report";
-import style from "../../style/articles/ArticleDetailComment.module.css";
-import { deleteOrSubmit } from "../../utils/commentAxios";
+import { SET_REPORT } from "store/report";
+import style from "style/articles/ArticleDetailComment.module.css";
+import { deleteOrSubmit } from "utils/commentAxios";
 
 function CommentButton({ user, comment, onClick, id, getComments }) {
 	const dispatch = useDispatch();

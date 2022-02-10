@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import * as inputValid from "../utils/inputValid";
-import style from "../style/SignIn.module.css";
-import AccountInput from "../components/accounts/AccountInput";
-import { SignUpButton } from "../components/accounts/AccountButton";
+import * as inputValid from "utils/inputValid";
+import style from "style/SignIn.module.css";
+import AccountInput from "components/accounts/AccountInput";
+import { SignUpButton } from "components/accounts/AccountButton";
 import Cookies from "universal-cookie";
-import AccountKakaoButton from "../components/accounts/AccountKakaoButton";
-import { submitAxios } from "../utils/accountAxios";
+import AccountKakaoButton from "components/accounts/AccountKakaoButton";
+import { submitAxios } from "utils/accountAxios";
 
 function SignUp() {
 	const cookies = new Cookies();

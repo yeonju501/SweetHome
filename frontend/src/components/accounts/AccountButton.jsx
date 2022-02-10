@@ -1,4 +1,4 @@
-import style from "../../style/SignIn.module.css";
+import style from "style/SignIn.module.css";
 
 export function SignUpButton(props) {
 	return (

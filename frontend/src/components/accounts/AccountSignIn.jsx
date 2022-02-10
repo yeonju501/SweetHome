@@ -1,12 +1,12 @@
 import { useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
-import style from "../../style/SignIn.module.css";
-import * as inputValid from "../../utils/inputValid";
+import style from "style/SignIn.module.css";
+import * as inputValid from "utils/inputValid";
 import AccountInput from "./AccountInput";
 import { SignInButton } from "./AccountButton";
 import AccountKakaoButton from "./AccountKakaoButton";
-import { submitAxios } from "../../utils/accountAxios";
+import { submitAxios } from "utils/accountAxios";
 
 function SignIn() {
 	const cookies = new Cookies();

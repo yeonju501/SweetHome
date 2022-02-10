@@ -1,4 +1,4 @@
-import style from "../../style/articles/ArticleDetailComment.module.css";
+import style from "style/articles/ArticleDetailComment.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";

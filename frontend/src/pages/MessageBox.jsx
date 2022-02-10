@@ -2,8 +2,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { SET_POSITION } from "../store/toggle";
-import { getReceiveMessageCount, getSendMessageCount } from "../utils/messagesFunction";
+import { SET_POSITION } from "store/toggle";
+import { getReceiveMessageCount, getSendMessageCount } from "utils/messagesFunction";
 
 function MessageBox() {
 	const dispatch = useDispatch();

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import * as inputValid from "../../utils/inputValid";
-import * as axiosRequest from "../../utils/profileAxios";
+import * as inputValid from "utils/inputValid";
+import * as axiosRequest from "utils/profileAxios";
 import axios from "axios";
 import { toast } from "react-toastify";
 import AccountDelete from "../accounts/AccountDelete";

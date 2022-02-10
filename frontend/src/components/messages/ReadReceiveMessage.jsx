@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import tableStyle from "../../style/ProfileComments.module.css";
-import messageStyle from "../../style/Messages.module.css";
-import paginationStyle from "../../style/Pagination.module.css";
-import { getMessagesFromServer, messagePagination } from "../../utils/messagesFunction";
+import tableStyle from "style/ProfileComments.module.css";
+import messageStyle from "style/Messages.module.css";
+import paginationStyle from "style/Pagination.module.css";
+import { getMessagesFromServer, messagePagination } from "utils/messagesFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 

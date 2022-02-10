@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import errorMessage from "../../store/errorMessage";
-import style from "../../style/SignIn.module.css";
+import errorMessage from "store/errorMessage";
+import style from "style/SignIn.module.css";
 
 function AccountForgotPassword() {
 	const URL = process.env.REACT_APP_SERVER_URL;
