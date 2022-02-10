@@ -1,4 +1,4 @@
-const SET = "user/setUserInfo";
+const SET = "report/setReport";
 
 export const SET_REPORT = (data) => ({ type: SET, data });
 
@@ -12,7 +12,6 @@ const reportInfo = (state = initialState, action) => {
 	switch (action.type) {
 		case SET:
 			return {
-				...state,
 				username: action.data.username,
 				content: action.data.content,
 				id: action.data.id,
