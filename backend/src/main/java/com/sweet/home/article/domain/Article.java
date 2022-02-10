@@ -37,6 +37,7 @@ public class Article extends BaseEntity {
     @JoinColumn(name = "board_id")
     private Board board;
 
+    @Lob
     @Column(name = "content", nullable = false)
     private String content;
 
