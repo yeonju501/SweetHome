@@ -24,4 +24,9 @@ public class ErrorResponse {
         ObjectMapper objectMapper = new ObjectMapper();
         return objectMapper.writeValueAsString(new ErrorResponse(e.getErrorCode().getCode()));
     }
+
+    public static String toJson(ErrorCode error) throws JsonProcessingException {
+        ObjectMapper objectMapper = new ObjectMapper();
+        return objectMapper.writeValueAsString(new ErrorResponse(error.getCode()));
+    }
 }
