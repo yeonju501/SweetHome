@@ -31,6 +31,7 @@ import AgreementCreate from "./components/agreements/AgreementCreate";
 import AccountForgotPassword from "./components/accounts/AccountForgotPassword";
 import AgreementDetail from "./components/agreements/AgreementDetail";
 import Report from "./components/reports/Report";
+import SiteAdmin from "./components/site/SiteAdmin";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -88,6 +89,7 @@ function App() {
 									/>
 								</Route>
 								<Route path="/admin" element={<Admin />} />
+								<Route path="/site" element={<SiteAdmin />} />
 								<Route path="member-manage" element={<AdminMemberManage />} />
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
