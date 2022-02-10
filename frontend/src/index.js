@@ -3,13 +3,15 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import rootReducer from "./store/index";
+import persistReducer from "./store/index";
 import { createStore } from "redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import "./interceptors/tokenRequest";
-const store = createStore(rootReducer);
-const persistor = persistStore(store);
+
+const store = createStore(persistReducer);
+export const persistor = persistStore(store);
+
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
