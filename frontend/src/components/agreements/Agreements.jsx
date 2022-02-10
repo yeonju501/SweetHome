@@ -5,6 +5,17 @@ import { Link } from "react-router-dom";
 function Agreements() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [agreements, setAgreements] = useState("");
+	const today = new Date();
+
+	const agreementProgress = (start_date, end_date) => {
+		if (new Date(start_date) > today) {
+			return "진행 예정";
+		} else if (today > new Date(end_date)) {
+			return "만료";
+		} else {
+			return "진행중";
+		}
+	};
 
 	useEffect(() => {
 		axios({
@@ -42,7 +53,7 @@ function Agreements() {
 								<td>
 									{agreement.start_date.slice(0, 10)} ~ {agreement.end_date.slice(0, 10)}
 								</td>
-								<td>진행여부 어떻게 받지?</td>
+								<td>{agreementProgress(agreement.start_date, agreement.end_date)}</td>
 							</tr>
 						))
 					) : (
