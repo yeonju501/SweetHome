@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+
 function SiteAptAdminRegister() {
 	const [aptAdminRegister, setaptAdminRegister] = useState({
 		member_id: "",
