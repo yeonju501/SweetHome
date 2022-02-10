@@ -29,11 +29,29 @@ public class BoardAdminService {
     }
 
     @Transactional
+    public void createBoard(BoardSaveRequest request) {
+        Board board = Board.builder()
+            .name(request.getName())
+            .description(request.getDescription())
+            .boardStatus(true)
+            .build();
+        boardRepository.save(board);
+    }
+
+    @Transactional
     public void approveBoard(Long boardId) {
         Board board = boardRepository.findByIdAndBoardStatusIsNull(boardId)
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID_AND_BOARD_STATUS));
 
         board.changeBoardStatus();
+    }
+
+    @Transactional
+    public void disapproveBoard(Long boardId){
+        Board board = boardRepository.findByIdAndBoardStatusIsNull(boardId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID_AND_BOARD_STATUS));
+
+        board.saveDeletedTime();
     }
 
     @Transactional
