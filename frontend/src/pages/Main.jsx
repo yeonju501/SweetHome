@@ -37,7 +37,6 @@ function Main() {
 					Profile
 				</Link>
 				<Link to="/admin">관리자</Link>
-				<Link to="/site">사이트</Link>
 			</div>
 		)
 	);
