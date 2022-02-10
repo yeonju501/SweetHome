@@ -15,7 +15,7 @@ import style from "../style/Navbar.module.css";
 function Navbar() {
 	const cookies = new Cookies();
 	const dispatch = useDispatch();
-	const user = useSelector((state) => state.userInfo.username);
+	const user = useSelector((state) => state.userInfo);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const position = useSelector((state) => state.toggle.position);
 
@@ -44,7 +44,7 @@ function Navbar() {
 						<Link to="/message-box/">
 							<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
 						</Link>
-						<Link to={`/profile/${user}`}>
+						<Link to={`/profile/${user.username}`} state={{ user }}>
 							<FontAwesomeIcon className={style.icon} icon={faUser} />
 						</Link>
 						<FontAwesomeIcon className={style.icon} icon={faSignOutAlt} onClick={logOut} />
