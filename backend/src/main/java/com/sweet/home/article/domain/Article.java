@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter
-@Where(clause = "deleted_at is null and blocked_at is null")
+@Where(clause = "deleted_at is null")
 public class Article extends BaseEntity {
 
     @Id
@@ -52,7 +52,7 @@ public class Article extends BaseEntity {
     @Formula("(select count(1) from article_report ar where ar.article_id = article_id and ar.deleted_at is null)")
     private int totalReports;
 
-    private static final int BLOCK_STANDARD = 5;
+    private static final int BLOCK_STANDARD = 1;
 
     protected Article() {
     }
@@ -87,5 +87,9 @@ public class Article extends BaseEntity {
         if (this.totalReports >= BLOCK_STANDARD) {
             this.blockedAt = LocalDateTime.now();
         }
+    }
+
+    public void changeBlockedAt() {
+        blockedAt = null;
     }
 }

@@ -1,10 +1,8 @@
 package com.sweet.home.article.controller;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
-import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
 import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
-import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.service.ArticleDeleteService;
@@ -61,12 +59,6 @@ public class ArticleRestController {
     public ResponseEntity<ArticlesLikeResponse> showMyArticles(@AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showMyArticles(email, pageable));
-    }
-
-    @GetMapping("/articles/reports")
-    public ResponseEntity<ArticleReportsResponse> showBlockedArticles(
-        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok().body(articleService.showBlockedArticles(pageable));
     }
 
     @GetMapping("/articles/popular")

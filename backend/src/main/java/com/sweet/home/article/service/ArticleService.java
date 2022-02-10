@@ -1,7 +1,6 @@
 package com.sweet.home.article.service;
 
 import com.sweet.home.article.controller.dto.request.ArticleSaveRequest;
-import com.sweet.home.article.controller.dto.request.ArticlesDeleteRequest;
 import com.sweet.home.article.controller.dto.response.ArticleDetailResponse;
 import com.sweet.home.article.controller.dto.response.ArticleLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
@@ -11,7 +10,6 @@ import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleRepository;
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.service.BoardService;
-import com.sweet.home.comment.service.CommentService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -101,5 +99,20 @@ public class ArticleService {
 
         article.changeTitle(request.getTitle());
         article.changeContent(request.getContent());
+    }
+
+    @Transactional
+    public void unblockArticle(Long articleId) {
+        Article article = articleRepository.findByIdAndBlockedAtIsNotNull(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
+
+        article.changeBlockedAt();
+    }
+
+    @Transactional
+    public void checkReportCounts(Long articleId) {
+        Article article = articleRepository.findById(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
+        article.checkTotalReports();
     }
 }
