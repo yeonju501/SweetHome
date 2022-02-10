@@ -20,26 +20,28 @@ function SignInPassword({ onChange, password, email }) {
 	return (
 		<div className={style.password}>
 			<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
-			<input
-				type={passwordType.type}
-				placeholder="숫자 + 문자로 비밀번호를 입력하세요"
-				onChange={onChange}
-				value={password}
-				id="password"
-			/>
-			{passwordType.visible ? (
-				<FontAwesomeIcon
-					icon={faEye}
-					className={password.length ? `${style.icon}` : `${style.hidden}`}
-					onClick={changePasswordType}
+			<div className={style.password_div}>
+				<input
+					type={passwordType.type}
+					placeholder="숫자 + 문자로 비밀번호를 입력하세요"
+					onChange={onChange}
+					value={password}
+					id="password"
 				/>
-			) : (
-				<FontAwesomeIcon
-					icon={faEyeSlash}
-					className={password.length ? `${style.icon}` : `${style.hidden}`}
-					onClick={changePasswordType}
-				/>
-			)}
+				{passwordType.visible ? (
+					<FontAwesomeIcon
+						icon={faEye}
+						className={password.length ? `${style.icon}` : `${style.hidden}`}
+						onClick={changePasswordType}
+					/>
+				) : (
+					<FontAwesomeIcon
+						icon={faEyeSlash}
+						className={password.length ? `${style.icon}` : `${style.hidden}`}
+						onClick={changePasswordType}
+					/>
+				)}
+			</div>
 		</div>
 	);
 }
