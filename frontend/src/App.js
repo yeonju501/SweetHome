@@ -28,6 +28,7 @@ import Admin from "./pages/Admin";
 import AdminMemberManage from "./components/admin/AdminMemberManage";
 import Agreements from "./components/agreements/Agreements";
 import AgreementCreate from "./components/agreements/AgreementCreate";
+import AccountForgotPassword from "./components/accounts/AccountForgotPassword";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -59,6 +60,7 @@ function App() {
 								<Route path="/sign-in" element={<SignIn />} />
 								<Route path="/sign-up" element={<SignUp />} />
 								<Route path="/oauth2/code/kakao" element={<AccountKakao />} />
+								<Route path="/forgot-password" element={<AccountForgotPassword />} />
 								<Route path="" element={<PrivateRoute />}>
 									<Route path="/main" element={<Main />} />
 									<Route path="/profile/:username" element={<Profile />} />
