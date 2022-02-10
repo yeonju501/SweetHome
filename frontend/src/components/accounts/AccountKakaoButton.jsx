@@ -8,7 +8,6 @@ function AccountKakaoButton() {
 
 	const loginWithKakao = () => {
 		window.location.href = `https://kauth.kakao.com/oauth/authorize?client_id=${API}&redirect_uri=${KAKAO_URI}&response_type=code`;
-		navigate("/oauth2/code/kakao");
 	};
 
 	return (
