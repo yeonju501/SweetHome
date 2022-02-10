@@ -5,13 +5,17 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import rootReducer from "./store/index";
 import { createStore } from "redux";
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 import "./interceptors/tokenRequest";
 const store = createStore(rootReducer);
-
+const persistor = persistStore(store);
 ReactDOM.render(
 	<React.StrictMode>
 		<Provider store={store}>
-			<App />
+			<PersistGate loading={null} persistor={persistor}>
+				<App />
+			</PersistGate>
 		</Provider>
 	</React.StrictMode>,
 
