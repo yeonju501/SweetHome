@@ -79,7 +79,14 @@ function SiteAptAdminRegister() {
 								>
 									승인
 								</button>
-								<button className={msgStyle.delete}>거절</button>
+								<button
+									className={msgStyle.delete}
+									onClick={(e) => {
+										registerAptAdmin("DELETE", aptAdminMember.member_id);
+									}}
+								>
+									거절
+								</button>
 							</tr>
 						))
 					) : (
