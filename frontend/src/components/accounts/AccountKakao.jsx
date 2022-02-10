@@ -15,7 +15,6 @@ function AccountKakao() {
 				onLoginSuccess(res);
 				window.location.replace("/main");
 			})
-
 			.catch(() => window.location.replace("/error"));
 	}, []);
 	return (
