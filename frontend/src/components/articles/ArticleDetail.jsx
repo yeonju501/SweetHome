@@ -13,7 +13,7 @@ function ArticleDetail() {
 	const location = useLocation();
 	const articleId = location.state.articleId;
 	const board = location.state.board;
-	const [articleData, setArticleData] = useState();
+	const [article, setArticle] = useState();
 	const [isLiked, setIsLiked] = useState();
 
 	useEffect(() => {
@@ -21,7 +21,7 @@ function ArticleDetail() {
 			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 			method: "get",
 		}).then((res) => {
-			setArticleData(res.data);
+			setArticle(res.data);
 		});
 		getTotalLikes();
 	}, [isLiked]);
@@ -48,7 +48,7 @@ function ArticleDetail() {
 
 	return (
 		<div>
-			{articleData && (
+			{article && (
 				<section className={style.article_detail}>
 					<div>
 						<Link to={`/boards/${board.id}`} state={{ board: board }}>
@@ -62,22 +62,22 @@ function ArticleDetail() {
 								<div className={style.profile}>
 									<div className={style.profile_img}></div>
 									<div>
-										<p>{articleData.username}</p>
-										<p>{articleData.created_at.slice(0, 10)}</p>
+										<p>{article.username}</p>
+										<p>{article.created_at.slice(0, 10)}</p>
 									</div>
 								</div>
-								<ArticleDetailButtons articleData={articleData} articleId={articleId} />
+								<ArticleDetailButtons article={article} articleId={articleId} />
 							</div>
 
-							<h3 className={style.article_title}>{articleData.title}</h3>
-							<p className={style.article_content}>{articleData.content}</p>
+							<h3 className={style.article_title}>{article.title}</h3>
+							<p className={style.article_content}>{article.content}</p>
 
 							<div className={style.article_bottom}>
 								<div className={style.article_bottom_info}>
 									<span style={{ marginRight: "0.4rem" }}>
 										<FontAwesomeIcon icon={fasHeart} />
 									</span>
-									<span style={{ marginRight: "0.8rem" }}>{articleData.total_likes}</span>
+									<span style={{ marginRight: "0.8rem" }}>{article.total_likes}</span>
 									<span style={{ marginRight: "0.4rem" }}>
 										<FontAwesomeIcon icon={faComment} />
 									</span>
