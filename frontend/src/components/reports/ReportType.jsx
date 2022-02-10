@@ -24,19 +24,17 @@ function ReportType({ id }) {
 		if (!type) return alert("신고 사유를 선택해주세요");
 
 		if (type === "기타" && !content) return alert("신고 사유를 작성해주세요");
-
+		console.log(id);
 		axios({
 			url: `${URL}/api/comments/${id}/reports`,
 			method: "post",
 			data: types,
 		})
-			.then((res) => {
+			.then(() => {
 				setType({ type: "", content: "" });
-				console.log(res);
+				alert("성공");
 			})
 			.catch((err) => console.log(err));
-
-		console.log(types);
 	};
 	return (
 		types && (
