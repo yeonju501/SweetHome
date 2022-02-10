@@ -30,7 +30,7 @@ import Agreements from "./components/agreements/Agreements";
 import AgreementCreate from "./components/agreements/AgreementCreate";
 import AccountForgotPassword from "./components/accounts/AccountForgotPassword";
 import AgreementDetail from "./components/agreements/AgreementDetail";
-import ReportType from "./components/reports/ReportType";
+import Report from "./components/reports/Report";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -77,7 +77,7 @@ function App() {
 									<Route path="read-send-message" element={<ReadSendMessage />} />
 									<Route path="send-message" element={<SendMessage />} />
 									<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
-									<Route path="/report" element={<ReportType />} />
+									<Route path="/report" element={<Report />} />
 									<Route
 										path="/read-receive-message/message-detail"
 										element={<ReadMessageDeatil />}
