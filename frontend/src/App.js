@@ -32,9 +32,12 @@ import AccountForgotPassword from "components/accounts/AccountForgotPassword";
 import AgreementDetail from "components/agreements/AgreementDetail";
 import Report from "components/reports/Report";
 import SiteAdmin from "components/site/SiteAdmin";
+import { useSelector } from "react-redux";
 
 axios.defaults.withCredentials = true;
 function App() {
+	const loginCheck = useSelector((state) => state.userInfo.username);
+
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
 		try {
@@ -52,11 +55,15 @@ function App() {
 		return (
 			<>
 				<Router>
-					<Navbar />
+					{loginCheck ? <Navbar /> : <></>}
 					<div className={style.div}>
-						<div className={style.side}>
-							<Sidebar />
-						</div>
+						{loginCheck ? (
+							<div className={style.side}>
+								<Sidebar />
+							</div>
+						) : (
+							<></>
+						)}
 						<main className={style.main}>
 							<Routes>
 								<Route path="/" element={<Home />} />
