@@ -29,6 +29,7 @@ import AdminMemberManage from "./components/admin/AdminMemberManage";
 import Agreements from "./components/agreements/Agreements";
 import AgreementCreate from "./components/agreements/AgreementCreate";
 import AccountForgotPassword from "./components/accounts/AccountForgotPassword";
+import AgreementDetail from "./components/agreements/AgreementDetail";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -65,6 +66,7 @@ function App() {
 									<Route path="/main" element={<Main />} />
 									<Route path="/profile/:username" element={<Profile />} />
 									<Route path="/agreements" element={<Agreements />} />
+									<Route path="/agreement/:agreementId" element={<AgreementDetail />} />
 									<Route path="/agreement/create" element={<AgreementCreate />} />
 									<Route path="/boards/:boardId" element={<Board />} />
 									<Route path="/articles/:articleId" element={<ArticleDetail />} />
