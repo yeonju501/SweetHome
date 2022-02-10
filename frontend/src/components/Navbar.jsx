@@ -37,7 +37,7 @@ function Navbar() {
 						<FontAwesomeIcon className={style.icon} onClick={toggleMenu} icon={faBars} />
 						<Link className={style.main_home} to="/main">
 							SweetHome
-							<FontAwesomeIcon className={style.icon} icon={faHome} />
+							{/* <FontAwesomeIcon className={style.icon} icon={faHome} /> */}
 						</Link>
 					</div>
 					<div className={style.icon_container}>

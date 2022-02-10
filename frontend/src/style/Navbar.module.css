@@ -1,9 +1,14 @@
 .navbar_main {
-	margin-top: 10px;
+	margin: 0.3rem 0;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+	height: 5vh;
+	display: flex;
+	justify-content: center;
+	background-color: rgba(256, 256, 256, 0.7);
 }
 
 .navbar_container {
+	width: 80vw;
 	display: flex;
 	flex-flow: row wrap;
 	justify-content: space-between;
@@ -17,21 +22,22 @@
 .icon_container {
 	display: flex;
 	flex-direction: row;
-	margin-right: 25px;
+	margin-left: 25px;
 	margin-top: 10px;
 }
 
 .icon {
-	font-size: 20px;
-	margin-right: 10px;
+	font-size: 1.7rem;
+	margin-right: 2rem;
 	cursor: pointer;
-	color: black;
+	color: #444444;
 }
 .icon:hover {
-	color: #319cff;
+	color: #7e7e7e;
 }
 
 .main_home {
-	font-size: 25px;
+	font-size: 2.5rem;
 	color: black;
+	font-family: "Leckerli One", cursive;
 }

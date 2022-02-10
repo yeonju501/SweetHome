@@ -1,9 +1,7 @@
 .main {
-	display: flex;
-}
-
-.section {
-	margin-left: 4rem;
 	width: 60vw;
-	border: 1px solid black;
+	margin: 0 auto;
+	/* border는 임시 요소 나중에 지울 것 */
+	border: 1px solid #c4c4c4;
+	background-color: rgba(256, 256, 256, 0.7);
 }
