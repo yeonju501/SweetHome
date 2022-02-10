@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { useEffect } from "react";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -12,6 +14,22 @@ function SiteAptAdminRegister() {
 		phone_number: "",
 		message: "",
 	});
+
+	useEffect(() => {
+		console.log("실행");
+		axios({
+			method: "GET",
+			url: `${SERVER_URL}/api/superadmin/apts/apt-manager`,
+		})
+			.then((res) => {
+				console.log(res.data);
+				setaptAdminRegister(res.data.register_members);
+				console.log(aptAdminRegister);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}, []);
 
 	return (
 		<>
