@@ -72,10 +72,12 @@ public class AgreementService {
         Member member = memberService.findByEmail(email);
         Agreement agreement = agreementRepository.findById(agreementId)
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
+        AgreedHouse agreedHouse = agreedHouseRepository.findByAgreementAndAptHouse(agreement, member.getAptHouse())
+            .orElseGet(() -> new AgreedHouse(agreement,member.getAptHouse(),null));
 
         agreement.checkAptRelationship(member.getAptHouse().getApt());
 
-        return AgreementDetailResponse.from(agreement);
+        return AgreementDetailResponse.from(agreement, agreedHouse);
     }
 
     @Transactional(readOnly = true)

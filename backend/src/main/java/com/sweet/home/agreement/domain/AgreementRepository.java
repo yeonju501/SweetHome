@@ -6,5 +6,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AgreementRepository extends JpaRepository<Agreement, Long> {
+
     Page<Agreement> findByApt(Apt apt, Pageable pageable);
 }
