@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
 import Comments from "../comments/Comments";
 import ArticleDetailButtons from "./ArticleDetailButtons";
@@ -11,8 +11,8 @@ import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-ic
 function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
-	const articleId = location.state.id;
-
+	const articleId = location.state.articleId;
+	const board = location.state.board;
 	const [articleData, setArticleData] = useState();
 	const [isLiked, setIsLiked] = useState();
 
@@ -48,9 +48,14 @@ function ArticleDetail() {
 
 	return (
 		<div>
-			<section className={style.article_detail}>
-				<nav>게시판 돌아가기</nav>
-				{articleData && (
+			{articleData && (
+				<section className={style.article_detail}>
+					<div>
+						<Link to={`/boards/${board.id}`} state={{ board: board }}>
+							{board.name}
+						</Link>
+					</div>
+
 					<div className={style.article_detail_box}>
 						<article className={style.article}>
 							<div className={style.article_top}>
@@ -89,8 +94,8 @@ function ArticleDetail() {
 						</article>
 						<Comments articleId={articleId} />
 					</div>
-				)}
-			</section>
+				</section>
+			)}
 		</div>
 	);
 }
