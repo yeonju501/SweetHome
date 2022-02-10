@@ -19,10 +19,12 @@ public interface CommentLikeRepository extends JpaRepository<CommentLike, Long> 
     int deleteAllByComment(@Param("id") Long id);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query(nativeQuery = true, value = "update comment_like cl set cl.deleted_at = current_timestamp where cl.comment_id in (select comment_id from comment c where c.article_id = (:id)) and cl.deleted_at is null")
+    @Query(nativeQuery = true, value = "update comment_like cl set cl.deleted_at = current_timestamp where cl.comment_id in"
+        + " (select comment_id from comment c where c.article_id = (:id)) and cl.deleted_at is null")
     int deleteAllByArticle(@Param("id") Long id);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
-    @Query(nativeQuery = true, value = "update comment_like cl set cl.deleted_at = current_timestamp where cl.comment_id in (select comment_id from comment c where c.article_id in (select article_id from article a where a.board_id = (:id))) and cl.deleted_at is null")
+    @Query(nativeQuery = true, value = "update comment_like cl set cl.deleted_at = current_timestamp where cl.comment_id in"
+        + " (select comment_id from comment c where c.article_id in (select article_id from article a where a.board_id = (:id))) and cl.deleted_at is null")
     int deleteAllByBoard(@Param("id") Long id);
 }
