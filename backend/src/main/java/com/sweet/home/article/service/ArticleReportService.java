@@ -1,5 +1,6 @@
 package com.sweet.home.article.service;
 
+import com.sweet.home.article.controller.dto.response.ArticleReportDetailResponse;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.domain.ArticleReport;
 import com.sweet.home.article.domain.ArticleReportRepository;
@@ -8,6 +9,8 @@ import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.report.controller.dto.request.ReportSaveRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,14 +40,20 @@ public class ArticleReportService {
             .content(request.getType() + " " + request.getContent())
             .build();
         articleReportRepository.save(articleReport);
-
-        article.checkTotalReports();
     }
 
     private void checkNotReported(Member member, Article article) {
         if (articleReportRepository.existsByMemberAndArticle(member, article)) {
             throw new BusinessException(ErrorCode.ARTICLE_REPORT_ALREADY_EXISTS);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleReportDetailResponse> showReports(Long articleId) {
+        Article article = articleService.findById(articleId);
+        return articleReportRepository.findAllByArticleOrderByIdDesc(article).stream()
+            .map(ArticleReportDetailResponse::from)
+            .collect(Collectors.toList());
     }
 
     @Transactional
