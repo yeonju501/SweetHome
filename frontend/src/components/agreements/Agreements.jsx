@@ -45,7 +45,10 @@ function Agreements() {
 								<td>
 									<Link
 										to={`/agreement/${agreement.agreement_id}`}
-										state={{ id: agreement.agreement_id }}
+										state={{
+											id: agreement.agreement_id,
+											progress: agreementProgress(agreement.start_date, agreement.end_date),
+										}}
 									>
 										{agreement.title}{" "}
 									</Link>
