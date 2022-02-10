@@ -48,10 +48,10 @@ public class CommentDeleteService {
             return;
         }
         comment.saveDeletedTime();
-        cascadeDeleteComment(commentId);
         if (!comment.checkParentOrChild() && Objects.nonNull(comment.getParent().getIsRemoved()) && !comment.getParent().hasChildList()) {
             comment.getParent().saveDeletedTime();
         }
+        cascadeDeleteComment(commentId);
     }
 
     @Transactional
