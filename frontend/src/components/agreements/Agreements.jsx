@@ -32,7 +32,9 @@ function Agreements() {
 					{agreements ? (
 						agreements.map((agreement, idx) => (
 							<tr key={idx}>
-								<td>{agreement.title}</td>
+								<td>
+									<Link to={`/agreement/${agreement.id}`}>{agreement.title} </Link>
+								</td>
 								<td>
 									{agreement.start_date.slice(0, 10)} ~ {agreement.end_date.slice(0, 10)}
 								</td>
