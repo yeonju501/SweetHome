@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
+import msgStyle from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -48,7 +49,7 @@ function AdminMemberList() {
 					<th>신청자</th>
 					<th>동</th>
 					<th>호</th>
-					<th>메시지</th>
+					<th>연락처</th>
 					<th></th>
 				</tr>
 			</thead>
@@ -59,8 +60,9 @@ function AdminMemberList() {
 							<td>{aptMember.name}</td>
 							<td>{aptMember.dong}</td>
 							<td>{aptMember.ho}</td>
-							<td>{aptMember.message}</td>
+							<td>{aptMember.phone_number}</td>
 							<button
+								className={msgStyle.delete}
 								onClick={(e) => {
 									expelMember(aptMember.id);
 								}}
@@ -71,7 +73,7 @@ function AdminMemberList() {
 					))
 				) : (
 					<tr>
-						<td>신청자가 없습니다</td>
+						<td colSpan="5">회원이 없습니다</td>
 					</tr>
 				)}
 			</tbody>
