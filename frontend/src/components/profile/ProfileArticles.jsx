@@ -52,9 +52,11 @@ function ProfileArticles() {
 					)}
 				</tbody>
 			</table>
-			<footer>
-				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
-			</footer>
+			{articles.length > 0 && (
+				<footer>
+					<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
+				</footer>
+			)}
 		</>
 	);
 }
