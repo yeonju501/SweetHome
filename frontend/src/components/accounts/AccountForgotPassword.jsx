@@ -1,11 +1,13 @@
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import errorMessage from "../../store/errorMessage";
 import style from "../../style/SignIn.module.css";
 
 function AccountForgotPassword() {
 	const URL = process.env.REACT_APP_SERVER_URL;
+	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 
 	function onChange(e) {
@@ -14,13 +16,18 @@ function AccountForgotPassword() {
 
 	function onSubmit(e) {
 		e.preventDefault();
+		toast.info("요청을 보내는 중입니다");
 		axios({
 			url: `${URL}/api/members/find-pw`,
 			method: "post",
 			headers: { "Content-type": "application/json" },
 			data: email,
 		})
-			.then((res) => console.log(res))
+			.then(() => {
+				setEmail("");
+				navigate("/");
+				toast.success("이메일로 임시 비밀번호가 전송되었습니다");
+			})
 			.catch((err) => errorMessage(err.response.data.error_code));
 	}
 
