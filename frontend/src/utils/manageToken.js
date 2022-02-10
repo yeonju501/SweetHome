@@ -5,11 +5,12 @@ const cookies = new Cookies();
 const refresh_token = cookies.get("refreshToken");
 const access_token = cookies.get("accessToken");
 const JWT_EXPIRE_TIME = 1000 * 60 * 30;
+const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 export function tokenReissue(loginCallBack) {
 	if (refresh_token && access_token) {
 		axios({
-			url: "http://localhost:8080/api/members/reissue",
+			url: `${SERVER_URL}/api/members/reissue`,
 			method: "post",
 			withCredentials: true,
 			headers: {
