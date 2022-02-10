@@ -11,6 +11,7 @@ import Cookies from "universal-cookie";
 import { Link } from "react-router-dom";
 import { SET_TOGGLE } from "store/toggle";
 import style from "style/Navbar.module.css";
+import { persistor } from "index";
 
 function Navbar() {
 	const cookies = new Cookies();
@@ -22,6 +23,7 @@ function Navbar() {
 	const logOut = () => {
 		cookies.remove("accessToken");
 		cookies.remove("refreshToken");
+		persistor.purge();
 		window.location.replace("/");
 	};
 
