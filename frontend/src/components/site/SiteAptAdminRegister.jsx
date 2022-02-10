@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import msgStyle from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -31,6 +32,23 @@ function SiteAptAdminRegister() {
 			});
 	}, []);
 
+	const registerAptAdmin = (method, id) => {
+		console.log("콘솔", id);
+		axios({
+			method,
+			url: `${SERVER_URL}/api/superadmin/apts/apt-manager/`,
+			data: {
+				member_id: id,
+			},
+		})
+			.then((res) => {
+				console.log("관리자 성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<>
 			<h1>아파트관리자등록</h1>
@@ -53,6 +71,15 @@ function SiteAptAdminRegister() {
 								<td>{aptAdminMember.email}</td>
 								<td>{aptAdminMember.phone_number}</td>
 								<td>{aptAdminMember.message}</td>
+								<button
+									className={msgStyle.send}
+									onClick={(e) => {
+										registerAptAdmin("POST", aptAdminMember.member_id);
+									}}
+								>
+									승인
+								</button>
+								<button className={msgStyle.delete}>거절</button>
 							</tr>
 						))
 					) : (
