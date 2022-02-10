@@ -1,3 +1,4 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
 
@@ -8,6 +9,20 @@ function ProfileAptEnroll() {
 		apt_id: "",
 		message: "",
 	});
+
+	const onSubmit = (e) => {
+		console.log("Enroll Submit");
+		e.preventDefault();
+		axios({
+			method: "POST",
+			url: `${SERVER_URL}/api/apts/register`,
+			data: aptAdminEnroll,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => console.log(err));
+	};
 
 	const onChange = (e) => {
 		setAptAdminEnroll({ ...aptAdminEnroll, [e.target.id]: e.target.value });
