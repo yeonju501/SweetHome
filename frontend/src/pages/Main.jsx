@@ -27,9 +27,23 @@ function Main() {
 
 	return (
 		userInfo && (
-			<div>
-				<div>인기글</div>
-				<div>최신글</div>
+			<div className={style.main}>
+				<div>
+					<p>인기글</p>
+					<p>인기글</p>
+					<p>인기글</p>
+					<p>인기글</p>
+					<p>인기글</p>
+				</div>
+				<hr />
+				<div>
+					<p>최신글</p>
+					<p>최신글</p>
+					<p>최신글</p>
+					<p>최신글</p>
+					<p>최신글</p>
+				</div>
+				<hr />
 				<p>{userInfo.username}</p>
 				<p>회원등급 : {userInfo.authority}</p>
 				<Link to={"/agreements"}>동의서</Link>

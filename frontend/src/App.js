@@ -65,7 +65,7 @@ function App() {
 							<></>
 						)}
 						<main className={style.main}>
-							<Routes>
+							<Routes className={style}>
 								<Route path="/" element={<Home />} />
 								<Route path="/sign-in" element={<SignIn />} />
 								<Route path="/sign-up" element={<SignUp />} />
