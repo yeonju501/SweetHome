@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import msgStyle from "../../style/Messages.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -70,6 +71,7 @@ function AdminMemberRegister() {
 								<td>{aptMember.ho}</td>
 								<td>{aptMember.message}</td>
 								<button
+									className={msgStyle.send}
 									onClick={(e) => {
 										registerMember("POST", aptMember.id);
 									}}
@@ -77,6 +79,7 @@ function AdminMemberRegister() {
 									승인
 								</button>
 								<button
+									className={msgStyle.delete}
 									onClick={(e) => {
 										registerMember("DELETE", aptMember.id);
 									}}
@@ -87,7 +90,7 @@ function AdminMemberRegister() {
 						))
 					) : (
 						<tr>
-							<td>신청자가 없습니다</td>
+							<td colSpan="6">신청자가 없습니다</td>
 						</tr>
 					)}
 				</tbody>
