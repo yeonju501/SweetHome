@@ -80,7 +80,10 @@ function Board() {
 					<ul>
 						{articles.map((article, idx) => (
 							<li className={style.article} key={idx}>
-								<Link to={`/articles/${article.id}`} state={{ id: article.id }}>
+								<Link
+									to={`/articles/${article.id}`}
+									state={{ articleId: article.id, board: board }}
+								>
 									<p>{article.username}</p>
 									<p>{article.created_at}</p>
 									<h3>{article.title}</h3>
