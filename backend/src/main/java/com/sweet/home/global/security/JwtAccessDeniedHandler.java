@@ -1,5 +1,8 @@
 package com.sweet.home.global.security;
 
+import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.global.exception.ErrorResponse;
+import com.sweet.home.global.exception.JwtException;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,5 +22,6 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN);
 
         // TODO : ErrorResponse 필드값을 정의한 후 Json 반환
+        response.getWriter().write(ErrorResponse.toJson(ErrorCode.AUTHORITY_ACCESS_DENIED));
     }
 }
