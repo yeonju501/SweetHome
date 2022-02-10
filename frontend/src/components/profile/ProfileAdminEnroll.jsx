@@ -15,7 +15,7 @@ function ProfileAdminEnroll() {
 		e.preventDefault();
 		axios({
 			method: "POST",
-			url: `${SERVER_URL}/api/apts/register`,
+			url: `${SERVER_URL}/api/apts/apt-manager`,
 			data: aptAdminEnroll,
 		})
 			.then((res) => {
