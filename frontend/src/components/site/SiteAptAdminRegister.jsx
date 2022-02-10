@@ -22,9 +22,9 @@ function SiteAptAdminRegister() {
 			url: `${SERVER_URL}/api/superadmin/apts/apt-manager`,
 		})
 			.then((res) => {
-				console.log(res.data);
-				setaptAdminRegister(res.data.register_members);
-				console.log(aptAdminRegister);
+				console.log("여기", res.data.register_managers);
+				setaptAdminRegister(res.data.register_managers);
+				console.log("저장", aptAdminRegister);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -33,7 +33,35 @@ function SiteAptAdminRegister() {
 
 	return (
 		<>
-			<h1>사이트어드민등록</h1>
+			<h1>아파트관리자등록</h1>
+			<table>
+				<thead>
+					<tr>
+						<th>신청자</th>
+						<th>이메일</th>
+						<th>연락처</th>
+						<th>메시지</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					{aptAdminRegister.length > 0 ? (
+						aptAdminRegister.map((aptAdminMember, idx) => (
+							<tr key={idx}>
+								<td>{aptAdminMember.name}</td>
+								<td>{aptAdminMember.email}</td>
+								<td>{aptAdminMember.phone_number}</td>
+								<td>{aptAdminMember.message}</td>
+							</tr>
+						))
+					) : (
+						<tr>
+							<td colSpan="6">신청자가 없습니다</td>
+						</tr>
+					)}
+				</tbody>
+			</table>
 		</>
 	);
 }
