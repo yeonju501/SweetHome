@@ -9,6 +9,7 @@ function AgreementDetail() {
 	const navigate = useNavigate();
 	const username = useSelector((state) => state.userInfo.username);
 	const agreementId = location.state.id;
+	const progress = location.state.progress;
 	const [agreement, setAgreement] = useState("");
 	const [agreementStatus, setAgreementStatus] = useState("");
 	const today = new Date();
@@ -41,6 +42,16 @@ function AgreementDetail() {
 		e.target.value === "agree" ? setAgreementStatus(true) : setAgreementStatus(false);
 	};
 
+	const isInProgress = () => {
+		if (progress === "진행중") {
+			return "진행중";
+		} else if (progress === "만료") {
+			return "만료된 동의서입니다";
+		} else {
+			return "진행 대기 중인 동의서입니다";
+		}
+	};
+
 	return (
 		<div>
 			{agreement && (
@@ -56,31 +67,35 @@ function AgreementDetail() {
 								{today.getFullYear()}년 {today.getMonth() + 1}월 {today.getDate()}일
 							</p>
 						)}
-						<form onSubmit={handleFormSubmit}>
-							{agreement.my_agreed === null ? (
-								<div>
-									<input
-										type="radio"
-										id="agree"
-										name="status"
-										value="agree"
-										onChange={handleInputChange}
-									/>
-									<label htmlFor="agree">동의</label>
-									<input
-										type="radio"
-										id="disagree"
-										name="status"
-										value="disagree"
-										onChange={handleInputChange}
-									/>
-									<label htmlFor="disagree">반대</label>
-									<button>제출</button>
-								</div>
+						{isInProgress() === "진행중" ? (
+							agreement.my_agreed === null ? (
+								<form onSubmit={handleFormSubmit}>
+									<div>
+										<input
+											type="radio"
+											id="agree"
+											name="status"
+											value="agree"
+											onChange={handleInputChange}
+										/>
+										<label htmlFor="agree">동의</label>
+										<input
+											type="radio"
+											id="disagree"
+											name="status"
+											value="disagree"
+											onChange={handleInputChange}
+										/>
+										<label htmlFor="disagree">반대</label>
+										<button>제출</button>
+									</div>
+								</form>
 							) : (
 								<p>이미 제출한 동의서입니다</p>
-							)}
-						</form>
+							)
+						) : (
+							<p>{isInProgress()}</p>
+						)}
 					</article>
 				</div>
 			)}
