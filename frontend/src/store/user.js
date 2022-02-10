@@ -8,6 +8,7 @@ const initialState = {
 	username: "",
 	email: "",
 	phone_number: "",
+	authority: "",
 };
 
 const userInfo = (state = initialState, action) => {
@@ -18,6 +19,7 @@ const userInfo = (state = initialState, action) => {
 				username: action.data.username,
 				email: action.data.email,
 				phone_number: action.data.phone_number,
+				authority: action.data.authority,
 			};
 		case DELETE:
 			return {
@@ -25,6 +27,7 @@ const userInfo = (state = initialState, action) => {
 				username: "",
 				email: "",
 				phone_number: "",
+				authority: "",
 			};
 		default:
 			return state;
