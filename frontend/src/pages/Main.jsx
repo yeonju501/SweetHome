@@ -7,6 +7,7 @@ import { SET_USER } from "../store/user";
 import style from "../style/Main.module.css";
 import { SET_POSITION } from "../store/toggle";
 import AgreementCreate from "../components/agreements/AgreementCreate";
+import SiteAdmin from "../components/site/SiteAdmin";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -29,6 +30,7 @@ function Main() {
 	return (
 		userInfo && (
 			<div>
+				<SiteAdmin />
 				<CreateBoard />
 				<div>최신글</div>
 				<p>{userInfo.username}</p>
