@@ -20,6 +20,7 @@ function Main() {
 		}).then((res) => {
 			setUserInfo(res.data);
 			dispatch(SET_USER(res.data));
+			console.log(res.data.authority);
 		});
 		dispatch(SET_POSITION(toggle, "main"));
 	}, []);
@@ -30,6 +31,7 @@ function Main() {
 				<div>인기글</div>
 				<div>최신글</div>
 				<p>{userInfo.username}</p>
+				<p>회원등급 : {userInfo.authority}</p>
 				<Link to={"/agreements"}>동의서</Link>
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
