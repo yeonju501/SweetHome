@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 function Agreements() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [agreements, setAgreements] = useState("");
-	console.log(agreements);
 
 	useEffect(() => {
 		axios({
@@ -33,7 +32,12 @@ function Agreements() {
 						agreements.map((agreement, idx) => (
 							<tr key={idx}>
 								<td>
-									<Link to={`/agreement/${agreement.id}`}>{agreement.title} </Link>
+									<Link
+										to={`/agreement/${agreement.agreement_id}`}
+										state={{ id: agreement.agreement_id }}
+									>
+										{agreement.title}{" "}
+									</Link>
 								</td>
 								<td>
 									{agreement.start_date.slice(0, 10)} ~ {agreement.end_date.slice(0, 10)}
