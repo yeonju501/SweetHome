@@ -119,11 +119,15 @@ html {
 	flex-direction: column;
 }
 
+.password_div {
+	position: relative;
+}
+
 .icon {
 	font-size: 1.5rem;
 	position: absolute;
+	right: 1rem;
 	top: 1rem;
-	right: 0.7rem;
 }
 
 .hidden {
