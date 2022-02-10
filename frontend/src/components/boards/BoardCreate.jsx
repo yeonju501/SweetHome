@@ -33,7 +33,7 @@ function CreateBoard() {
 
 	return (
 		<div>
-			<form>
+			<form onSubmit={handleFormSubmit}>
 				<h1>게시판 생성</h1>
 				<input
 					type="text"
@@ -49,7 +49,7 @@ function CreateBoard() {
 					onChange={handleInputChange}
 					placeholder="게시판 소개글을 입력하세요"
 				/>
-				<button onClick={handleFormSubmit}>등록</button>
+				<button>등록</button>
 				<button>취소</button>
 			</form>
 		</div>
