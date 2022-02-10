@@ -1,6 +1,6 @@
 const SET = "user/setUserInfo";
 
-export const SET_TARGET = (data) => ({ type: SET, data });
+export const SET_REPORT = (data) => ({ type: SET, data });
 
 const initialState = {
 	username: "",
