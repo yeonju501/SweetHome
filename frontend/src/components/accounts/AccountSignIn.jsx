@@ -42,7 +42,7 @@ function SignIn() {
 				</form>
 
 				<AccountKakaoButton />
-				<Link className={style.Link} to="/">
+				<Link className={style.Link} to="/forgot-password">
 					비밀번호를 잊으셨나요?
 				</Link>
 				<Link className={style.Link} to="/sign-up">
