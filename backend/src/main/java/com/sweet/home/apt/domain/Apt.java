@@ -17,40 +17,44 @@ public class Apt {
     @Column(name = "apt_id")
     private Long id;
 
-    @Column(name = "adm_code")
-    private Integer admCode;
+    @Column(name = "sido_name")
+    private String sidoName;
 
-    @Column(name = "sido")
-    private String sido;
+    @Column(name = "gungu_name")
+    private String gunguName;
 
-    @Column(name = "road_name")
+    @Column(name = "dong_name")
+    private String dongName;
+
+    @Column(name = "road_Name")
     private String roadName;
 
-    @Column(name = "road_code")
-    private Integer roadCode;
+    @Column(name = "road_apt_num")
+    private Integer roadAptNum;
 
-    @Column(name = "apt_main_num")
-    private Integer aptMainNum;
+    @Column(name = "apt_number")
+    private String aptNumber;
 
-    @Column(name = "apt_sub_num")
-    private Integer aptSubNum;
+    @Column(name = "zip_code")
+    private String zipCode;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "apt_name")
+    private String aptName;
 
     public Apt() {
     }
 
     @Builder
-    public Apt(Long id, Integer admCode, String sido, String roadName, Integer roadCode, Integer aptMainNum,
-        Integer aptSubNum, String name) {
+    public Apt(Long id, String sidoName, String gunguName, String dongName, String roadName, Integer roadAptNum,
+        String aptNumber, String zipCode, String aptName) {
         this.id = id;
-        this.admCode = admCode;
-        this.sido = sido;
+        this.sidoName = sidoName;
+        this.gunguName = gunguName;
+        this.dongName = dongName;
         this.roadName = roadName;
-        this.roadCode = roadCode;
-        this.aptMainNum = aptMainNum;
-        this.aptSubNum = aptSubNum;
-        this.name = name;
+        this.roadAptNum = roadAptNum;
+        this.aptNumber = aptNumber;
+        this.zipCode = zipCode;
+        this.aptName = aptName;
     }
 }

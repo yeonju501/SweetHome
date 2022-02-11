@@ -31,7 +31,7 @@ public class MyRegisterAptManagerResponse {
     public static MyRegisterAptManagerResponse from(RegisterAptManager registerAptManager) {
         return new MyRegisterAptManagerResponse(
             registerAptManager.getApt().getId(),
-            registerAptManager.getApt().getName(),
+            registerAptManager.getApt().getAptName(),
             registerAptManager.getMessage(),
             registerAptManager.getCreatedAt()
         );

@@ -40,7 +40,7 @@ public class MyRegisterAptHouseResponse {
     public static MyRegisterAptHouseResponse from(RegisterAptHouse registerAptHouse){
         return new MyRegisterAptHouseResponse(
             registerAptHouse.getApt().getId(),
-            registerAptHouse.getApt().getName(),
+            registerAptHouse.getApt().getAptName(),
             registerAptHouse.getDong(),
             registerAptHouse.getHo(),
             registerAptHouse.getMessage(),
