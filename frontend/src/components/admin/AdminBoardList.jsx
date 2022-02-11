@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import AdminBoardUpdate from "./AdminBoardUpdate";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -11,6 +12,8 @@ function AdminBoardList() {
 		name: "",
 		description: "",
 	});
+	const [modalOpen, setModalOpen] = useState(false);
+
 	useEffect(() => {
 		axios({
 			method: "GET",
