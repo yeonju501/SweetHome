@@ -4,7 +4,7 @@ import {
 	faUser,
 	faEnvelope,
 	faBars,
-	faHome,
+	faHammer,
 	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
@@ -73,7 +73,11 @@ function Navbar() {
 							icon={faPlus}
 						/>
 						{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
-
+						{user.authority === "아파트관리자" || user.authority === "어드민" ? (
+							<Link to="/admin">
+								<FontAwesomeIcon className={style.icon} icon={faHammer} />
+							</Link>
+						) : null}
 						<Link to="/message-box/">
 							<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
 						</Link>

@@ -72,7 +72,7 @@ function AdminBoardList() {
 					))
 				) : (
 					<tr>
-						<td colSpan="5">회원이 없습니다</td>
+						<td colSpan="4">신청 게시판이 없습니다</td>
 					</tr>
 				)}
 			</tbody>
