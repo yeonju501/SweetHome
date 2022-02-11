@@ -104,14 +104,14 @@ function App() {
 										path="/read-send-message/message-detail/send-message"
 										element={<SendMessage />}
 									/>
+									<Route path="/request/apt-member" element={<AptMemberRequest />} />
+									<Route path="/request/apt-admin" element={<AptAdminRequest />} />
 								</Route>
 								<Route path="/admin" element={<Admin />} />
 								<Route path="/site" element={<SiteAdmin />} />
 								<Route path="member-manage" element={<AdminMemberManage />} />
 								<Route path="board-request-list" element={<AdminBoardList />} />
 								<Route path="/*" element={<NotFound />} />
-								<Route path="/request/apt-member" element={<AptMemberRequest />} />
-								<Route path="/request/apt-admin" element={<AptAdminRequest />} />
 							</Routes>
 						</main>
 					</div>
