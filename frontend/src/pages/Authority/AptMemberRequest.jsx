@@ -42,7 +42,61 @@ function AptMemberRequest() {
 		findAddress();
 	};
 
-	return <div>AptMemberRequest</div>;
+	return (
+		<div className={style.apt_member}>
+			<h1>아파트 세대원 인증</h1>
+			<form onSubmit={onSubmit}>
+				<div className={style.apt_member_form_div}>
+					<aside>
+						<label>주소 입력하기</label>
+					</aside>
+					<input
+						type="text"
+						readOnly
+						placeholder="우편번호"
+						className={style.postal_code}
+						value={postalCode}
+					/>
+					<button type="button" onClick={findAddress}>
+						주소 찾기
+					</button>
+					<br />
+					<input type="text" readOnly placeholder="주소" value={address} />
+					<br />
+					<input
+						type="text"
+						placeholder="동"
+						id="building"
+						className={style.building}
+						value={building}
+						onChange={onChange}
+						required
+					/>
+					<input
+						type="text"
+						placeholder="호수"
+						id="unit"
+						className={style.unit}
+						value={unit}
+						onChange={onChange}
+						required
+					/>
+				</div>
+				<div>
+					<aside>
+						<label>기타</label>
+					</aside>
+					<textarea cols="30" rows="10" onChange={changeMessage}></textarea>
+				</div>
+				<button className={style.btn_submit}>제출하기</button>
+			</form>
+			<div>
+				<div>
+					{isModal ? <DaumPostcode className={style.showModal} onComplete={onComplete} /> : null}
+				</div>
+			</div>
+		</div>
+	);
 }
 
 export default AptMemberRequest;
