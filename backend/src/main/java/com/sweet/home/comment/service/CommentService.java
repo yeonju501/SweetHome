@@ -67,7 +67,7 @@ public class CommentService {
     @Transactional(readOnly = true)
     public CommentsResponse showCommentsByArticle(Long articleId, Pageable pageable) {
         Article article = articleService.findById(articleId);
-        Page<Comment> comments = commentRepository.findAllByParentIsNullAndArticleAndBlockedAtIsNull(article, pageable);
+        Page<Comment> comments = commentRepository.findAllByParentIsNullAndBlockedAtIsNullAndArticle(article, pageable);
         return CommentsResponse.from(comments);
     }
 
