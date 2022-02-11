@@ -9,6 +9,9 @@ public class MyRegisterAptHouseResponse {
     @JsonProperty("apt_id")
     private Long apiId;
 
+    @JsonProperty("road_name")
+    private String roadName;
+
     @JsonProperty("apt_name")
     private String aptName;
 
@@ -27,9 +30,10 @@ public class MyRegisterAptHouseResponse {
     public MyRegisterAptHouseResponse() {
     }
 
-    public MyRegisterAptHouseResponse(Long apiId, String aptName, String dong, String ho, String message,
+    public MyRegisterAptHouseResponse(Long apiId, String roadName, String aptName, String dong, String ho, String message,
         LocalDateTime createdAt) {
         this.apiId = apiId;
+        this.roadName = roadName;
         this.aptName = aptName;
         this.dong = dong;
         this.ho = ho;
@@ -40,6 +44,7 @@ public class MyRegisterAptHouseResponse {
     public static MyRegisterAptHouseResponse from(RegisterAptHouse registerAptHouse){
         return new MyRegisterAptHouseResponse(
             registerAptHouse.getApt().getId(),
+            registerAptHouse.getApt().getRoadName(),
             registerAptHouse.getApt().getAptName(),
             registerAptHouse.getDong(),
             registerAptHouse.getHo(),
