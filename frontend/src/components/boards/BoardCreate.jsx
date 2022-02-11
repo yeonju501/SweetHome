@@ -1,11 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
-
+import ReactModal from "react-modal";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function CreateBoard() {
+function CreateBoard(props) {
 	const [boardInfo, setBoardInfo] = useState({ name: "", description: "" });
-
+	const { isOpen, onCancel } = props;
 	const { name, description } = boardInfo;
 
 	const handleInputChange = (e) => {
@@ -29,10 +29,11 @@ function CreateBoard() {
 		} else {
 			alert("게시판명과 소개글을 모두 입력해주세요!");
 		}
+		onCancel();
 	};
 
 	return (
-		<div>
+		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
 			<form onSubmit={handleFormSubmit}>
 				<h1>게시판 생성</h1>
 				<input
@@ -50,9 +51,9 @@ function CreateBoard() {
 					placeholder="게시판 소개글을 입력하세요"
 				/>
 				<button>등록</button>
-				<button>취소</button>
+				<button onClick={() => onCancel()}>취소</button>
 			</form>
-		</div>
+		</ReactModal>
 	);
 }
 

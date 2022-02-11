@@ -8,9 +8,11 @@ import { createStore } from "redux";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 import "./interceptors/tokenRequest";
+import ReactModal from "react-modal";
 
 const store = createStore(persistReducer);
 export const persistor = persistStore(store);
+ReactModal.setAppElement("#root");
 
 ReactDOM.render(
 	<React.StrictMode>
