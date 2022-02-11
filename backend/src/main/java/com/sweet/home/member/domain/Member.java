@@ -121,4 +121,22 @@ public class Member extends BaseEntity {
             throw new BusinessException(ErrorCode.APT_NOT_HIS_APT);
         }
     }
+
+    public void checkRegularMember() {
+        if (!this.getAuthority().equals(Authority.ROLE_REGULAR_MEMBER)) {
+            throw new BusinessException(ErrorCode.MEMBER_IS_NOT_REGULAR_MEMBER);
+        }
+    }
+
+    public void checkManagerMember() {
+        if (!this.getAuthority().equals(Authority.ROLE_REGULAR_MEMBER)) {
+            throw new BusinessException(ErrorCode.MEMBER_IS_NOT_REGULAR_MEMBER);
+        }
+    }
+
+    public void checkAdminMember() {
+        if (!this.getAuthority().equals(Authority.ROLE_REGULAR_MEMBER)) {
+            throw new BusinessException(ErrorCode.MEMBER_IS_NOT_REGULAR_MEMBER);
+        }
+    }
 }
