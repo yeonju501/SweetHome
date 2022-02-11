@@ -23,6 +23,10 @@ function ArticleDetailButtons({ article, articleId }) {
 		}
 	};
 
+	const handleMessageButtonClick = () => {
+		window.open("/send-message", "send-message", "width=430, height=500,location=no,status=no");
+	};
+
 	const reportArticle = async () => {
 		await dispatch(
 			SET_REPORT({
@@ -51,7 +55,7 @@ function ArticleDetailButtons({ article, articleId }) {
 				</div>
 			) : (
 				<div>
-					<button>쪽지</button>
+					<button onClick={handleMessageButtonClick}>쪽지</button>
 					<button onClick={reportArticle}>신고</button>
 				</div>
 			)}
