@@ -3,15 +3,21 @@
 .side {
 	float: left;
 	height: 100vh;
+	margin-right: 1.2rem;
 }
 
 .main {
 	display: flex;
-	justify-content: center;
+	justify-content: start;
 	height: 95vh;
 }
 
 a {
 	text-decoration: none;
 	color: black;
+}
+
+.div {
+	display: flex;
+	justify-content: center;
 }
