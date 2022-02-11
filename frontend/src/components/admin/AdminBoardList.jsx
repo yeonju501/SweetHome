@@ -48,8 +48,16 @@ function AdminBoardList() {
 						<tr key={idx}>
 							<td>{board.name}</td>
 							<td>{board.description}</td>
-							{modalOpen && <AdminBoardUpdate isOpen={modalOpen} onCancel={handleModal} />}
-							<button>수정</button>
+							{modalOpen && (
+								<AdminBoardUpdate
+									isOpen={modalOpen}
+									onCancel={handleModal}
+									id={board.id}
+									name={board.name}
+									description={board.description}
+								/>
+							)}
+							<button onClick={() => setModalOpen(true)}>수정</button>
 							<button>삭제</button>
 						</tr>
 					))
