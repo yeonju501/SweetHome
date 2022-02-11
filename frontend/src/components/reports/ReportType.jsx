@@ -34,8 +34,9 @@ function ReportType({ id }) {
 			method: "post",
 			data: types,
 		}).then(() => {
-			setType({ type: "", content: "" });
-			alert("성공");
+			// setType({ type: "", content: "" });
+			// alert("성공");
+			setReportCompleted(true);
 		});
 	};
 
@@ -44,7 +45,12 @@ function ReportType({ id }) {
 	};
 
 	return (
-		types && (
+		types &&
+		(reportCompleted ? (
+			<div>
+				<p>신고 접수가 처리되었습니다</p>
+			</div>
+		) : (
 			<main className={style.report_main}>
 				<p>
 					<span>사유선택 : </span>
@@ -79,7 +85,7 @@ function ReportType({ id }) {
 					</div>
 				</form>
 			</main>
-		)
+		))
 	);
 }
 
