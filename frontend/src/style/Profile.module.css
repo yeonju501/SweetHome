@@ -73,3 +73,51 @@ button {
 	cursor: pointer;
 	font-weight: 700;
 }
+
+/* Profile User Info */
+
+.profile_user_info_div {
+	display: flex;
+	align-items: center;
+	margin-top: 2rem;
+}
+
+.profile_user_info_div label {
+	font-weight: 800;
+	margin-right: 2rem;
+}
+
+.profile_user_info_div aside {
+	width: 10rem;
+	text-align: right;
+}
+
+.profile_user_info_div input {
+	border: 1px solid darkgray;
+	border-radius: 4px;
+	margin: 0;
+	padding: 0.3rem;
+	padding-left: 1rem;
+}
+
+.profile_user_info_div input:focus {
+	outline: none;
+}
+
+.profile_btn {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	margin-top: 5rem;
+	justify-content: center;
+}
+
+.profile_btn button:last-child {
+	margin-left: 2rem;
+	background: transparent;
+}
+
+.profile_btn button:first-child:disabled {
+	opacity: 0.3;
+	cursor: default;
+}
