@@ -29,7 +29,7 @@ function Main() {
 	return (
 		userInfo &&
 		(userInfo.authority === "준회원" ? (
-			<AssoMemberpage />
+			<AssoMemberpage user={userInfo} />
 		) : (
 			<div className={style.main}>
 				<div>
