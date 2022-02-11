@@ -7,11 +7,40 @@ function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [boards, setBoards] = useState([]);
 	const [favorites, setFavorites] = useState("");
+	// const [isStarred, setIsStarred] = useState(false);
 
 	useEffect(() => {
 		getBoards();
 		getFavorites();
 	}, []);
+
+	// const boardStarred = (boardId) => {
+	// 	getStarred(boardId).then((value) => {
+	// 		return value;
+	// 	});
+	// };
+
+	const getStarred = async (boardId) => {
+		const response = await axios({
+			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+			method: "get",
+		});
+		return response.data.is_liked;
+	};
+
+	const handleStarClick = (boardId) => {
+		getStarred(boardId).then((value) => {
+			const method = value ? "delete" : "post";
+			axios({
+				url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+				method: method,
+			})
+				.then(() => {
+					getFavorites();
+				})
+				.catch((err) => console.log(err.response));
+		});
+	};
 
 	const getBoards = () => {
 		axios({
@@ -50,17 +79,27 @@ function SidebarBoards() {
 			</ul>
 			<hr />
 			<ul className={style.sidebar_list}>
-				{boards.map((board) => (
-					<li className={style.sidebar_back} key={board.id}>
-						<Link
-							className={style.sidebar_link}
-							to={`/boards/${board.id}`}
-							state={{ board: board }}
-						>
-							{board.name}
-						</Link>
-					</li>
-				))}
+				{boards &&
+					boards.map((board) => (
+						<div key={board.id}>
+							<li className={style.sidebar_back}>
+								<Link
+									className={style.sidebar_link}
+									to={`/boards/${board.id}`}
+									state={{ board: board }}
+								>
+									{board.name}
+								</Link>
+							</li>
+							<button
+								onClick={() => {
+									handleStarClick(board.id);
+								}}
+							>
+								⭐
+							</button>
+						</div>
+					))}
 			</ul>
 		</div>
 	);
