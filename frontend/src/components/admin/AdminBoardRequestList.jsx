@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function AdminBoardList() {
+function AdminBoardRequestList() {
 	const [boardRequestList, setBoardRequestList] = useState({
 		id: "",
 		name: "",
@@ -80,4 +80,4 @@ function AdminBoardList() {
 	);
 }
 
-export default AdminBoardList;
+export default AdminBoardRequestList;
