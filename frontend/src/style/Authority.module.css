@@ -31,3 +31,61 @@
 .Links {
 	display: flex;
 }
+
+/* AptMemberRequest */
+.apt_member {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.apt_member_form_div aside {
+	font-size: 2rem;
+	margin: 2rem 0;
+}
+.apt_member_form_div input {
+	padding: 0.5rem;
+}
+
+.apt_member_form_div input:focus {
+	outline: none;
+}
+
+.postal_code {
+	width: 10rem;
+	margin-right: 2rem;
+}
+
+.building {
+	margin-right: 2rem;
+}
+
+.building,
+.unit {
+	width: 10rem;
+}
+
+.hidden {
+	display: none;
+}
+
+.showModal {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 100;
+	border: 1px solid #000;
+	overflow: hidden;
+}
+
+.hiddenModal {
+	display: none;
+}
+
+.btn_submit {
+	margin: 0 auto;
+	margin-top: 5rem;
+}
