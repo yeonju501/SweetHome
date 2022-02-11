@@ -33,7 +33,7 @@ function CreateBoard(props) {
 	};
 
 	return (
-		<ReactModal isOpen={isOpen}>
+		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
 			<form onSubmit={handleFormSubmit}>
 				<h1>게시판 생성</h1>
 				<input
