@@ -2,8 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import style from "style/Authority.module.css";
-import { toast } from "react-toastify";
 import errorMessage from "store/errorMessage";
+import { toast } from "react-toastify";
 
 function AptAdminRequest() {
 	const [addresses, setAddress] = useState({
@@ -13,18 +13,13 @@ function AptAdminRequest() {
 	});
 
 	const [isModal, setIsModal] = useState(false);
-	const { address, building, unit, buildingCode, postalCode } = addresses;
+	const { address, buildingCode, postalCode } = addresses;
 	const [message, setMessage] = useState("");
 	const URL = process.env.REACT_APP_SERVER_URL;
-
-	const onChange = (e) => {
-		setAddress((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-	};
 
 	const changeMessage = (e) => {
 		setMessage(e.target.value);
 	};
-	const checkNum = /[0-9]/;
 
 	const findAddress = () => {
 		setIsModal((prev) => !prev);
@@ -48,17 +43,21 @@ function AptAdminRequest() {
 			message,
 		};
 		e.preventDefault();
-		window.confirm("한번 제출하면 수정 할 수 없습니다. 제출하시겠습니까?") &&
-			axios({
-				url: `${URL}/api/apts/register`,
-				method: "post",
-				headers: {
-					"Content-type": "application/json;charset=UTF-8",
-				},
-				data,
-			})
-				.then((res) => console.log(res))
-				.catch((err) => errorMessage(err.response.data.error_code));
+		if (address) {
+			window.confirm("한번 제출하면 수정 할 수 없습니다. 제출하시겠습니까?") &&
+				axios({
+					url: `${URL}/api/apts/register`,
+					method: "post",
+					headers: {
+						"Content-type": "application/json;charset=UTF-8",
+					},
+					data,
+				})
+					.then((res) => console.log(res))
+					.catch((err) => errorMessage(err.response.data.error_code));
+		} else {
+			toast.error("주소를 입력해주세요");
+		}
 	};
 
 	return (
