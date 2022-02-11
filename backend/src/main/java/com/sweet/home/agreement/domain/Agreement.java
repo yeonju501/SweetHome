@@ -55,7 +55,7 @@ public class Agreement extends BaseEntity {
     private Long totalDisagreed;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("select count(1) from apt_house ah where ah.apt_id = apt_id")
+    @Formula("select count(1) from apt_house ah where ah.apt_id = apt_id and ah.dong is not null")
     private Long totalAptHouse;
 
     protected Agreement() {
