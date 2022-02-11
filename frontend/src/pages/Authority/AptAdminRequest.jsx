@@ -2,7 +2,6 @@ import axios from "axios";
 import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import style from "style/Authority.module.css";
-import { toast } from "react-toastify";
 import errorMessage from "store/errorMessage";
 
 function AptAdminRequest() {
@@ -13,18 +12,13 @@ function AptAdminRequest() {
 	});
 
 	const [isModal, setIsModal] = useState(false);
-	const { address, building, unit, buildingCode, postalCode } = addresses;
+	const { address, buildingCode, postalCode } = addresses;
 	const [message, setMessage] = useState("");
 	const URL = process.env.REACT_APP_SERVER_URL;
-
-	const onChange = (e) => {
-		setAddress((prev) => ({ ...prev, [e.target.id]: e.target.value }));
-	};
 
 	const changeMessage = (e) => {
 		setMessage(e.target.value);
 	};
-	const checkNum = /[0-9]/;
 
 	const findAddress = () => {
 		setIsModal((prev) => !prev);
