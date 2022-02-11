@@ -1,6 +1,7 @@
 package com.sweet.home.comment.domain;
 
 import com.sweet.home.member.domain.Member;
+import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -9,6 +10,8 @@ import org.springframework.data.repository.query.Param;
 public interface CommentReportRepository extends JpaRepository<CommentReport, Long> {
 
     boolean existsByMemberAndComment(Member member, Comment comment);
+
+    List<CommentReport> findAllByCommentOrderByIdDesc(Comment comment);
 
     @Modifying(flushAutomatically = true, clearAutomatically = true)
     @Query(nativeQuery = true, value = "update comment_report cr set cr.deleted_at = current_timestamp where cr.comment_id = (:id) "

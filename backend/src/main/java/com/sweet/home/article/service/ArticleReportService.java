@@ -50,7 +50,7 @@ public class ArticleReportService {
 
     @Transactional(readOnly = true)
     public List<ArticleReportDetailResponse> showReports(Long articleId) {
-        Article article = articleService.findById(articleId);
+        Article article = articleService.findBlockedArticleById(articleId);
         return articleReportRepository.findAllByArticleOrderByIdDesc(article).stream()
             .map(ArticleReportDetailResponse::from)
             .collect(Collectors.toList());
