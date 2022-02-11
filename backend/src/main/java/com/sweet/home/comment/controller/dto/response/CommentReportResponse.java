@@ -14,6 +14,9 @@ public class CommentReportResponse {
     @JsonProperty("id")
     private Long id;
 
+    @JsonProperty("content")
+    private String content;
+
     @JsonProperty("username")
     private String username;
 
@@ -24,9 +27,10 @@ public class CommentReportResponse {
 
     }
 
-    public CommentReportResponse(int totalReports, Long id, String username, LocalDateTime createdAt) {
+    public CommentReportResponse(int totalReports, Long id, String content, String username, LocalDateTime createdAt) {
         this.totalReports = totalReports;
         this.id = id;
+        this.content = content;
         this.username = username;
         this.createdAt = createdAt;
     }
@@ -35,6 +39,7 @@ public class CommentReportResponse {
         return new CommentReportResponse(
             comment.getTotalReports(),
             comment.getId(),
+            comment.getContent(),
             comment.getMember().getUsername(),
             comment.getCreatedAt()
         );
