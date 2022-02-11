@@ -1,8 +1,14 @@
 import React from "react";
+import { useState } from "react";
 import ReactModal from "react-modal";
 
 function AdminBoardUpdate(props) {
+	const [boardUpdate, setBoardUpdate] = useState({
+		name: "",
+		description: "",
+	});
 	const { isOpen, onCancel, id, name, description } = props;
+
 	return (
 		<ReactModal isOpen={isOpen}>
 			<form>
