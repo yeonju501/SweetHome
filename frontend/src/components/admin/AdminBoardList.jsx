@@ -27,6 +27,11 @@ function AdminBoardList() {
 				console.log(err);
 			});
 	}, []);
+
+	const handleModal = () => {
+		setModalOpen(false);
+	};
+
 	return (
 		<table>
 			<thead>
@@ -43,6 +48,7 @@ function AdminBoardList() {
 						<tr key={idx}>
 							<td>{board.name}</td>
 							<td>{board.description}</td>
+							{modalOpen && <AdminBoardUpdate isOpen={modalOpen} onCancel={handleModal} />}
 							<button>수정</button>
 							<button>삭제</button>
 						</tr>
