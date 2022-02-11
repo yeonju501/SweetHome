@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { SET_TOGGLE } from "store/toggle";
 import style from "style/Navbar.module.css";
 import { persistor } from "index";
+import { useState } from "react";
 
 function Navbar() {
 	const cookies = new Cookies();
@@ -20,6 +21,7 @@ function Navbar() {
 	const user = useSelector((state) => state.userInfo);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const position = useSelector((state) => state.toggle.position);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	const logOut = () => {
 		cookies.remove("accessToken");
@@ -44,7 +46,11 @@ function Navbar() {
 						</Link>
 					</div>
 					<div className={style.icon_container}>
-						<FontAwesomeIcon className={style.icon} icon={faPlus} />
+						<FontAwesomeIcon
+							onClick={() => setModalOpen(true)}
+							className={style.icon}
+							icon={faPlus}
+						/>
 
 						<Link to="/message-box/">
 							<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
