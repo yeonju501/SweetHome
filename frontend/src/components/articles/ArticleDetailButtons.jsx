@@ -1,13 +1,16 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { SET_REPORT } from "store/report";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import style from "style/articles/ArticleDetailButtons.module.css";
+import ArticleCreateForm from "./ArticleCreateForm";
 
 function ArticleDetailButtons({ article, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const usermail = useSelector((state) => state.userInfo.email);
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const handleDeleteButtonClick = async () => {
 		if (window.confirm("글을 삭제 하시겠습니까?")) {
@@ -18,6 +21,16 @@ function ArticleDetailButtons({ article, articleId }) {
 				navigate(-1);
 			});
 		}
+	};
+
+	const reportArticle = async () => {
+		await dispatch(
+			SET_REPORT({
+				...article,
+				id: articleId,
+			}),
+		);
+		await window.open("/report", "report", "width=430, height=500,location=no,status=no");
 	};
 
 	return (
@@ -38,7 +51,7 @@ function ArticleDetailButtons({ article, articleId }) {
 			) : (
 				<div>
 					<button>쪽지</button>
-					<button>신고</button>
+					<button onClick={reportArticle}>신고</button>
 				</div>
 			)}
 		</div>

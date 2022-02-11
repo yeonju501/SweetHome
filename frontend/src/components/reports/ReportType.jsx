@@ -6,10 +6,14 @@ function ReportType({ id }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [reportTypes, setReportTypes] = useState([]);
 	const [types, setType] = useState({ type: "", content: "" });
+	const [reportCompleted, setReportCompleted] = useState(false);
 
 	useEffect(() => {
-		axios.get(`${URL}/api/boards/reporttypes`).then((res) => setReportTypes(res.data));
-	});
+		axios.get(`${URL}/api/boards/reporttypes`).then((res) => {
+			setReportTypes(res.data);
+			console.log(res);
+		});
+	}, []);
 
 	const onChange = (e) => {
 		setType({

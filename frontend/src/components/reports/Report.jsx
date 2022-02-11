@@ -4,6 +4,7 @@ import style from "style/Report.module.css";
 
 function Report() {
 	const target = useSelector((state) => state.reportInfo);
+
 	return (
 		<>
 			{target && (
