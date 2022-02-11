@@ -92,6 +92,7 @@ public class AgreementService {
     @Transactional
     public void createAgree(String email, Long agreementId, AgreeRequest request) {
         Member member = memberService.findByEmail(email);
+        member.checkRegularMember();
         Agreement agreement = agreementRepository.findById(agreementId)
             .orElseThrow(() -> new BusinessException(ErrorCode.AGREEMENT_NOT_FOUND_BY_ID));
 
