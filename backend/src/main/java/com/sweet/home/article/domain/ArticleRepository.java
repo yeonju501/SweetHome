@@ -17,10 +17,10 @@ import org.springframework.data.repository.query.Param;
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @EntityGraph(attributePaths = {"board"}, type = EntityGraphType.FETCH)
-    Page<Article> findAllByBoard(Board board, Pageable pageable);
+    Page<Article> findAllByBoardAndBlockedAtIsNull(Board board, Pageable pageable);
 
     @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
-    Page<Article> findAllByMember(Member member, Pageable pageable);
+    Page<Article> findAllByMemberAndBlockedAtIsNull(Member member, Pageable pageable);
 
     @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
     Page<Article> findAllByBlockedAtIsNotNull(Pageable pageable);
