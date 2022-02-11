@@ -39,7 +39,7 @@ import AdminBoardList from "components/admin/AdminBoardList";
 
 axios.defaults.withCredentials = true;
 function App() {
-	const loginCheck = useSelector((state) => state.userInfo.username);
+	const authority = useSelector((state) => state.userInfo.authority);
 
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
@@ -54,13 +54,18 @@ function App() {
 		setLoading(isLoading);
 	}
 
+	const authorityCheck = (authority) => {
+		if (authority === "준회원") return false;
+		if (authority === "") return false;
+	};
+
 	if (loading) {
 		return (
 			<>
 				<Router>
-					{loginCheck ? <Navbar /> : <></>}
+					{authorityCheck(authority) ? <Navbar /> : <></>}
 					<div className={style.div}>
-						{loginCheck ? (
+						{authorityCheck(authority) ? (
 							<div className={style.side}>
 								<Sidebar />
 							</div>
