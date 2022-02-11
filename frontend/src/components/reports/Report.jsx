@@ -21,7 +21,7 @@ function Report() {
 						</p>
 						<hr />
 					</header>
-					<ReportType id={target.id} />
+					<ReportType id={target.id} targetType={target.type} />
 				</div>
 			)}
 		</>

@@ -2,17 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import style from "style/Report.module.css";
 
-function ReportType({ id }) {
+function ReportType({ id, targetType }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [reportTypes, setReportTypes] = useState([]);
 	const [types, setType] = useState({ type: "", content: "" });
 	const [reportCompleted, setReportCompleted] = useState(false);
 
 	useEffect(() => {
-		axios.get(`${URL}/api/boards/reporttypes`).then((res) => {
-			setReportTypes(res.data);
-			console.log(res);
-		});
+		axios.get(`${URL}/api/boards/reporttypes`).then((res) => setReportTypes(res.data));
 	}, []);
 
 	const onChange = (e) => {
@@ -29,8 +26,9 @@ function ReportType({ id }) {
 		if (!type) return alert("신고 사유를 선택해주세요");
 
 		if (type === "기타" && !content) return alert("신고 사유를 작성해주세요");
+
 		axios({
-			url: `${URL}/api/comments/${id}/reports`,
+			url: `${URL}/api/${targetType}/${id}/reports`,
 			method: "post",
 			data: types,
 		}).then(() => {

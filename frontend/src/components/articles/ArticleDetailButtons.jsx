@@ -28,6 +28,7 @@ function ArticleDetailButtons({ article, articleId }) {
 			SET_REPORT({
 				...article,
 				id: articleId,
+				type: "articles",
 			}),
 		);
 		await window.open("/report", "report", "width=430, height=500,location=no,status=no");
