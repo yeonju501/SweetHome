@@ -3,6 +3,7 @@ import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import style from "style/Authority.module.css";
 import errorMessage from "store/errorMessage";
+import { toast } from "react-toastify";
 
 function AptAdminRequest() {
 	const [addresses, setAddress] = useState({
@@ -42,17 +43,21 @@ function AptAdminRequest() {
 			message,
 		};
 		e.preventDefault();
-		window.confirm("한번 제출하면 수정 할 수 없습니다. 제출하시겠습니까?") &&
-			axios({
-				url: `${URL}/api/apts/register`,
-				method: "post",
-				headers: {
-					"Content-type": "application/json;charset=UTF-8",
-				},
-				data,
-			})
-				.then((res) => console.log(res))
-				.catch((err) => errorMessage(err.response.data.error_code));
+		if (address) {
+			window.confirm("한번 제출하면 수정 할 수 없습니다. 제출하시겠습니까?") &&
+				axios({
+					url: `${URL}/api/apts/register`,
+					method: "post",
+					headers: {
+						"Content-type": "application/json;charset=UTF-8",
+					},
+					data,
+				})
+					.then((res) => console.log(res))
+					.catch((err) => errorMessage(err.response.data.error_code));
+		} else {
+			toast.error("주소를 입력해주세요");
+		}
 	};
 
 	return (
