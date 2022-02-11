@@ -3,6 +3,7 @@
 	padding: 4rem;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 }
 
 .profile_img {
