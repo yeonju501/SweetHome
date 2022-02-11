@@ -3,8 +3,8 @@ import * as inputValid from "utils/inputValid";
 import * as axiosRequest from "utils/profileAxios";
 import axios from "axios";
 import { toast } from "react-toastify";
-import AccountDelete from "../accounts/AccountDelete";
-
+import ProfileButtons from "./ProfileButtons";
+import style from "style/Profile.module.css";
 function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -53,21 +53,32 @@ function ProfileUserInfo({ setIntro, intro }) {
 	};
 	return (
 		<form onSubmit={onSubmit}>
-			<label htmlFor="username">닉네임</label>
-			<input type="text" id="username" value={username || ""} onChange={onChange} />
-			<label htmlFor="email">Email</label>
-			<input type="text" id="email" value={email || ""} onChange={onChange} />
-			<label htmlFor="phone_number">휴대폰 번호</label>
-			<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
-			<label htmlFor="address">주소</label>
-			<input type="text" id="address" />
-			<label htmlFor="password">비밀번호</label>
-			<input type="password" id="password" value={password || ""} onChange={onChange} />
-
-			<div style={{ display: "flex", alignItems: "center" }}>
-				<button style={{ marginRight: "25rem" }}>저장</button>
-				<AccountDelete />
+			<div className={style.profile_user_info_div}>
+				<aside>
+					<label htmlFor="username">닉네임</label>
+				</aside>
+				<input type="text" id="username" value={username || ""} onChange={onChange} />
 			</div>
+			<div className={style.profile_user_info_div}>
+				<aside>
+					<label htmlFor="email">Email</label>
+				</aside>
+				<input type="text" id="email" value={email || ""} onChange={onChange} />
+			</div>
+			<div className={style.profile_user_info_div}>
+				<aside>
+					<label htmlFor="phone_number">휴대폰 번호</label>
+				</aside>
+				<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
+			</div>
+			<div className={style.profile_user_info_div}>
+				<aside>
+					<label htmlFor="password">비밀번호</label>
+				</aside>
+				<input type="password" id="password" value={password || ""} onChange={onChange} />
+			</div>
+
+			<ProfileButtons password={password} />
 		</form>
 	);
 }
