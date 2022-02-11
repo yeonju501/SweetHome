@@ -1,5 +1,6 @@
 package com.sweet.home.comment.service;
 
+import com.sweet.home.comment.controller.dto.response.CommentReportDetailResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.domain.CommentReport;
 import com.sweet.home.comment.domain.CommentReportRepository;
@@ -8,6 +9,8 @@ import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import com.sweet.home.report.controller.dto.request.ReportSaveRequest;
+import java.util.List;
+import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -36,14 +39,21 @@ public class CommentReportService {
             .comment(comment)
             .content(request.getType() + " " + request.getContent()).build();
         commentReportRepository.save(commentReport);
-
-        comment.checkTotalReports();
     }
 
     private void checkNotReported(Member member, Comment comment) {
         if(commentReportRepository.existsByMemberAndComment(member, comment)) {
             throw new BusinessException(ErrorCode.COMMENT_REPORT_ALREADY_EXISTS);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public List<CommentReportDetailResponse> showReports(Long commentId) {
+        Comment comment = commentService.findBlockedCommentById(commentId);
+        List<CommentReport> comments = commentReportRepository.findAllByCommentOrderByIdDesc(comment);
+        return comments.stream()
+            .map(CommentReportDetailResponse::from)
+            .collect(Collectors.toList());
     }
 
     @Transactional
