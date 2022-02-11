@@ -51,22 +51,21 @@ function AptMemberRequest() {
 			ho: unit,
 			message,
 		};
-
 		e.preventDefault();
-		console.log(data);
-		if (checkNum.test(building) && checkNum.test(unit)) {
-			axios({
-				url: `${URL}/api/apts/register`,
-				method: "post",
-				headers: {
-					"Content-type": "application/json;charset=UTF-8",
-				},
-				data,
-			})
-				.then((res) => console.log(res))
-				.catch((err) => errorMessage(err.response.data.error_code));
+		if (checkNum.test(building) && checkNum.test(unit) && buildingCode) {
+			window.confirm("한번 제출하면 수정 할 수 없습니다. 제출하시겠습니까?") &&
+				axios({
+					url: `${URL}/api/apts/register`,
+					method: "post",
+					headers: {
+						"Content-type": "application/json;charset=UTF-8",
+					},
+					data,
+				})
+					.then((res) => console.log(res))
+					.catch((err) => errorMessage(err.response.data.error_code));
 		} else {
-			toast.error("동, 호수에는 숫자만 입력해주세요");
+			toast.error("모든 정보를 입력해주세요");
 		}
 	};
 
@@ -91,6 +90,7 @@ function AptMemberRequest() {
 					<br />
 					<input type="text" readOnly placeholder="주소" value={address} />
 					<br />
+
 					<input
 						type="text"
 						placeholder="동"
@@ -109,6 +109,7 @@ function AptMemberRequest() {
 						onChange={onChange}
 						required
 					/>
+					<p class={style.desc}>동과 호수에는 숫자만 입력 해주세요</p>
 				</div>
 				<div>
 					<aside>
