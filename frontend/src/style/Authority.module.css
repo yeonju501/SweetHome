@@ -35,6 +35,10 @@
 /* AptMemberRequest */
 .apt_member {
 	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
 }
 
 .apt_member_form_div aside {

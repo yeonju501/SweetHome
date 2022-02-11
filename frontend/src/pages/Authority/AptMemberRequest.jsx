@@ -2,6 +2,8 @@ import axios from "axios";
 import { useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import style from "style/Authority.module.css";
+import { toast } from "react-toastify";
+import errorMessage from "store/errorMessage";
 
 function AptMemberRequest() {
 	const [addresses, setAddress] = useState({
@@ -40,6 +42,32 @@ function AptMemberRequest() {
 			buildingCode: data.buildingCode,
 		});
 		findAddress();
+	};
+
+	const onSubmit = (e) => {
+		const data = {
+			apt_number: buildingCode,
+			dong: building,
+			ho: unit,
+			message,
+		};
+
+		e.preventDefault();
+		console.log(data);
+		if (checkNum.test(building) && checkNum.test(unit)) {
+			axios({
+				url: `${URL}/api/apts/register`,
+				method: "post",
+				headers: {
+					"Content-type": "application/json;charset=UTF-8",
+				},
+				data,
+			})
+				.then((res) => console.log(res))
+				.catch((err) => errorMessage(err.response.data.error_code));
+		} else {
+			toast.error("동, 호수에는 숫자만 입력해주세요");
+		}
 	};
 
 	return (
