@@ -2,6 +2,7 @@ package com.sweet.home.apt.controller;
 
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
+import com.sweet.home.apt.controller.dto.response.AptResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptManagerResponse;
 import com.sweet.home.apt.service.AptService;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +25,11 @@ public class AptRestController {
 
     public AptRestController(AptService aptService) {
         this.aptService = aptService;
+    }
+
+    @GetMapping("/apts/{apt_id}")
+    public ResponseEntity<AptResponse> viewApt(@PathVariable(value = "apt_id") Long aptId){
+        return ResponseEntity.ok().body(aptService.viewApt(aptId));
     }
 
     //등록 요청 - 회원의 아파트 등록 요청 = POST
