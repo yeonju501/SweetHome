@@ -26,7 +26,7 @@ import org.hibernate.annotations.Where;
 
 @Getter
 @Entity
-@Where(clause = "deleted_at is null and blocked_at is null")
+@Where(clause = "deleted_at is null")
 public class Comment extends BaseEntity {
 
     @Id
@@ -66,7 +66,7 @@ public class Comment extends BaseEntity {
     @OneToMany(mappedBy = "parent")
     private List<Comment> childList = new ArrayList<>();
 
-    private static final int BLOCK_STANDARD = 5;
+    private static final int BLOCK_STANDARD = 1;
 
     protected Comment() {
     }
@@ -111,5 +111,9 @@ public class Comment extends BaseEntity {
 
     public void removeComment() {
         this.isRemoved = true;
+    }
+
+    public void changeBlockedAt() {
+        blockedAt = null;
     }
 }
