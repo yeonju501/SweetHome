@@ -59,10 +59,15 @@ function AdminBoardList() {
 									approveBoard("POST", boardRequest.id);
 								}}
 							>
-								{" "}
 								승인
 							</button>
-							<button> 거절</button>
+							<button
+								onClick={(e) => {
+									approveBoard("DELETE", boardRequest.id);
+								}}
+							>
+								거절
+							</button>
 						</tr>
 					))
 				) : (
