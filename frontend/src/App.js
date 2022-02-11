@@ -33,6 +33,8 @@ import AgreementDetail from "components/agreements/AgreementDetail";
 import Report from "components/reports/Report";
 import SiteAdmin from "components/site/SiteAdmin";
 import { useSelector } from "react-redux";
+import AptMemberRequest from "pages/Authority/AptMemberRequest";
+import AptAdminRequest from "pages/Authority/AptAdminRequest";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -99,6 +101,8 @@ function App() {
 								<Route path="/site" element={<SiteAdmin />} />
 								<Route path="member-manage" element={<AdminMemberManage />} />
 								<Route path="/*" element={<NotFound />} />
+								<Route path="/request/apt-member" element={<AptMemberRequest />} />
+								<Route path="/request/apt-admin" element={<AptAdminRequest />} />
 							</Routes>
 						</main>
 					</div>
