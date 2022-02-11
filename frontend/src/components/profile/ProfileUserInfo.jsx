@@ -52,7 +52,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 		}
 	};
 	return (
-		<form onSubmit={onSubmit}>
+		<form onSubmit={onSubmit} className={style.profile_form}>
 			<div className={style.profile_user_info_div}>
 				<aside>
 					<label htmlFor="username">닉네임</label>

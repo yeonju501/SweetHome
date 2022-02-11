@@ -3,6 +3,8 @@
 	padding: 4rem;
 	display: flex;
 	flex-direction: column;
+	width: 100%;
+	align-items: center;
 }
 
 .profile_img {
@@ -11,6 +13,7 @@
 }
 .profile_user {
 	display: flex;
+	text-align: left;
 	margin-bottom: 3rem;
 }
 
@@ -75,11 +78,15 @@ button {
 }
 
 /* Profile User Info */
+.profile_form {
+	background-color: #fff;
+}
 
 .profile_user_info_div {
 	display: flex;
 	align-items: center;
 	margin-top: 2rem;
+	background: #fff;
 }
 
 .profile_user_info_div label {
@@ -109,7 +116,8 @@ button {
 	display: flex;
 	align-items: center;
 	margin-top: 5rem;
-	justify-content: center;
+	/* justify-content: center; */
+	background: #fff;
 }
 
 .profile_btn button:last-child {
