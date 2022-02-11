@@ -3,8 +3,8 @@ package com.sweet.home.comment.service;
 import com.sweet.home.article.domain.Article;
 import com.sweet.home.article.service.ArticleService;
 import com.sweet.home.comment.controller.dto.request.CommentSaveRequest;
-import com.sweet.home.comment.controller.dto.request.CommentsDeleteRequest;
 import com.sweet.home.comment.controller.dto.response.CommentsMineResponse;
+import com.sweet.home.comment.controller.dto.response.CommentsReportResponse;
 import com.sweet.home.comment.controller.dto.response.CommentsResponse;
 import com.sweet.home.comment.domain.Comment;
 import com.sweet.home.comment.domain.CommentRepository;
@@ -12,7 +12,6 @@ import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
-import java.util.Objects;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -68,15 +67,27 @@ public class CommentService {
     @Transactional(readOnly = true)
     public CommentsResponse showCommentsByArticle(Long articleId, Pageable pageable) {
         Article article = articleService.findById(articleId);
-        Page<Comment> comments = commentRepository.findAllByParentIsNullAndArticle(article, pageable);
+        Page<Comment> comments = commentRepository.findAllByParentIsNullAndArticleAndBlockedAtIsNull(article, pageable);
         return CommentsResponse.from(comments);
     }
 
     @Transactional(readOnly = true)
     public CommentsMineResponse showCommentsByMember(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
-        Page<Comment> comments = commentRepository.findAllByMember(member, pageable);
+        Page<Comment> comments = commentRepository.findAllByMemberAndBlockedAtIsNull(member, pageable);
         return CommentsMineResponse.from(comments);
+    }
+
+    @Transactional(readOnly = true)
+    public CommentsReportResponse showBlockedComments(Pageable pageable) {
+        Page<Comment> comments = commentRepository.findAllByBlockedAtIsNotNull(pageable);
+        return CommentsReportResponse.from(comments);
+    }
+
+    @Transactional(readOnly = true)
+    public Comment findBlockedCommentById(Long commentId) {
+        return commentRepository.findByIdAndBlockedAtIsNotNull(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
     }
 
     @Transactional
@@ -86,5 +97,19 @@ public class CommentService {
 
         comment.checkCommentByEmail(email);
         comment.changeContent(request.getContent());
+    }
+
+    @Transactional
+    public void unblockComment(Long commentId){
+        Comment comment = commentRepository.findByIdAndBlockedAtIsNotNull(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+        comment.changeBlockedAt();
+    }
+
+    @Transactional
+    public void checkReportCounts(Long commentId) {
+        Comment comment = commentRepository.findById(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+        comment.checkTotalReports();
     }
 }
