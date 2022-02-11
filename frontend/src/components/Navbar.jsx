@@ -67,23 +67,30 @@ function Navbar() {
 						</Link>
 					</div>
 					<div className={style.icon_container}>
-						<FontAwesomeIcon
-							onClick={() => setModalOpen(true)}
-							className={style.icon}
-							icon={faPlus}
-						/>
 						{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
 						{user.authority === "아파트관리자" || user.authority === "어드민" ? (
-							<Link to="/admin">
-								<FontAwesomeIcon className={style.icon} icon={faHammer} />
-							</Link>
+							<>
+								<FontAwesomeIcon
+									onClick={() => setModalOpen(true)}
+									className={style.icon}
+									icon={faPlus}
+								/>
+
+								<Link to="/admin">
+									<FontAwesomeIcon className={style.icon} icon={faHammer} />
+								</Link>
+							</>
 						) : null}
-						<Link to="/message-box/">
-							<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
-						</Link>
-						<Link to={`/profile/${user.username}`} state={{ user }}>
-							<FontAwesomeIcon className={style.icon} icon={faUser} />
-						</Link>
+						{user.authority !== "준회원" ? (
+							<>
+								<Link to="/message-box/">
+									<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
+								</Link>
+								<Link to={`/profile/${user.username}`} state={{ user }}>
+									<FontAwesomeIcon className={style.icon} icon={faUser} />
+								</Link>
+							</>
+						) : null}
 						<FontAwesomeIcon className={style.icon} icon={faSignOutAlt} onClick={logOut} />
 					</div>
 				</div>

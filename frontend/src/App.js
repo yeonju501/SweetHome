@@ -65,7 +65,7 @@ function App() {
 		return (
 			<>
 				<Router>
-					{authorityCheck(authority) ? <Navbar /> : <></>}
+					{authority !== "" ? <Navbar /> : <></>}
 					<div className={style.div}>
 						{authorityCheck(authority) ? (
 							<div className={style.side}>
