@@ -6,8 +6,6 @@ import ProfileUserInfo from "components/profile/ProfileUserInfo";
 import ProfileArticles from "components/profile/ProfileArticles";
 import ProfileComments from "components/profile/ProfileComments";
 import ProfileLikes from "components/profile/ProfileLikes";
-import ProfileAptEnroll from "components/profile/ProfileAptEnroll";
-import ProfileAdminEnroll from "components/profile/ProfileAdminEnroll";
 
 function Profile() {
 	const location = useLocation();
@@ -33,8 +31,6 @@ function Profile() {
 			{active === 1 && <ProfileArticles />}
 			{active === 2 && <ProfileComments />}
 			{active === 3 && <ProfileLikes />}
-			{active === 4 && <ProfileAptEnroll />}
-			{active === 5 && <ProfileAdminEnroll />}
 		</div>
 	);
 }
