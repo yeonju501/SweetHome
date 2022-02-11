@@ -52,14 +52,14 @@ public class ArticleService {
     @Transactional(readOnly = true)
     public ArticlesTitleResponse showArticlesByBoard(Long boardId, Pageable pageable) {
         Board board = boardService.findById(boardId);
-        Page<Article> articles = articleRepository.findAllByBoard(board, pageable);
+        Page<Article> articles = articleRepository.findAllByBoardAndBlockedAtIsNull(board, pageable);
         return ArticlesTitleResponse.from(articles);
     }
 
     @Transactional(readOnly = true)
     public ArticlesLikeResponse showMyArticles(String email, Pageable pageable) {
         Member member = memberService.findByEmail(email);
-        Page<Article> articles = articleRepository.findAllByMember(member, pageable);
+        Page<Article> articles = articleRepository.findAllByMemberAndBlockedAtIsNull(member, pageable);
         return ArticlesLikeResponse.fromArticle(articles);
     }
 
@@ -99,6 +99,12 @@ public class ArticleService {
 
         article.changeTitle(request.getTitle());
         article.changeContent(request.getContent());
+    }
+
+    @Transactional
+    public Article findBlockedArticleById(Long articleId) {
+        return articleRepository.findByIdAndBlockedAtIsNotNull(articleId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
     }
 
     @Transactional
