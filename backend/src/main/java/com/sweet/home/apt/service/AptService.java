@@ -5,6 +5,7 @@ import com.sweet.home.apt.controller.dto.request.AptManagerRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptHouseRequest;
 import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.apt.controller.dto.response.AptMembersResponse;
+import com.sweet.home.apt.controller.dto.response.AptResponse;
 import com.sweet.home.apt.controller.dto.response.RegisterAptManagersResponse;
 import com.sweet.home.apt.controller.dto.response.RegisterAptMembersResponse;
 import com.sweet.home.apt.controller.dto.response.MyRegisterAptHouseResponse;
@@ -54,6 +55,13 @@ public class AptService {
     public Apt findByAptNumber(String aptNumber) {
         return aptRepository.findByAptNumber(aptNumber)
             .orElseThrow(() -> new BusinessException(ErrorCode.APT_NOT_FOUND_BY_ID));
+    }
+
+    @Transactional(readOnly = true)
+    public AptResponse viewApt(Long aptId){
+        Apt apt = findById(aptId);
+
+        return AptResponse.from(apt);
     }
 
     @Transactional
