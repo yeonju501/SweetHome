@@ -48,6 +48,7 @@ function App() {
 		} catch (e) {
 			onReissueFail(loginCallBack);
 		}
+		console.log(authority);
 	}, []);
 
 	function loginCallBack(isLoading) {
@@ -56,7 +57,8 @@ function App() {
 
 	const authorityCheck = (authority) => {
 		if (authority === "준회원") return false;
-		if (authority === "") return false;
+		else if (authority === "") return false;
+		else return true;
 	};
 
 	if (loading) {
