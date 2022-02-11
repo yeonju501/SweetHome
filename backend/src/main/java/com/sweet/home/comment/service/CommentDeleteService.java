@@ -55,6 +55,13 @@ public class CommentDeleteService {
     }
 
     @Transactional
+    public void deleteBlockedComment(Long commentId) {
+        Comment comment = commentRepository.findByIdAndBlockedAtIsNotNull(commentId)
+            .orElseThrow(() -> new BusinessException(ErrorCode.COMMENT_NOT_FOUND_BY_ID));
+        comment.saveDeletedTime();
+    }
+
+    @Transactional
     public void deleteAllByBoard(Long boardId) {
         commentRepository.deleteAllByBoard(boardId);
     }
