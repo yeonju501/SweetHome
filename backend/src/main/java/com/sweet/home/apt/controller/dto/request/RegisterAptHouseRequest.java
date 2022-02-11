@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class RegisterAptHouseRequest {
 
-    @JsonProperty("apt_id")
-    private Long aptId;
+    @JsonProperty("apt_number")
+    private String aptNumber;
 
     @JsonProperty("dong")
     private String dong;
@@ -21,9 +21,10 @@ public class RegisterAptHouseRequest {
     public RegisterAptHouseRequest() {
     }
 
-    public RegisterAptHouseRequest(Long aptId, String dong, String ho) {
-        this.aptId = aptId;
+    public RegisterAptHouseRequest(String aptNumber, String dong, String ho, String message) {
+        this.aptNumber = aptNumber;
         this.dong = dong;
         this.ho = ho;
+        this.message = message;
     }
 }
