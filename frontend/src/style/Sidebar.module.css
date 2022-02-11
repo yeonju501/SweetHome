@@ -5,6 +5,7 @@
 	margin-right: 20px;
 	border-right: 1px solid rgba(0, 0, 0, 0.1);
 	padding-right: 10px;
+	background-color: rgba(256, 256, 256, 0.7);
 }
 
 .sidebar_like {
@@ -19,16 +20,17 @@
 .sidebar_back {
 	font-size: 15px;
 	color: black;
+	margin-right: 0.5rem;
 }
 
 .sidebar_back:hover {
-	background-color: #cecece;
-	border-radius: 8px;
+	background-color: #dfdfdf;
+	border-radius: 0.3rem;
 }
 
 .sidebar_back:active {
 	background-color: #b7b7b7;
-	border-radius: 8px;
+	border-radius: 0.3rem;
 }
 
 .sidebar_link {
@@ -41,4 +43,13 @@
 
 .sidebar_link:active {
 	color: #319cff;
+}
+
+.board_name_star {
+	display: flex;
+}
+
+.star_btn {
+	background-color: transparent;
+	font-size: 1.3rem;
 }

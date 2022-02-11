@@ -55,8 +55,12 @@ function ArticleDetailButtons({ article, articleId }) {
 				</div>
 			) : (
 				<div>
-					<button onClick={handleMessageButtonClick}>쪽지</button>
-					<button onClick={reportArticle}>신고</button>
+					<button onClick={handleMessageButtonClick} className={style.buttons}>
+						쪽지
+					</button>
+					<button onClick={reportArticle} className={style.buttons}>
+						신고
+					</button>
 				</div>
 			)}
 		</div>

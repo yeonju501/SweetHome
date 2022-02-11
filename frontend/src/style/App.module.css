@@ -1,11 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Leckerli+One&family=Roboto:wght@300;400;500;700;900&display=swap");
+
 .side {
 	float: left;
 	height: 100vh;
+	margin-right: 1.2rem;
 }
 
 .main {
 	display: flex;
-	justify-content: center;
+	justify-content: start;
 	height: 95vh;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.div {
+	display: flex;
+	justify-content: center;
 }
