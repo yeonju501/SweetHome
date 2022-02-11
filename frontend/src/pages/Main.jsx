@@ -54,7 +54,6 @@ function Main() {
 				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
 					Profile
 				</Link>
-				<Link to="/admin">관리자</Link>
 			</div>
 		))
 	);
