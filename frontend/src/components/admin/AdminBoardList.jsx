@@ -11,6 +11,7 @@ function AdminBoardList() {
 		name: "",
 		description: "",
 	});
+
 	useEffect(() => {
 		axios({
 			method: "GET",
@@ -24,6 +25,19 @@ function AdminBoardList() {
 				console.log(err);
 			});
 	}, []);
+
+	const approveBoard = (method, id) => {
+		axios({
+			method,
+			url: `${SERVER_URL}/api/admin/boards/${id}/approve`,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<table>
 			<thead>
@@ -40,7 +54,14 @@ function AdminBoardList() {
 						<tr key={idx}>
 							<td>{boardRequest.name}</td>
 							<td>{boardRequest.description}</td>
-							<button> 승인</button>
+							<button
+								onClick={(e) => {
+									approveBoard("POST", boardRequest.id);
+								}}
+							>
+								{" "}
+								승인
+							</button>
 							<button> 거절</button>
 						</tr>
 					))
