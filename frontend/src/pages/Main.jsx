@@ -5,6 +5,7 @@ import axios from "axios";
 import { SET_USER } from "store/user";
 import style from "style/Main.module.css";
 import { SET_POSITION } from "store/toggle";
+import AssoMemberpage from "./Authority/AssoMemberpage";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -26,7 +27,10 @@ function Main() {
 	}, []);
 
 	return (
-		userInfo && (
+		userInfo &&
+		(userInfo.authority === "준회원" ? (
+			<AssoMemberpage />
+		) : (
 			<div className={style.main}>
 				<div>
 					<p>인기글</p>
@@ -52,7 +56,7 @@ function Main() {
 				</Link>
 				<Link to="/admin">관리자</Link>
 			</div>
-		)
+		))
 	);
 }
 

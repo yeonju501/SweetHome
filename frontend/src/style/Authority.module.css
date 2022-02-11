@@ -1,0 +1,33 @@
+.asso_div {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.asso_div h1 {
+	font-size: 4rem;
+	margin-bottom: 4rem;
+}
+
+.asso_div p {
+	font-size: 2rem;
+	margin-bottom: 4rem;
+	text-align: center;
+	font-weight: 300;
+}
+
+.asso_div a {
+	color: #0087e8;
+	font-weight: 700;
+	font-size: 1.7rem;
+	margin-bottom: 2rem;
+}
+
+.asso_div a:first-child {
+	margin-right: 3rem;
+}
+.Links {
+	display: flex;
+}
