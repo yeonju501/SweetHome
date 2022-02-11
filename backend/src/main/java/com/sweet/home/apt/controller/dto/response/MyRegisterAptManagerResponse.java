@@ -9,6 +9,9 @@ public class MyRegisterAptManagerResponse {
     @JsonProperty("apt_id")
     private Long apiId;
 
+    @JsonProperty("road_name")
+    private String roadName;
+
     @JsonProperty("apt_name")
     private String aptName;
 
@@ -21,8 +24,10 @@ public class MyRegisterAptManagerResponse {
     public MyRegisterAptManagerResponse() {
     }
 
-    public MyRegisterAptManagerResponse(Long apiId, String aptName, String message, LocalDateTime createdAt) {
+    public MyRegisterAptManagerResponse(Long apiId, String roadName, String aptName, String message,
+        LocalDateTime createdAt) {
         this.apiId = apiId;
+        this.roadName = roadName;
         this.aptName = aptName;
         this.message = message;
         this.createdAt = createdAt;
@@ -31,6 +36,7 @@ public class MyRegisterAptManagerResponse {
     public static MyRegisterAptManagerResponse from(RegisterAptManager registerAptManager) {
         return new MyRegisterAptManagerResponse(
             registerAptManager.getApt().getId(),
+            registerAptManager.getApt().getRoadName(),
             registerAptManager.getApt().getAptName(),
             registerAptManager.getMessage(),
             registerAptManager.getCreatedAt()

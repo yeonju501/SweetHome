@@ -6,8 +6,8 @@ import lombok.Getter;
 @Getter
 public class RegisterAptManagerRequest {
 
-    @JsonProperty("apt_id")
-    private Long aptId;
+    @JsonProperty("apt_number")
+    private String aptNumber;
 
     @JsonProperty("message")
     private String message;
@@ -15,8 +15,8 @@ public class RegisterAptManagerRequest {
     public RegisterAptManagerRequest() {
     }
 
-    public RegisterAptManagerRequest(Long aptId, String message) {
-        this.aptId = aptId;
+    public RegisterAptManagerRequest(String aptNumber, String message) {
+        this.aptNumber = aptNumber;
         this.message = message;
     }
 }

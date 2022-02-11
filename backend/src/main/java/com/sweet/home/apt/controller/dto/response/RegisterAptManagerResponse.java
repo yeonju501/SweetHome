@@ -11,6 +11,12 @@ public class RegisterAptManagerResponse {
     @JsonProperty("apt_id")
     private Long apt_id;
 
+    @JsonProperty("road_name")
+    private String rodaName;
+
+    @JsonProperty("apt_name")
+    private String aptName;
+
     @JsonProperty("name")
     private String name;
 
@@ -26,10 +32,12 @@ public class RegisterAptManagerResponse {
     public RegisterAptManagerResponse() {
     }
 
-    public RegisterAptManagerResponse(Long memberId, Long apt_id, String name, String email, String phoneNumber,
-        String message) {
+    public RegisterAptManagerResponse(Long memberId, Long apt_id, String rodaName, String aptName, String name,
+        String email, String phoneNumber, String message) {
         this.memberId = memberId;
         this.apt_id = apt_id;
+        this.rodaName = rodaName;
+        this.aptName = aptName;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
@@ -40,6 +48,8 @@ public class RegisterAptManagerResponse {
         return new RegisterAptManagerResponse(
             registerAptManager.getMember().getId(),
             registerAptManager.getApt().getId(),
+            registerAptManager.getApt().getRoadName(),
+            registerAptManager.getApt().getAptName(),
             registerAptManager.getMember().getUsername(),
             registerAptManager.getMember().getEmail(),
             registerAptManager.getMember().getPhoneNumber(),

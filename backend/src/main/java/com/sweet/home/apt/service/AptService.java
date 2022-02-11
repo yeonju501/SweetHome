@@ -51,10 +51,15 @@ public class AptService {
             .orElseThrow(() -> new BusinessException(ErrorCode.APT_NOT_FOUND_BY_ID));
     }
 
+    public Apt findByAptNumber(String aptNumber) {
+        return aptRepository.findByAptNumber(aptNumber)
+            .orElseThrow(() -> new BusinessException(ErrorCode.APT_NOT_FOUND_BY_ID));
+    }
+
     @Transactional
     public void createRegisterApt(String email, RegisterAptHouseRequest request) {
         Member member = memberService.findByEmail(email);
-        Apt apt = findById(request.getAptId());
+        Apt apt = findByAptNumber(request.getAptNumber());
         checkDuplicateRegisterMember(member);
 
         // TODO: 이미 본인이 살고 있는 아파트면 에러 출력
@@ -159,7 +164,7 @@ public class AptService {
     @Transactional
     public void createRegisterAptManager(String email, RegisterAptManagerRequest request) {
         Member member = memberService.findByEmail(email);
-        Apt apt = findById(request.getAptId());
+        Apt apt = findByAptNumber(request.getAptNumber());
 
         checkDuplicateRegisterManager(member);
 
