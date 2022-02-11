@@ -24,7 +24,34 @@ function AdminBoardList() {
 				console.log(err);
 			});
 	}, []);
-	return <h1>어드민 보드 리스트</h1>;
+	return (
+		<table>
+			<thead>
+				<tr>
+					<th>신청자</th>
+					<th>내용</th>
+					<th></th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				{boardRequestList.length > 0 ? (
+					boardRequestList.map((boardRequest, idx) => (
+						<tr key={idx}>
+							<td>{boardRequest.name}</td>
+							<td>{boardRequest.description}</td>
+							<button> 승인</button>
+							<button> 거절</button>
+						</tr>
+					))
+				) : (
+					<tr>
+						<td colSpan="5">회원이 없습니다</td>
+					</tr>
+				)}
+			</tbody>
+		</table>
+	);
 }
 
 export default AdminBoardList;
