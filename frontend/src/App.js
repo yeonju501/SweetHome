@@ -35,7 +35,7 @@ import SiteAdmin from "components/site/SiteAdmin";
 import { useSelector } from "react-redux";
 import AptMemberRequest from "pages/Authority/AptMemberRequest";
 import AptAdminRequest from "pages/Authority/AptAdminRequest";
-import AdminBoardRequestList from "components/admin/AdminBoardRequestList";
+import AdminBoardManage from "components/admin/AdminBoardManage";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -110,7 +110,7 @@ function App() {
 								<Route path="/admin" element={<Admin />} />
 								<Route path="/site" element={<SiteAdmin />} />
 								<Route path="member-manage" element={<AdminMemberManage />} />
-								<Route path="board-request-list" element={<AdminBoardRequestList />} />
+								<Route path="board-manage" element={<AdminBoardManage />} />
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
 						</main>
