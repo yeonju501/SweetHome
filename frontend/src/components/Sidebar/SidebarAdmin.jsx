@@ -20,7 +20,7 @@ function SidebarAdmin() {
 					)}
 				</li>
 				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="">
+					<Link className={style.sidebar_link} to="board-request-list">
 						📚게시판 관리
 					</Link>
 				</li>
