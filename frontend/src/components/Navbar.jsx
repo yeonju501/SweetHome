@@ -15,6 +15,7 @@ import style from "style/Navbar.module.css";
 import { persistor } from "index";
 import { useState } from "react";
 import CreateBoard from "./boards/BoardCreate";
+import { useEffect } from "react";
 
 function Navbar() {
 	const cookies = new Cookies();
@@ -38,6 +39,21 @@ function Navbar() {
 	const handleModal = () => {
 		setModalOpen(false);
 	};
+
+	useEffect(() => {
+		if (modalOpen) {
+			document.body.style.cssText = `
+		position: fixed; 
+		top: -${window.scrollY}px;
+		overflow-y: scroll;
+		width: 100%;`;
+			return () => {
+				const scrollY = document.body.style.top;
+				document.body.style.cssText = "";
+				window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+			};
+		}
+	}, [modalOpen]);
 
 	return (
 		<nav className={style.navbar_main}>
