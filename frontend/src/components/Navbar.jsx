@@ -14,6 +14,7 @@ import { SET_TOGGLE } from "store/toggle";
 import style from "style/Navbar.module.css";
 import { persistor } from "index";
 import { useState } from "react";
+import CreateBoard from "./boards/BoardCreate";
 
 function Navbar() {
 	const cookies = new Cookies();
@@ -34,6 +35,10 @@ function Navbar() {
 		dispatch(SET_TOGGLE(toggle, position));
 	};
 
+	const handleModal = () => {
+		setModalOpen(false);
+	};
+
 	return (
 		<nav className={style.navbar_main}>
 			{user && (
@@ -51,6 +56,7 @@ function Navbar() {
 							className={style.icon}
 							icon={faPlus}
 						/>
+						{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
 
 						<Link to="/message-box/">
 							<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
