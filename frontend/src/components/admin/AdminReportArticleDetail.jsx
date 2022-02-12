@@ -57,6 +57,19 @@ function AdminReportArticleDetail() {
 		console.log(reportArticles);
 		console.log(articleDetail);
 	}, []);
+
+	const onApprove = () => {
+		axios({
+			method: "POST",
+			url: `${SERVER_URL}/api/admin/articles/${articleId}/reports`,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<div>
 			<h1>
@@ -69,6 +82,8 @@ function AdminReportArticleDetail() {
 					<tr>
 						<td>신고자</td>
 						<td>신고 내용</td>
+						<td></td>
+						<td></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -76,6 +91,8 @@ function AdminReportArticleDetail() {
 						<tr key={idx}>
 							<td>{reportArticle.report_username}</td>
 							<td>{reportArticle.content}</td>
+							<button onClick={onApprove}>승인</button>
+							<button>거부</button>
 						</tr>
 					))}
 				</tbody>
