@@ -37,6 +37,20 @@ function AdminReportArticleDetail() {
 			});
 	}
 
+	function getArticleDetail(id) {
+		axios({
+			method: "GET",
+			url: `${SERVER_URL}/api/boards/articles/${id}`,
+		})
+			.then((res) => {
+				console.log(res.data);
+				setArticleDetail(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
 	return;
 }
 
