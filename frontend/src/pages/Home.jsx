@@ -8,12 +8,12 @@ function Home() {
 	const cookies = new Cookies();
 	const navigate = useNavigate();
 	const token = cookies.get("accessToken");
-	const [isThisPublic, setIsPublic] = useState(1);
+	const [isThisPublic, setIsPublic] = useState(false);
 	const { isPublic } = isThisPublic;
 
 	useEffect(() => {
 		token && navigate("/main");
-		// setIsPublic(false);
+		setIsPublic(true);
 	});
 
 	return (

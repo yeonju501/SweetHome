@@ -17,7 +17,7 @@ html {
 }
 
 .is_public {
-	margin: 0;
+	margin: auto 0;
 }
 
 .sign_in_div {
