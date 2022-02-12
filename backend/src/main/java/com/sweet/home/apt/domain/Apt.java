@@ -45,9 +45,8 @@ public class Apt {
     }
 
     @Builder
-    public Apt(Long id, String sidoName, String gunguName, String dongName, String roadName, Integer roadAptNum,
-        String aptNumber, String zipCode, String aptName) {
-        this.id = id;
+    public Apt(String sidoName, String gunguName, String dongName, String roadName, Integer roadAptNum, String aptNumber,
+        String zipCode, String aptName) {
         this.sidoName = sidoName;
         this.gunguName = gunguName;
         this.dongName = dongName;
@@ -56,5 +55,18 @@ public class Apt {
         this.aptNumber = aptNumber;
         this.zipCode = zipCode;
         this.aptName = aptName;
+    }
+
+    public static Apt createApt(RegisterAptManager registerAptManager){
+        return Apt.builder()
+            .sidoName(registerAptManager.getSidoName())
+            .gunguName(registerAptManager.getGunguName())
+            .dongName(registerAptManager.getDongName())
+            .roadName(registerAptManager.getRoadName())
+            .roadAptNum(registerAptManager.getRoadAptNum())
+            .aptNumber(registerAptManager.getAptNumber())
+            .zipCode(registerAptManager.getZipCode())
+            .aptName(registerAptManager.getAptName())
+            .build();
     }
 }

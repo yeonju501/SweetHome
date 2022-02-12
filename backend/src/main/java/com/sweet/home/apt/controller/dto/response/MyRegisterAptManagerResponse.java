@@ -7,10 +7,28 @@ import java.time.LocalDateTime;
 public class MyRegisterAptManagerResponse {
 
     @JsonProperty("apt_id")
-    private Long apiId;
+    private Long aptId;
+
+    @JsonProperty("apt_number")
+    private String aptNumber;
+
+    @JsonProperty("sido_name")
+    private String sidoName;
+
+    @JsonProperty("gungu_name")
+    private String gunguName;
+
+    @JsonProperty("dong_name")
+    private String dongName;
 
     @JsonProperty("road_name")
     private String roadName;
+
+    @JsonProperty("road_apt_num")
+    private Integer roadAptNum;
+
+    @JsonProperty("zip_code")
+    private String zipCode;
 
     @JsonProperty("apt_name")
     private String aptName;
@@ -24,10 +42,16 @@ public class MyRegisterAptManagerResponse {
     public MyRegisterAptManagerResponse() {
     }
 
-    public MyRegisterAptManagerResponse(Long apiId, String roadName, String aptName, String message,
-        LocalDateTime createdAt) {
-        this.apiId = apiId;
+    public MyRegisterAptManagerResponse(Long aptId, String aptNumber, String sidoName, String gunguName, String dongName,
+        String roadName, Integer roadAptNum, String zipCode, String aptName, String message, LocalDateTime createdAt) {
+        this.aptId = aptId;
+        this.aptNumber = aptNumber;
+        this.sidoName = sidoName;
+        this.gunguName = gunguName;
+        this.dongName = dongName;
         this.roadName = roadName;
+        this.roadAptNum = roadAptNum;
+        this.zipCode = zipCode;
         this.aptName = aptName;
         this.message = message;
         this.createdAt = createdAt;
@@ -35,9 +59,15 @@ public class MyRegisterAptManagerResponse {
 
     public static MyRegisterAptManagerResponse from(RegisterAptManager registerAptManager) {
         return new MyRegisterAptManagerResponse(
-            registerAptManager.getApt().getId(),
-            registerAptManager.getApt().getRoadName(),
-            registerAptManager.getApt().getAptName(),
+            registerAptManager.getApt() == null ? null : registerAptManager.getApt().getId(),
+            registerAptManager.getAptNumber(),
+            registerAptManager.getSidoName(),
+            registerAptManager.getGunguName(),
+            registerAptManager.getDongName(),
+            registerAptManager.getRoadName(),
+            registerAptManager.getRoadAptNum(),
+            registerAptManager.getZipCode(),
+            registerAptManager.getAptName(),
             registerAptManager.getMessage(),
             registerAptManager.getCreatedAt()
         );

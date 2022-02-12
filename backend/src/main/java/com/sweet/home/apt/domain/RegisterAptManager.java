@@ -1,5 +1,6 @@
 package com.sweet.home.apt.domain;
 
+import com.sweet.home.apt.controller.dto.request.RegisterAptManagerRequest;
 import com.sweet.home.global.domain.BaseEntity;
 import com.sweet.home.member.domain.Member;
 import javax.persistence.Column;
@@ -32,6 +33,30 @@ public class RegisterAptManager extends BaseEntity {
     @JoinColumn(name = "apt_id")
     private Apt apt;
 
+    @Column(name = "sido_name")
+    private String sidoName;
+
+    @Column(name = "gungu_name")
+    private String gunguName;
+
+    @Column(name = "dong_name")
+    private String dongName;
+
+    @Column(name = "road_Name")
+    private String roadName;
+
+    @Column(name = "road_apt_num")
+    private Integer roadAptNum;
+
+    @Column(name = "apt_number")
+    private String aptNumber;
+
+    @Column(name = "zip_code")
+    private String zipCode;
+
+    @Column(name = "apt_name")
+    private String aptName;
+
     @Column(name = "message", length = 400, nullable = false)
     private String message;
 
@@ -39,17 +64,34 @@ public class RegisterAptManager extends BaseEntity {
     }
 
     @Builder
-    public RegisterAptManager(Member member, Apt apt, String message) {
+    public RegisterAptManager(Member member, Apt apt, String sidoName, String gunguName, String dongName, String roadName,
+        Integer roadAptNum, String aptNumber, String zipCode, String aptName, String message) {
         this.member = member;
         this.apt = apt;
+        this.sidoName = sidoName;
+        this.gunguName = gunguName;
+        this.dongName = dongName;
+        this.roadName = roadName;
+        this.roadAptNum = roadAptNum;
+        this.aptNumber = aptNumber;
+        this.zipCode = zipCode;
+        this.aptName = aptName;
         this.message = message;
     }
 
-    public static RegisterAptManager createRegisterAptManager(Member member, Apt apt, String message) {
+    public static RegisterAptManager createRegisterAptManager(Member member, RegisterAptManagerRequest request, Apt apt) {
         return RegisterAptManager.builder()
             .member(member)
             .apt(apt)
-            .message(message)
+            .sidoName(request.getSidoName())
+            .gunguName(request.getGunguName())
+            .dongName(request.getDongName())
+            .roadName(request.getRoadName())
+            .roadAptNum(request.getRoadAptNum())
+            .aptNumber(request.getAptNumber())
+            .zipCode(request.getZipCode())
+            .aptName(request.getAptName())
+            .message(request.getMessage())
             .build();
     }
 }
