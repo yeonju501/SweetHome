@@ -1,7 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -32,6 +31,7 @@ function AdminReportArticleList() {
 					<th>신고횟수</th>
 					<th>제목</th>
 					<th>작성자</th>
+					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -41,11 +41,16 @@ function AdminReportArticleList() {
 							<td>{reportArticle.totalReports}</td>
 							<td>{reportArticle.title}</td>
 							<td>{reportArticle.username}</td>
+							<td>
+								<Link to="report-article-detail" state={{ articleId: reportArticle.id }}>
+									자세히보기
+								</Link>
+							</td>
 						</tr>
 					))
 				) : (
 					<tr>
-						<td colSpan="3">신고 게시글이 없습니다</td>
+						<td colSpan="4">신고 게시글이 없습니다</td>
 					</tr>
 				)}
 			</tbody>

@@ -39,6 +39,7 @@ import AdminBoardManage from "components/admin/AdminBoardManage";
 import Footer from "components/Footer";
 import AdminBoardUpdate from "components/admin/AdminBoardUpdate";
 import AdminReportManage from "components/admin/AdminReportManage";
+import AdminReportArticleDetail from "components/admin/AdminReportArticleDetail";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -117,6 +118,10 @@ function App() {
 									<Route path="board-manage" element={<AdminBoardManage />} />
 									<Route path="board-manage/board-update" element={<AdminBoardUpdate />} />
 									<Route path="report-manage" element={<AdminReportManage />} />
+									<Route
+										path="/report-manage/report-article-detail"
+										element={<AdminReportArticleDetail />}
+									/>
 								</Route>
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
