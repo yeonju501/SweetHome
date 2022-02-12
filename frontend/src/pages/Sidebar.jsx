@@ -10,8 +10,8 @@ function Sidebar() {
 
 	function checkPosition(position) {
 		if (position === "admin") return <SidebarAdmin />;
-		else if (position === "message") return <SidebarMessage />;
-		else return <SidebarBoards />;
+		if (position === "message") return <SidebarMessage />;
+		return <SidebarBoards />;
 	}
 
 	return <>{toggle && checkPosition(position)}</>;

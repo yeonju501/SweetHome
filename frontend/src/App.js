@@ -63,18 +63,12 @@ function App() {
 
 	if (loading) {
 		return (
-			<>
+			<div className={style.app_js}>
 				<Router>
-					{authority !== "" ? <Navbar /> : <></>}
+					<nav>{authority && <Navbar />}</nav>
 					<div className={style.div}>
-						{authorityCheck(authority) ? (
-							<div className={style.side}>
-								<Sidebar />
-							</div>
-						) : (
-							<></>
-						)}
-						<main className={style.main}>
+						<aside>{authorityCheck(authority) && <Sidebar />}</aside>
+						<main>
 							<Routes className={style}>
 								<Route path="/" element={<Home />} />
 								<Route path="/sign-in" element={<SignIn />} />
@@ -106,18 +100,18 @@ function App() {
 									/>
 									<Route path="/request/apt-member" element={<AptMemberRequest />} />
 									<Route path="/request/apt-admin" element={<AptAdminRequest />} />
+									<Route path="/admin" element={<Admin />} />
+									<Route path="/site" element={<SiteAdmin />} />
+									<Route path="member-manage" element={<AdminMemberManage />} />
+									<Route path="board-manage" element={<AdminBoardManage />} />
 								</Route>
-								<Route path="/admin" element={<Admin />} />
-								<Route path="/site" element={<SiteAdmin />} />
-								<Route path="member-manage" element={<AdminMemberManage />} />
-								<Route path="board-manage" element={<AdminBoardManage />} />
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
 						</main>
 					</div>
 				</Router>
 				<ToastContainer style={{ fontSize: "1.4rem" }} />
-			</>
+			</div>
 		);
 	} else {
 		return <Spinner />;

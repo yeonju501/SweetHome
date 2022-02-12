@@ -1,31 +1,28 @@
 .navbar_main {
-	margin: 0.3rem 0;
 	border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-	height: 5vh;
 	display: flex;
 	justify-content: center;
 	background-color: rgba(256, 256, 256, 0.7);
 }
 
 .navbar_container {
-	width: 80vw;
 	display: flex;
+	width: 100vw;
+	height: 5rem;
+	margin: 0 10rem;
 	flex-flow: row wrap;
 	justify-content: space-between;
-}
-
-.toggle_container {
-	margin-left: 20px;
-	margin-bottom: 5px;
+	align-items: center;
 }
 
 .icon_container {
 	display: flex;
 	flex-direction: row;
-	margin-left: 25px;
-	margin-top: 10px;
 }
 
+#logout {
+	margin: 0;
+}
 .icon {
 	font-size: 1.7rem;
 	margin-right: 2rem;

@@ -1,15 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Leckerli+One&family=Roboto:wght@300;400;500;700;900&display=swap");
-
-.side {
-	float: left;
-	height: 100vh;
-	margin-right: 1.2rem;
+.app_js {
+	display: flex;
+	flex-direction: column;
 }
 
-.main {
+main {
 	display: flex;
 	justify-content: start;
-	height: 95vh;
+	height: 100vh;
+	width: 100vw;
+	background-color: #fff;
 }
 
 a {
@@ -19,5 +19,12 @@ a {
 
 .div {
 	display: flex;
-	justify-content: center;
+	margin: 0 10rem;
+	background: #fff;
+}
+
+aside {
+	width: 24rem;
+	margin-right: 2rem;
+	display: inline-block;
 }

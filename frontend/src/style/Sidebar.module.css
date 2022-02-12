@@ -1,11 +1,9 @@
 .sidebar_container {
-	height: 100%;
-	margin-top: 10px;
-	margin-left: 10px;
-	margin-right: 20px;
-	border-right: 1px solid rgba(0, 0, 0, 0.1);
-	padding-right: 10px;
+	height: 100vh;
 	background-color: rgba(256, 256, 256, 0.7);
+	padding: 1rem;
+	padding-right: 0;
+	width: 24rem;
 }
 
 .sidebar_like {
