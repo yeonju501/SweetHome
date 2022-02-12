@@ -12,9 +12,14 @@ html {
 .sign_in {
 	height: 100vh;
 	display: flex;
-	justify-content: center;
 	align-items: center;
+	margin: 0 auto;
 }
+
+.is_public {
+	margin: 0;
+}
+
 .sign_in_div {
 	display: flex;
 	flex-direction: column;

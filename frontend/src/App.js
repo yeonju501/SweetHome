@@ -36,6 +36,7 @@ import { useSelector } from "react-redux";
 import AptMemberRequest from "pages/Authority/AptMemberRequest";
 import AptAdminRequest from "pages/Authority/AptAdminRequest";
 import AdminBoardManage from "components/admin/AdminBoardManage";
+import Footer from "components/Footer";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -65,10 +66,18 @@ function App() {
 		return (
 			<div className={style.app_js}>
 				<Router>
-					<nav>{authority && <Navbar />}</nav>
-					<div className={style.div}>
-						<aside>{authorityCheck(authority) && <Sidebar />}</aside>
-						<main>
+					{authority && (
+						<nav>
+							<Navbar />
+						</nav>
+					)}
+					<div className={authority ? style.div : style.public}>
+						{authorityCheck(authority) && (
+							<aside>
+								<Sidebar />
+							</aside>
+						)}
+						<main className={authority ? null : style.public}>
 							<Routes className={style}>
 								<Route path="/" element={<Home />} />
 								<Route path="/sign-in" element={<SignIn />} />
@@ -109,7 +118,9 @@ function App() {
 							</Routes>
 						</main>
 					</div>
+					<Footer />
 				</Router>
+
 				<ToastContainer style={{ fontSize: "1.4rem" }} />
 			</div>
 		);

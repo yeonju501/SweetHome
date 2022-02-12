@@ -11,6 +11,13 @@ main {
 	width: 100vw;
 	background-color: #fff;
 }
+.public {
+	background-color: #f9f9f9;
+}
+
+nav {
+	margin-bottom: 3rem;
+}
 
 a {
 	text-decoration: none;
