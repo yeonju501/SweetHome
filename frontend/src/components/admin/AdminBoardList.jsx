@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import AdminBoardUpdate from "./AdminBoardUpdate";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -12,7 +11,6 @@ function AdminBoardList() {
 		name: "",
 		description: "",
 	});
-	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		axios({
@@ -27,10 +25,6 @@ function AdminBoardList() {
 				console.log(err);
 			});
 	}, []);
-
-	const handleModal = () => {
-		setModalOpen(false);
-	};
 
 	return (
 		<table>
@@ -48,16 +42,7 @@ function AdminBoardList() {
 						<tr key={idx}>
 							<td>{board.name}</td>
 							<td>{board.description}</td>
-							{modalOpen && (
-								<AdminBoardUpdate
-									isOpen={modalOpen}
-									onCancel={handleModal}
-									id={board.id}
-									name={board.name}
-									description={board.description}
-								/>
-							)}
-							<button onClick={() => setModalOpen(true)}>수정</button>
+							<button>수정</button>
 							<button>삭제</button>
 						</tr>
 					))
