@@ -25,6 +25,20 @@ function AdminBoardList() {
 			});
 	}, []);
 
+	const onDelete = (e) => {
+		const id = e.target.id;
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/admin/boards/${id}`,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
+
 	return (
 		<table>
 			<thead>
@@ -47,7 +61,9 @@ function AdminBoardList() {
 								</Link>
 							</td>
 							<td>
-								<button>삭제</button>
+								<button id={board.id} onClick={onDelete}>
+									삭제
+								</button>
 							</td>
 						</tr>
 					))
