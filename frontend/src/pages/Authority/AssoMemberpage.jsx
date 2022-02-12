@@ -32,7 +32,7 @@ function AssoMemberpage({}) {
 			{isRequest ? (
 				<div style={{ display: "flex", alignItems: "center" }}>
 					<PersonalInfo className={style.personalInfo} />
-					<main>
+					<main className={style.asso_main}>
 						<h1>SweetHome을 찾아주셔서 감사합니다</h1>
 						<p>
 							SweetHome은 원활한 서비스 이용을 위해 <br />

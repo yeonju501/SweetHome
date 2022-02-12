@@ -4,15 +4,18 @@
 	flex-direction: column;
 }
 
-main {
+.main {
 	display: flex;
-	justify-content: start;
+	justify-content: center;
 	height: 100vh;
 	width: 100vw;
 	background-color: #fff;
 }
 .public {
 	background-color: #f9f9f9;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
 }
 
 nav {
@@ -30,8 +33,12 @@ a {
 	background: #fff;
 }
 
-aside {
+.aside {
 	width: 24rem;
 	margin-right: 2rem;
 	display: inline-block;
+}
+
+footer {
+	margin-top: 4rem;
 }
