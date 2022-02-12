@@ -73,3 +73,7 @@ textarea:focus {
 	position: absolute;
 	right: 1rem;
 }
+
+.hidden {
+	display: none;
+}
