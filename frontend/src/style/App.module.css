@@ -1,11 +1,44 @@
 @import url("https://fonts.googleapis.com/css2?family=Leckerli+One&family=Roboto:wght@300;400;500;700;900&display=swap");
-.side {
-	float: left;
-	height: 100vh;
+.app_js {
+	display: flex;
+	flex-direction: column;
 }
 
 .main {
 	display: flex;
 	justify-content: center;
-	height: 95vh;
+	height: 100vh;
+	width: 100vw;
+	background-color: #fff;
+}
+.public {
+	background-color: #f9f9f9;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+}
+
+nav {
+	margin-bottom: 3rem;
+}
+
+a {
+	text-decoration: none;
+	color: black;
+}
+
+.div {
+	display: flex;
+	margin: 0 10rem;
+	background: #fff;
+}
+
+.aside {
+	width: 24rem;
+	margin-right: 2rem;
+	display: inline-block;
+}
+
+footer {
+	margin-top: 4rem;
 }

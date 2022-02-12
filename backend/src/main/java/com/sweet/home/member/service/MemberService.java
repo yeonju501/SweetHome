@@ -2,8 +2,10 @@ package com.sweet.home.member.service;
 
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.member.controller.dto.request.CheckDuplicateRequest;
 import com.sweet.home.member.controller.dto.request.FindPasswordRequest;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
+import com.sweet.home.member.controller.dto.response.CheckDuplicateResponse;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
 import org.springframework.data.domain.Page;
@@ -29,6 +31,7 @@ public class MemberService {
     @Transactional
     public Long saveAssociateMember(MemberSaveRequest request) {
         checkDuplicateEmail(request.getEmail());
+        checkDuplicateUsername(request.getUsername());
 
         Member member = request.toAssociateMember();
         member.encodePassword(passwordEncoder);
@@ -38,6 +41,12 @@ public class MemberService {
     private void checkDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
+        }
+    }
+
+    private void checkDuplicateUsername(String username) {
+        if (memberRepository.existsByUsername(username)) {
+            throw new BusinessException(ErrorCode.MEMBER_USERNAME_DUPLICATED);
         }
     }
 
@@ -78,5 +87,15 @@ public class MemberService {
         String password = mailService.randomPassword();
         member.changePassword(passwordEncoder, password);
         mailService.sendMailChangePassword(member, password);
+    }
+
+    @Transactional(readOnly = true)
+    public CheckDuplicateResponse checkDuplicateEmail(CheckDuplicateRequest request){
+        return CheckDuplicateResponse.from(memberRepository.existsByEmail(request.getValue()));
+    }
+
+    @Transactional(readOnly = true)
+    public CheckDuplicateResponse checkDuplicateUsername(CheckDuplicateRequest request){
+        return CheckDuplicateResponse.from(memberRepository.existsByUsername(request.getValue()));
     }
 }

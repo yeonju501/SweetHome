@@ -6,7 +6,6 @@ footer {
 	justify-content: center;
 	color: rgba(151, 151, 151);
 	position: relative;
-	transform: translateY(-100%);
 }
 
 footer ul {
@@ -14,7 +13,7 @@ footer ul {
 	list-style: none;
 	display: flex;
 	margin-bottom: 1rem;
-	font-size: 1.8rem;
+	font-size: 1.5rem;
 	cursor: pointer;
 }
 
@@ -23,5 +22,5 @@ footer ul li {
 }
 
 footer p {
-	font-size: 1.3rem;
+	font-size: 1.1rem;
 }

@@ -1,12 +1,15 @@
 package com.sweet.home.member.controller;
 
+import com.sweet.home.member.controller.dto.request.CheckDuplicateRequest;
 import com.sweet.home.member.controller.dto.request.FindPasswordRequest;
 import com.sweet.home.member.controller.dto.request.MemberSaveRequest;
+import com.sweet.home.member.controller.dto.response.CheckDuplicateResponse;
 import com.sweet.home.member.service.MemberService;
 import java.net.URI;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,5 +43,15 @@ public class MemberRestController {
         memberService.findPassword(request);
         URI uri = URI.create("/api/members/");
         return ResponseEntity.created(uri).build();
+    }
+
+    @GetMapping("/members/exist-email")
+    public ResponseEntity<CheckDuplicateResponse> checkDuplicateEmail(@RequestBody CheckDuplicateRequest request) {
+        return ResponseEntity.ok().body(memberService.checkDuplicateEmail(request));
+    }
+
+    @GetMapping("/members/exist-name")
+    public ResponseEntity<CheckDuplicateResponse> checkDuplicateUsername(@RequestBody CheckDuplicateRequest request) {
+        return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
     }
 }

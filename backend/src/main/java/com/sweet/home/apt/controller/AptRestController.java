@@ -32,7 +32,7 @@ public class AptRestController {
         return ResponseEntity.ok().body(aptService.viewApt(aptId));
     }
 
-    //등록 요청 - 회원의 아파트 등록 요청 = POST
+    //등록 요청 - 회원의 아파트 세대원 등록 요청 = POST
     @PostMapping("/apts/register")
     public ResponseEntity<Void> createRegisterApt(@AuthenticationPrincipal String email,
         @RequestBody RegisterAptHouseRequest request) {
@@ -41,14 +41,14 @@ public class AptRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    //등록 요청 - 회원의 아파트 등록 취소 = DELETE
+    //등록 요청 - 회원의 아파트 세대원 등록 취소 = DELETE
     @DeleteMapping("/apts/register")
     public ResponseEntity<Void> deleteRegisterApt(@AuthenticationPrincipal String email) {
         aptService.deleteRegisterApt(email);
         return ResponseEntity.noContent().build();
     }
 
-    //등록 요청 - 현재 요청중인 아파트 보기 = GET
+    //등록 요청 - 현재 세대원 등록 요청중인 아파트 보기 = GET
     @GetMapping("/apts/register")
     public ResponseEntity<MyRegisterAptHouseResponse> viewMyRegisterApt(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(aptService.viewMyRegisterApt(email));

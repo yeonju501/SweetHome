@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import style from "style/Sidebar.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -81,7 +83,7 @@ function SidebarBoards() {
 			<ul className={style.sidebar_list}>
 				{boards &&
 					boards.map((board) => (
-						<div key={board.id}>
+						<div key={board.id} className={style.board_name_star}>
 							<li className={style.sidebar_back}>
 								<Link
 									className={style.sidebar_link}
@@ -91,13 +93,14 @@ function SidebarBoards() {
 									{board.name}
 								</Link>
 							</li>
-							<button
+							<span
 								onClick={() => {
 									handleStarClick(board.id);
 								}}
+								className={style.star_btn}
 							>
-								⭐
-							</button>
+								<FontAwesomeIcon icon={faStar} color="#FFCB14"></FontAwesomeIcon>
+							</span>
 						</div>
 					))}
 			</ul>

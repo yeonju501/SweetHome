@@ -1,6 +1,8 @@
 package com.sweet.home.member.controller;
 
+import com.sweet.home.member.controller.dto.request.CheckDuplicateRequest;
 import com.sweet.home.member.controller.dto.request.ProfileUpdateRequest;
+import com.sweet.home.member.controller.dto.response.CheckDuplicateResponse;
 import com.sweet.home.member.controller.dto.response.ProfileResponse;
 import com.sweet.home.member.service.ProfileService;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +29,15 @@ public class ProfileRestController {
     }
 
     @PutMapping("/members/my-profile")
-    public ResponseEntity<Void> updateMyProfile(@AuthenticationPrincipal String email, @RequestBody ProfileUpdateRequest request) {
+    public ResponseEntity<Void> updateMyProfile(@AuthenticationPrincipal String email,
+        @RequestBody ProfileUpdateRequest request) {
         profileService.updateProfile(email, request);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/members/my-profile/exist-name")
+    public ResponseEntity<CheckDuplicateResponse> checkDuplicateUsernameUpdate(@AuthenticationPrincipal String email,
+        @RequestBody CheckDuplicateRequest request) {
+        return ResponseEntity.ok().body(profileService.checkDuplicateUsernameUpdate(email, request));
     }
 }

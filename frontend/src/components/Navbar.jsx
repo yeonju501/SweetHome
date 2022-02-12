@@ -56,7 +56,7 @@ function Navbar() {
 	}, [modalOpen]);
 
 	return (
-		<nav className={style.navbar_main}>
+		<div className={style.navbar_main}>
 			{user && (
 				<div className={style.navbar_container}>
 					<div className={style.toggle_container}>
@@ -91,11 +91,16 @@ function Navbar() {
 								</Link>
 							</>
 						) : null}
-						<FontAwesomeIcon className={style.icon} icon={faSignOutAlt} onClick={logOut} />
+						<FontAwesomeIcon
+							id={style.logout}
+							className={style.icon}
+							icon={faSignOutAlt}
+							onClick={logOut}
+						/>
 					</div>
 				</div>
 			)}
-		</nav>
+		</div>
 	);
 }
 

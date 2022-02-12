@@ -50,13 +50,13 @@ function ArticleDetail() {
 		<div>
 			{article && (
 				<section className={style.article_detail}>
-					<div>
+					<div className={style.article_to_board}>
 						<Link to={`/boards/${board.id}`} state={{ board: board }}>
 							{board.name}
 						</Link>
 					</div>
 
-					<div className={style.article_detail_box}>
+					<div className={style.article_comment_box}>
 						<article className={style.article}>
 							<div className={style.article_top}>
 								<div className={style.profile}>
@@ -75,11 +75,11 @@ function ArticleDetail() {
 							<div className={style.article_bottom}>
 								<div className={style.article_bottom_info}>
 									<span style={{ marginRight: "0.4rem" }}>
-										<FontAwesomeIcon icon={fasHeart} />
+										<FontAwesomeIcon icon={fasHeart} color="#888888" />
 									</span>
 									<span style={{ marginRight: "0.8rem" }}>{article.total_likes}</span>
 									<span style={{ marginRight: "0.4rem" }}>
-										<FontAwesomeIcon icon={faComment} />
+										<FontAwesomeIcon icon={faComment} color="#595959" />
 									</span>
 									<span>댓글 수</span>
 								</div>

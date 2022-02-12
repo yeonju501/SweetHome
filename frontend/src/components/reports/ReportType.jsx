@@ -2,14 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import style from "style/Report.module.css";
 
-function ReportType({ id }) {
+function ReportType({ id, targetType }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [reportTypes, setReportTypes] = useState([]);
 	const [types, setType] = useState({ type: "", content: "" });
+	const [reportCompleted, setReportCompleted] = useState(false);
 
 	useEffect(() => {
 		axios.get(`${URL}/api/boards/reporttypes`).then((res) => setReportTypes(res.data));
-	});
+	}, []);
 
 	const onChange = (e) => {
 		setType({
@@ -25,13 +26,15 @@ function ReportType({ id }) {
 		if (!type) return alert("신고 사유를 선택해주세요");
 
 		if (type === "기타" && !content) return alert("신고 사유를 작성해주세요");
+
 		axios({
-			url: `${URL}/api/comments/${id}/reports`,
+			url: `${URL}/api/${targetType}/${id}/reports`,
 			method: "post",
 			data: types,
 		}).then(() => {
-			setType({ type: "", content: "" });
-			alert("성공");
+			// setType({ type: "", content: "" });
+			// alert("성공");
+			setReportCompleted(true);
 		});
 	};
 
@@ -40,7 +43,12 @@ function ReportType({ id }) {
 	};
 
 	return (
-		types && (
+		types &&
+		(reportCompleted ? (
+			<div>
+				<p>신고 접수가 처리되었습니다</p>
+			</div>
+		) : (
 			<main className={style.report_main}>
 				<p>
 					<span>사유선택 : </span>
@@ -75,7 +83,7 @@ function ReportType({ id }) {
 					</div>
 				</form>
 			</main>
-		)
+		))
 	);
 }
 

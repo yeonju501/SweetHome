@@ -4,6 +4,7 @@ import style from "style/Report.module.css";
 
 function Report() {
 	const target = useSelector((state) => state.reportInfo);
+
 	return (
 		<>
 			{target && (
@@ -20,7 +21,7 @@ function Report() {
 						</p>
 						<hr />
 					</header>
-					<ReportType id={target.id} />
+					<ReportType id={target.id} targetType={target.type} />
 				</div>
 			)}
 		</>
