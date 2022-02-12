@@ -23,6 +23,20 @@ function AdminReportArticleDetail() {
 		total_reports: "",
 	});
 
+	function getReportArticleDetail(id) {
+		axios({
+			method: "GET",
+			url: `${SERVER_URL}/api/admin/articles/${id}/reports`,
+		})
+			.then((res) => {
+				console.log(res.data);
+				setReportArticles(res.data);
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	}
+
 	return;
 }
 
