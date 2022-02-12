@@ -7,10 +7,13 @@ import { SignUpButton } from "components/accounts/AccountButton";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "components/accounts/AccountKakaoButton";
 import { submitAxios } from "utils/accountAxios";
+import axios from "axios";
 
 function SignUp() {
+	const [isUserDupl, setIsUserDup] = useState(true);
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
+	const URL = process.env.REACT_APP_SERVER_URL;
 
 	const [inputValue, setInputValue] = useState({
 		email: "",
@@ -22,6 +25,17 @@ function SignUp() {
 	const { email, password, username, phone_number } = inputValue;
 
 	const isValid = inputValid.signUpValid(email, password, phone_number);
+
+	const checkUserDup = async () => {
+		const data = { value: username };
+		const res = axios({
+			url: `${URL}/api/members/exist-name`,
+			method: "get",
+			headers: { "Content-Type": "application/json;charset=UTF-8" },
+			data,
+		});
+		setIsUserDup(res.data.results);
+	};
 
 	const onChange = (e) => {
 		setInputValue({
@@ -53,6 +67,8 @@ function SignUp() {
 						onChange={onChange}
 						value={username}
 						id="username"
+						onBlur={checkUserDup}
+						className={isUserDupl ? null : style.duplicated}
 					/>
 					<input
 						type="text"
