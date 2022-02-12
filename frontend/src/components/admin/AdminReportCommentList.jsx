@@ -32,7 +32,7 @@ function AdminReportCommentList() {
 				<thead>
 					<tr>
 						<th>신고횟수</th>
-						<th>제목</th>
+						<th>내용</th>
 						<th>작성자</th>
 						<th></th>
 					</tr>
@@ -45,7 +45,14 @@ function AdminReportCommentList() {
 								<td>{reportComment.content}</td>
 								<td>{reportComment.username}</td>
 								<td>
-									<Link to="report-comment-detail" state={{ commentId: reportComment.id }}>
+									<Link
+										to="report-comment-detail"
+										state={{
+											commentId: reportComment.id,
+											content: reportComment.content,
+											username: reportComment.username,
+										}}
+									>
 										자세히보기
 									</Link>
 								</td>
