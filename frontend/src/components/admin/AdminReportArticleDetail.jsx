@@ -70,6 +70,19 @@ function AdminReportArticleDetail() {
 				console.log(err);
 			});
 	};
+
+	const onReject = () => {
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/admin/articles/${articleId}/reports`,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<div>
 			<h1>
@@ -92,7 +105,7 @@ function AdminReportArticleDetail() {
 							<td>{reportArticle.report_username}</td>
 							<td>{reportArticle.content}</td>
 							<button onClick={onApprove}>승인</button>
-							<button>거부</button>
+							<button onClick={onReject}>거부</button>
 						</tr>
 					))}
 				</tbody>
