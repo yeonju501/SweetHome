@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { ReactComponent as Error } from "assets/pageNotFound.svg";
 
 function NotFound() {
 	return (
@@ -15,11 +16,12 @@ function NotFound() {
 		>
 			<h1>요청하신 페이지를 찾을 수 없습니다.</h1>
 			<Link
-				style={{ textDecoration: "none", color: "#0087e8", fontWeight: "700", marginTop: "1rem" }}
+				style={{ textDecoration: "none", color: "#0087e8", fontWeight: "700", margin: "3rem 0" }}
 				to="/"
 			>
 				홈으로 돌아가기
 			</Link>
+			<Error />
 		</div>
 	);
 }
