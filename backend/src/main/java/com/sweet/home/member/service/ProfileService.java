@@ -2,7 +2,9 @@ package com.sweet.home.member.service;
 
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.member.controller.dto.request.CheckDuplicateRequest;
 import com.sweet.home.member.controller.dto.request.ProfileUpdateRequest;
+import com.sweet.home.member.controller.dto.response.CheckDuplicateResponse;
 import com.sweet.home.member.controller.dto.response.ProfileResponse;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
@@ -42,4 +44,17 @@ public class ProfileService {
         member.changePhoneNumber(request.getPhoneNumeber());
         memberRepository.save(member);
     }
+
+    @Transactional(readOnly = true)
+    public CheckDuplicateResponse checkDuplicateUsernameUpdate(String email, CheckDuplicateRequest request) {
+        Member member = memberRepository.findByEmail(email)
+            .orElseThrow(() -> new BusinessException(ErrorCode.MEMBER_NOT_FOUND_BY_EMAIL));
+
+        if (member.getUsername().equals(request.getValue())) {
+            return CheckDuplicateResponse.from(false);
+        }
+
+        return CheckDuplicateResponse.from(memberRepository.existsByUsername(request.getValue()));
+    }
+
 }
