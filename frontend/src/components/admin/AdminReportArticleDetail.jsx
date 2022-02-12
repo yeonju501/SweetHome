@@ -50,7 +50,13 @@ function AdminReportArticleDetail() {
 				console.log(err);
 			});
 	}
-
+	useEffect(() => {
+		console.log(location.state.articleId);
+		getReportArticleDetail(articleId);
+		getArticleDetail(articleId);
+		console.log(reportArticles);
+		console.log(articleDetail);
+	}, []);
 	return;
 }
 
