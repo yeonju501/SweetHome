@@ -36,6 +36,7 @@ public enum ErrorCode {
     MEMBER_ALREADY_REQUEST_APT_HOUSE(HttpStatus.CONFLICT, "이미 아파트 등록 신청한 회원입니다.", "C08"),
     MEMBER_NOT_FOUND_BY_ID(HttpStatus.NOT_FOUND, "존재하지 않는 유저의 고유 ID입니다.", "C09"),
     MEMBER_ALREADY_REQUEST_APT_MANAGER(HttpStatus.CONFLICT, "이미 아파트 관리자 신청한 회원입니다.", "C10"),
+    MEMBER_USERNAME_DUPLICATED(HttpStatus.CONFLICT, "이미 등록된 별명의 회원 정보가 존재합니다.", "C11"),
     MEMBER_IS_NOT_REGULAR_MEMBER(HttpStatus.BAD_REQUEST, "정회원만 할 수 있습니다.","C20"),
     MEMBER_IS_NOT_MANAGER(HttpStatus.BAD_REQUEST, "아파트 관리자만 할 수 있습니다.","C21"),
     MEMBER_IS_NOT_ADMIN(HttpStatus.BAD_REQUEST, "사이트 관리자만 할 수 있습니다.","C22"),
