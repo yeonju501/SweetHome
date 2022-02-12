@@ -1,7 +1,6 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -42,8 +41,14 @@ function AdminBoardList() {
 						<tr key={idx}>
 							<td>{board.name}</td>
 							<td>{board.description}</td>
-							<button>수정</button>
-							<button>삭제</button>
+							<td>
+								<Link to="board-update" state={{ board: board }}>
+									수정
+								</Link>
+							</td>
+							<td>
+								<button>삭제</button>
+							</td>
 						</tr>
 					))
 				) : (
