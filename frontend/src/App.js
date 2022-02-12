@@ -124,7 +124,7 @@ function App() {
 										element={<AdminReportArticleDetail />}
 									/>
 									<Route
-										pathe="/report-manage/report-comment-detail"
+										path="/report-manage/report-comment-detail"
 										element={<AdminReportCommentDetail />}
 									/>
 								</Route>
