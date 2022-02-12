@@ -73,11 +73,11 @@ function App() {
 					)}
 					<div className={authority ? style.div : style.public}>
 						{authorityCheck(authority) && (
-							<aside>
+							<aside className={style.aside}>
 								<Sidebar />
 							</aside>
 						)}
-						<main className={authority ? null : style.public}>
+						<main className={authority ? style.main : style.public}>
 							<Routes className={style}>
 								<Route path="/" element={<Home />} />
 								<Route path="/sign-in" element={<SignIn />} />
