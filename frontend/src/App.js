@@ -38,6 +38,7 @@ import AptAdminRequest from "pages/Authority/AptAdminRequest";
 import AdminBoardManage from "components/admin/AdminBoardManage";
 import Footer from "components/Footer";
 import AdminBoardUpdate from "components/admin/AdminBoardUpdate";
+import AdminReportManage from "components/admin/AdminReportManage";
 
 axios.defaults.withCredentials = true;
 function App() {
@@ -115,6 +116,7 @@ function App() {
 									<Route path="member-manage" element={<AdminMemberManage />} />
 									<Route path="board-manage" element={<AdminBoardManage />} />
 									<Route path="board-manage/board-update" element={<AdminBoardUpdate />} />
+									<Route path="report-manage" element={<AdminReportManage />} />
 								</Route>
 								<Route path="/*" element={<NotFound />} />
 							</Routes>

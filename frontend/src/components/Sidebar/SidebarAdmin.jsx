@@ -30,13 +30,8 @@ function SidebarAdmin() {
 					</Link>
 				</li>
 				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="">
-						🚧신고 게시글 관리
-					</Link>
-				</li>
-				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="">
-						🚧신고 댓글 관리
+					<Link className={style.sidebar_link} to="report-manage">
+						🚧신고 관리
 					</Link>
 				</li>
 			</ul>
