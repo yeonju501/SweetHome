@@ -30,7 +30,7 @@ function SidebarAdmin() {
 					</Link>
 				</li>
 				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="">
+					<Link className={style.sidebar_link} to="report-manage">
 						🚧신고 관리
 					</Link>
 				</li>
