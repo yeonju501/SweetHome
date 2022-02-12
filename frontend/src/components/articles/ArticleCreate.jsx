@@ -13,9 +13,7 @@ function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 	};
 
 	const getArticlesAfterCreate = () => {
-		setPageNumber(0);
-		setArticles("");
-		getArticles();
+		window.location.replace(`/boards/${boardId}`);
 	};
 
 	return (

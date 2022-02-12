@@ -6,3 +6,12 @@
 	list-style: none;
 	border-bottom: 1px solid black;
 }
+
+.ulTag {
+	overflow: scroll;
+	height: 100vh;
+}
+
+.ulTag::-webkit-scrollbar {
+	display: none;
+}

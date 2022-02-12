@@ -118,7 +118,7 @@ function App() {
 							</Routes>
 						</main>
 					</div>
-					<Footer />
+					{/* <Footer /> */}
 				</Router>
 
 				<ToastContainer style={{ fontSize: "1.4rem" }} />
