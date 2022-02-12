@@ -1,6 +1,6 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -32,7 +32,7 @@ function AdminReportCommentList() {
 				<thead>
 					<tr>
 						<th>신고횟수</th>
-						<th>제목</th>
+						<th>내용</th>
 						<th>작성자</th>
 						<th></th>
 					</tr>
@@ -44,7 +44,19 @@ function AdminReportCommentList() {
 								<td>{reportComment.totalReports}</td>
 								<td>{reportComment.content}</td>
 								<td>{reportComment.username}</td>
-								<td></td>
+								<td>
+									<Link
+										to="report-comment-detail"
+										state={{
+											commentId: reportComment.id,
+											content: reportComment.content,
+											username: reportComment.username,
+											totalReports: reportComment.totalReports,
+										}}
+									>
+										자세히보기
+									</Link>
+								</td>
 							</tr>
 						))
 					) : (

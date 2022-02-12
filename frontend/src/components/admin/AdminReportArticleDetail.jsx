@@ -29,7 +29,7 @@ function AdminReportArticleDetail() {
 			url: `${SERVER_URL}/api/admin/articles/${id}/reports`,
 		})
 			.then((res) => {
-				console.log(res.data);
+				console.log("신고목록겟", res.data);
 				setReportArticles(res.data);
 			})
 			.catch((err) => {
@@ -43,7 +43,7 @@ function AdminReportArticleDetail() {
 			url: `${SERVER_URL}/api/boards/articles/${id}`,
 		})
 			.then((res) => {
-				console.log(res.data);
+				console.log("아티클겟", res.data);
 				setArticleDetail(res.data);
 			})
 			.catch((err) => {
@@ -84,12 +84,14 @@ function AdminReportArticleDetail() {
 			});
 	};
 	return (
-		<div>
-			<h1>
-				신고 게시글 : {articleDetail.title} 신고 횟수 : {articleDetail.total_reports}
-			</h1>
-			<h2>작성자 : {articleDetail.username}</h2>
-			<h2>내용 : {articleDetail.content}</h2>
+		<>
+			<div>
+				<h1>
+					신고 게시글 : {articleDetail.title} 신고 횟수 : {articleDetail.total_reports}
+				</h1>
+				<h2>작성자 : {articleDetail.username}</h2>
+				<h2>내용 : {articleDetail.content}</h2>
+			</div>
 			<table>
 				<thead>
 					<tr>
@@ -100,17 +102,19 @@ function AdminReportArticleDetail() {
 					</tr>
 				</thead>
 				<tbody>
-					{reportArticles.map((reportArticle, idx) => (
-						<tr key={idx}>
-							<td>{reportArticle.report_username}</td>
-							<td>{reportArticle.content}</td>
-							<button onClick={onApprove}>승인</button>
-							<button onClick={onReject}>거부</button>
-						</tr>
-					))}
+					{reportArticles.length > 0
+						? reportArticles.map((reportArticle, idx) => (
+								<tr key={idx}>
+									<td>{reportArticle.report_username}</td>
+									<td>{reportArticle.content}</td>
+									<button onClick={onApprove}>승인</button>
+									<button onClick={onReject}>거부</button>
+								</tr>
+						  ))
+						: null}
 				</tbody>
 			</table>
-		</div>
+		</>
 	);
 }
 
