@@ -41,7 +41,39 @@ function AdminReportCommentDetail() {
 		console.log(commentDetail);
 		getReportCommentDetail(location.state.commentId);
 	}, []);
-	return;
+	return (
+		<>
+			<div>
+				<h1>
+					신고 게시글 : {commentDetail.title} 신고 횟수 : {commentDetail.totalReports}
+				</h1>
+				<h2>작성자 : {commentDetail.username}</h2>
+				<h2>내용 : {commentDetail.content}</h2>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<td>신고자</td>
+						<td>신고 내용</td>
+						<td></td>
+						<td></td>
+					</tr>
+				</thead>
+				<tbody>
+					{reportComments.length > 0
+						? reportComments.map((reportComment, idx) => (
+								<tr key={idx}>
+									<td>{reportComment.username}</td>
+									<td>{reportComment.content}</td>
+									<button>승인</button>
+									<button>거부</button>
+								</tr>
+						  ))
+						: null}
+				</tbody>
+			</table>
+		</>
+	);
 }
 
 export default AdminReportCommentDetail;
