@@ -176,7 +176,7 @@ public class AptService {
 
         checkDuplicateRegisterManager(member);
 
-        registerAptManagerRepository.save(RegisterAptManager.createRegisterAptManager(member, apt, request.getMessage()));
+        registerAptManagerRepository.save(RegisterAptManager.createRegisterAptManager(member, request, apt));
     }
 
     private void checkDuplicateRegisterManager(Member member) {
