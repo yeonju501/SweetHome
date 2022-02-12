@@ -13,7 +13,7 @@ function CommentButton({ user, comment, onClick, id, getComments }) {
 	};
 
 	const reportThis = async () => {
-		await dispatch(SET_REPORT({ comment, type: "comments" }));
+		await dispatch(SET_REPORT({ ...comment, id, type: "comments" }));
 		await window.open("/report", "report", "width=430, height=500,location=no,status=no");
 	};
 	return (
