@@ -51,6 +51,7 @@ function AdminReportCommentList() {
 											commentId: reportComment.id,
 											content: reportComment.content,
 											username: reportComment.username,
+											totalReports: reportComment.totalReports,
 										}}
 									>
 										자세히보기
