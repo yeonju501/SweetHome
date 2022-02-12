@@ -57,7 +57,31 @@ function AdminReportArticleDetail() {
 		console.log(reportArticles);
 		console.log(articleDetail);
 	}, []);
-	return;
+	return (
+		<div>
+			<h1>
+				신고 게시글 : {articleDetail.title} 신고 횟수 : {articleDetail.total_reports}
+			</h1>
+			<h2>작성자 : {articleDetail.username}</h2>
+			<h2>내용 : {articleDetail.content}</h2>
+			<table>
+				<thead>
+					<tr>
+						<td>신고자</td>
+						<td>신고 내용</td>
+					</tr>
+				</thead>
+				<tbody>
+					{reportArticles.map((reportArticle, idx) => (
+						<tr key={idx}>
+							<td>{reportArticle.report_username}</td>
+							<td>{reportArticle.content}</td>
+						</tr>
+					))}
+				</tbody>
+			</table>
+		</div>
+	);
 }
 
 export default AdminReportArticleDetail;
