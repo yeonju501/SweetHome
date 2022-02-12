@@ -29,6 +29,7 @@ public class MemberService {
     @Transactional
     public Long saveAssociateMember(MemberSaveRequest request) {
         checkDuplicateEmail(request.getEmail());
+        checkDuplicateUsername(request.getUsername());
 
         Member member = request.toAssociateMember();
         member.encodePassword(passwordEncoder);
@@ -38,6 +39,12 @@ public class MemberService {
     private void checkDuplicateEmail(String email) {
         if (memberRepository.existsByEmail(email)) {
             throw new BusinessException(ErrorCode.MEMBER_EMAIL_DUPLICATED);
+        }
+    }
+
+    private void checkDuplicateUsername(String username) {
+        if (memberRepository.existsByUsername(username)) {
+            throw new BusinessException(ErrorCode.MEMBER_USERNAME_DUPLICATED);
         }
     }
 
