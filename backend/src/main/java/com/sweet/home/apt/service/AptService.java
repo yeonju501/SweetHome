@@ -58,7 +58,7 @@ public class AptService {
     }
 
     @Transactional(readOnly = true)
-    public AptResponse viewApt(Long aptId){
+    public AptResponse viewApt(Long aptId) {
         Apt apt = findById(aptId);
 
         return AptResponse.from(apt);
@@ -172,9 +172,8 @@ public class AptService {
     @Transactional
     public void createRegisterAptManager(String email, RegisterAptManagerRequest request) {
         Member member = memberService.findByEmail(email);
-        Apt apt = findByAptNumber(request.getAptNumber());
-
         checkDuplicateRegisterManager(member);
+        Apt apt = aptRepository.findByAptNumber(request.getAptNumber()).orElseGet(() -> null);
 
         registerAptManagerRepository.save(RegisterAptManager.createRegisterAptManager(member, request, apt));
     }
@@ -208,8 +207,11 @@ public class AptService {
         Member member = memberService.findById(request.getMemberId());
         RegisterAptManager registerAptManager = getRegisterAptManager(member);
 
-        AptHouse aptHouse = aptHouseRepository.findByAptAndDongAndHo(registerAptManager.getApt(), null, null)
-            .orElseGet(() -> aptHouseRepository.save(AptHouse.createAptHouse(registerAptManager.getApt(), null, null)));
+        Apt apt = aptRepository.findByAptNumber(registerAptManager.getAptNumber())
+            .orElseGet(() -> aptRepository.save(Apt.createApt(registerAptManager)));
+
+        AptHouse aptHouse = aptHouseRepository.findByAptAndDongAndHo(apt, null, null)
+            .orElseGet(() -> aptHouseRepository.save(AptHouse.createAptHouse(apt, null, null)));
 
         registerAptManager.saveDeletedTime();
         member.changeAuthority(Authority.ROLE_MANAGER);
