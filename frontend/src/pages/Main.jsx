@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { SET_USER } from "store/user";
-import style from "style/Main.module.css";
 import { SET_POSITION } from "store/toggle";
 import AssoMemberpage from "./Authority/AssoMemberpage";
 
@@ -31,7 +30,7 @@ function Main() {
 		(userInfo.authority === "준회원" ? (
 			<AssoMemberpage />
 		) : (
-			<div className={style.main}>
+			<div>
 				<div>
 					<p>인기글</p>
 					<p>인기글</p>

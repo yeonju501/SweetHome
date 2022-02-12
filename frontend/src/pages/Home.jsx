@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import SignIn from "components/accounts/AccountSignIn";
@@ -8,8 +8,12 @@ function Home() {
 	const cookies = new Cookies();
 	const navigate = useNavigate();
 	const token = cookies.get("accessToken");
+	const [isThisPublic, setIsPublic] = useState(1);
+	const { isPublic } = isThisPublic;
+
 	useEffect(() => {
 		token && navigate("/main");
+		// setIsPublic(false);
 	});
 
 	return (
@@ -21,7 +25,7 @@ function Home() {
 					</h2>
 					<Apart className={style.Home_img} />
 				</div>
-				<SignIn />
+				<SignIn thisPublic={isPublic} />
 			</div>
 		</>
 	);
