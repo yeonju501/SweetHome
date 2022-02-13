@@ -3,25 +3,41 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import style from "style/Sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
+import CreateBoard from "../boards/BoardCreate";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [boards, setBoards] = useState([]);
 	const [favorites, setFavorites] = useState("");
 	// const [isStarred, setIsStarred] = useState(false);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		getBoards();
 		getFavorites();
-	}, []);
+		if (modalOpen) {
+			document.body.style.cssText = `
+		position: fixed; 
+		top: -${window.scrollY}px;
+		overflow-y: scroll;
+		width: 100%;`;
+			return () => {
+				const scrollY = document.body.style.top;
+				document.body.style.cssText = "";
+				window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+			};
+		}
+	}, [modalOpen]);
 
 	// const boardStarred = (boardId) => {
 	// 	getStarred(boardId).then((value) => {
 	// 		return value;
 	// 	});
 	// };
-
+	const handleModal = () => {
+		setModalOpen(false);
+	};
 	const getStarred = async (boardId) => {
 		const response = await axios({
 			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
@@ -64,6 +80,12 @@ function SidebarBoards() {
 
 	return (
 		<div className={style.sidebar_container}>
+			{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
+			<p>
+				<FontAwesomeIcon onClick={() => setModalOpen(true)} className={style.icon} icon={faPlus} />
+				게시판 생성 요청
+			</p>
+
 			<p className={style.sidebar_like}>⭐즐겨찾는 게시판</p>
 			<ul className={style.sidebar_list}>
 				{favorites &&
