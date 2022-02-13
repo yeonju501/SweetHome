@@ -52,7 +52,7 @@ public class CommentRestController {
 
     @GetMapping("/{articleId}/comments")
     public ResponseEntity<CommentsResponse> showCommentsByArticle(@PathVariable Long articleId,
-        @PageableDefault Pageable pageable) {
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(commentService.showCommentsByArticle(articleId, pageable));
     }
 
