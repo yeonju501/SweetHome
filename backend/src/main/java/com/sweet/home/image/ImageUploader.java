@@ -1,5 +1,6 @@
 package com.sweet.home.image;
 
+import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.CannedAccessControlList;
 import com.amazonaws.services.s3.model.PutObjectRequest;
@@ -25,6 +26,7 @@ public class ImageUploader {
 
     @Value("${cloud.aws.s3.bucket}")
     public String bucket;
+
 
     public String upload(MultipartFile multipartFile, String dirName) throws IOException {
         File uploadFile = convert(multipartFile)
@@ -55,5 +57,13 @@ public class ImageUploader {
             return Optional.of(convertFile);
         }
         return Optional.empty();
+    }
+
+    public void deleteFile(String fileName) {
+        try {
+            amazonS3Client.deleteObject(bucket, fileName);
+        } catch (AmazonServiceException e) {
+            throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
+        }
     }
 }
