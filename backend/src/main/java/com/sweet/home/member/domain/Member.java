@@ -48,6 +48,9 @@ public class Member extends BaseEntity {
     @Column(name = "phone_number", length = 11)
     private String phoneNumber;
 
+    @Column(name = "imageUrl")
+    private String imageUrl;
+
     @Column(name = "kakao_id")
     private String kakaoId;
 
@@ -59,11 +62,13 @@ public class Member extends BaseEntity {
     }
 
     @Builder
-    public Member(String email, String password, String username, String phoneNumber, String kakaoId, Authority authority) {
+    public Member(String email, String password, String username, String phoneNumber, String imageUrl, String kakaoId,
+        Authority authority) {
         this.email = email;
         this.password = password;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.imageUrl = imageUrl;
         this.kakaoId = kakaoId;
         this.authority = authority;
     }
@@ -114,6 +119,10 @@ public class Member extends BaseEntity {
         if (!Objects.isNull(authority)) {
             this.authority = authority;
         }
+    }
+
+    public void changeImageUrl(String url) {
+        this.imageUrl = url;
     }
 
     public void checkAptMember(Apt apt) {
