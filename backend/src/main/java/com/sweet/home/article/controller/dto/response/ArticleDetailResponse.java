@@ -21,6 +21,9 @@ public class ArticleDetailResponse {
     @JsonProperty("content")
     private String content;
 
+    @JsonProperty("image_url")
+    private String image_url;
+
     @JsonFormat
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
@@ -35,12 +38,13 @@ public class ArticleDetailResponse {
     @JsonProperty("total_reports")
     private long totalReports;
 
-    protected ArticleDetailResponse(String title, String email, String username, String content, LocalDateTime createdAt,
+    protected ArticleDetailResponse(String title, String email, String username, String content, String image_url, LocalDateTime createdAt,
         LocalDateTime updatedAt, long totalLikes, long totalReports) {
         this.title = title;
         this.email = email;
         this.username = username;
         this.content = content;
+        this.image_url = image_url;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.totalLikes = totalLikes;
@@ -53,6 +57,7 @@ public class ArticleDetailResponse {
             article.getMember().getEmail(),
             article.getMember().getUsername(),
             article.getContent(),
+            article.getImageUrl(),
             article.getCreatedAt(),
             article.getUpdatedAt(),
             article.getTotalLikes(),

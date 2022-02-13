@@ -41,6 +41,9 @@ public class Article extends BaseEntity {
     @Column(name = "content", nullable = false)
     private String content;
 
+    @Column(name = "image_url")
+    private String imageUrl;
+
     @Column(name = "blocked_at", nullable = true)
     private LocalDateTime blockedAt;
 
@@ -58,9 +61,12 @@ public class Article extends BaseEntity {
     }
 
     @Builder
-    public Article(String title, String content, Member member, Board board) {
+    public Article(String title, String content, String imageUrl, Member member, Board board) {
         this.title = title;
         this.content = content;
+        if(Objects.nonNull(imageUrl)) {
+            this.imageUrl = imageUrl;
+        }
         this.member = member;
         this.board = board;
     }
@@ -91,5 +97,9 @@ public class Article extends BaseEntity {
 
     public void changeBlockedAt() {
         blockedAt = null;
+    }
+
+    public void changeImageUrl(String url) {
+        imageUrl = url;
     }
 }

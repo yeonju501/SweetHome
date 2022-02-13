@@ -16,11 +16,13 @@ import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ArticleService {
@@ -37,12 +39,13 @@ public class ArticleService {
     }
 
     @Transactional
-    public Long saveArticle(String email, ArticleSaveRequest request, Long boardId) {
+    public Long saveArticle(String email, ArticleSaveRequest request, Long boardId, String url) {
         Member member = memberService.findByEmail(email);
         Board board = boardService.findById(boardId);
         Article article = Article.builder()
             .title(request.getTitle())
             .content(request.getContent())
+            .imageUrl(url)
             .member(member)
             .board(board)
             .build();
