@@ -12,17 +12,17 @@ import com.sweet.home.board.domain.Board;
 import com.sweet.home.board.service.BoardService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
+import com.sweet.home.image.ImageUploader;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.service.MemberService;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class ArticleService {
@@ -30,12 +30,14 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final MemberService memberService;
     private final BoardService boardService;
+    private final ImageUploader imageUploader;
 
     public ArticleService(ArticleRepository articleRepository, MemberService memberService,
-        BoardService boardService) {
+        BoardService boardService, ImageUploader imageUploader) {
         this.articleRepository = articleRepository;
         this.memberService = memberService;
         this.boardService = boardService;
+        this.imageUploader = imageUploader;
     }
 
     @Transactional
@@ -95,13 +97,18 @@ public class ArticleService {
     }
 
     @Transactional
-    public void updateArticle(String email, ArticleSaveRequest request, Long articleId) {
+    public void updateArticle(String email, ArticleSaveRequest request, Long articleId, String url) {
         Article article = articleRepository.findById(articleId)
             .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
         article.checkArticleByEmail(email);
 
+        if (Objects.nonNull(article.getImageUrl())) {
+            imageUploader.deleteFile(article.getImageUrl());
+        }
+
         article.changeTitle(request.getTitle());
         article.changeContent(request.getContent());
+        article.changeImageUrl(url);
     }
 
     @Transactional
