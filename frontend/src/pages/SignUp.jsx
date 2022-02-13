@@ -7,10 +7,12 @@ import { SignUpButton } from "components/accounts/AccountButton";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "components/accounts/AccountKakaoButton";
 import { submitAxios } from "utils/accountAxios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 
 function SignUp() {
-	const [isUserDupl, setIsUserDup] = useState(false);
+	const [isUserDupl, setIsUserDup] = useState(0);
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
 	const URL = process.env.REACT_APP_SERVER_URL;
@@ -36,7 +38,7 @@ function SignUp() {
 			},
 			data: { value: username },
 		})
-			.then((res) => setIsUserDup(res.data.result))
+			.then((res) => (res.data.result ? setIsUserDup(1) : setIsUserDup(2)))
 			.catch((err) => console.log(err.response));
 	};
 
@@ -64,15 +66,29 @@ function SignUp() {
 				</span>
 				<form onSubmit={onSubmit} className={style.form}>
 					<AccountInput onChange={onChange} password={password} email={email} />
-					<input
-						type="text"
-						placeholder="사용자 이름"
-						onChange={onChange}
-						value={username}
-						id="username"
-						onBlur={checkUserDup}
-						className={isUserDupl ? style.duplicated : null}
-					/>
+					<div className={style.user_name}>
+						<input
+							type="text"
+							placeholder="사용자 이름"
+							onChange={onChange}
+							value={username}
+							id="username"
+							onBlur={checkUserDup}
+						/>
+						{(isUserDupl === 1 && (
+							<FontAwesomeIcon
+								icon={faBan}
+								className={isUserDupl ? style.iconDuplicate : style.notDupl}
+							/>
+						)) ||
+							(isUserDupl === 2 && (
+								<FontAwesomeIcon
+									icon={faCheck}
+									className={isUserDupl ? style.notDupl : style.iconDuplicate}
+								/>
+							))}
+					</div>
+
 					<input
 						type="text"
 						placeholder="-을 제외하고 휴대폰 번호를 입력해주세요 "

@@ -202,3 +202,22 @@ html {
 		transform: translate(2px, 1px) rotate(-1deg);
 	}
 }
+
+.user_name {
+	position: relative;
+}
+.iconDuplicate {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+	color: red;
+	font-size: 1.5rem;
+	text-align: left;
+	animation: shake 1s;
+}
+
+.notDupl {
+	position: absolute;
+	right: 1rem;
+	top: 1rem;
+}

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import { faEye, faEyeSlash, faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 import style from "style/SignIn.module.css";
 import axios from "axios";
 
@@ -11,7 +11,7 @@ function SignInPassword({ onChange, password, email }) {
 		visible: false,
 	});
 
-	const [isDup, setIsDup] = useState(false);
+	const [isDup, setIsDup] = useState(0);
 
 	const changePasswordType = () => {
 		setPasswordType(() => {
@@ -27,20 +27,31 @@ function SignInPassword({ onChange, password, email }) {
 			headers: { "Content-Type": "application/json" },
 			data: { value: email },
 		})
-			.then((res) => setIsDup(res.data.result))
+			.then((res) => (res.data.result ? setIsDup(1) : setIsDup(2)))
 			.catch((err) => console.log(err.response));
 	};
 	return (
 		<div className={style.password}>
-			<input
-				type="text"
-				placeholder="email"
-				id="email"
-				onChange={onChange}
-				onBlur={checkEmailDup}
-				value={email}
-				className={isDup ? style.duplicated : null}
-			/>
+			<div>
+				<input
+					type="text"
+					placeholder="email"
+					id="email"
+					onChange={onChange}
+					onBlur={checkEmailDup}
+					value={email}
+				/>
+				{(isDup === 1 && (
+					<FontAwesomeIcon icon={faBan} className={isDup ? style.iconDuplicate : style.notDupl} />
+				)) ||
+					(isDup === 2 && (
+						<FontAwesomeIcon
+							icon={faCheck}
+							className={isDup ? style.notDupl : style.iconDuplicate}
+						/>
+					))}
+			</div>
+
 			<div className={style.password_div}>
 				<input
 					type={passwordType.type}
