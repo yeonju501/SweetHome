@@ -70,9 +70,11 @@ function ArticleDetail() {
 							</div>
 
 							<h3 className={style.article_title}>{article.title}</h3>
-							<div>
-								<img src={article.image_url} alt="" style={{ width: "20rem", height: "20rem" }} />
-							</div>
+							{article.image_url && (
+								<div>
+									<img src={article.image_url} alt="" style={{ width: "20rem", height: "20rem" }} />
+								</div>
+							)}
 							<p className={style.article_content}>{article.content}</p>
 
 							<div className={style.article_bottom}>
