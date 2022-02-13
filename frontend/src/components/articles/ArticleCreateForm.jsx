@@ -6,7 +6,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) {
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
-	const [imgFile, setImgFile] = useState({});
+	const [imgFile, setImgFile] = useState(null);
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
@@ -16,7 +16,10 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 			"article",
 			new Blob([JSON.stringify(articleData)], { type: "application/json" }),
 		);
-		formData.append("image", imgFile);
+
+		imgFile
+			? formData.append("image", imgFile)
+			: formData.append("image", new Blob([JSON.stringify(null)]), { type: "multipart/form-data" });
 
 		if (title.trim() && content.trim()) {
 			axios({
@@ -69,7 +72,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 				<hr />
 				<input type="file" accept="image/*" onChange={handleImageChange} />
 				<button onClick={invertDisabled}>취소</button>
-				<button>작성</button>
+				<button type="submit">작성</button>
 			</form>
 		</div>
 	);
