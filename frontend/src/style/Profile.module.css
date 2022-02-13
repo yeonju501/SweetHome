@@ -10,6 +10,8 @@
 .profile_img {
 	margin-right: 2rem;
 	border-radius: 50%;
+	width: 5rem;
+	height: 100%;
 }
 .profile_user {
 	display: flex;
@@ -145,4 +147,16 @@ button {
 	position: absolute;
 	right: 1rem;
 	top: 1rem;
+}
+
+/* Image */
+
+.figure {
+	position: relative;
+}
+
+.input_image {
+	position: absolute;
+	left: 0;
+	display: none;
 }

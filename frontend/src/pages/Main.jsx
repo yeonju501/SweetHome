@@ -50,9 +50,7 @@ function Main() {
 				<p>{userInfo.username}</p>
 				<p>회원등급 : {userInfo.authority}</p>
 				<Link to={"/agreements"}>동의서</Link>
-				<Link to={`/profile/${userInfo.username}`} state={{ user: userInfo }}>
-					Profile
-				</Link>
+				<Link to={`/profile/${userInfo.username}`}>Profile</Link>
 			</div>
 		))
 	);
