@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { authorityCheck } from "utils/authority";
 
 function AgreementDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -13,6 +14,7 @@ function AgreementDetail() {
 	const [agreement, setAgreement] = useState("");
 	const [agreementStatus, setAgreementStatus] = useState("");
 	const today = new Date();
+	const authority = useSelector((state) => state.userInfo.authority);
 
 	useEffect(() => {
 		axios({
@@ -69,7 +71,9 @@ function AgreementDetail() {
 								{today.getFullYear()}년 {today.getMonth() + 1}월 {today.getDate()}일
 							</p>
 						)}
-						{isInProgress() === "진행중" ? (
+						{authorityCheck(authority) === 3 ? (
+							<button>삭제</button>
+						) : isInProgress() === "진행중" ? (
 							agreement.my_agreed === null ? (
 								<form onSubmit={handleFormSubmit}>
 									<div>
