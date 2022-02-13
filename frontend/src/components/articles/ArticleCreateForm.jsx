@@ -39,7 +39,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 					placeholder="제목을 입력하세요"
 				/>
 				<hr />
-				<input
+				<textarea
 					type="text"
 					id="content"
 					value={content}
