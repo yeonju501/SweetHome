@@ -69,12 +69,11 @@ function Agreements() {
 						))
 					) : (
 						<tr>
-							<td>작성된 동의서가 없습니다</td>
+							<td colSpan={3}>작성된 동의서가 없습니다</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
-			<Link to={"/agreement/create"}>작성</Link>
 			{agreements.length > 0 && (
 				<footer>
 					<AgreementsPagination page={currentPage} total={totalPage} setData={setData} />
