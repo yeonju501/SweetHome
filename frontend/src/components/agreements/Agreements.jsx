@@ -22,7 +22,7 @@ function Agreements() {
 
 	useEffect(() => {
 		axios({
-			url: `${SERVER_URL}/api/agreements?page=${currentPage}&size=5`,
+			url: `${SERVER_URL}/api/agreements?page=${currentPage}&size=10`,
 			method: "get",
 		}).then((res) => {
 			setData((prev) => ({
