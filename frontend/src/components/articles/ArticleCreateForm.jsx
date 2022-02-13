@@ -6,19 +6,31 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) {
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
+	const [imgFile, setImgFile] = useState({});
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
+
+		const formData = new FormData();
+		formData.append(
+			"article",
+			new Blob([JSON.stringify(articleData)], { type: "application/json" }),
+		);
+		formData.append("image", imgFile);
+
 		if (title.trim() && content.trim()) {
 			axios({
-				url: `${SERVER_URL}/api/boards/${boardId}/articles/`,
+				url: `${SERVER_URL}/api/boards/${boardId}/articles`,
 				method: "post",
-				data: articleData,
-			}).then(() => {
-				setArticleData({ title: "", content: "" });
-				invertDisabled();
-				getArticlesAfterCreate();
-			});
+				data: formData,
+			})
+				.then(() => {
+					setArticleData({ title: "", content: "" });
+					setImgFile({});
+					invertDisabled();
+					getArticlesAfterCreate();
+				})
+				.catch((err) => console.log(err.response));
 		} else {
 			alert("제목과 내용 모두 입력하세요!");
 		}
@@ -26,6 +38,14 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 
 	const handleInputChange = (e) => {
 		setArticleData({ ...articleData, [e.target.id]: e.target.value });
+	};
+
+	const handleImageChange = (e) => {
+		e.preventDefault();
+		if (e.target.files) {
+			const uploadFile = e.target.files[0];
+			setImgFile(uploadFile);
+		}
 	};
 
 	return (
@@ -47,7 +67,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 					placeholder="내용을 입력하세요"
 				/>
 				<hr />
-				<input type="file" />
+				<input type="file" accept="image/*" onChange={handleImageChange} />
 				<button onClick={invertDisabled}>취소</button>
 				<button>작성</button>
 			</form>
