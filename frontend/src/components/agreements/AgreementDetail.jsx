@@ -7,7 +7,7 @@ function AgreementDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const navigate = useNavigate();
-	const username = useSelector((state) => state.userInfo.username);
+	const user = useSelector((state) => state.userInfo);
 	const agreementId = location.state.id;
 	const progress = location.state.progress;
 	const [agreement, setAgreement] = useState("");
@@ -61,7 +61,9 @@ function AgreementDetail() {
 					</div>
 					<article>
 						<p>{agreement.content}</p>
-						<p>몇 동 몇 호 {username}</p>
+						<p>
+							{user.apt_house.dong} 동 {user.apt_house.ho} 호 {user.username}
+						</p>
 						{today && (
 							<p>
 								{today.getFullYear()}년 {today.getMonth() + 1}월 {today.getDate()}일

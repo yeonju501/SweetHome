@@ -9,6 +9,7 @@ const initialState = {
 	email: "",
 	phone_number: "",
 	authority: "",
+	apt_house: "",
 };
 
 const userInfo = (state = initialState, action) => {
@@ -20,6 +21,7 @@ const userInfo = (state = initialState, action) => {
 				email: action.data.email,
 				phone_number: action.data.phone_number,
 				authority: action.data.authority,
+				apt_house: action.data.apt_house,
 			};
 		case DELETE:
 			return {
@@ -28,6 +30,7 @@ const userInfo = (state = initialState, action) => {
 				email: "",
 				phone_number: "",
 				authority: "",
+				apt_house: "",
 			};
 		default:
 			return state;
