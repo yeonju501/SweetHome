@@ -43,7 +43,7 @@ function AdminAgreementListSearch() {
 						<tr key={idx}>
 							<td>{agreement.dong}</td>
 							<td>{agreement.ho}</td>
-							<td>{agreement.agreement_status}</td>
+							<td>{agreement.agreement_status === true ? <p>동의 완료</p> : <p>동의 거절</p>}</td>
 							<td>{agreement.created_at}</td>
 						</tr>
 					))
