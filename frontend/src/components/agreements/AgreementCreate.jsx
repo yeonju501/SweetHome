@@ -2,8 +2,9 @@ import { useState } from "react";
 import axios from "axios";
 import errorMessage from "store/errorMessage";
 import { useNavigate } from "react-router-dom";
+import ReactModal from "react-modal";
 
-function AgreementCreate() {
+function AgreementCreate(props) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [agreementData, setAgreementData] = useState({
 		title: "",
@@ -13,6 +14,7 @@ function AgreementCreate() {
 	});
 	const { title, content, start_date, end_date } = agreementData;
 	const navigate = useNavigate();
+	const { isOpen, onCancel } = props;
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
@@ -34,6 +36,7 @@ function AgreementCreate() {
 					start_date: "",
 					end_date: "",
 				});
+				onCancel();
 			})
 			.catch((err) => {
 				errorMessage(err.response.data.error_code);
@@ -46,11 +49,11 @@ function AgreementCreate() {
 
 	const handleCancelButton = (e) => {
 		e.preventDefault();
-		navigate("/agreements");
+		navigate("/agreement");
 	};
 
 	return (
-		<div>
+		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
 			<h1>동의서 작성</h1>
 			<form onSubmit={handleFormSubmit}>
 				<input
@@ -74,7 +77,7 @@ function AgreementCreate() {
 				<button>작성</button>
 				<button onClick={handleCancelButton}>취소</button>
 			</form>
-		</div>
+		</ReactModal>
 	);
 }
 
