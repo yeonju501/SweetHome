@@ -37,7 +37,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 		const data = { value: username };
 		console.log(username, user.username);
 		if (username === user.username) {
-			return setIsDup(0);
+			return setIsDup(2);
 		}
 		isThisDuplicte("name", data, setIsDup);
 	};
