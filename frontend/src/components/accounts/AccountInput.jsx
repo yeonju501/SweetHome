@@ -2,10 +2,9 @@ import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash, faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 import style from "style/SignIn.module.css";
-import axios from "axios";
+import { isThisDuplicte } from "utils/accountAxios";
 
 function SignInPassword({ onChange, password, email }) {
-	const URL = process.env.REACT_APP_SERVER_URL;
 	const [passwordType, setPasswordType] = useState({
 		type: "password",
 		visible: false,
@@ -21,14 +20,8 @@ function SignInPassword({ onChange, password, email }) {
 	};
 
 	const checkEmailDup = () => {
-		axios({
-			url: `${URL}/api/members/exist-email`,
-			method: "get",
-			headers: { "Content-Type": "application/json" },
-			data: { value: email },
-		})
-			.then((res) => (res.data.result ? setIsDup(1) : setIsDup(2)))
-			.catch((err) => console.log(err.response));
+		const data = { value: email };
+		isThisDuplicte("email", data, setIsDup);
 	};
 	return (
 		<div className={style.password}>

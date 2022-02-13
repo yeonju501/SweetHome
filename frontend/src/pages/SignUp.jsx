@@ -6,16 +6,14 @@ import AccountInput from "components/accounts/AccountInput";
 import { SignUpButton } from "components/accounts/AccountButton";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "components/accounts/AccountKakaoButton";
-import { submitAxios } from "utils/accountAxios";
+import { isThisDuplicte, submitAxios } from "utils/accountAxios";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
-import axios from "axios";
 
 function SignUp() {
 	const [isUserDupl, setIsUserDup] = useState(0);
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
-	const URL = process.env.REACT_APP_SERVER_URL;
 
 	const [inputValue, setInputValue] = useState({
 		email: "",
@@ -29,17 +27,8 @@ function SignUp() {
 	const isValid = inputValid.signUpValid(email, password, phone_number);
 
 	const checkUserDup = () => {
-		axios({
-			url: `${URL}/api/members/exist-name`,
-			method: "get",
-			withCredentials: true,
-			headers: {
-				"Content-type": "application/json",
-			},
-			data: { value: username },
-		})
-			.then((res) => (res.data.result ? setIsUserDup(1) : setIsUserDup(2)))
-			.catch((err) => console.log(err.response));
+		const data = { value: username };
+		isThisDuplicte("name", data, setIsUserDup);
 	};
 
 	const onChange = (e) => {
