@@ -20,16 +20,40 @@ function AdminAgreementListSearch() {
 			url: `${SERVER_URL}/api/admin/agreements/agree/${agreementId}`,
 		})
 			.then((res) => {
-				console.log(res.data);
+				console.log("받아오기", res.data);
+				setAgreementList(res.data);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	});
+	}, []);
 	return (
-		<>
-			<h1>어드민 동의 리스트 조회</h1>
-		</>
+		<table>
+			<thead>
+				<tr>
+					<th>동</th>
+					<th>호</th>
+					<th>동의여부</th>
+					<th>동의 날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				{agreementList.length > 0 ? (
+					agreementList.map((agreement, idx) => (
+						<tr key={idx}>
+							<td>{agreement.dong}</td>
+							<td>{agreement.ho}</td>
+							<td>{agreement.agreement_status}</td>
+							<td>{agreement.created_at}</td>
+						</tr>
+					))
+				) : (
+					<tr>
+						<td colSpan="4">동의 목록이 없습니다</td>
+					</tr>
+				)}
+			</tbody>
+		</table>
 	);
 }
 
