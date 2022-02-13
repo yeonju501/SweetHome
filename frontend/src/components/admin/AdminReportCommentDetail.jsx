@@ -55,6 +55,19 @@ function AdminReportCommentDetail() {
 				console.log(err);
 			});
 	};
+
+	const onReject = () => {
+		axios({
+			method: "DELETE",
+			url: `${SERVER_URL}/api/admin/comments/${commentId}/reports`,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<>
 			<div>
@@ -80,7 +93,7 @@ function AdminReportCommentDetail() {
 									<td>{reportComment.username}</td>
 									<td>{reportComment.content}</td>
 									<button onClick={onApprove}>승인</button>
-									<button>거부</button>
+									<button onClick={onReject}>거부</button>
 								</tr>
 						  ))
 						: null}
