@@ -10,6 +10,7 @@ const initialState = {
 	phone_number: "",
 	authority: "",
 	apt_house: "",
+	image_url: "",
 };
 
 const userInfo = (state = initialState, action) => {
@@ -22,6 +23,7 @@ const userInfo = (state = initialState, action) => {
 				phone_number: action.data.phone_number,
 				authority: action.data.authority,
 				apt_house: action.data.apt_house,
+				image_url: action.data.image_url,
 			};
 		case DELETE:
 			return {
