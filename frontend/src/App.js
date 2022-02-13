@@ -42,7 +42,7 @@ import AdminReportManage from "components/admin/AdminReportManage";
 import AdminReportArticleDetail from "components/admin/AdminReportArticleDetail";
 import AdminReportCommentDetail from "components/admin/AdminReportCommentDetail";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 function App() {
 	const authority = useSelector((state) => state.userInfo.authority);
 

@@ -6,14 +6,14 @@ import AccountInput from "components/accounts/AccountInput";
 import { SignUpButton } from "components/accounts/AccountButton";
 import Cookies from "universal-cookie";
 import AccountKakaoButton from "components/accounts/AccountKakaoButton";
-import { submitAxios } from "utils/accountAxios";
-import axios from "axios";
+import { isThisDuplicte, submitAxios } from "utils/accountAxios";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 
 function SignUp() {
-	const [isUserDupl, setIsUserDup] = useState(true);
+	const [isUserDupl, setIsUserDup] = useState(0);
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
-	const URL = process.env.REACT_APP_SERVER_URL;
 
 	const [inputValue, setInputValue] = useState({
 		email: "",
@@ -26,15 +26,9 @@ function SignUp() {
 
 	const isValid = inputValid.signUpValid(email, password, phone_number);
 
-	const checkUserDup = async () => {
+	const checkUserDup = () => {
 		const data = { value: username };
-		const res = axios({
-			url: `${URL}/api/members/exist-name`,
-			method: "get",
-			headers: { "Content-Type": "application/json;charset=UTF-8" },
-			data,
-		});
-		setIsUserDup(res.data.results);
+		isThisDuplicte("name", data, setIsUserDup);
 	};
 
 	const onChange = (e) => {
@@ -60,16 +54,30 @@ function SignUp() {
 					</Link>
 				</span>
 				<form onSubmit={onSubmit} className={style.form}>
-					<AccountInput onChange={onChange} password={password} />
-					<input
-						type="text"
-						placeholder="사용자 이름"
-						onChange={onChange}
-						value={username}
-						id="username"
-						onBlur={checkUserDup}
-						className={isUserDupl ? null : style.duplicated}
-					/>
+					<AccountInput onChange={onChange} password={password} email={email} />
+					<div className={style.user_name}>
+						<input
+							type="text"
+							placeholder="사용자 이름"
+							onChange={onChange}
+							value={username}
+							id="username"
+							onBlur={checkUserDup}
+						/>
+						{(isUserDupl === 1 && (
+							<FontAwesomeIcon
+								icon={faBan}
+								className={isUserDupl ? style.iconDuplicate : style.notDupl}
+							/>
+						)) ||
+							(isUserDupl === 2 && (
+								<FontAwesomeIcon
+									icon={faCheck}
+									className={isUserDupl ? style.notDupl : style.iconDuplicate}
+								/>
+							))}
+					</div>
+
 					<input
 						type="text"
 						placeholder="-을 제외하고 휴대폰 번호를 입력해주세요 "
