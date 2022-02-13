@@ -15,6 +15,9 @@ public class ProfileResponse {
     @JsonProperty("phone_number")
     private String phoneNumber;
 
+    @JsonProperty("image_url")
+    private String imageUrl;
+
     @JsonProperty("authority")
     private String authority;
 
@@ -24,11 +27,12 @@ public class ProfileResponse {
     public ProfileResponse() {
     }
 
-    public ProfileResponse(String email, String username, String phoneNumber, String authority,
+    public ProfileResponse(String email, String username, String phoneNumber, String imageUrl, String authority,
         AptHouseResponse aptHouseResponse) {
         this.email = email;
         this.username = username;
         this.phoneNumber = phoneNumber;
+        this.imageUrl = imageUrl;
         this.authority = authority;
         this.aptHouseResponse = aptHouseResponse;
     }
@@ -38,6 +42,7 @@ public class ProfileResponse {
             member.getEmail(),
             member.getUsername(),
             member.getPhoneNumber(),
+            member.getImageUrl(),
             member.getAuthority().getRole(),
             member.getAptHouse() == null ? null : AptHouseResponse.from(member.getAptHouse())
         );
