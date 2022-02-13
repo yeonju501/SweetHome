@@ -3,34 +3,20 @@ import { Link } from "react-router-dom";
 import style from "style/Authority.module.css";
 import { ReactComponent as PersonalInfo } from "assets/authentication.svg";
 import { ReactComponent as Checking } from "assets/Loading.svg";
-import axios from "axios";
+import AptMemberCancel from "./AptMemberCancel";
+import { cancelOrRefer } from "utils/authorityRequest";
 
-function AssoMemberpage({}) {
-	const URL = process.env.REACT_APP_SERVER_URL;
+function AssoMemberpage() {
 	const [isRequest, setIsRequest] = useState(true);
 
-	const cancelOrRefer = (method, True, False) => {
-		axios({
-			url: `${URL}/api/apts/register`,
-			method,
-			headers: { "Content-type": "application/json;charset=UTF-8" },
-		})
-			.then(() => setIsRequest(True))
-			.catch(() => setIsRequest(False));
-	};
 	useEffect(() => {
-		cancelOrRefer("get", false, true);
+		cancelOrRefer("get", setIsRequest, false, true);
 	}, []);
-
-	const cancelRequest = (e) => {
-		e.preventDefault();
-		cancelOrRefer("delete", true, false);
-	};
 
 	return (
 		<div className={style.asso_div}>
 			{isRequest ? (
-				<div style={{ display: "flex", alignItems: "center" }}>
+				<div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
 					<PersonalInfo className={style.personalInfo} />
 					<main className={style.asso_main}>
 						<h1>SweetHome을 찾아주셔서 감사합니다</h1>
@@ -48,12 +34,7 @@ function AssoMemberpage({}) {
 			) : (
 				<div className={style.cancel_request}>
 					<Checking className={style.asso_checking} />
-					<form onSubmit={cancelRequest}>
-						<h1>
-							관리자가 <br /> 인증 신청을 확인중에 있습니다
-						</h1>
-						<button className={style.btn_cancel_request}>인증 신청 취소하기</button>
-					</form>
+					<AptMemberCancel setIsRequest={setIsRequest} />
 				</div>
 			)}
 		</div>

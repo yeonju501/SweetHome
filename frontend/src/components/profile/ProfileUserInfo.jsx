@@ -98,12 +98,15 @@ function ProfileUserInfo({ setIntro, intro }) {
 					</aside>
 					<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
 				</div>
-				<div className={style.profile_user_info_div}>
-					<aside>
-						<label htmlFor="apt_house">주소</label>
-					</aside>
-					<input type="text" readOnly id="apt_house" value={apt_house.road_Name || ""} />
-				</div>
+				{apt_house && (
+					<div className={style.profile_user_info_div}>
+						<aside>
+							<label htmlFor="apt_house">주소</label>
+						</aside>
+						<input type="text" readOnly id="apt_house" value={apt_house.apt.road_Name || ""} />
+					</div>
+				)}
+
 				<div className={style.profile_user_info_div}>
 					<aside>
 						<label htmlFor="password">비밀번호</label>
