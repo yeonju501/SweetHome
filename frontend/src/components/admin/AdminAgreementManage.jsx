@@ -1,7 +1,6 @@
 import AgreementCreate from "components/agreements/AgreementCreate";
 import React from "react";
 import { useState } from "react";
-import AgreementCreate from "components/agreements/AgreementCreate";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 
