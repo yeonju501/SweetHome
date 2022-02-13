@@ -5,7 +5,6 @@ import {
 	faEnvelope,
 	faBars,
 	faHammer,
-	faPlus,
 } from "@fortawesome/free-solid-svg-icons";
 import { useSelector, useDispatch } from "react-redux";
 import Cookies from "universal-cookie";
@@ -13,8 +12,7 @@ import { Link } from "react-router-dom";
 import { SET_TOGGLE } from "store/toggle";
 import style from "style/Navbar.module.css";
 import { persistor } from "index";
-import { useState } from "react";
-
+import { authorityCheck } from "../../src/utils/authority";
 import { useEffect } from "react";
 
 function Navbar() {
@@ -23,6 +21,7 @@ function Navbar() {
 	const user = useSelector((state) => state.userInfo);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const position = useSelector((state) => state.toggle.position);
+	const authority = useSelector((state) => state.userInfo.authority);
 
 	const logOut = () => {
 		cookies.remove("accessToken");
@@ -48,14 +47,14 @@ function Navbar() {
 						</Link>
 					</div>
 					<div className={style.icon_container}>
-						{user.authority === "아파트관리자" || user.authority === "어드민" ? (
+						{authorityCheck(authority) >= 2 ? (
 							<>
 								<Link to="/admin">
 									<FontAwesomeIcon className={style.icon} icon={faHammer} />
 								</Link>
 							</>
 						) : null}
-						{user.authority !== "준회원" ? (
+						{authorityCheck(authority) >= 1 ? (
 							<>
 								<Link to="/message-box/">
 									<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
