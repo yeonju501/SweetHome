@@ -43,6 +43,7 @@ function Agreements() {
 						<th>제목</th>
 						<th>기간</th>
 						<th>진행여부</th>
+						<th>동의 목록 보기</th>
 					</tr>
 				</thead>
 
@@ -65,6 +66,9 @@ function Agreements() {
 									{agreement.start_date.slice(0, 10)} ~ {agreement.end_date.slice(0, 10)}
 								</td>
 								<td>{agreementProgress(agreement.start_date, agreement.end_date)}</td>
+								<td>
+									<Link to="list-search">동의 목록 보기</Link>
+								</td>
 							</tr>
 						))
 					) : (

@@ -43,6 +43,7 @@ import AdminReportArticleDetail from "components/admin/AdminReportArticleDetail"
 import AdminReportCommentDetail from "components/admin/AdminReportCommentDetail";
 import { authorityCheck } from "../src/utils/authority";
 import AdimnAgreementManage from "components/admin/AdminAgreementManage";
+import AdminAgreementListSearch from "components/admin/AdminAgreementListSearch";
 
 // axios.defaults.withCredentials = true;
 function App() {
@@ -124,6 +125,10 @@ function App() {
 										element={<AdminReportCommentDetail />}
 									/>
 									<Route path="agreement-manage" element={<AdimnAgreementManage />} />
+									<Route
+										path="agreement-manage/list-search"
+										element={<AdminAgreementListSearch />}
+									/>
 								</Route>
 								<Route path="/*" element={<NotFound />} />
 							</Routes>
