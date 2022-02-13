@@ -6,12 +6,12 @@ import ProfileUserInfo from "components/profile/ProfileUserInfo";
 import ProfileArticles from "components/profile/ProfileArticles";
 import ProfileComments from "components/profile/ProfileComments";
 import ProfileLikes from "components/profile/ProfileLikes";
+import AptMemberRequest from "./Authority/AptMemberRequest";
 
 function Profile() {
 	const location = useLocation();
 	const [active, setActive] = useState(0);
 	const user = location.state.user;
-
 	const [intro, setIntro] = useState({
 		email: user.email,
 		username: user.username,
@@ -31,6 +31,7 @@ function Profile() {
 			{active === 1 && <ProfileArticles />}
 			{active === 2 && <ProfileComments />}
 			{active === 3 && <ProfileLikes />}
+			{active === 4 && <AptMemberRequest moving="이사가기" />}
 		</div>
 	);
 }

@@ -5,7 +5,7 @@ import style from "style/Authority.module.css";
 import { toast } from "react-toastify";
 import errorMessage from "store/errorMessage";
 
-function AptMemberRequest() {
+function AptMemberRequest(props) {
 	const [addresses, setAddress] = useState({
 		address: "",
 		building: "",
@@ -71,7 +71,7 @@ function AptMemberRequest() {
 
 	return (
 		<div className={style.apt_member_page}>
-			<h1 className={style.apt_member_title}>아파트 세대원 인증</h1>
+			<h1 className={style.apt_member_title}>{props.moving ? null : "아파트 세대원 인증"}</h1>
 			<div className={style.apt_member}>
 				<form onSubmit={onSubmit}>
 					<div className={style.apt_member_form_div}>
