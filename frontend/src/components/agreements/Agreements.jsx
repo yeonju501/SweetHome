@@ -67,7 +67,9 @@ function Agreements() {
 								</td>
 								<td>{agreementProgress(agreement.start_date, agreement.end_date)}</td>
 								<td>
-									<Link to="list-search">동의 목록 보기</Link>
+									<Link to="list-search" state={{ agreementId: agreement.agreement_id }}>
+										동의 목록 보기
+									</Link>
 								</td>
 							</tr>
 						))
