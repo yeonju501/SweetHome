@@ -61,7 +61,7 @@ function AptAdminRequest() {
 	};
 
 	return (
-		<div>
+		<div className={style.apt_member_page}>
 			<h1 className={style.apt_member_title}>아파트 관리자 인증</h1>
 			<section className={style.apt_member}>
 				<form onSubmit={onSubmit}>

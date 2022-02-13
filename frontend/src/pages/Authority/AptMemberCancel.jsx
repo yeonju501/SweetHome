@@ -1,16 +1,19 @@
 import style from "style/Authority.module.css";
+import { cancelOrRefer } from "utils/authorityRequest";
 
-function AptMemberCancel({ cancelOrRefer }) {
+function AptMemberCancel({ setIsRequest }) {
 	const cancelRequest = (e) => {
-		e.preventDefault();
-		cancelOrRefer("delete", true, false);
+		cancelOrRefer("delete", setIsRequest, false, true);
 	};
+
 	return (
-		<form onSubmit={cancelRequest}>
+		<form>
 			<h1>
 				관리자가 <br /> 인증 신청을 확인중에 있습니다
 			</h1>
-			<button className={style.btn_cancel_request}>인증 신청 취소하기</button>
+			<button onClick={cancelRequest} className={style.btn_cancel_request}>
+				인증 신청 취소하기
+			</button>
 		</form>
 	);
 }

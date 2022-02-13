@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import style from "style/Profile.module.css";
 import ProfileNav from "components/profile/ProfileNav";
@@ -10,8 +10,8 @@ import AptMemberRequest from "./Authority/AptMemberRequest";
 
 function Profile() {
 	const location = useLocation();
-	const [active, setActive] = useState(0);
 	const user = location.state.user;
+	const [active, setActive] = useState(0);
 	const [intro, setIntro] = useState({
 		email: user.email,
 		username: user.username,

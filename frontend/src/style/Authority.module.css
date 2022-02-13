@@ -2,7 +2,7 @@
 
 .asso_div {
 	width: 100%;
-	height: 100%;
+	height: 100vh;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -20,7 +20,8 @@
 	width: auto;
 }
 .personalInfo {
-	height: 60%;
+	height: 100%;
+	margin-right: 3rem;
 }
 .asso_div p {
 	font-size: 1.7rem;
@@ -80,7 +81,7 @@
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	margin: auto 0;
+	margin: 5rem 0;
 }
 
 .apt_member_form_div aside {
