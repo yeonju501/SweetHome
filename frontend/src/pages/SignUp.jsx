@@ -10,7 +10,7 @@ import { submitAxios } from "utils/accountAxios";
 import axios from "axios";
 
 function SignUp() {
-	const [isUserDupl, setIsUserDup] = useState(true);
+	const [isUserDupl, setIsUserDup] = useState(false);
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
 	const URL = process.env.REACT_APP_SERVER_URL;
@@ -26,15 +26,18 @@ function SignUp() {
 
 	const isValid = inputValid.signUpValid(email, password, phone_number);
 
-	const checkUserDup = async () => {
-		const data = { value: username };
-		const res = axios({
+	const checkUserDup = () => {
+		axios({
 			url: `${URL}/api/members/exist-name`,
 			method: "get",
-			headers: { "Content-Type": "application/json;charset=UTF-8" },
-			data,
-		});
-		setIsUserDup(res.data.results);
+			withCredentials: true,
+			headers: {
+				"Content-type": "application/json",
+			},
+			data: { value: username },
+		})
+			.then((res) => setIsUserDup(res.data.result))
+			.catch((err) => console.log(err.response));
 	};
 
 	const onChange = (e) => {
@@ -60,7 +63,7 @@ function SignUp() {
 					</Link>
 				</span>
 				<form onSubmit={onSubmit} className={style.form}>
-					<AccountInput onChange={onChange} password={password} />
+					<AccountInput onChange={onChange} password={password} email={email} />
 					<input
 						type="text"
 						placeholder="사용자 이름"
@@ -68,7 +71,7 @@ function SignUp() {
 						value={username}
 						id="username"
 						onBlur={checkUserDup}
-						className={isUserDupl ? null : style.duplicated}
+						className={isUserDupl ? style.duplicated : null}
 					/>
 					<input
 						type="text"

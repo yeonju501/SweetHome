@@ -41,7 +41,7 @@ import AdminBoardUpdate from "components/admin/AdminBoardUpdate";
 import AdminReportManage from "components/admin/AdminReportManage";
 import AdminReportArticleDetail from "components/admin/AdminReportArticleDetail";
 
-axios.defaults.withCredentials = true;
+// axios.defaults.withCredentials = true;
 function App() {
 	const authority = useSelector((state) => state.userInfo.authority);
 
