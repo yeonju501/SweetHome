@@ -45,12 +45,12 @@ public class MemberRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/members/exist-email")
+    @PostMapping("/members/exist-email")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateEmail(@RequestBody CheckDuplicateRequest request) {
         return ResponseEntity.ok().body(memberService.checkDuplicateEmail(request));
     }
 
-    @GetMapping("/members/exist-name")
+    @PostMapping("/members/exist-name")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateUsername(@RequestBody CheckDuplicateRequest request) {
         return ResponseEntity.ok().body(memberService.checkDuplicateUsername(request));
     }
