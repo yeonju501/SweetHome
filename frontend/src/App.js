@@ -41,6 +41,7 @@ import AdminBoardUpdate from "components/admin/AdminBoardUpdate";
 import AdminReportManage from "components/admin/AdminReportManage";
 import AdminReportArticleDetail from "components/admin/AdminReportArticleDetail";
 import AdminReportCommentDetail from "components/admin/AdminReportCommentDetail";
+import { authorityCheck } from "../src/utils/authority";
 
 // axios.defaults.withCredentials = true;
 function App() {
@@ -60,23 +61,17 @@ function App() {
 		setLoading(isLoading);
 	}
 
-	const authorityCheck = (authority) => {
-		if (authority === "준회원") return false;
-		else if (authority === "") return false;
-		else return true;
-	};
-
 	if (loading) {
 		return (
 			<div className={style.app_js}>
 				<Router>
-					{authority && (
+					{authorityCheck(authority) && (
 						<nav>
 							<Navbar />
 						</nav>
 					)}
 					<div className={authority ? style.div : style.public}>
-						{authorityCheck(authority) && (
+						{authorityCheck(authority) >= 2 && (
 							<aside className={style.aside}>
 								<Sidebar />
 							</aside>
