@@ -61,7 +61,9 @@ function AgreementDetail() {
 					</div>
 					<article>
 						<p>{agreement.content}</p>
-						<p>몇 동 몇 호 {user.username}</p>
+						<p>
+							{user.apt_house.dong} 동 {user.apt_house.ho} 호 {user.username}
+						</p>
 						{today && (
 							<p>
 								{today.getFullYear()}년 {today.getMonth() + 1}월 {today.getDate()}일
