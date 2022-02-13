@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import AdminAgreementList from "components/agreements/Agreements";
 
 function AdimnAgreementManage() {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -11,14 +12,19 @@ function AdimnAgreementManage() {
 		setModalOpen(false);
 	};
 	return (
-		<>
+		<div>
 			<h1>어드민 동의서 관리</h1>
+
 			{modalOpen && <AgreementCreate isOpen={modalOpen} onCancel={handleModal} />}
 			<p>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} icon={faPlus} />
-				게시판 생성 요청
+				동의서 생성
 			</p>
-		</>
+
+			<div>
+				<AdminAgreementList />
+			</div>
+		</div>
 	);
 }
 
