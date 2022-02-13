@@ -1,10 +1,13 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import AgreementsPagination from "./AgreementsPagination";
 
 function Agreements() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const [agreements, setAgreements] = useState("");
+	const [data, setData] = useState({ agreements: [], totalPage: 0, currentPage: 0 });
+	const { agreements, totalPage, currentPage } = data;
+
 	const today = new Date();
 
 	const agreementProgress = (start_date, end_date) => {
@@ -19,12 +22,17 @@ function Agreements() {
 
 	useEffect(() => {
 		axios({
-			url: `${SERVER_URL}/api/agreements`,
+			url: `${SERVER_URL}/api/agreements?page=${currentPage}&size=5`,
 			method: "get",
 		}).then((res) => {
-			setAgreements(res.data.agreements);
+			setData((prev) => ({
+				...prev,
+				agreements: res.data.agreements,
+				totalPage: res.data.total_page_count,
+				currentPage: res.data.current_page_count,
+			}));
 		});
-	}, []);
+	}, [currentPage]);
 
 	return (
 		<div>
@@ -39,7 +47,7 @@ function Agreements() {
 				</thead>
 
 				<tbody>
-					{agreements ? (
+					{agreements.length > 0 ? (
 						agreements.map((agreement, idx) => (
 							<tr key={idx}>
 								<td>
@@ -67,7 +75,11 @@ function Agreements() {
 				</tbody>
 			</table>
 			<Link to={"/agreement/create"}>작성</Link>
-			<footer>페이지네이션</footer>
+			{agreements.length > 0 && (
+				<footer>
+					<AgreementsPagination page={currentPage} total={totalPage} setData={setData} />
+				</footer>
+			)}
 		</div>
 	);
 }
