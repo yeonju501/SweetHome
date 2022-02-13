@@ -1,6 +1,7 @@
 import axios from "axios";
 import errorMessage from "store/errorMessage";
 import { onLoginSuccess } from "./manageToken";
+import * as inputValid from "utils/inputValid";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 export function submitAxios(api, inputValue, moveUrl, login = false) {
@@ -21,12 +22,20 @@ export function submitAxios(api, inputValue, moveUrl, login = false) {
 }
 
 export function isThisDuplicte(api, data, setState) {
+	if (api === "email") {
+		if (!inputValid.emailValid(data.value)) {
+			return setState(1);
+		}
+	}
 	axios({
 		url: `${SERVER_URL}/api/members/exist-${api}`,
-		method: "get",
+		method: "post",
 		headers: { "Content-Type": "application/json" },
 		data,
 	})
-		.then((res) => (res.data.result ? setState(1) : setState(2)))
+		.then((res) => {
+			console.log(res.data.result);
+			res.data.result ? setState(1) : setState(2);
+		})
 		.catch((err) => errorMessage(err.response.data.error_code));
 }

@@ -35,7 +35,7 @@ public class ProfileRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/members/my-profile/exist-name")
+    @PostMapping("/members/my-profile/exist-name")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateUsernameUpdate(@AuthenticationPrincipal String email,
         @RequestBody CheckDuplicateRequest request) {
         return ResponseEntity.ok().body(profileService.checkDuplicateUsernameUpdate(email, request));

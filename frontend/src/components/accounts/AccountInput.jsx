@@ -21,11 +21,11 @@ function SignInPassword({ onChange, password, email }) {
 
 	const checkEmailDup = () => {
 		const data = { value: email };
-		isThisDuplicte("email", data, setIsDup);
+		email.trim() && isThisDuplicte("email", data, setIsDup);
 	};
 	return (
 		<div className={style.password}>
-			<div>
+			<div className={style.user_name}>
 				<input
 					type="text"
 					placeholder="email"
@@ -34,15 +34,8 @@ function SignInPassword({ onChange, password, email }) {
 					onBlur={checkEmailDup}
 					value={email}
 				/>
-				{(isDup === 1 && (
-					<FontAwesomeIcon icon={faBan} className={isDup ? style.iconDuplicate : style.notDupl} />
-				)) ||
-					(isDup === 2 && (
-						<FontAwesomeIcon
-							icon={faCheck}
-							className={isDup ? style.notDupl : style.iconDuplicate}
-						/>
-					))}
+				{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
+					(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
 			</div>
 
 			<div className={style.password_div}>

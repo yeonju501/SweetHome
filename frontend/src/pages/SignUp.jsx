@@ -28,7 +28,7 @@ function SignUp() {
 
 	const checkUserDup = () => {
 		const data = { value: username };
-		isThisDuplicte("name", data, setIsUserDup);
+		username.trim() && isThisDuplicte("name", data, setIsUserDup);
 	};
 
 	const onChange = (e) => {
@@ -65,17 +65,9 @@ function SignUp() {
 							onBlur={checkUserDup}
 						/>
 						{(isUserDupl === 1 && (
-							<FontAwesomeIcon
-								icon={faBan}
-								className={isUserDupl ? style.iconDuplicate : style.notDupl}
-							/>
+							<FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />
 						)) ||
-							(isUserDupl === 2 && (
-								<FontAwesomeIcon
-									icon={faCheck}
-									className={isUserDupl ? style.notDupl : style.iconDuplicate}
-								/>
-							))}
+							(isUserDupl === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
 					</div>
 
 					<input
