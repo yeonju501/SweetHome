@@ -73,7 +73,7 @@ function App() {
 						</nav>
 					)}
 					<div className={authority ? style.div : style.public}>
-						{authorityCheck(authority) >= 3 && (
+						{authorityCheck(authority) >= 2 && (
 							<aside className={style.aside}>
 								<Sidebar />
 							</aside>
