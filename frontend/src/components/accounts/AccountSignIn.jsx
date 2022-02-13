@@ -8,7 +8,7 @@ import { SignInButton } from "./AccountButton";
 import AccountKakaoButton from "./AccountKakaoButton";
 import { submitAxios } from "utils/accountAxios";
 
-function SignIn({ thisPublic }) {
+function SignIn({ isThisPublic }) {
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
 	const [inputValue, setInputValue] = useState({
@@ -33,7 +33,7 @@ function SignIn({ thisPublic }) {
 	}
 
 	return !token ? (
-		<div className={thisPublic ? style.sign_in : style.is_public}>
+		<div className={!isThisPublic ? style.sign_in : style.is_public}>
 			<div className={style.sign_in_div}>
 				<h1 className={style.title}>Sweet Home</h1>
 				<form onSubmit={onSubmit} className={style.form}>

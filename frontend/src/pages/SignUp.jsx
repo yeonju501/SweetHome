@@ -14,7 +14,7 @@ function SignUp() {
 	const [isUserDupl, setIsUserDup] = useState(0);
 	const cookies = new Cookies();
 	const token = cookies.get("accessToken");
-
+	const [isSignUp, setIsSignUp] = useState(true);
 	const [inputValue, setInputValue] = useState({
 		email: "",
 		password: "",
@@ -54,7 +54,7 @@ function SignUp() {
 					</Link>
 				</span>
 				<form onSubmit={onSubmit} className={style.form}>
-					<AccountInput onChange={onChange} password={password} email={email} />
+					<AccountInput onChange={onChange} password={password} email={email} isSignUp={isSignUp} />
 					<div className={style.user_name}>
 						<input
 							type="text"
