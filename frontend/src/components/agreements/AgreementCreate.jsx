@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
 import errorMessage from "store/errorMessage";
-import { useNavigate } from "react-router-dom";
 import ReactModal from "react-modal";
 
 function AgreementCreate(props) {
@@ -13,7 +12,6 @@ function AgreementCreate(props) {
 		end_date: "",
 	});
 	const { title, content, start_date, end_date } = agreementData;
-	const navigate = useNavigate();
 	const { isOpen, onCancel } = props;
 
 	const handleFormSubmit = (e) => {
