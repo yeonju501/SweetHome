@@ -47,11 +47,6 @@ function AgreementCreate(props) {
 		setAgreementData({ ...agreementData, [e.target.id]: e.target.value });
 	};
 
-	const handleCancelButton = (e) => {
-		e.preventDefault();
-		navigate("/agreement");
-	};
-
 	return (
 		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
 			<h1>동의서 작성</h1>
@@ -75,7 +70,7 @@ function AgreementCreate(props) {
 					onChange={handleInputChange}
 				></textarea>
 				<button>작성</button>
-				<button onClick={handleCancelButton}>취소</button>
+				<button onClick={onCancel}>취소</button>
 			</form>
 		</ReactModal>
 	);
