@@ -1,5 +1,6 @@
 package com.sweet.home.global.exception;
 
+import java.io.IOException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -20,7 +21,7 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ErrorCode.GLOBAL_ILLEGAL_ERROR.getHttpStatus()).body(response);
     }
 
-    @ExceptionHandler(RuntimeException.class)
+    @ExceptionHandler({RuntimeException.class, IOException.class})
     public ResponseEntity<ErrorResponse> handleRuntimeException(RuntimeException exception) {
         ErrorResponse response = ErrorResponse.from(ErrorCode.GLOBAL_INTERNAL_SERVER_ERROR);
         return ResponseEntity.status(ErrorCode.GLOBAL_INTERNAL_SERVER_ERROR.getHttpStatus()).body(response);

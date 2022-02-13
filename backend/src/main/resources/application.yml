@@ -45,3 +45,15 @@ jwt:
     secret: b3JpX3RveV9wcm9qZWN0X3JlYWxfd29ybGRfamF2YV9zcHJpbmdfYm9vdF9zZWNyZXRfand0X3NhdWx0X2tleQo=
     access-time: 1800000  # 30분
     refresh-time: 604800000 # 7일
+
+cloud:
+  aws:
+    credentials:
+      accessKey: AKIA2SSL7OZDV5KIQXR3
+      secretKey: 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
+    s3:
+      bucket: sweethome-bucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
