@@ -20,7 +20,7 @@ function Main() {
 		}).then((res) => {
 			setUserInfo(res.data);
 			dispatch(SET_USER(res.data));
-			console.log(res.data.authority);
+			console.log(res.data);
 		});
 		dispatch(SET_POSITION(toggle, "main"));
 	}, []);

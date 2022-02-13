@@ -15,17 +15,19 @@ function ProfileUserInfo({ setIntro, intro }) {
 	const user = useSelector((state) => state.userInfo);
 	const [isDup, setIsDup] = useState(0);
 	const [userInfo, setUserInfo] = useState({
-		email: "",
 		username: "",
+		email: "",
 		phone_number: "",
+		authority: "",
+		apt_house: {},
 		password: "",
 	});
 
 	useEffect(() => {
-		axiosRequest.GETUSERINFO(setUserInfo);
+		setUserInfo(user);
 	}, []);
 
-	const { email, username, phone_number, password } = userInfo;
+	const { username, email, phone_number, authority, apt_house, password } = userInfo;
 
 	const isValid = inputValid.profileChange(email, phone_number);
 
@@ -35,9 +37,8 @@ function ProfileUserInfo({ setIntro, intro }) {
 
 	const checkUserDup = () => {
 		const data = { value: username };
-		console.log(username, user.username);
 		if (username === user.username) {
-			return setIsDup(0);
+			return setIsDup(2);
 		}
 		isThisDuplicte("name", data, setIsDup);
 	};
@@ -67,44 +68,52 @@ function ProfileUserInfo({ setIntro, intro }) {
 		}
 	};
 	return (
-		<form onSubmit={onSubmit} className={style.profile_form}>
-			<div className={style.profile_user_info_div}>
-				<aside>
-					<label htmlFor="username">닉네임</label>
-				</aside>
-				<div className={style.user_name}>
-					<input
-						type="text"
-						id="username"
-						value={username || ""}
-						onChange={onChange}
-						onBlur={checkUserDup}
-					/>
-					{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
-						(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
+		userInfo.username && (
+			<form onSubmit={onSubmit} className={style.profile_form}>
+				<div className={style.profile_user_info_div}>
+					<aside>
+						<label htmlFor="username">닉네임</label>
+					</aside>
+					<div className={style.user_name}>
+						<input
+							type="text"
+							id="username"
+							value={username || ""}
+							onChange={onChange}
+							onBlur={checkUserDup}
+						/>
+						{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
+							(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
+					</div>
 				</div>
-			</div>
-			<div className={style.profile_user_info_div}>
-				<aside>
-					<label htmlFor="email">Email</label>
-				</aside>
-				<input type="text" id="email" value={email || ""} onChange={onChange} />
-			</div>
-			<div className={style.profile_user_info_div}>
-				<aside>
-					<label htmlFor="phone_number">휴대폰 번호</label>
-				</aside>
-				<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
-			</div>
-			<div className={style.profile_user_info_div}>
-				<aside>
-					<label htmlFor="password">비밀번호</label>
-				</aside>
-				<input type="password" id="password" value={password || ""} onChange={onChange} />
-			</div>
+				<div className={style.profile_user_info_div}>
+					<aside>
+						<label htmlFor="email">Email</label>
+					</aside>
+					<input type="text" id="email" value={email || ""} onChange={onChange} />
+				</div>
+				<div className={style.profile_user_info_div}>
+					<aside>
+						<label htmlFor="phone_number">휴대폰 번호</label>
+					</aside>
+					<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
+				</div>
+				<div className={style.profile_user_info_div}>
+					<aside>
+						<label htmlFor="apt_house">주소</label>
+					</aside>
+					<input type="text" readOnly id="apt_house" value={apt_house.road_Name || ""} />
+				</div>
+				<div className={style.profile_user_info_div}>
+					<aside>
+						<label htmlFor="password">비밀번호</label>
+					</aside>
+					<input type="password" id="password" value={password || ""} onChange={onChange} />
+				</div>
 
-			<ProfileButtons password={password} isDup={isDup} />
-		</form>
+				<ProfileButtons password={password} isDup={isDup} />
+			</form>
+		)
 	);
 }
 
