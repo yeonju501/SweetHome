@@ -4,6 +4,7 @@ import style from "style/Authority.module.css";
 import { ReactComponent as PersonalInfo } from "assets/authentication.svg";
 import { ReactComponent as Checking } from "assets/Loading.svg";
 import axios from "axios";
+import AptMemberCancel from "./AptMemberCancel";
 
 function AssoMemberpage({}) {
 	const URL = process.env.REACT_APP_SERVER_URL;
@@ -21,11 +22,6 @@ function AssoMemberpage({}) {
 	useEffect(() => {
 		cancelOrRefer("get", false, true);
 	}, []);
-
-	const cancelRequest = (e) => {
-		e.preventDefault();
-		cancelOrRefer("delete", true, false);
-	};
 
 	return (
 		<div className={style.asso_div}>
@@ -48,12 +44,7 @@ function AssoMemberpage({}) {
 			) : (
 				<div className={style.cancel_request}>
 					<Checking className={style.asso_checking} />
-					<form onSubmit={cancelRequest}>
-						<h1>
-							관리자가 <br /> 인증 신청을 확인중에 있습니다
-						</h1>
-						<button className={style.btn_cancel_request}>인증 신청 취소하기</button>
-					</form>
+					<AptMemberCancel cancelOrRefer={cancelOrRefer} />
 				</div>
 			)}
 		</div>
