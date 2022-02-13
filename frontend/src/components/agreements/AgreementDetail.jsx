@@ -46,7 +46,7 @@ function AgreementDetail() {
 		if (progress === "진행중") {
 			return "진행중";
 		} else if (progress === "만료") {
-			return "만료된 동의서입니다";
+			return "기한 만료된 동의서입니다";
 		} else {
 			return "진행 대기 중인 동의서입니다";
 		}
