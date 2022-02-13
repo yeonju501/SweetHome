@@ -19,7 +19,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 
 		imgFile
 			? formData.append("image", imgFile)
-			: formData.append("image", new Blob([JSON.stringify(null)]), { type: "multipart/form-data" });
+			: formData.append("image", new Blob([]), { type: "multipart/form-data" });
 
 		if (title.trim() && content.trim()) {
 			axios({
