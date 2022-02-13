@@ -36,9 +36,10 @@ function Board() {
 		try {
 			await setLoading(true);
 			const res = await axios({
-				url: `${SERVER_URL}/api/boards/${board.id}/articles?size=8`,
+				url: `${SERVER_URL}/api/boards/${board.id}/articles?size=5`,
 				method: "get",
 			});
+			setPageNumber(0);
 			setArticles(res.data.articles);
 			setLoading(false);
 		} catch (err) {
@@ -50,7 +51,7 @@ function Board() {
 		try {
 			await setLoading(true);
 			const res = await axios({
-				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=6`,
+				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=5`,
 				method: "get",
 			});
 			console.log(res.data);
@@ -63,13 +64,13 @@ function Board() {
 
 	useEffect(() => {
 		const option = {
-			root: document.querySelector(".ulTag"),
+			root: document.querySelector("#infiniteScroll"),
 			rootMargin: "20px",
 			threshold: 1,
 		};
 		const observer = new IntersectionObserver(handleObserver, option);
 		if (pageEnd.current) observer.observe(pageEnd.current);
-	}, [handleObserver]);
+	}, [pageEnd.current]);
 
 	return (
 		<div>
@@ -83,20 +84,25 @@ function Board() {
 			<hr />
 
 			{articles && (
-				<ul style={{ overflow: "scroll", height: "100vh" }} className={style.ulTag}>
-					{articles.map((article, idx) => (
-						<li className={style.article} key={idx} style={{ fontSize: "3rem" }}>
-							<Link to={`/articles/${article.id}`} state={{ articleId: article.id, board: board }}>
-								<p>{article.username}</p>
-								<p>{article.created_at}</p>
-								<h3>{article.title}</h3>
-								<p>{article.content}</p>
-							</Link>
-						</li>
-					))}
-				</ul>
+				<div id="infiniteScroll" className={style.article_list}>
+					<ul>
+						{articles.map((article, idx) => (
+							<li className={style.article} key={idx} style={{ fontSize: "3rem" }}>
+								<Link
+									to={`/articles/${article.id}`}
+									state={{ articleId: article.id, board: board }}
+								>
+									<p>{article.username}</p>
+									<p>{article.created_at}</p>
+									<h3>{article.title}</h3>
+									<p>{article.content}</p>
+								</Link>
+							</li>
+						))}
+					</ul>
+					<div ref={pageEnd}>페이지의 끝입니다</div>
+				</div>
 			)}
-			<div ref={pageEnd}>hi</div>
 		</div>
 	);
 }
