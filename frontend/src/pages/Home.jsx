@@ -9,7 +9,6 @@ function Home() {
 	const navigate = useNavigate();
 	const token = cookies.get("accessToken");
 	const [isThisPublic, setIsPublic] = useState(false);
-	const { isPublic } = isThisPublic;
 
 	useEffect(() => {
 		token && navigate("/main");
@@ -25,7 +24,7 @@ function Home() {
 					</h2>
 					<Apart className={style.Home_img} />
 				</div>
-				<SignIn thisPublic={isPublic} />
+				<SignIn isThisPublic={isThisPublic} setIsPublic={setIsPublic} />
 			</div>
 		</>
 	);

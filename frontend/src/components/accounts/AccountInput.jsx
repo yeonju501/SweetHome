@@ -4,7 +4,7 @@ import { faEye, faEyeSlash, faCheck, faBan } from "@fortawesome/free-solid-svg-i
 import style from "style/SignIn.module.css";
 import { isThisDuplicte } from "utils/accountAxios";
 
-function SignInPassword({ onChange, password, email }) {
+function SignInPassword({ onChange, password, email, isSignUp }) {
 	const [passwordType, setPasswordType] = useState({
 		type: "password",
 		visible: false,
@@ -34,8 +34,9 @@ function SignInPassword({ onChange, password, email }) {
 					onBlur={checkEmailDup}
 					value={email}
 				/>
-				{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
-					(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
+				{isSignUp &&
+					((isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
+						(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />))}
 			</div>
 
 			<div className={style.password_div}>
