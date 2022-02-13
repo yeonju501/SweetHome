@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 import * as inputValid from "utils/inputValid";
 import * as axiosRequest from "utils/profileAxios";
 import axios from "axios";
 import { toast } from "react-toastify";
 import ProfileButtons from "./ProfileButtons";
 import style from "style/Profile.module.css";
+import { isThisDuplicte } from "utils/accountAxios";
+import { useSelector } from "react-redux";
+
 function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
+	const user = useSelector((state) => state.userInfo);
+	const [isDup, setIsDup] = useState(0);
 	const [userInfo, setUserInfo] = useState({
 		email: "",
 		username: "",
@@ -27,9 +33,17 @@ function ProfileUserInfo({ setIntro, intro }) {
 		setUserInfo({ ...userInfo, [e.target.id]: e.target.value });
 	};
 
+	const checkUserDup = () => {
+		const data = { value: username };
+		console.log(username, user.username);
+		if (username === user.username) {
+			return setIsDup(0);
+		}
+		isThisDuplicte("name", data, setIsDup);
+	};
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (isValid && username.trim().length > 0) {
+		if (isDup === 2 && isValid && username.trim().length > 0) {
 			axios({
 				method: "put",
 				url: `${SERVER_URL}/api/members/my-profile`,
@@ -47,6 +61,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 				email: userInfo.email,
 				username: userInfo.username,
 			});
+			setIsDup(0);
 		} else {
 			toast.error("회원 정보가 변경 되지 않았습니다.");
 		}
@@ -57,7 +72,17 @@ function ProfileUserInfo({ setIntro, intro }) {
 				<aside>
 					<label htmlFor="username">닉네임</label>
 				</aside>
-				<input type="text" id="username" value={username || ""} onChange={onChange} />
+				<div className={style.user_name}>
+					<input
+						type="text"
+						id="username"
+						value={username || ""}
+						onChange={onChange}
+						onBlur={checkUserDup}
+					/>
+					{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
+						(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
+				</div>
 			</div>
 			<div className={style.profile_user_info_div}>
 				<aside>
@@ -78,7 +103,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 				<input type="password" id="password" value={password || ""} onChange={onChange} />
 			</div>
 
-			<ProfileButtons password={password} />
+			<ProfileButtons password={password} isDup={isDup} />
 		</form>
 	);
 }

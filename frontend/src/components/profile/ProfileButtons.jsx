@@ -2,7 +2,7 @@ import axios from "axios";
 import errorMessage from "store/errorMessage";
 import { cookieDelete } from "utils/manageToken";
 import style from "style/Profile.module.css";
-function ProfileButtons({ password }) {
+function ProfileButtons({ password, isDup }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const deleteAccount = () => {
 		window.confirm("정말로 회원 탈퇴를 진행 하시겠습니까?") &&
@@ -19,7 +19,7 @@ function ProfileButtons({ password }) {
 
 	return (
 		<div className={style.profile_btn}>
-			<button disabled={!password}>저장</button>
+			<button disabled={!password || !(isDup === 2)}>저장</button>
 			<button
 				type="button"
 				onClick={deleteAccount}
