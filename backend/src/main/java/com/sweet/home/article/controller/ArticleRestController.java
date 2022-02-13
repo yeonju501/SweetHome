@@ -47,13 +47,14 @@ public class ArticleRestController {
     }
 
     @PostMapping("/{boardId}/articles")
-    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @RequestPart(value= "article") ArticleSaveRequest request,
-        @RequestPart(value = "image", required = false) MultipartFile file, @PathVariable Long boardId){
+    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email,
+        @RequestPart(value = "article") ArticleSaveRequest request,
+        @RequestPart(value = "image", required = false) MultipartFile file, @PathVariable Long boardId) {
         String url = null;
         if (!file.isEmpty()) {
-            try{
+            try {
                 url = imageUploader.upload(file, "article");
-            } catch (IOException e){
+            } catch (IOException e) {
                 throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
             }
         }
@@ -86,9 +87,18 @@ public class ArticleRestController {
     }
 
     @PutMapping("/articles/{articleId}")
-    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email, @RequestBody ArticleSaveRequest request,
+    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email,
+        @RequestPart("article") ArticleSaveRequest request, @RequestPart(value = "image", required = false) MultipartFile file,
         @PathVariable Long articleId) {
-        articleService.updateArticle(email, request, articleId);
+        String url = null;
+        if (!file.isEmpty()) {
+            try {
+                url = imageUploader.upload(file, "article");
+            } catch (IOException e) {
+                throw new BusinessException(ErrorCode.GLOBAL_ILLEGAL_ERROR);
+            }
+        }
+        articleService.updateArticle(email, request, articleId, url);
         return ResponseEntity.noContent().build();
     }
 
