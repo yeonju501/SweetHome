@@ -1,6 +1,7 @@
 package com.sweet.home.member.controller.dto.response;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.sweet.home.apt.controller.dto.response.AptHouseResponse;
 import com.sweet.home.member.domain.Member;
 
 public class ProfileResponse {
@@ -17,14 +18,19 @@ public class ProfileResponse {
     @JsonProperty("authority")
     private String authority;
 
+    @JsonProperty("apt_house")
+    private AptHouseResponse aptHouseResponse;
+
     public ProfileResponse() {
     }
 
-    public ProfileResponse(String email, String username, String phoneNumber, String authority) {
+    public ProfileResponse(String email, String username, String phoneNumber, String authority,
+        AptHouseResponse aptHouseResponse) {
         this.email = email;
         this.username = username;
         this.phoneNumber = phoneNumber;
         this.authority = authority;
+        this.aptHouseResponse = aptHouseResponse;
     }
 
     public static ProfileResponse from(Member member) {
@@ -32,7 +38,8 @@ public class ProfileResponse {
             member.getEmail(),
             member.getUsername(),
             member.getPhoneNumber(),
-            member.getAuthority().getRole()
+            member.getAuthority().getRole(),
+            member.getAptHouse() == null ? null : AptHouseResponse.from(member.getAptHouse())
         );
     }
 }
