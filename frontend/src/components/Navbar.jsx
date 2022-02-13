@@ -41,20 +41,23 @@ function Navbar() {
 			{user && (
 				<div className={style.navbar_container}>
 					<div className={style.toggle_container}>
-						<FontAwesomeIcon className={style.icon} onClick={toggleMenu} icon={faBars} />
+						{authorityCheck(authority) >= 2 ? (
+							<FontAwesomeIcon className={style.icon} onClick={toggleMenu} icon={faBars} />
+						) : null}
+
 						<Link className={style.main_home} to="/main">
 							SweetHome
 						</Link>
 					</div>
 					<div className={style.icon_container}>
-						{authorityCheck(authority) >= 2 ? (
+						{authorityCheck(authority) >= 3 ? (
 							<>
 								<Link to="/admin">
 									<FontAwesomeIcon className={style.icon} icon={faHammer} />
 								</Link>
 							</>
 						) : null}
-						{authorityCheck(authority) >= 1 ? (
+						{authorityCheck(authority) >= 2 ? (
 							<>
 								<Link to="/message-box/">
 									<FontAwesomeIcon className={style.icon} icon={faEnvelope} />
