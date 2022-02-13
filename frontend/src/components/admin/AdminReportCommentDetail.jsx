@@ -8,6 +8,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function AdminReportCommentDetail() {
 	const location = useLocation();
+	const commentId = location.state.commentId;
 	const [reportComments, setReportComments] = useState({
 		id: "",
 		username: "",
@@ -41,6 +42,19 @@ function AdminReportCommentDetail() {
 		console.log(commentDetail);
 		getReportCommentDetail(location.state.commentId);
 	}, []);
+
+	const onApprove = () => {
+		axios({
+			method: "POST",
+			url: `${SERVER_URL}/api/admin/comments/${commentId}/reports`,
+		})
+			.then((res) => {
+				console.log("성공");
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 	return (
 		<>
 			<div>
@@ -65,7 +79,7 @@ function AdminReportCommentDetail() {
 								<tr key={idx}>
 									<td>{reportComment.username}</td>
 									<td>{reportComment.content}</td>
-									<button>승인</button>
+									<button onClick={onApprove}>승인</button>
 									<button>거부</button>
 								</tr>
 						  ))
