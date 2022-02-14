@@ -7,13 +7,13 @@ import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.ArticlesTitleResponse;
 import com.sweet.home.article.service.ArticleDeleteService;
 import com.sweet.home.article.service.ArticleService;
+import com.sweet.home.global.aop.AptChecker;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.image.ImageUploader;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -24,15 +24,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
-@RequestMapping("/api/boards")
+@RequestMapping("/api/apts")
 public class ArticleRestController {
 
     private final ArticleService articleService;
@@ -46,8 +44,9 @@ public class ArticleRestController {
         this.imageUploader = imageUploader;
     }
 
-    @PostMapping("/{boardId}/articles")
-    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email,
+    @AptChecker
+    @PostMapping("/{aptId}/boards/{boardId}/articles")
+    public ResponseEntity<Void> createArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId,
         @RequestPart(value = "article") ArticleSaveRequest request,
         @RequestPart(value = "image", required = false) MultipartFile file, @PathVariable Long boardId) {
         String url = null;
@@ -63,37 +62,43 @@ public class ArticleRestController {
         return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping("/articles/{articleId}")
-    public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long articleId) {
+    @AptChecker
+    @GetMapping("/{aptId}/boards/articles/{articleId}")
+    public ResponseEntity<ArticleDetailResponse> showArticle(@PathVariable Long aptId, @PathVariable Long articleId) {
         return ResponseEntity.ok().body(articleService.showArticle(articleId));
     }
 
-    @GetMapping("/{boardId}/articles")
-    public ResponseEntity<ArticlesTitleResponse> showArticlesByBoard(@PathVariable Long boardId,
+    @AptChecker
+    @GetMapping("/{aptId}/boards/{boardId}/articles")
+    public ResponseEntity<ArticlesTitleResponse> showArticlesByBoard(@PathVariable Long aptId, @PathVariable Long boardId,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showArticlesByBoard(boardId, pageable));
     }
 
-    @GetMapping("/articles/mine")
-    public ResponseEntity<ArticlesLikeResponse> showMyArticles(@AuthenticationPrincipal String email,
+    @AptChecker
+    @GetMapping("/{aptId}/boards/articles/mine")
+    public ResponseEntity<ArticlesLikeResponse> showMyArticles(@PathVariable Long aptId, @AuthenticationPrincipal String email,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showMyArticles(email, pageable));
     }
 
-    @GetMapping("/articles/popular")
-    public ResponseEntity<List<ArticleLikeResponse>> showPopularArticles(
+    @AptChecker
+    @GetMapping("/{aptId}/boards/articles/popular")
+    public ResponseEntity<List<ArticleLikeResponse>> showPopularArticles(@PathVariable Long aptId,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showPopularArticles(pageable));
     }
 
-    @GetMapping("/articles/new")
-    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(
+    @AptChecker
+    @GetMapping("/{aptId}/boards/articles/new")
+    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(@PathVariable Long aptId,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showNewArticles(pageable));
     }
 
-    @PutMapping("/articles/{articleId}")
-    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email,
+    @AptChecker
+    @PutMapping("/{aptId}/boards/articles/{articleId}")
+    public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId,
         @RequestPart("article") ArticleSaveRequest request, @RequestPart(value = "image", required = false) MultipartFile file,
         @PathVariable Long articleId) {
         String url = null;
@@ -108,8 +113,9 @@ public class ArticleRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/articles/{articleId}")
-    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
+    @AptChecker
+    @DeleteMapping("/{aptId}/boards/articles/{articleId}")
+    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         articleDeleteService.deleteArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
