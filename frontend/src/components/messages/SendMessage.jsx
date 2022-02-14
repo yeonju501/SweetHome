@@ -3,14 +3,16 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
+import { useSelector } from "react-redux";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SendMessage() {
 	const navigate = useNavigate();
+	const target = useSelector((state) => state.messageInfo);
 
 	const [sendMessage, setSendMessage] = useState({
-		receiver_name: "",
+		receiver_name: target ? target.username : "",
 		title: "",
 		content: "",
 	});
@@ -30,20 +32,23 @@ function SendMessage() {
 				method: "POST",
 				url: `${SERVER_URL}/api/messages/`,
 				data: sendMessage,
-			}).then((res) => {
+			}).then(() => {
 				toast.success("메시지 전송 완료");
 				setSendMessage({ receiver_name: "", title: "", content: "" });
-				console.log(res);
+				target &&
+					setTimeout(function () {
+						window.close();
+					}, 1600);
 			});
 		}
-		console.log(e.target.checkValidity());
 	}
 
 	function onCancel() {
-		navigate("/message-box");
+		target ? window.close() : navigate("/message-box");
 	}
 
 	const { receiver_name, title, content } = sendMessage;
+
 	return (
 		<div className={style.message_container}>
 			<h1>SendMessage</h1>

@@ -4,11 +4,11 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import style from "style/articles/ArticleDetailButtons.module.css";
-import ArticleCreateForm from "./ArticleCreateForm";
+import { SET_MESSAGE } from "store/message";
 
 function ArticleDetailButtons({ article, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const usermail = useSelector((state) => state.userInfo.email);
+	const username = useSelector((state) => state.userInfo.username);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -23,8 +23,17 @@ function ArticleDetailButtons({ article, articleId }) {
 		}
 	};
 
-	const handleMessageButtonClick = () => {
-		window.open("/send-message", "send-message", "width=430, height=500,location=no,status=no");
+	const handleMessageButtonClick = async () => {
+		await dispatch(
+			SET_MESSAGE({
+				username,
+			}),
+		);
+		await window.open(
+			"/send-message",
+			"send-message",
+			"width=430, height=500,location=no,status=no",
+		);
 	};
 
 	const reportArticle = async () => {
@@ -40,7 +49,7 @@ function ArticleDetailButtons({ article, articleId }) {
 
 	return (
 		<div className={style.button_box}>
-			{article.email === usermail ? (
+			{article.username === username ? (
 				<div>
 					<Link
 						to={`/articles/${articleId}/update`}
