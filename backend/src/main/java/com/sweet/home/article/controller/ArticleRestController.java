@@ -86,6 +86,12 @@ public class ArticleRestController {
         return ResponseEntity.ok().body(articleService.showPopularArticles(pageable));
     }
 
+    @GetMapping("/articles/new")
+    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(
+        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
+        return ResponseEntity.ok().body(articleService.showNewArticles(pageable));
+    }
+
     @PutMapping("/articles/{articleId}")
     public ResponseEntity<Void> updateArticle(@AuthenticationPrincipal String email,
         @RequestPart("article") ArticleSaveRequest request, @RequestPart(value = "image", required = false) MultipartFile file,

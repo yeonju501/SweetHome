@@ -76,8 +76,17 @@ public class ArticleService {
 
     @Transactional(readOnly = true)
     public List<ArticleLikeResponse> showPopularArticles(Pageable pageable) {
-        List<Article> articles = articleRepository.findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime.now().minusHours(24),
+        List<Article> articles = articleRepository.findByCreatedAtBetweenAndBlockedAtIsNullOrderByTotalLikesDesc(
+            LocalDateTime.now().minusHours(24),
             LocalDateTime.now(), pageable);
+        return articles.stream()
+            .map(ArticleLikeResponse::from)
+            .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public List<ArticleLikeResponse> showNewArticles(Pageable pageable) {
+        List<Article> articles = articleRepository.findAllByBlockedAtIsNull(pageable);
         return articles.stream()
             .map(ArticleLikeResponse::from)
             .collect(Collectors.toList());

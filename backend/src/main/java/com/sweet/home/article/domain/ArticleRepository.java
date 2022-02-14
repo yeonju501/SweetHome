@@ -25,8 +25,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
     Page<Article> findAllByBlockedAtIsNotNull(Pageable pageable);
 
+    @EntityGraph(attributePaths = {"member"}, type = EntityGraphType.FETCH)
+    List<Article> findAllByBlockedAtIsNull(Pageable pageable);
+
     @EntityGraph(attributePaths = {"board"}, type = EntityGraphType.FETCH)
-    List<Article> findByCreatedAtBetweenOrderByTotalLikesDesc(LocalDateTime start, LocalDateTime end, Pageable pageable);
+    List<Article> findByCreatedAtBetweenAndBlockedAtIsNullOrderByTotalLikesDesc(LocalDateTime start, LocalDateTime end, Pageable pageable);
 
     Optional<Article> findByIdAndBlockedAtIsNotNull(Long id);
 
