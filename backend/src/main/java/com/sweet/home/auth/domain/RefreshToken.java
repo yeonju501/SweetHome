@@ -13,10 +13,10 @@ import lombok.Getter;
 public class RefreshToken {
 
     @Id
-    @Column(name = "key")
+    @Column(name = "email")
     private String key;
 
-    @Column(name = "value")
+    @Column(name = "token")
     private String value;
 
     protected RefreshToken() {
