@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -10,11 +11,12 @@ function AdminBoardList() {
 		name: "",
 		description: "",
 	});
+	const user = useSelector((state) => state.userInfo.apt_house);
 
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/boards`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
 		})
 			.then((res) => {
 				setBoardList(res.data);
