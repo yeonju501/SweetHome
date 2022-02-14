@@ -7,7 +7,9 @@ import { toast } from "react-toastify";
 import ProfileButtons from "./ProfileButtons";
 import style from "style/Profile.module.css";
 import { isThisDuplicte } from "utils/accountAxios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { GETUSERINFO } from "utils/profileAxios";
+import { SET_USER } from "store/user";
 
 function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -24,8 +26,10 @@ function ProfileUserInfo({ setIntro, intro }) {
 	});
 	const profileImage = useRef(null);
 	const [imgFile, setFiles] = useState(null);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
+		GETUSERINFO(dispatch, SET_USER);
 		setUserInfo(user);
 	}, []);
 
@@ -84,7 +88,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 							onChange={(e) => setFiles(e.target.files[0])}
 						/>
 						<img
-							src={image_url}
+							src={user.image_url}
 							alt="Profile img"
 							className={style.profile_img}
 							onClick={() => profileImage.current.click()}
