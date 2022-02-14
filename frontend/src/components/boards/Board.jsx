@@ -75,7 +75,7 @@ function Board() {
 	}, [pageEnd.current]);
 
 	return (
-		<div>
+		<div className={style.body}>
 			<BoardInfo board={board} />
 			<ArticleCreate
 				boardId={board.id}
@@ -83,13 +83,12 @@ function Board() {
 				getArticles={getArticles}
 				setArticles={setArticles}
 			/>
-			<hr />
 
 			{articles && (
 				<div id="infiniteScroll" className={style.article_list}>
 					<ul>
 						{articles.map((article, idx) => (
-							<li className={style.article} key={idx} style={{ fontSize: "3rem" }}>
+							<li className={style.article} key={idx}>
 								<Link
 									to={`/articles/${article.id}`}
 									state={{ articleId: article.id, board: board }}

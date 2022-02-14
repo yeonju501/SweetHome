@@ -5,6 +5,7 @@ import axios from "axios";
 import { SET_USER } from "store/user";
 import { SET_POSITION } from "store/toggle";
 import AssoMemberpage from "./Authority/AssoMemberpage";
+import style from "style/Main.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -52,14 +53,15 @@ function Main() {
 		(userInfo.authority === "준회원" ? (
 			<AssoMemberpage />
 		) : (
-			<div>
-				<ul>
+			<div className={style.body}>
+				<p>인기글</p>
+				<ul className={style.articles}>
 					{hotArticles.map((article, idx) => (
 						<li key={idx}>{article.title}</li>
 					))}
 				</ul>
-				<hr />
-				<ul>
+				<p>최신글</p>
+				<ul className={style.articles}>
 					{newArticles.map((article, idx) => (
 						<li key={idx}>{article.title}</li>
 					))}

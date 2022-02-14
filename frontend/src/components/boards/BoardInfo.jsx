@@ -1,8 +1,10 @@
+import style from "style/BoardInfo.module.css";
+
 function BoardInfo({ board }) {
 	return (
-		<div className="">
-			<p>게시판명 : {board.name}</p>
-			<p>게시판 소개글 : {board.Description}</p>
+		<div className={style.board_info}>
+			<p className={style.board_title}>{board.name}</p>
+			<p className={style.board_description}>{board.description}</p>
 		</div>
 	);
 }
