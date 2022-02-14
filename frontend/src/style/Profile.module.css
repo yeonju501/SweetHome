@@ -1,10 +1,11 @@
 .profile {
 	background-color: #ffff;
-	padding: 4rem;
+	padding: 4rem 0;
+	margin-left: 4rem;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	align-items: center;
+	/* align-items: center; */
 }
 
 .profile_img {
