@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -12,6 +13,8 @@ function AdminReportCommentList() {
 		username: "",
 		created_at: "",
 	});
+	const [page, setPage] = useState(0);
+	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
 		axios({
@@ -20,11 +23,12 @@ function AdminReportCommentList() {
 		})
 			.then((res) => {
 				setReportComments(res.data.blocked_comments);
+				setPageSize(res.data.total_page_count);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [page]);
 	return (
 		<div>
 			<table>
@@ -65,6 +69,13 @@ function AdminReportCommentList() {
 					)}
 				</tbody>
 			</table>
+			{reportComments.length > 0 ? (
+				<div>
+					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+					{adminPagination(pageSize, setPage)}
+					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+				</div>
+			) : null}
 		</div>
 	);
 }

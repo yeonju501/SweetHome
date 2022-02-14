@@ -3,6 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
+import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -16,20 +17,22 @@ function AdminMemberRegister() {
 		message: "",
 		phone_number: "",
 	});
+	const [page, setPage] = useState(0);
+	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
-		console.log("실행");
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/apts/register`,
+			url: `${SERVER_URL}/api/admin/apts/register?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setAptMemberRegister(res.data.register_members);
+				setPageSize(res.data.total_page_count);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
-	}, []);
+	}, [page]);
 
 	const registerMember = (method_, id) => {
 		console.log(method_, id);
@@ -43,6 +46,7 @@ function AdminMemberRegister() {
 			console.log(err);
 		});
 	};
+
 	return (
 		<>
 			<table>
@@ -89,6 +93,13 @@ function AdminMemberRegister() {
 					)}
 				</tbody>
 			</table>
+			{aptMemberRegister.length > 0 ? (
+				<div>
+					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+					{adminPagination(pageSize, setPage)}
+					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+				</div>
+			) : null}
 		</>
 	);
 }
