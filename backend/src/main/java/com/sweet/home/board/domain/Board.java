@@ -1,5 +1,6 @@
 package com.sweet.home.board.domain;
 
+import com.sweet.home.apt.domain.Apt;
 import com.sweet.home.global.domain.BaseEntity;
 import java.util.Objects;
 import lombok.Builder;
@@ -18,9 +19,9 @@ public class Board extends BaseEntity {
     @Column(name = "board_id")
     private Long id;
 
-//    @ManyToOne(targetEntity = Apt.class, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "apt_id")
-//    private Apt apt;
+    @ManyToOne(targetEntity = Apt.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "apt_id")
+    private Apt apt;
 
     @Column(name = "name", length = 20, nullable = false)
     private String name;
@@ -35,7 +36,8 @@ public class Board extends BaseEntity {
     }
 
     @Builder
-    public Board(String name, String description, Boolean boardStatus) {
+    public Board(Apt apt, String name, String description, Boolean boardStatus) {
+        this.apt = apt;
         this.name = name;
         this.description = description;
         this.boardStatus = boardStatus;

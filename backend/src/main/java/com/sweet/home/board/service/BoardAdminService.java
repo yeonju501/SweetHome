@@ -1,5 +1,7 @@
 package com.sweet.home.board.service;
 
+import com.sweet.home.apt.domain.Apt;
+import com.sweet.home.apt.service.AptService;
 import com.sweet.home.board.controller.dto.request.BoardSaveRequest;
 import com.sweet.home.board.controller.dto.response.BoardsResponse;
 import com.sweet.home.board.domain.Board;
@@ -16,21 +18,27 @@ public class BoardAdminService {
 
     private final BoardRepository boardRepository;
     private final BoardDeleteService boardDeleteService;
+    private final AptService aptService;
 
-    public BoardAdminService(BoardRepository boardRepository, BoardDeleteService boardDeleteService) {
+    public BoardAdminService(BoardRepository boardRepository, BoardDeleteService boardDeleteService,
+        AptService aptService) {
         this.boardRepository = boardRepository;
         this.boardDeleteService = boardDeleteService;
+        this.aptService = aptService;
     }
 
     @Transactional(readOnly = true)
-    public BoardsResponse showUnapprovedBoards(Pageable pageable) {
-        Page<Board> boards = boardRepository.findAllByBoardStatusIsNull(pageable);
+    public BoardsResponse showUnapprovedBoards(Long aptId, Pageable pageable) {
+        Apt apt = aptService.findById(aptId);
+        Page<Board> boards = boardRepository.findAllByBoardStatusIsNullAndApt(pageable, apt);
         return BoardsResponse.from(boards);
     }
 
     @Transactional
-    public void createBoard(BoardSaveRequest request) {
+    public void createBoard(Long aptId, BoardSaveRequest request) {
+        Apt apt = aptService.findById(aptId);
         Board board = Board.builder()
+            .apt(apt)
             .name(request.getName())
             .description(request.getDescription())
             .boardStatus(true)
