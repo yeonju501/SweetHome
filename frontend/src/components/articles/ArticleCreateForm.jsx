@@ -7,8 +7,8 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) {
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
-	const { title, content } = articleData;
 	const [imgFile, setImgFile] = useState(null);
+	const { title, content } = articleData;
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
