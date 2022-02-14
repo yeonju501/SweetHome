@@ -29,7 +29,6 @@ function AdminReportArticleDetail() {
 			url: `${SERVER_URL}/api/admin/articles/${id}/reports`,
 		})
 			.then((res) => {
-				console.log("신고목록겟", res.data);
 				setReportArticles(res.data);
 			})
 			.catch((err) => {
@@ -43,7 +42,6 @@ function AdminReportArticleDetail() {
 			url: `${SERVER_URL}/api/boards/articles/${id}`,
 		})
 			.then((res) => {
-				console.log("아티클겟", res.data);
 				setArticleDetail(res.data);
 			})
 			.catch((err) => {
@@ -51,37 +49,26 @@ function AdminReportArticleDetail() {
 			});
 	}
 	useEffect(() => {
-		console.log(location.state.articleId);
 		getReportArticleDetail(articleId);
 		getArticleDetail(articleId);
-		console.log(reportArticles);
-		console.log(articleDetail);
 	}, []);
 
 	const onApprove = () => {
 		axios({
 			method: "POST",
 			url: `${SERVER_URL}/api/admin/articles/${articleId}/reports`,
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 
 	const onReject = () => {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/admin/articles/${articleId}/reports`,
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 	return (
 		<>

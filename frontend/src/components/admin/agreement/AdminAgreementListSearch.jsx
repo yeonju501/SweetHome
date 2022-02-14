@@ -20,7 +20,6 @@ function AdminAgreementListSearch() {
 			url: `${SERVER_URL}/api/admin/agreements/agree/${agreementId}`,
 		})
 			.then((res) => {
-				console.log("받아오기", res.data);
 				setAgreementList(res.data);
 			})
 			.catch((err) => {

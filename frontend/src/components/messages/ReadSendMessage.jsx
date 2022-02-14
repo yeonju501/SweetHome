@@ -57,7 +57,6 @@ function ReadSendMessage() {
 		}).then((res) => {
 			toast.success("메시지 삭제 완료");
 			navigate("/message-box");
-			console.log(res);
 		});
 	}
 

@@ -17,7 +17,6 @@ function AdminReportArticleList() {
 			url: `${SERVER_URL}/api/admin/articles/reports`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setReportArticles(res.data.articles);
 			})
 			.catch((err) => {

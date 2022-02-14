@@ -21,7 +21,6 @@ function AdminMemberList() {
 			url: `${SERVER_URL}/api/admin/apts/members`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setAptMembers(res.data.apt_members);
 			})
 			.catch((err) => {
@@ -34,13 +33,9 @@ function AdminMemberList() {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/admin/apts/members/${id}`,
-		})
-			.then((res) => {
-				console.log("추방");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 	return (
 		<table>

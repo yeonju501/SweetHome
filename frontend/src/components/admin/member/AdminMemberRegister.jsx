@@ -24,9 +24,7 @@ function AdminMemberRegister() {
 			url: `${SERVER_URL}/api/admin/apts/register`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setAptMemberRegister(res.data.register_members);
-				console.log(aptMemberRegister);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -41,13 +39,9 @@ function AdminMemberRegister() {
 			data: {
 				apt_house_member_id: id,
 			},
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 	return (
 		<>
