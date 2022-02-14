@@ -22,6 +22,10 @@
 	border-top: none;
 }
 
+.comments_li:last-child {
+	border-bottom: 1px solid #dedede;
+}
+
 .nestedComments {
 	display: flex;
 }
@@ -72,8 +76,25 @@ textarea:focus {
 .btn_comment_like {
 	position: absolute;
 	right: 1rem;
+	cursor: pointer;
 }
 
+.comments {
+	display: flex;
+	flex-direction: column;
+	overflow: scroll;
+}
 .hidden {
 	display: none;
+}
+
+.more_comment {
+	background-color: transparent;
+	font-weight: 300;
+	color: #000;
+	border: 0.5px solid #000;
+	border-radius: 50%;
+	width: 3rem;
+	height: 3rem;
+	margin: 2rem auto;
 }
