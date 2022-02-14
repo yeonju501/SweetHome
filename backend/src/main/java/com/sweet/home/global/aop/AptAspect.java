@@ -41,7 +41,7 @@ public class AptAspect {
 
     private Long getAptCode(String uri) {
         String[] uris = uri.split("/");
-        if (uris.length < 4 || !uris[1].equals("api") || !uris[2].equals("test")) {
+        if (uris.length < 4 || !uris[1].equals("api") || !uris[2].equals("apts")) {
             throw new RuntimeException("uri 요청이 올바르지 않음");
         }
         return Long.parseLong(uris[3]);
