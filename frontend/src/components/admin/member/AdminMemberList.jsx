@@ -24,7 +24,6 @@ function AdminMemberList() {
 			url: `${SERVER_URL}/api/admin/apts/members`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setAptMembers(res.data.apt_members);
 				setPageSize(res.data.total_page_count);
 			})
