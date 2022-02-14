@@ -25,7 +25,7 @@ function ArticleDetail() {
 			setComment(res.data.total_replies);
 		});
 		getTotalLikes();
-	}, [isLiked]);
+	}, [isLiked, comment]);
 
 	const getTotalLikes = () => {
 		axios({
@@ -98,7 +98,7 @@ function ArticleDetail() {
 								</button>
 							</div>
 						</article>
-						<Comments articleId={articleId} setComment={setComment} />
+						<Comments articleId={articleId} totalComments={comment} setComment={setComment} />
 					</div>
 				</section>
 			)}
