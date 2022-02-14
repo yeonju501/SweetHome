@@ -55,7 +55,11 @@ public class Article extends BaseEntity {
     @Formula("(select count(1) from article_report ar where ar.article_id = article_id and ar.deleted_at is null)")
     private int totalReports;
 
-    private static final int BLOCK_STANDARD = 1;
+    @Basic(fetch = FetchType.LAZY)
+    @Formula("(select count(1) from comment c where c.article_id = article_id and c.deleted_at is null)")
+    private int totalReplies;
+
+    private static final int BLOCK_STANDARD = 5;
 
     protected Article() {
     }
