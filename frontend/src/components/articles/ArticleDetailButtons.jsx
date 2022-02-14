@@ -4,6 +4,7 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import style from "style/articles/ArticleDetailButtons.module.css";
+import { SET_MESSAGE } from "store/message";
 
 function ArticleDetailButtons({ article, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -22,8 +23,17 @@ function ArticleDetailButtons({ article, articleId }) {
 		}
 	};
 
-	const handleMessageButtonClick = () => {
-		window.open("/send-message", "send-message", "width=430, height=500,location=no,status=no");
+	const handleMessageButtonClick = async () => {
+		await dispatch(
+			SET_MESSAGE({
+				username,
+			}),
+		);
+		await window.open(
+			"/send-message",
+			"send-message",
+			"width=430, height=500,location=no,status=no",
+		);
 	};
 
 	const reportArticle = async () => {
