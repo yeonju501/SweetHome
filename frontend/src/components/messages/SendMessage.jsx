@@ -52,7 +52,7 @@ function SendMessage() {
 	return (
 		<div className={style.message_container}>
 			<h1>SendMessage</h1>
-			<form className={style.form} onSubmit={onSend}>
+			<form className={style.form}>
 				<p className={style.input_p}>받는 사람</p>
 				<input
 					autoFocus="autofocus"
@@ -82,7 +82,9 @@ function SendMessage() {
 					required
 				/>
 				<div className={style.btn_container}>
-					<button className={style.send}>Send</button>
+					<button className={style.send} onClick={onSend}>
+						Send
+					</button>
 					<button className={style.delete} onClick={onCancel}>
 						Cancle
 					</button>
