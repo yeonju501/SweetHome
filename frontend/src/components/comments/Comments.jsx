@@ -4,19 +4,18 @@ import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 import style from "style/articles/ArticleDetailComment.module.css";
 
-function Comments({ articleId, setComment }) {
+function Comments({ articleId, setComment, totalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
-	const [page, setPage] = useState(0);
-	const [totalComments, setTotalComments] = useState(5);
+	const [page, setPage] = useState(1);
 	const getMoreComments = () => {
 		axios({
 			url: `${URL}/api/articles/${articleId}/comments?page=${page}&size=5`,
 			method: "get",
 		}).then((res) => {
-			setComments((prev) => [...comments, ...res.data.comments]);
+			setPage(page + 1);
+			setComments([...comments, ...res.data.comments]);
 			setComment(res.data.comments.length);
-			setPage((prev) => prev + 1);
 		});
 	};
 
@@ -26,8 +25,7 @@ function Comments({ articleId, setComment }) {
 			method: "get",
 		}).then((res) => {
 			setComments(res.data.comments);
-			setComment(res.data.comments.length);
-			setPage(1);
+			setComment();
 		});
 	};
 
@@ -43,7 +41,7 @@ function Comments({ articleId, setComment }) {
 					<CommentsList articleId={articleId} comments={comments} getComments={getComments} />
 					<button
 						onClick={getMoreComments}
-						className={comments.length === totalComments ? style.more_comment : style.hidden}
+						className={comments.length < totalComments ? style.more_comment : style.hidden}
 					>
 						+
 					</button>
