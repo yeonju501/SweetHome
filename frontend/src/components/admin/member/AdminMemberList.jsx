@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
-import { adminPagination } from "utils/adminFunction";
+import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -21,7 +21,7 @@ function AdminMemberList() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/apts/members`,
+			url: `${SERVER_URL}/api/admin/apts/members?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setAptMembers(res.data.apt_members);
@@ -42,21 +42,6 @@ function AdminMemberList() {
 		});
 	};
 
-	const pageUp = () => {
-		if (page + 1 >= pageSize) {
-			alert("마지막 페이지 입니다");
-		} else {
-			setPage(page + 1);
-		}
-	};
-
-	const pageDown = () => {
-		if (page === 0) {
-			alert("처음 페이지 입니다");
-		} else {
-			setPage(page - 1);
-		}
-	};
 	return (
 		<div>
 			<table>
@@ -96,9 +81,9 @@ function AdminMemberList() {
 			</table>
 			{aptMembers.length > 0 ? (
 				<div>
-					<button onClick={pageDown}>&lt;</button>
+					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
 					{adminPagination(pageSize, setPage)}
-					<button onClick={pageUp}>&gt;</button>
+					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
 				</div>
 			) : null}
 		</div>
