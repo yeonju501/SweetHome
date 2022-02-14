@@ -26,23 +26,10 @@ function Profile() {
 
 	return (
 		<div className={style.profile}>
-			<ProfileNav active={active} setActive={setActive} />
-			{active !== 0 && (
-				<div className={style.profile_user}>
-					<figure className={style.figure}>
-						<img
-							src={user.image_url ? user.image_url : anonymous}
-							alt="Profile img"
-							className={style.profile_img}
-						/>
-					</figure>
-					<div>
-						<h1 className={style.title}>{intro.username}</h1>
-						<p className={style.email}>{intro.email}</p>
-					</div>
-				</div>
+			{active !== 0 && <ProfileNav active={active} setActive={setActive} />}
+			{active === 0 && (
+				<ProfileUserInfo setIntro={setIntro} intro={intro} active={active} setActive={setActive} />
 			)}
-			{active === 0 && <ProfileUserInfo setIntro={setIntro} intro={intro} />}
 			{active === 1 && <ProfileArticles />}
 			{active === 2 && <ProfileComments />}
 			{active === 3 && <ProfileLikes />}

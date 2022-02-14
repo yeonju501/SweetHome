@@ -17,14 +17,17 @@ function ProfileButtons({ password, isDup }) {
 				.catch((err) => errorMessage(err.response.data.error_code));
 	};
 
+	const onCancel = () => {
+		window.location.href = "/";
+	};
 	return (
 		<div className={style.profile_btn}>
-			<button disabled={!password || !(isDup === 2)}>저장</button>
-			<button
-				type="button"
-				onClick={deleteAccount}
-				style={{ color: "red", fontWeight: "600", cursor: "pointer" }}
-			>
+			<div className={style.profile_btns}>
+				<button disabled={!password || !(isDup === 2)}>저장</button>
+				<button onClick={onCancel}>취소</button>
+			</div>
+
+			<button type="button" onClick={deleteAccount} className={style.deleteAccount}>
 				회원 탈퇴
 			</button>
 		</div>

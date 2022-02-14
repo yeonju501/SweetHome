@@ -11,8 +11,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
 import { SET_USER } from "store/user";
 import anonymous from "assets/anonymous.jpg";
+import ProfileNav from "./ProfileNav";
 
-function ProfileUserInfo({ setIntro, intro }) {
+function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const user = useSelector((state) => state.userInfo);
 	const [isDup, setIsDup] = useState(0);
@@ -100,6 +101,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 						<p className={style.email}>{intro.email}</p>
 					</div>
 				</div>
+				<ProfileNav active={active} setActive={setActive} />
 				<form onSubmit={onSubmit} className={style.profile_form}>
 					<div className={style.profile_user_info_div}>
 						<aside>
