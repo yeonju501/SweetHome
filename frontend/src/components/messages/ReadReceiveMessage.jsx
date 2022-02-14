@@ -62,8 +62,6 @@ function ReadReceiveMessage() {
 
 	return (
 		<div className={messageStyle.message_container}>
-			<h1>ReadReciveMessage</h1>
-
 			<table>
 				<thead>
 					<tr>
@@ -113,7 +111,7 @@ function ReadReceiveMessage() {
 				)}
 			</table>
 			{receiveMessageArray.length > 0 ? (
-				<div>
+				<div className={messageStyle.pagination_container}>
 					<button className={paginationStyle.btn_pagination} onClick={pageDown}>
 						&lt;
 					</button>

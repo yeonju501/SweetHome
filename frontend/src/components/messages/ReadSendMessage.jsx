@@ -62,7 +62,6 @@ function ReadSendMessage() {
 
 	return (
 		<div className={messageStyle.message_container}>
-			<h1>ReadSendMessage</h1>
 			<table>
 				<thead>
 					<tr>
@@ -77,7 +76,7 @@ function ReadSendMessage() {
 				</thead>
 				{sendMessageArray.length > 0 ? (
 					sendMessageArray.map((sendMessage, idx) => (
-						<tr key={idx}>
+						<tr>
 							<td className={tableStyle.check}>
 								<input
 									className={tableStyle.check_box}
@@ -112,7 +111,7 @@ function ReadSendMessage() {
 				)}
 			</table>
 			{sendMessageArray.length > 0 ? (
-				<div>
+				<div className={messageStyle.pagination_container}>
 					<button className={paginationStyle.btn_pagination} onClick={pageDown}>
 						&lt;
 					</button>

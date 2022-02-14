@@ -38,8 +38,7 @@ function ReadMessageDeatil() {
 	}
 
 	return (
-		<div>
-			<h1>ReadMessageDetail</h1>
+		<div className={style.message_container}>
 			<div className={style.btn_container}>
 				{position === "receive" ? (
 					<Link to="/read-send-message/message-detail/send-message">
