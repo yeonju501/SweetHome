@@ -64,7 +64,7 @@ function ProfileComments() {
 				</tbody>
 			</table>
 			{comments.length > 0 && (
-				<footer>
+				<footer className={style.pagination}>
 					<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
 				</footer>
 			)}

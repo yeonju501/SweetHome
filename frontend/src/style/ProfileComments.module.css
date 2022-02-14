@@ -47,3 +47,7 @@ tbody tr td {
 .article_title:hover {
 	text-decoration: underline;
 }
+
+.pagination {
+	background: transparent;
+}
