@@ -22,6 +22,7 @@ function ArticleDetail() {
 			method: "get",
 		}).then((res) => {
 			setArticle(res.data);
+			setComment(res.data.total_replies);
 		});
 		getTotalLikes();
 	}, [isLiked]);
