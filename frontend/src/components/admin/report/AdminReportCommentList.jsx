@@ -19,7 +19,7 @@ function AdminReportCommentList() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/comments/reports`,
+			url: `${SERVER_URL}/api/admin/comments/reports?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setReportComments(res.data.blocked_comments);

@@ -18,7 +18,7 @@ function AdminReportArticleList() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/articles/reports`,
+			url: `${SERVER_URL}/api/admin/articles/reports?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setReportArticles(res.data.articles);
