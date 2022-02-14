@@ -1,13 +1,11 @@
 import axios from "axios";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-export function GETUSERINFO(func) {
+export function GETUSERINFO(func1, func2) {
 	axios({
 		url: `${SERVER_URL}/api/members/my-profile`,
 		method: "get",
-	}).then((res) => {
-		func(res.data);
-	});
+	}).then((res) => func1(func2(res.data)));
 }
 
 export function GETMYCOMMENTS(func1, page) {
