@@ -18,7 +18,7 @@ function AdminBoardRequestList() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/boards`,
+			url: `${SERVER_URL}/api/admin/boards?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setBoardRequestList(res.data.boards);
