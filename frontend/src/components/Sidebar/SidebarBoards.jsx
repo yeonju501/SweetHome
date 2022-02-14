@@ -32,17 +32,13 @@ function SidebarBoards() {
 		}
 	}, [modalOpen]);
 
-	// const boardStarred = (boardId) => {
-	// 	getStarred(boardId).then((value) => {
-	// 		return value;
-	// 	});
-	// };
 	const handleModal = () => {
 		setModalOpen(false);
 	};
+
 	const getStarred = async (boardId) => {
 		const response = await axios({
-			url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/favorites`,
 			method: "get",
 		});
 		return response.data.is_liked;
@@ -52,7 +48,7 @@ function SidebarBoards() {
 		getStarred(boardId).then((value) => {
 			const method = value ? "delete" : "post";
 			axios({
-				url: `${SERVER_URL}/api/boards/${boardId}/favorites`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/favorites`,
 				method: method,
 			})
 				.then(() => {
@@ -73,7 +69,7 @@ function SidebarBoards() {
 
 	const getFavorites = () => {
 		axios({
-			url: `${SERVER_URL}/api/boards/favorites`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/favorites`,
 			method: "get",
 		}).then((res) => {
 			setFavorites(res.data);
