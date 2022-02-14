@@ -10,6 +10,7 @@ import { isThisDuplicte } from "utils/accountAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
 import { SET_USER } from "store/user";
+import anonymous from "assets/anonymous.jpg";
 
 function ProfileUserInfo({ setIntro, intro }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -88,7 +89,7 @@ function ProfileUserInfo({ setIntro, intro }) {
 							onChange={(e) => setFiles(e.target.files[0])}
 						/>
 						<img
-							src={user.image_url}
+							src={user.image_url ? user.image_url : anonymous}
 							alt="Profile img"
 							className={style.profile_img}
 							onClick={() => profileImage.current.click()}
