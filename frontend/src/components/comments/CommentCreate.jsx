@@ -28,9 +28,6 @@ function CommentCreate({ articleId, getComments, onClick, isMax }) {
 
 	return (
 		<div>
-			<button className={isMax ? style.hidden : null} onClick={onClick}>
-				+
-			</button>
 			<form onSubmit={onSubmit} className={style.create_form}>
 				<textarea
 					type="text"
