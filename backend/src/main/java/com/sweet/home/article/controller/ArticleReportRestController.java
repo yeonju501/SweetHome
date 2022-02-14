@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/apts")
 public class ArticleReportRestController {
 
     private final ArticleReportService articleReportService;
@@ -35,33 +35,33 @@ public class ArticleReportRestController {
         this.articleDeleteService = articleDeleteService;
     }
 
-    @PostMapping("/articles/{articleId}/reports")
-    public ResponseEntity<Void> reportArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId, @RequestBody
+    @PostMapping("/{aptId}/articles/{articleId}/reports")
+    public ResponseEntity<Void> reportArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId, @RequestBody
         ReportSaveRequest request) {
         articleReportService.reportArticle(email, articleId, request);
         articleService.checkReportCounts(articleId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/admin/articles/reports")
-    public ResponseEntity<ArticleReportsResponse> showBlockedArticles(
+    @GetMapping("/{aptId}/admin/articles/reports")
+    public ResponseEntity<ArticleReportsResponse> showBlockedArticles(@PathVariable Long aptId,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showBlockedArticles(pageable));
     }
 
-    @GetMapping("/admin/articles/{articleId}/reports")
-    public ResponseEntity<List<ArticleReportDetailResponse>> showReports(@PathVariable Long articleId) {
+    @GetMapping("/{aptId}/admin/articles/{articleId}/reports")
+    public ResponseEntity<List<ArticleReportDetailResponse>> showReports(@PathVariable Long aptId, @PathVariable Long articleId) {
         return ResponseEntity.ok().body(articleReportService.showReports(articleId));
     }
 
-    @PostMapping("/admin/articles/{articleId}/reports")
-    public ResponseEntity<Void> approveReports(@PathVariable Long articleId) {
+    @PostMapping("/{aptId}/admin/articles/{articleId}/reports")
+    public ResponseEntity<Void> approveReports(@PathVariable Long aptId, @PathVariable Long articleId) {
         articleDeleteService.cascadeDeleteArticle(articleId);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/admin/articles/{articleId}/reports")
-    public ResponseEntity<Void> disapproveReports(@PathVariable Long articleId) {
+    @DeleteMapping("/{aptId}/admin/articles/{articleId}/reports")
+    public ResponseEntity<Void> disapproveReports(@PathVariable Long aptId, @PathVariable Long articleId) {
         articleReportService.deleteAllByArticle(articleId);
         articleService.unblockArticle(articleId);
         return ResponseEntity.noContent().build();
