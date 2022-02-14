@@ -8,14 +8,14 @@ import { SET_MESSAGE } from "store/message";
 
 function ArticleDetailButtons({ article, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const user = useSelector((state) => state.userInfo);
+	const username = useSelector((state) => state.userInfo.username);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const handleDeleteButtonClick = async () => {
 		if (window.confirm("글을 삭제 하시겠습니까?")) {
 			axios({
-				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/articles/${articleId}`,
+				url: `${SERVER_URL}/api/boards/articles/${articleId}`,
 				method: "delete",
 			}).then(() => {
 				navigate(-1);
@@ -26,7 +26,7 @@ function ArticleDetailButtons({ article, articleId }) {
 	const handleMessageButtonClick = async () => {
 		await dispatch(
 			SET_MESSAGE({
-				username: user.username,
+				username: article.username,
 			}),
 		);
 		await window.open(
@@ -49,7 +49,7 @@ function ArticleDetailButtons({ article, articleId }) {
 
 	return (
 		<div className={style.button_box}>
-			{article.username === user.username ? (
+			{article.username === username ? (
 				<div>
 					<Link
 						to={`/articles/${articleId}/update`}
