@@ -39,7 +39,6 @@ function AdminBoardUpdate() {
 				},
 			})
 				.then((res) => {
-					console.log(res.data);
 					navigate(-1);
 				})
 				.catch((err) => {

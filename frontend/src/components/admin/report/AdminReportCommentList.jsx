@@ -19,7 +19,6 @@ function AdminReportCommentList() {
 			url: `${SERVER_URL}/api/admin/comments/reports`,
 		})
 			.then((res) => {
-				console.log("히얼", res.data.blocked_comments);
 				setReportComments(res.data.blocked_comments);
 			})
 			.catch((err) => {

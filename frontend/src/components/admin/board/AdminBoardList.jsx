@@ -17,7 +17,6 @@ function AdminBoardList() {
 			url: `${SERVER_URL}/api/boards`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setBoardList(res.data);
 			})
 			.catch((err) => {
@@ -30,13 +29,9 @@ function AdminBoardList() {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/admin/boards/${id}`,
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 
 	return (

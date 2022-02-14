@@ -30,7 +30,6 @@ function AdminReportCommentDetail() {
 			url: `${SERVER_URL}/api/admin/comments/reports`,
 		})
 			.then((res) => {
-				console.log("댓글 신고 목록", res.data.blocked_comments);
 				setReportComments(res.data.blocked_comments);
 			})
 			.catch((err) => {
@@ -39,7 +38,6 @@ function AdminReportCommentDetail() {
 	}
 
 	useEffect(() => {
-		console.log(commentDetail);
 		getReportCommentDetail(location.state.commentId);
 	}, []);
 
@@ -47,26 +45,18 @@ function AdminReportCommentDetail() {
 		axios({
 			method: "POST",
 			url: `${SERVER_URL}/api/admin/comments/${commentId}/reports`,
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 
 	const onReject = () => {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/admin/comments/${commentId}/reports`,
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 	return (
 		<>

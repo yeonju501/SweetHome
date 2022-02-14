@@ -18,7 +18,6 @@ function AdminBoardRequestList() {
 			url: `${SERVER_URL}/api/admin/boards`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setBoardRequestList(res.data.boards);
 			})
 			.catch((err) => {
@@ -30,13 +29,9 @@ function AdminBoardRequestList() {
 		axios({
 			method,
 			url: `${SERVER_URL}/api/admin/boards/${id}/approve`,
-		})
-			.then((res) => {
-				console.log("성공");
-			})
-			.catch((err) => {
-				console.log(err);
-			});
+		}).catch((err) => {
+			console.log(err);
+		});
 	};
 	return (
 		<table>
