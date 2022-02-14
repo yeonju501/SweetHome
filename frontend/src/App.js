@@ -42,9 +42,8 @@ import AdminReportManage from "components/admin/report/AdminReportManage";
 import AdminReportArticleDetail from "components/admin/report/AdminReportArticleDetail";
 import AdminReportCommentDetail from "components/admin/report/AdminReportCommentDetail";
 import { authorityCheck } from "../src/utils/authority";
-// import AdimnAgreementManage from "components/admin/agreement/AdminAgreementManage";
-// import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementListSearch";
-import { AdimnAgreementManage, AdminAgreementListSearch } from "components/admin/agreement/";
+import AdimnAgreementManage from "components/admin/agreement/AdminAgreementManage";
+import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementListSearch";
 
 // axios.defaults.withCredentials = true;
 function App() {
@@ -68,11 +67,12 @@ function App() {
 		return (
 			<div className={style.app_js}>
 				<Router>
-					{authorityCheck(authority) && (
+					{authorityCheck(authority) !== 0 ? (
 						<nav>
+							<p>asda</p>
 							<Navbar />
 						</nav>
-					)}
+					) : null}
 					<div className={authority ? style.div : style.public}>
 						{authorityCheck(authority) >= 2 && (
 							<aside className={style.aside}>
