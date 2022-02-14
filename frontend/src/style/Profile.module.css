@@ -1,10 +1,11 @@
 .profile {
 	background-color: #ffff;
-	padding: 4rem;
+	padding: 4rem 0;
+	margin-left: 4rem;
 	display: flex;
 	flex-direction: column;
-	width: 100%;
-	align-items: center;
+	width: 60%;
+	/* align-items: center; */
 }
 
 .profile_img {
@@ -15,7 +16,7 @@
 }
 .profile_user {
 	display: flex;
-	text-align: left;
+	margin-left: 5rem;
 	margin-bottom: 3rem;
 }
 
@@ -32,6 +33,7 @@
 .nav {
 	list-style: none;
 	display: flex;
+	justify-content: center;
 	font-size: 1.5rem;
 	margin-bottom: 3rem;
 }
@@ -82,10 +84,15 @@ button {
 /* Profile User Info */
 .profile_form {
 	background-color: #fff;
+	display: flex;
+	justify-content: center;
+	padding-right: 2rem;
 }
 
 .profile_user_info_div {
 	display: flex;
+	width: 100%;
+	justify-content: center;
 	align-items: center;
 	margin-top: 2rem;
 	background: #fff;
@@ -118,20 +125,27 @@ button {
 	display: flex;
 	align-items: center;
 	margin-top: 5rem;
-	/* justify-content: center; */
 	background: #fff;
-}
-
-.profile_btn button:last-child {
-	margin-left: 2rem;
-	background: transparent;
+	justify-content: space-around;
+	position: relative;
 }
 
 .profile_btn button:first-child:disabled {
 	opacity: 0.3;
 	cursor: default;
 }
+.profile_btns button {
+	margin-right: 1rem;
+}
 
+.deleteAccount {
+	color: red;
+	font-weight: 600;
+	cursor: pointer;
+	background: transparent;
+	position: absolute;
+	right: 0;
+}
 .user_name {
 	position: relative;
 }

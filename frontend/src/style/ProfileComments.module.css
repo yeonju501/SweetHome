@@ -3,6 +3,7 @@ table {
 	font-size: 1.5rem;
 	border-collapse: collapse;
 	text-align: center;
+	margin-top: 3rem;
 }
 
 thead {
@@ -46,4 +47,8 @@ tbody tr td {
 
 .article_title:hover {
 	text-decoration: underline;
+}
+
+.pagination {
+	background: transparent;
 }

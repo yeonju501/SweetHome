@@ -98,7 +98,7 @@ function AptMemberRequest(props) {
 		</form>
 	) : (
 		<div className={style.apt_member_page}>
-			<h1 className={style.apt_member_title}>{props.moving ? "" : "아파트 세대원 인증"}</h1>
+			<h1 className={props.moving ? style.hidden : style.apt_member_title}>아파트 세대원 인증</h1>
 			<div className={style.apt_member}>
 				<form onSubmit={onSubmit}>
 					<div className={style.apt_member_form_div}>
