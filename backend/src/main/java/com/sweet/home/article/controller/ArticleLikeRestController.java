@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/articles")
+@RequestMapping("/api/apts")
 public class ArticleLikeRestController {
 
     private final ArticleLikeService articleLikeService;
@@ -24,25 +24,25 @@ public class ArticleLikeRestController {
         this.articleLikeService = articleLikeService;
     }
 
-    @PostMapping("/{articleId}/likes")
-    public ResponseEntity<Void> likeArticle(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
+    @PostMapping("/{aptId}/articles/{articleId}/likes")
+    public ResponseEntity<Void> likeArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         articleLikeService.likeArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/{articleId}/likes")
-    public ResponseEntity<LikeStatusResponse> showArticleLikeStatus(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
+    @GetMapping("/{aptId}/articles/{articleId}/likes")
+    public ResponseEntity<LikeStatusResponse> showArticleLikeStatus(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         return ResponseEntity.ok().body(new LikeStatusResponse(articleLikeService.showArticleLikeStatus(email, articleId)));
     }
 
-    @GetMapping("/likes/mine")
-    public ResponseEntity<ArticlesLikeResponse> showMyArticleLikes(@AuthenticationPrincipal String email, @PageableDefault
+    @GetMapping("/{aptId}/articles/likes/mine")
+    public ResponseEntity<ArticlesLikeResponse> showMyArticleLikes(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PageableDefault
         Pageable pageable) {
         return ResponseEntity.ok().body(articleLikeService.showArticleLikes(email, pageable));
     }
 
-    @DeleteMapping("/{articleId}/likes")
-    public ResponseEntity<Void> deleteLike(@AuthenticationPrincipal String email, @PathVariable Long articleId) {
+    @DeleteMapping("/{aptId}/articles/{articleId}/likes")
+    public ResponseEntity<Void> deleteLike(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         articleLikeService.deleteLike(email, articleId);
         return ResponseEntity.noContent().build();
     }
