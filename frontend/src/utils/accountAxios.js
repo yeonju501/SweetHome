@@ -34,7 +34,6 @@ export function isThisDuplicte(api, data, setState) {
 		data,
 	})
 		.then((res) => {
-			console.log(res.data.result);
 			res.data.result ? setState(1) : setState(2);
 		})
 		.catch((err) => errorMessage(err.response.data.error_code));

@@ -7,7 +7,19 @@ import style from "style/articles/ArticleDetailComment.module.css";
 function Comments({ articleId, setComment }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
-	const [total, setTotal] = useState(5);
+	const [page, setPage] = useState(0);
+	const [totalComments, setTotalComments] = useState(5);
+	const getMoreComments = () => {
+		axios({
+			url: `${URL}/api/articles/${articleId}/comments?page=${page}&size=5`,
+			method: "get",
+		}).then((res) => {
+			setComments((prev) => [...comments, ...res.data.comments]);
+			setComment(res.data.comments.length);
+			setPage((prev) => prev + 1);
+		});
+	};
+
 	const getComments = () => {
 		axios({
 			url: `${URL}/api/articles/${articleId}/comments?page=0&size=5`,
@@ -15,8 +27,10 @@ function Comments({ articleId, setComment }) {
 		}).then((res) => {
 			setComments(res.data.comments);
 			setComment(res.data.comments.length);
+			setPage(1);
 		});
 	};
+
 	useEffect(() => {
 		getComments();
 	}, []);
@@ -27,12 +41,15 @@ function Comments({ articleId, setComment }) {
 			{comments.length > 0 ? (
 				<div className={style.comments}>
 					<CommentsList articleId={articleId} comments={comments} getComments={getComments} />
-					<button className={comments.length === total ? style.more_comment : style.hidden}>
+					<button
+						onClick={getMoreComments}
+						className={comments.length === totalComments ? style.more_comment : style.hidden}
+					>
 						+
 					</button>
 				</div>
 			) : (
-				<p>작성된 댓글이 없습니다</p>
+				<p className={style.no_comments}>작성된 댓글이 없습니다</p>
 			)}
 		</div>
 	);
