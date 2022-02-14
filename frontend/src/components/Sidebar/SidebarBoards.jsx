@@ -84,7 +84,7 @@ function SidebarBoards() {
 				게시판 생성 요청
 			</p>
 
-			<p className={style.sidebar_like}>⭐즐겨찾는 게시판</p>
+			<p className={style.sidebar_like}>즐겨찾는 게시판</p>
 			<ul className={style.sidebar_list}>
 				{favorites &&
 					favorites.map((favorite) => (
@@ -99,7 +99,7 @@ function SidebarBoards() {
 						</li>
 					))}
 			</ul>
-			<hr />
+			<hr style={{ width: "85%" }} />
 			<ul className={style.sidebar_list}>
 				{boards &&
 					boards.map((board) => (
