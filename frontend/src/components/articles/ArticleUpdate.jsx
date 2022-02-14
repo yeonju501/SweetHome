@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function ArticleUpdate() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -10,10 +11,11 @@ function ArticleUpdate() {
 	const location = useLocation();
 	const articleId = location.state.articleId;
 	const navigate = useNavigate();
+	const user = useSelector((state) => state.userInfo.apt_house);
 
 	useEffect(() => {
 		axios({
-			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/${articleId}`,
 			method: "get",
 		}).then((res) => {
 			setArticleData(res.data);
@@ -28,7 +30,7 @@ function ArticleUpdate() {
 		e.preventDefault();
 		if (title.trim() && content.trim()) {
 			axios({
-				url: `${SERVER_URL}/api/boards/articles/${articleId}`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/${articleId}`,
 				method: "put",
 				data: articleData,
 			}).then(() => {

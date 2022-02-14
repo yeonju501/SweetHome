@@ -7,6 +7,7 @@ import style from "style/articles/ArticleDetail.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { useSelector } from "react-redux";
 
 function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -16,20 +17,22 @@ function ArticleDetail() {
 	const [article, setArticle] = useState();
 	const [isLiked, setIsLiked] = useState();
 	const [comment, setComment] = useState(0);
+	const user = useSelector((state) => state.userInfo.apt_house);
+
 	useEffect(() => {
 		axios({
-			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/${articleId}`,
 			method: "get",
 		}).then((res) => {
 			setArticle(res.data);
 			setComment(res.data.total_replies);
 		});
-		getTotalLikes();
+		getIsLiked();
 	}, [isLiked, comment]);
 
-	const getTotalLikes = () => {
+	const getIsLiked = () => {
 		axios({
-			url: `${SERVER_URL}/api/articles/${articleId}/likes`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/likes`,
 			method: "get",
 		}).then((res) => {
 			setIsLiked(res.data.is_liked);
@@ -40,7 +43,7 @@ function ArticleDetail() {
 		const method = isLiked ? "delete" : "post";
 
 		axios({
-			url: `${SERVER_URL}/api/articles/${articleId}/likes`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/likes`,
 			method: method,
 		}).then(() => {
 			setIsLiked((prev) => !prev);

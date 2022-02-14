@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "style/Board.module.css";
 import BoardInfo from "./BoardInfo";
+import { useSelector } from "react-redux";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -13,6 +14,7 @@ function Board() {
 	const [loading, setLoading] = useState(true);
 	const location = useLocation();
 	const board = location.state.board || location.state.favorite;
+	const user = useSelector((state) => state.userInfo.apt_house);
 
 	const pageEnd = useRef(null);
 
@@ -36,7 +38,7 @@ function Board() {
 		try {
 			await setLoading(true);
 			const res = await axios({
-				url: `${SERVER_URL}/api/boards/${board.id}/articles?size=5`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${board.id}/articles?size=5`,
 				method: "get",
 			});
 			setPageNumber(0);
@@ -51,7 +53,7 @@ function Board() {
 		try {
 			await setLoading(true);
 			const res = await axios({
-				url: `${SERVER_URL}/api/boards/${board.id}/articles?page=${pageNumber}&size=5`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${board.id}/articles?page=${pageNumber}&size=5`,
 				method: "get",
 			});
 			console.log(res.data);
