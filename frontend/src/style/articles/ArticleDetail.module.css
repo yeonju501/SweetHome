@@ -20,7 +20,8 @@
 	min-height: 80vh;
 	background-color: #fff;
 	flex-direction: column;
-	border: 1px solid #dedede;
+	/* border: 1px solid #dedede; */
+	border-bottom: none;
 }
 
 .article {

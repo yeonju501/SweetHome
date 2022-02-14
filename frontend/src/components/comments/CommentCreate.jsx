@@ -3,7 +3,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/articles/ArticleDetailComment.module.css";
 
-function CommentCreate({ articleId, getComments, onClick, isMax }) {
+function CommentCreate({ articleId, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
@@ -28,9 +28,6 @@ function CommentCreate({ articleId, getComments, onClick, isMax }) {
 
 	return (
 		<div>
-			<button className={isMax ? style.hidden : null} onClick={onClick}>
-				+
-			</button>
 			<form onSubmit={onSubmit} className={style.create_form}>
 				<textarea
 					type="text"
