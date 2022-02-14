@@ -1,12 +1,17 @@
 .message_container {
 	border-radius: 8px;
-	border: 1px solid;
-	margin: 20px;
+	margin: 0px 0px 20px 0px;
+	width: 100%;
 }
 
 .detail_container {
 	border: 1px solid;
 	margin: 10px;
+}
+
+.pagination_container {
+	display: flex;
+	justify-content: center;
 }
 
 .btn_container {
@@ -42,4 +47,8 @@
 
 .p_content {
 	font-size: 15px;
+}
+
+.table_tr {
+	margin-bottom: 50px;
 }

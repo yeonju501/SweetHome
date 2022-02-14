@@ -50,9 +50,8 @@ function SendMessage() {
 	const { receiver_name, title, content } = sendMessage;
 
 	return (
-		<div className={style.message_container}>
-			<h1>SendMessage</h1>
-			<form className={style.form}>
+		<div>
+			<form className={(style.form, style.message_container)}>
 				<p className={style.input_p}>받는 사람</p>
 				<input
 					autoFocus="autofocus"
