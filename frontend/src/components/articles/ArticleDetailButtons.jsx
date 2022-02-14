@@ -7,7 +7,7 @@ import style from "style/articles/ArticleDetailButtons.module.css";
 
 function ArticleDetailButtons({ article, articleId }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const usermail = useSelector((state) => state.userInfo.email);
+	const username = useSelector((state) => state.userInfo.username);
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
@@ -39,7 +39,7 @@ function ArticleDetailButtons({ article, articleId }) {
 
 	return (
 		<div className={style.button_box}>
-			{article.email === usermail ? (
+			{article.username === username ? (
 				<div>
 					<Link
 						to={`/articles/${articleId}/update`}
