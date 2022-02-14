@@ -10,7 +10,7 @@ import { useDispatch } from "react-redux";
 import { SET_USER } from "store/user";
 import { useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
-
+import anonymous from "assets/anonymous.jpg";
 function Profile() {
 	const user = useSelector((state) => state.userInfo);
 	const [active, setActive] = useState(0);
@@ -30,7 +30,11 @@ function Profile() {
 			{active !== 0 && (
 				<div className={style.profile_user}>
 					<figure className={style.figure}>
-						<img src={user.image_url} alt="Profile img" className={style.profile_img} />
+						<img
+							src={user.image_url ? user.image_url : anonymous}
+							alt="Profile img"
+							className={style.profile_img}
+						/>
 					</figure>
 					<div>
 						<h1 className={style.title}>{intro.username}</h1>
