@@ -13,6 +13,9 @@ function Main() {
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 
+	const [hotArticles, setHotArticles] = useState([]);
+	const [newArticles, setNewArticles] = useState([]);
+
 	useEffect(() => {
 		axios({
 			url: `${SERVER_URL}/api/members/my-profile`,
@@ -23,6 +26,22 @@ function Main() {
 			console.log(res.data);
 		});
 		dispatch(SET_POSITION(toggle, "main"));
+		axios({
+			url: `${SERVER_URL}/api/boards/articles/popular`,
+			method: "get",
+		}).then((res) => {
+			console.log(res.data);
+			setHotArticles(res.data);
+		});
+		axios({
+			url: `${SERVER_URL}/api/boards/articles/new`,
+			method: "get",
+		})
+			.then((res) => {
+				console.log(res.data);
+				setNewArticles(res.data);
+			})
+			.catch((err) => console.log(err.response));
 	}, []);
 
 	return (
@@ -31,21 +50,17 @@ function Main() {
 			<AssoMemberpage />
 		) : (
 			<div>
-				<div>
-					<p>인기글</p>
-					<p>인기글</p>
-					<p>인기글</p>
-					<p>인기글</p>
-					<p>인기글</p>
-				</div>
+				<ul>
+					{hotArticles.map((article, idx) => (
+						<li key={idx}>{article.title}</li>
+					))}
+				</ul>
 				<hr />
-				<div>
-					<p>최신글</p>
-					<p>최신글</p>
-					<p>최신글</p>
-					<p>최신글</p>
-					<p>최신글</p>
-				</div>
+				<ul>
+					{newArticles.map((article, idx) => (
+						<li key={idx}>{article.title}</li>
+					))}
+				</ul>
 				<hr />
 				<p>{userInfo.username}</p>
 				<p>회원등급 : {userInfo.authority}</p>
