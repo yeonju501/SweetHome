@@ -3,30 +3,40 @@ import axios from "axios";
 import CommentCreate from "./CommentCreate";
 import CommentsList from "./CommentsList";
 import style from "style/articles/ArticleDetailComment.module.css";
+import { useSelector } from "react-redux";
 
 function Comments({ articleId, setComment, totalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [page, setPage] = useState(1);
 	const getMoreComments = () => {
-		axios({
-			url: `${URL}/api/articles/${articleId}/comments?page=${page}&size=5`,
-			method: "get",
-		}).then((res) => {
-			setPage(page + 1);
-			setComments([...comments, ...res.data.comments]);
-			setComment(res.data.comments.length);
-		});
+		try {
+			axios({
+				url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments?page=${page}&size=5`,
+				method: "get",
+			}).then((res) => {
+				setPage(page + 1);
+				setComments([...comments, ...res.data.comments]);
+				setComment(res.data.comments.length);
+			});
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	const getComments = () => {
-		axios({
-			url: `${URL}/api/articles/${articleId}/comments?page=0&size=5`,
-			method: "get",
-		}).then((res) => {
-			setComments(res.data.comments);
-			setComment();
-		});
+		try {
+			axios({
+				url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments?page=0&size=5`,
+				method: "get",
+			}).then((res) => {
+				setComments(res.data.comments);
+				setComment();
+			});
+		} catch (err) {
+			console.log(err);
+		}
 	};
 
 	useEffect(() => {
