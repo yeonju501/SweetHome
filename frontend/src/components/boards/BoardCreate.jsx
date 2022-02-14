@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import ReactModal from "react-modal";
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function CreateBoard(props) {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [boardInfo, setBoardInfo] = useState({ name: "", description: "" });
 	const { isOpen, onCancel } = props;
 	const { name, description } = boardInfo;
@@ -16,7 +18,7 @@ function CreateBoard(props) {
 		e.preventDefault();
 		if (name.trim() && description.trim()) {
 			axios({
-				url: `${SERVER_URL}/api/boards`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
 				method: "post",
 				data: boardInfo,
 			})
