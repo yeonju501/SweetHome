@@ -1,9 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) {
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [articleData, setArticleData] = useState({ title: "", content: "" });
 	const { title, content } = articleData;
 	const [imgFile, setImgFile] = useState(null);
@@ -23,7 +25,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 
 		if (title.trim() && content.trim()) {
 			axios({
-				url: `${SERVER_URL}/api/boards/${boardId}/articles`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/articles`,
 				method: "post",
 				data: formData,
 			})

@@ -12,6 +12,7 @@ function Main() {
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
+	const user = useSelector((state) => state.userInfo.apt_house);
 
 	const [hotArticles, setHotArticles] = useState([]);
 	const [newArticles, setNewArticles] = useState([]);
@@ -27,14 +28,14 @@ function Main() {
 		});
 		dispatch(SET_POSITION(toggle, "main"));
 		axios({
-			url: `${SERVER_URL}/api/boards/articles/popular`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/popular`,
 			method: "get",
 		}).then((res) => {
 			console.log(res.data);
 			setHotArticles(res.data);
 		});
 		axios({
-			url: `${SERVER_URL}/api/boards/articles/new`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/new`,
 			method: "get",
 		})
 			.then((res) => {
