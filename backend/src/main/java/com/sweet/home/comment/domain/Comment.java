@@ -66,7 +66,7 @@ public class Comment extends BaseEntity {
     @OneToMany(mappedBy = "parent")
     private List<Comment> childList = new ArrayList<>();
 
-    private static final int BLOCK_STANDARD = 1;
+    private static final int BLOCK_STANDARD = 5;
 
     protected Comment() {
     }
