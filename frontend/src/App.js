@@ -69,7 +69,6 @@ function App() {
 				<Router>
 					{authorityCheck(authority) !== 0 ? (
 						<nav>
-							<p>asda</p>
 							<Navbar />
 						</nav>
 					) : null}
