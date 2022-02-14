@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/apts")
 public class CommentReportRestController {
 
     private final CommentReportService commentReportService;
@@ -35,7 +35,7 @@ public class CommentReportRestController {
         this.commentDeleteService = commentDeleteService;
     }
 
-    @PostMapping("/comments/{commentId}/reports")
+    @PostMapping("/{aptId}/comments/{commentId}/reports")
     public ResponseEntity<Void> reportComment(@AuthenticationPrincipal String email, @PathVariable Long commentId, @RequestBody
         ReportSaveRequest request) {
         commentReportService.reportComment(email, commentId, request);
@@ -43,25 +43,25 @@ public class CommentReportRestController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/admin/comments/reports")
+    @GetMapping("/{aptId}/admin/comments/reports")
     public ResponseEntity<CommentsReportResponse> showBlockedComments(
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(commentService.showBlockedComments(pageable));
     }
 
-    @GetMapping("/admin/comments/{commentId}/reports")
+    @GetMapping("/{aptId}/admin/comments/{commentId}/reports")
     public ResponseEntity<List<CommentReportDetailResponse>> showReports(@PathVariable Long commentId) {
         return ResponseEntity.ok().body(commentReportService.showReports(commentId));
     }
 
-    @PostMapping("/admin/comments/{commentId}/reports")
+    @PostMapping("/{aptId}/admin/comments/{commentId}/reports")
     public ResponseEntity<Void> approveReports(@PathVariable Long commentId) {
         commentDeleteService.cascadeDeleteComment(commentId);
         commentDeleteService.deleteBlockedComment(commentId);
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("/admin/comments/{commentId}/reports")
+    @DeleteMapping("/{aptId}/admin/comments/{commentId}/reports")
     public ResponseEntity<Void> disapproveReports(@PathVariable Long commentId) {
         commentReportService.deleteAllByComment(commentId);
         commentService.unblockComment(commentId);
