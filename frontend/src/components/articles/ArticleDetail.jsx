@@ -15,7 +15,7 @@ function ArticleDetail() {
 	const board = location.state.board;
 	const [article, setArticle] = useState();
 	const [isLiked, setIsLiked] = useState();
-
+	const [comment, setComment] = useState(0);
 	useEffect(() => {
 		axios({
 			url: `${SERVER_URL}/api/boards/articles/${articleId}`,
@@ -86,7 +86,7 @@ function ArticleDetail() {
 									<span style={{ marginRight: "0.4rem" }}>
 										<FontAwesomeIcon icon={faComment} color="#595959" />
 									</span>
-									<span>댓글 수</span>
+									<span>{comment}</span>
 								</div>
 								<button className={style.heart_btn} onClick={handleHeartClick}>
 									{isLiked ? (
@@ -97,7 +97,7 @@ function ArticleDetail() {
 								</button>
 							</div>
 						</article>
-						<Comments articleId={articleId} />
+						<Comments articleId={articleId} setComment={setComment} />
 					</div>
 				</section>
 			)}
