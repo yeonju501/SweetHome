@@ -12,7 +12,7 @@ function SendMessage() {
 	const target = useSelector((state) => state.messageInfo);
 
 	const [sendMessage, setSendMessage] = useState({
-		receiver_name: target ? target.username : "",
+		receiver_name: target.username,
 		title: "",
 		content: "",
 	});
