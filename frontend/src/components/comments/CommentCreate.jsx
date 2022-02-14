@@ -2,11 +2,13 @@ import { useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/articles/ArticleDetailComment.module.css";
+import { useSelector } from "react-redux";
 
 function CommentCreate({ articleId, getComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const onChange = (e) => {
 		setComment({ content: e.target.value });
 	};
@@ -15,7 +17,7 @@ function CommentCreate({ articleId, getComments }) {
 		e.preventDefault();
 		content.trim()
 			? axios({
-					url: `${URL}/api/articles/${articleId}/comments`,
+					url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments`,
 					method: "post",
 					headers: { "Content-Type": "application/json;charset=UTF-8" },
 					data: comment,

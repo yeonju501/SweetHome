@@ -12,40 +12,42 @@ function Main() {
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
-	const user = useSelector((state) => state.userInfo.apt_house);
+	const user = useSelector((state) => state.userInfo);
 
 	const [hotArticles, setHotArticles] = useState([]);
 	const [newArticles, setNewArticles] = useState([]);
 
 	useEffect(() => {
-		axios({
-			url: `${SERVER_URL}/api/members/my-profile`,
-			method: "get",
-		}).then((res) => {
-			setUserInfo(res.data);
-			dispatch(SET_USER(res.data));
-			console.log(res.data);
-		});
-		dispatch(SET_POSITION(toggle, "main"));
-		axios({
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/popular`,
-			method: "get",
-		}).then((res) => {
-			console.log(res.data);
-			setHotArticles(res.data);
-		});
-		axios({
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/new`,
-			method: "get",
-		})
-			.then((res) => {
-				console.log(res.data);
-				setNewArticles(res.data);
+		try {
+			axios({
+				url: `${SERVER_URL}/api/members/my-profile`,
+				method: "get",
+			}).then((res) => {
+				setUserInfo(res.data);
+				dispatch(SET_USER(res.data));
+			});
+			dispatch(SET_POSITION(toggle, "main"));
+			axios({
+				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/articles/popular`,
+				method: "get",
+			}).then((res) => {
+				setHotArticles(res.data);
+			});
+			axios({
+				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/articles/new`,
+				method: "get",
 			})
-			.catch((err) => console.log(err.response));
+				.then((res) => {
+					setNewArticles(res.data);
+				})
+				.catch((err) => console.log(err.response));
+		} catch (err) {
+			console.log(err);
+		}
 	}, []);
 
 	return (
+		user &&
 		userInfo &&
 		(userInfo.authority === "준회원" ? (
 			<AssoMemberpage />
