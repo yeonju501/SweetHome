@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import style from "style/Sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
@@ -8,6 +9,7 @@ import CreateBoard from "../boards/BoardCreate";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [boards, setBoards] = useState([]);
 	const [favorites, setFavorites] = useState("");
 	// const [isStarred, setIsStarred] = useState(false);
@@ -62,7 +64,7 @@ function SidebarBoards() {
 
 	const getBoards = () => {
 		axios({
-			url: `${SERVER_URL}/api/boards`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
 			method: "get",
 		}).then((res) => {
 			setBoards(res.data);
