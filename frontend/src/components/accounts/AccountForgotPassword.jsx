@@ -16,19 +16,21 @@ function AccountForgotPassword() {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		toast.info("요청을 보내는 중입니다");
-		axios({
-			url: `${URL}/api/members/find-pw`,
-			method: "post",
-			headers: { "Content-type": "application/json" },
-			data: email,
-		})
-			.then(() => {
-				setEmail("");
-				navigate("/");
-				toast.success("이메일로 임시 비밀번호가 전송되었습니다");
+		if (email.trim()) {
+			toast.info("요청을 보내는 중입니다");
+			axios({
+				url: `${URL}/api/members/find-pw`,
+				method: "post",
+				headers: { "Content-type": "application/json" },
+				data: email,
 			})
-			.catch((err) => errorMessage(err.response.data.error_code));
+				.then(() => {
+					setEmail("");
+					navigate("/");
+					toast.success("이메일로 임시 비밀번호가 전송되었습니다");
+				})
+				.catch((err) => errorMessage(err.response.data.error_code));
+		}
 	}
 
 	return (
