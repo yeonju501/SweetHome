@@ -3,7 +3,7 @@
 	justify-content: center;
 	flex-direction: column;
 	margin-top: 3rem;
-	width: 80%;
+	width: 85%;
 }
 
 .pagnation_container {
@@ -80,4 +80,63 @@
 .decline {
 	background: transparent;
 	color: red;
+}
+
+/* 아파트 관리자 멤버 리스트 */
+
+.admin_mb_accept,
+.admin_mb_decline {
+	width: 5rem;
+	margin: 0;
+}
+
+.admin_mb_decline {
+	background: transparent;
+	color: red;
+}
+
+.admin_mb_btn {
+	width: 6rem;
+}
+
+/*  아파트 관리자 게시판 리스트 */
+
+.admin_board_btn {
+	width: 6rem;
+}
+
+.update_board {
+	font-weight: 800;
+}
+
+/* 아파트 관리자 게시판 업데이트 */
+.admin_board_update {
+	width: 80%;
+	margin-top: 4rem;
+}
+
+.admin_board_update_form {
+	margin-top: 3rem;
+}
+
+.admin_board_update_form input {
+	width: 40rem;
+}
+
+.admin_board_update_input {
+	height: 3rem;
+	padding: 1rem;
+	margin-bottom: 1rem;
+}
+
+.admin_board_update_input:last-child {
+	margin: 2rem 0;
+}
+
+.admin_board_update_btns button:last-child {
+	color: red;
+	background: transparent;
+	margin-left: 2rem;
+	margin-top: 2rem;
+	border: 1px solid #dedede;
 }

@@ -1,11 +1,10 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import style from "style/Admin.module.css";
 
 function AdminBoardUpdate() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const navigate = useNavigate();
 	const [boardUpdate, setBoardUpdate] = useState({
@@ -38,7 +37,7 @@ function AdminBoardUpdate() {
 					description: boardUpdate.description,
 				},
 			})
-				.then((res) => {
+				.then(() => {
 					navigate(-1);
 				})
 				.catch((err) => {
@@ -50,20 +49,31 @@ function AdminBoardUpdate() {
 	};
 
 	return (
-		<>
-			<form onSubmit={onSubmit}>
-				<input type="text" id="name" value={boardUpdate.name} onChange={onChange} required />
+		<div className={style.admin_board_update}>
+			<h1>게시판 수정</h1>
+			<form onSubmit={onSubmit} className={style.admin_board_update_form}>
+				<input
+					className={style.admin_board_update_input}
+					type="text"
+					id="name"
+					value={boardUpdate.name}
+					onChange={onChange}
+					required
+				/>
 				<input
 					type="text"
 					id="description"
 					value={boardUpdate.description}
 					onChange={onChange}
 					required
+					className={style.admin_board_update_input}
 				/>
-				<button>등록</button>
-				<button>취소</button>
+				<div className={style.admin_board_update_btns}>
+					<button>등록</button>
+					<button type="button">취소</button>
+				</div>
 			</form>
-		</>
+		</div>
 	);
 }
 

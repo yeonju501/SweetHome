@@ -1,7 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import msgStyle from "style/Messages.module.css";
 import adminStyle from "style/Admin.module.css";
 import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
@@ -20,7 +19,7 @@ function AdminMemberList() {
 	const [page, setPage] = useState(0);
 	const [pageSize, setPageSize] = useState(0);
 
-	useEffect(() => {
+	const getList = () => {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/admin/apts/members?page=${page}&size=10`,
@@ -32,20 +31,26 @@ function AdminMemberList() {
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+	useEffect(() => {
+		getList();
 	}, [page]);
 
 	const expelMember = (id) => {
-		console.log(id);
-		axios({
-			method: "DELETE",
-			url: `${SERVER_URL}/api/admin/apts/members/${id}`,
-		}).catch((err) => {
-			console.log(err);
-		});
+		if (window.confirm("정말로 추방하시겠습니까?")) {
+			axios({
+				method: "DELETE",
+				url: `${SERVER_URL}/api/admin/apts/members/${id}`,
+			})
+				.then(() => getList())
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	return (
-		<div className={adminStyle.div_container}>
+		<div>
 			<table>
 				<thead>
 					<tr>
@@ -68,14 +73,16 @@ function AdminMemberList() {
 								<td>{aptMember.dong}</td>
 								<td>{aptMember.ho}</td>
 								<td>{aptMember.phone_number}</td>
-								<button
-									className={adminStyle.delete}
-									onClick={(e) => {
-										expelMember(aptMember.id);
-									}}
-								>
-									추방
-								</button>
+								<td>
+									<button
+										className={adminStyle.delete}
+										onClick={(e) => {
+											expelMember(aptMember.id);
+										}}
+									>
+										추방
+									</button>
+								</td>
 							</tr>
 						))
 					) : (
