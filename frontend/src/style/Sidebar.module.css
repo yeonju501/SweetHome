@@ -88,3 +88,9 @@
 .star_icon {
 	color: #ffcb14;
 }
+
+@media screen and (max-width: 768px) {
+	.sidebar_container {
+		display: none;
+	}
+}
