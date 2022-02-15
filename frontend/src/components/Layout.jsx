@@ -3,6 +3,7 @@ import { Outlet } from "react-router";
 import { checkSidebar, checkUseNav } from "utils/authority";
 import Banner from "components/Banner";
 import style from "style/App.module.css";
+import Admin from "pages/Admin";
 
 function Layout() {
 	const authority = useSelector((state) => state.userInfo.authority);

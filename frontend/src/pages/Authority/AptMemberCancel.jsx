@@ -2,8 +2,8 @@ import style from "style/Authority.module.css";
 import { cancelOrRefer } from "utils/authorityRequest";
 
 function AptMemberCancel({ setIsRequest }) {
-	const cancelRequest = (e) => {
-		cancelOrRefer("delete", setIsRequest, false, true);
+	const cancelRequest = () => {
+		cancelOrRefer("delete", setIsRequest);
 	};
 
 	return (

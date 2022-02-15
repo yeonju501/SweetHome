@@ -4,13 +4,16 @@ import style from "style/Authority.module.css";
 import { ReactComponent as PersonalInfo } from "assets/authentication.svg";
 import { ReactComponent as Checking } from "assets/Loading.svg";
 import AptMemberCancel from "./AptMemberCancel";
-import { cancelOrRefer } from "utils/authorityRequest";
+import { cancelOrRefer, hasRequestAptAdmin } from "utils/authorityRequest";
 
 function AssoMemberpage() {
 	const [isRequest, setIsRequest] = useState(true);
 
 	useEffect(() => {
-		cancelOrRefer("get", setIsRequest, false, true);
+		cancelOrRefer("get", setIsRequest);
+		if (isRequest) {
+			hasRequestAptAdmin(setIsRequest);
+		}
 	}, []);
 
 	return (

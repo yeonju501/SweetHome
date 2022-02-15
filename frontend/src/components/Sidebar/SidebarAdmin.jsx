@@ -8,32 +8,36 @@ function SidebarAdmin() {
 	return (
 		<div className={style.sidebar_container}>
 			<ul className={style.sidebar_list}>
-				<li className={style.sidebar_back}>
-					{authority === "아파트관리자" ? (
-						<Link className={style.sidebar_link} to="member-manage">
-							👨‍👩‍👧‍👦회원 관리
-						</Link>
-					) : (
+				{authority === "아파트관리자" ? (
+					<>
+						<li className={style.sidebar_back}>
+							<Link className={style.sidebar_link} to="member-manage">
+								👨‍👩‍👧‍👦회원 관리
+							</Link>
+						</li>
+						<li className={style.sidebar_back}>
+							<Link className={style.sidebar_link} to="board-manage">
+								📚게시판 관리
+							</Link>
+						</li>
+						<li className={style.sidebar_back}>
+							<Link className={style.sidebar_link} to="agreement-manage">
+								📋관리동의서
+							</Link>
+						</li>
+						<li className={style.sidebar_back}>
+							<Link className={style.sidebar_link} to="report-manage">
+								🚧신고 관리
+							</Link>
+						</li>
+					</>
+				) : (
+					<li className={style.sidebar_back}>
 						<Link className={style.sidebar_link} to="site">
 							👨‍👩‍👧‍👦아파트 관리자 관리
 						</Link>
-					)}
-				</li>
-				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="board-manage">
-						📚게시판 관리
-					</Link>
-				</li>
-				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="agreement-manage">
-						📋관리동의서
-					</Link>
-				</li>
-				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="report-manage">
-						🚧신고 관리
-					</Link>
-				</li>
+					</li>
+				)}
 			</ul>
 		</div>
 	);
