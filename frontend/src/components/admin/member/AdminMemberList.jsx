@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
+import adminStyle from "../../../style/Admin.module.css";
+import pagStyle from "../../../style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -43,11 +45,13 @@ function AdminMemberList() {
 	};
 
 	return (
-		<div>
+		<div className={adminStyle.div_container}>
 			<table>
 				<thead>
 					<tr>
-						<th>신청자</th>
+						<th>순서</th>
+						<th>이메일</th>
+						<th>닉네임</th>
 						<th>동</th>
 						<th>호</th>
 						<th>연락처</th>
@@ -58,6 +62,8 @@ function AdminMemberList() {
 					{aptMembers.length > 0 ? (
 						aptMembers.map((aptMember, idx) => (
 							<tr key={idx}>
+								<td>{idx + 1}</td>
+								<td>{aptMember.email}</td>
 								<td>{aptMember.name}</td>
 								<td>{aptMember.dong}</td>
 								<td>{aptMember.ho}</td>
@@ -74,16 +80,26 @@ function AdminMemberList() {
 						))
 					) : (
 						<tr>
-							<td colSpan="5">회원이 없습니다</td>
+							<td colSpan="6">회원이 없습니다</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
 			{aptMembers.length > 0 ? (
-				<div>
-					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+				<div className={pagStyle.pagination}>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageDown(page, pageSize, setPage)}
+					>
+						&lt;
+					</button>
 					{adminPagination(pageSize, setPage)}
-					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageUp(page, pageSize, setPage)}
+					>
+						&gt;
+					</button>
 				</div>
 			) : null}
 		</div>

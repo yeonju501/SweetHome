@@ -3,6 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
+import adminStyle from "../../../style/Admin.module.css";
+import pagStyle from "../../../style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -48,10 +50,11 @@ function AdminMemberRegister() {
 	};
 
 	return (
-		<>
+		<div className={adminStyle.div_container}>
 			<table>
 				<thead>
 					<tr>
+						<th>순서</th>
 						<th>신청자</th>
 						<th>동</th>
 						<th>호</th>
@@ -64,6 +67,7 @@ function AdminMemberRegister() {
 					{aptMemberRegister.length > 0 ? (
 						aptMemberRegister.map((aptMember, idx) => (
 							<tr key={idx}>
+								<td>{idx + 1}</td>
 								<td>{aptMember.name}</td>
 								<td>{aptMember.dong}</td>
 								<td>{aptMember.ho}</td>
@@ -88,19 +92,29 @@ function AdminMemberRegister() {
 						))
 					) : (
 						<tr>
-							<td colSpan="6">신청자가 없습니다</td>
+							<td colSpan="7">신청자가 없습니다</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
 			{aptMemberRegister.length > 0 ? (
-				<div>
-					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+				<div className={pagStyle.pagination}>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageDown(page, pageSize, setPage)}
+					>
+						&lt;
+					</button>
 					{adminPagination(pageSize, setPage)}
-					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageUp(page, pageSize, setPage)}
+					>
+						&gt;
+					</button>
 				</div>
 			) : null}
-		</>
+		</div>
 	);
 }
 

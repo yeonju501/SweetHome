@@ -1,6 +1,8 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import adminStyle from "../../../style/Admin.module.css";
+import pagStyle from "../../../style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -30,10 +32,11 @@ function AdminReportCommentList() {
 			});
 	}, [page]);
 	return (
-		<div>
+		<div className={adminStyle.div_container}>
 			<table>
 				<thead>
 					<tr>
+						<th>순서</th>
 						<th>신고횟수</th>
 						<th>내용</th>
 						<th>작성자</th>
@@ -44,6 +47,7 @@ function AdminReportCommentList() {
 					{reportComments.length > 0 ? (
 						reportComments.map((reportComment, idx) => (
 							<tr key={idx}>
+								<td>{idx + 1}</td>
 								<td>{reportComment.totalReports}</td>
 								<td>{reportComment.content}</td>
 								<td>{reportComment.username}</td>
@@ -70,10 +74,20 @@ function AdminReportCommentList() {
 				</tbody>
 			</table>
 			{reportComments.length > 0 ? (
-				<div>
-					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+				<div className={pagStyle.pagination}>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageDown(page, pageSize, setPage)}
+					>
+						&lt;
+					</button>
 					{adminPagination(pageSize, setPage)}
-					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageUp(page, pageSize, setPage)}
+					>
+						&gt;
+					</button>
 				</div>
 			) : null}
 		</div>

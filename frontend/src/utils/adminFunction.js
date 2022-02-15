@@ -1,8 +1,11 @@
+import style from "../style/Pagination.module.css";
+
 export function adminPagination(pageSize, setPage) {
 	let tempSize = [];
 	for (let i = 0; i < pageSize; i++) {
 		tempSize.push(
 			<button
+				className={style.btn_pagination}
 				onClick={(e) => {
 					setPage(i);
 				}}

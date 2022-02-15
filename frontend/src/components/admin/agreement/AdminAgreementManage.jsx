@@ -29,8 +29,6 @@ function AdimnAgreementManage() {
 	}, [modalOpen]);
 	return (
 		<div>
-			<h1>어드민 동의서 관리</h1>
-
 			{modalOpen && <AgreementCreate isOpen={modalOpen} onCancel={handleModal} />}
 			<p>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} icon={faPlus} />

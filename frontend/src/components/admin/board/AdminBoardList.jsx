@@ -2,6 +2,9 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
+import msgStyle from "style/Messages.module.css";
+import adminStyle from "../../../style/Admin.module.css";
+import pagStyle from "../../../style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -41,10 +44,11 @@ function AdminBoardList() {
 	};
 
 	return (
-		<>
+		<div className={adminStyle.div_container}>
 			<table>
 				<thead>
 					<tr>
+						<th>순서</th>
 						<th>이름</th>
 						<th>설명</th>
 						<th></th>
@@ -55,6 +59,7 @@ function AdminBoardList() {
 					{boardList.length > 0 ? (
 						boardList.map((board, idx) => (
 							<tr key={idx}>
+								<td>{idx + 1}</td>
 								<td>{board.name}</td>
 								<td>{board.description}</td>
 								<td>
@@ -63,7 +68,7 @@ function AdminBoardList() {
 									</Link>
 								</td>
 								<td>
-									<button id={board.id} onClick={onDelete}>
+									<button className={msgStyle.delete} id={board.id} onClick={onDelete}>
 										삭제
 									</button>
 								</td>
@@ -77,13 +82,23 @@ function AdminBoardList() {
 				</tbody>
 			</table>
 			{boardList.length > 0 ? (
-				<div>
-					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+				<div className={pagStyle.pagination}>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageDown(page, pageSize, setPage)}
+					>
+						&lt;
+					</button>
 					{adminPagination(pageSize, setPage)}
-					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageUp(page, pageSize, setPage)}
+					>
+						&gt;
+					</button>
 				</div>
 			) : null}
-		</>
+		</div>
 	);
 }
 
