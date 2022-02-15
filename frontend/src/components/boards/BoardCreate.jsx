@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import ReactModal from "react-modal";
+import style from "style/BoardCreate.module.css";
 
 function CreateBoard(props) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -36,8 +37,8 @@ function CreateBoard(props) {
 
 	return (
 		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
-			<form onSubmit={handleFormSubmit}>
-				<h1>게시판 생성</h1>
+			<form onSubmit={handleFormSubmit} className={style.form}>
+				<h1 className="">게시판 생성</h1>
 				<input
 					type="text"
 					id="name"
@@ -52,8 +53,12 @@ function CreateBoard(props) {
 					onChange={handleInputChange}
 					placeholder="게시판 소개글을 입력하세요"
 				/>
-				<button>등록</button>
-				<button onClick={() => onCancel()}>취소</button>
+				<div>
+					<button className={style.submit_btn}>등록</button>
+					<button className={style.cancel_btn} type="button" onClick={() => onCancel()}>
+						취소
+					</button>
+				</div>
 			</form>
 		</ReactModal>
 	);

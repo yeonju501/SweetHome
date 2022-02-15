@@ -1,0 +1,29 @@
+.form {
+	width: 50vw;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.form > h1 {
+	margin: 6rem 0;
+}
+
+.form > input {
+	height: 4rem;
+	padding-left: 1rem;
+	font-size: 1.5rem;
+	margin-bottom: 5rem;
+}
+
+.submit_btn {
+	margin-top: 5rem;
+	margin-right: 2rem;
+	border-radius: 0.6rem;
+}
+
+.cancel_btn {
+	background-color: transparent;
+	border: 0.5px solid #0087e8;
+	color: #0087e8;
+	border-radius: 0.6rem;
+}
