@@ -94,7 +94,7 @@ function MessageBox(props) {
 					) : (
 						<tr>
 							<td colSpan="5" className={tableStyle.nothing}>
-								받은 메시지가 없습니다
+								{props.action === "receive" ? "받은 쪽지가 없습니다" : "보낸 쪽지가 없습니다"}
 							</td>
 						</tr>
 					)}
