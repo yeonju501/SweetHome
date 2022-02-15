@@ -34,7 +34,7 @@ import AdminBoardUpdate from "components/admin/board/AdminBoardUpdate";
 import AdminReportManage from "components/admin/report/AdminReportManage";
 import AdminReportArticleDetail from "components/admin/report/AdminReportArticleDetail";
 import AdminReportCommentDetail from "components/admin/report/AdminReportCommentDetail";
-import AdimnAgreementManage from "components/admin/agreement/AdminAgreementManage";
+import AdminAgreementManage from "components/admin/agreement/AdminAgreementManage";
 import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementListSearch";
 import Layout from "components/Layout";
 import MessagePage from "components/messages/MessagePage";
@@ -100,9 +100,9 @@ function App() {
 										path="/report-manage/report-comment-detail"
 										element={<AdminReportCommentDetail />}
 									/>
-									<Route path="agreement-manage" element={<AdimnAgreementManage />} />
+									<Route path="agreement-manage" element={<AdminAgreementManage />} />
 									<Route
-										path="agreement-manage/list-search"
+										path="/agreement-manage/list-search"
 										element={<AdminAgreementListSearch />}
 									/>
 								</Route>
