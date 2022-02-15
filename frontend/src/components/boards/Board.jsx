@@ -8,7 +8,7 @@ import BoardInfo from "./BoardInfo";
 import { useSelector } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
-import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
+import { faComment } from "@fortawesome/free-regular-svg-icons";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

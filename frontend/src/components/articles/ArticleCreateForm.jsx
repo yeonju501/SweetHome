@@ -1,6 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import style from "style/articles/ArticleCreate.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -54,7 +57,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 	};
 
 	return (
-		<div>
+		<div className={style.opened}>
 			<form onSubmit={handleFormSubmit}>
 				<input
 					type="text"
@@ -62,19 +65,35 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 					value={title}
 					onChange={handleInputChange}
 					placeholder="제목을 입력하세요"
+					className={style.input_text}
 				/>
-				<hr />
+
 				<textarea
 					type="text"
 					id="content"
 					value={content}
 					onChange={handleInputChange}
 					placeholder="내용을 입력하세요"
+					className={style.textarea}
 				/>
-				<hr />
-				<input type="file" accept="image/*" onChange={handleImageChange} />
-				<button onClick={invertDisabled}>취소</button>
-				<button type="submit">작성</button>
+				<div className={style.button_box}>
+					<label htmlFor="file" className={style.input_file}>
+						<FontAwesomeIcon icon={faCamera} color="#afafaf" />
+					</label>
+					<input
+						type="file"
+						id="file"
+						accept="image/*"
+						onChange={handleImageChange}
+						style={{ display: "none" }}
+					/>
+					<div className={style.button_box}>
+						<button onClick={invertDisabled} className={style.outline_btn}>
+							취소
+						</button>
+						<button type="submit">작성</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	);
