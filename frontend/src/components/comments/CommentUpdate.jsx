@@ -26,7 +26,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 
 	const likeOrCancelLike = () => {
 		const method = isLike ? "delete" : "post";
-		const res = commnetAxios(comment.id, method);
+		const res = commnetAxios(user.apt_house.apt.apt_id, comment.id, method);
 		if (res) {
 			setIsLike((prev) => !prev);
 			getComments();
@@ -34,14 +34,19 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 	};
 
 	const isLiked = async () => {
-		const res = await commnetAxios(comment.id, "get");
+		const res = await commnetAxios(user.apt_house.apt.apt_id, comment.id, "get");
 		res && setIsLike(res.data.is_liked);
 	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (content.trim()) {
-			const res = await deleteOrSubmit(comment.id, "put", commentContent);
+			const res = await deleteOrSubmit(
+				user.apt_house.apt.apt_id,
+				comment.id,
+				"put",
+				commentContent,
+			);
 			if (res) {
 				getComments();
 				onClick();
