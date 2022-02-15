@@ -27,6 +27,7 @@ function AdminAgreementListSearch() {
 				console.log(err);
 			});
 	}, []);
+
 	return (
 		<table className={style.agreement_table}>
 			<thead>
