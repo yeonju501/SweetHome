@@ -7,7 +7,7 @@ function CommentButton({ user, comment, onClick, id, getComments }) {
 	const dispatch = useDispatch();
 	const commentDelete = async () => {
 		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
-			const res = await deleteOrSubmit(id, "delete");
+			const res = await deleteOrSubmit(user.apt_house.apt.apt_id, id, "delete");
 			res && getComments();
 		}
 	};
@@ -18,7 +18,7 @@ function CommentButton({ user, comment, onClick, id, getComments }) {
 	};
 	return (
 		<>
-			{user === comment.email ? (
+			{user.email === comment.email ? (
 				<div className={style.btn_nested_comments}>
 					<button className={style.btn_nested} onClick={onClick}>
 						수정
