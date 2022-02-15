@@ -76,7 +76,7 @@ function App() {
 									<Route path="/articles/:articleId" element={<ArticleDetail />} />
 									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
 									<Route path="/messages" element={<MessagePage />} />
-									<Route path="/message-box/" element={<Message />}></Route>
+									<Route path="/message-box/" element={<Message />} />
 									<Route path="send-message" element={<MessageSend />} />
 									<Route path="/read-send-message/message-detail" element={<MessageDeatil />} />
 									<Route path="/read-receive-message/message-detail" element={<MessageDeatil />} />
@@ -110,10 +110,9 @@ function App() {
 							<Route path="/report" element={<Report />} />
 							<Route path="/send-message/:username" element={<MessageSendTarget />} />
 							<Route path="/*" element={<NotFound />} />
+							<Route path="/super-admin" element={<Admin />} />
 						</Routes>
 					</div>
-
-					{/* <Footer /> */}
 				</Router>
 
 				<ToastContainer style={{ fontSize: "1.4rem" }} />

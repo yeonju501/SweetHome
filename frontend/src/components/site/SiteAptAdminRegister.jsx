@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
-
+import style from "style/Admin.module.css";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function SiteAptAdminRegister() {
@@ -16,24 +16,25 @@ function SiteAptAdminRegister() {
 		message: "",
 	});
 
-	useEffect(() => {
-		console.log("실행");
+	const getList = () => {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/superadmin/apts/apt-manager`,
 		})
 			.then((res) => {
-				console.log("여기", res.data.register_managers);
+				console.log("여기", res.data);
 				setaptAdminRegister(res.data.register_managers);
 				console.log("저장", aptAdminRegister);
 			})
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+	useEffect(() => {
+		getList();
 	}, []);
 
 	const registerAptAdmin = (method, id) => {
-		console.log("콘솔", id);
 		axios({
 			method,
 			url: `${SERVER_URL}/api/superadmin/apts/apt-manager/`,
@@ -41,16 +42,14 @@ function SiteAptAdminRegister() {
 				member_id: id,
 			},
 		})
-			.then((res) => {
-				console.log("관리자 성공");
-			})
+			.then(() => getList())
 			.catch((err) => {
-				console.log(err);
+				console.log(err.reponse);
 			});
 	};
 
 	return (
-		<>
+		<div className={style.apt_register_page}>
 			<h1>아파트관리자등록</h1>
 			<table>
 				<thead>
@@ -59,8 +58,7 @@ function SiteAptAdminRegister() {
 						<th>이메일</th>
 						<th>연락처</th>
 						<th>메시지</th>
-						<th></th>
-						<th></th>
+						<th colSpan="2"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -71,22 +69,26 @@ function SiteAptAdminRegister() {
 								<td>{aptAdminMember.email}</td>
 								<td>{aptAdminMember.phone_number}</td>
 								<td>{aptAdminMember.message}</td>
-								<button
-									className={msgStyle.send}
-									onClick={(e) => {
-										registerAptAdmin("POST", aptAdminMember.member_id);
-									}}
-								>
-									승인
-								</button>
-								<button
-									className={msgStyle.delete}
-									onClick={(e) => {
-										registerAptAdmin("DELETE", aptAdminMember.member_id);
-									}}
-								>
-									거절
-								</button>
+								<td>
+									<button
+										className={style.accept}
+										onClick={(e) => {
+											registerAptAdmin("POST", aptAdminMember.member_id);
+										}}
+									>
+										승인
+									</button>
+								</td>
+								<td>
+									<button
+										className={style.decline}
+										onClick={(e) => {
+											registerAptAdmin("DELETE", aptAdminMember.member_id);
+										}}
+									>
+										거절
+									</button>
+								</td>
 							</tr>
 						))
 					) : (
@@ -96,7 +98,7 @@ function SiteAptAdminRegister() {
 					)}
 				</tbody>
 			</table>
-		</>
+		</div>
 	);
 }
 

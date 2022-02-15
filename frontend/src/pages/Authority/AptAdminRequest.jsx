@@ -11,6 +11,7 @@ function AptAdminRequest() {
 		buildingCode: "",
 		postalCode: "",
 	});
+	const [addressInfo, setAddressInfo] = useState("");
 
 	const [isModal, setIsModal] = useState(false);
 	const { address, buildingCode, postalCode } = addresses;
@@ -34,26 +35,37 @@ function AptAdminRequest() {
 			postalCode: data.zonecode,
 			buildingCode: data.buildingCode,
 		});
+		setAddressInfo(data);
 		findAddress();
+		console.log(addressInfo);
 	};
 
 	const onSubmit = (e) => {
 		const data = {
 			apt_number: buildingCode,
+			sido_name: addressInfo.sido,
+			gungu_name: addressInfo.sigungu,
+			road_name: address,
+			road_apt_num: 69,
+			zip_code: addressInfo.zonecode,
+			apt_name: addressInfo.buildingName,
 			message,
 		};
 		e.preventDefault();
 		if (address) {
 			window.confirm("한번 제출하면 수정 할 수 없습니다. 제출하시겠습니까?") &&
 				axios({
-					url: `${URL}/api/apts/register`,
+					url: `${URL}/api/apts/apt-manager`,
 					method: "post",
 					headers: {
 						"Content-type": "application/json;charset=UTF-8",
 					},
 					data,
 				})
-					.then((res) => console.log(res))
+					.then(() => {
+						alert("신청이 완료되었습니다.");
+						window.location.replace("/");
+					})
 					.catch((err) => errorMessage(err.response.data.error_code));
 		} else {
 			toast.error("주소를 입력해주세요");

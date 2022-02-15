@@ -4,7 +4,10 @@ import Cookies from "universal-cookie";
 import SignIn from "components/accounts/AccountSignIn";
 import style from "style/Home.module.css";
 import { ReactComponent as Apart } from "assets/main_apartment.svg";
+import { useSelector } from "react-redux";
+
 function Home() {
+	const user = useSelector((state) => state.userInfo.authority);
 	const cookies = new Cookies();
 	const navigate = useNavigate();
 	const token = cookies.get("accessToken");

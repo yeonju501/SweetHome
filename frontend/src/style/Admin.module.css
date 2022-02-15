@@ -64,3 +64,20 @@
 
 .table {
 }
+
+/* 사이트 관리자 */
+
+.apt_register_page {
+	margin-top: 3rem;
+	width: 100%;
+}
+
+.accept,
+.decline {
+	width: 5rem;
+}
+
+.decline {
+	background: transparent;
+	color: red;
+}
