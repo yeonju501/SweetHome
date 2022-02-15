@@ -253,4 +253,12 @@ public class AptService {
 
         registerAptManager.saveDeletedTime();
     }
+
+    @Transactional
+    public void deleteRegisterAptManager(String email) {
+        Member member = memberService.findByEmail(email);
+        RegisterAptManager registerAptManager = getRegisterAptManager(member);
+
+        registerAptManager.saveDeletedTime();
+    }
 }
