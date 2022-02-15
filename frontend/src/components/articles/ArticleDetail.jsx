@@ -83,13 +83,9 @@ function ArticleDetail() {
 
 							<div className={style.article_bottom}>
 								<div className={style.article_bottom_info}>
-									<span style={{ marginRight: "0.4rem" }}>
-										<FontAwesomeIcon icon={fasHeart} color="#888888" />
-									</span>
+									<FontAwesomeIcon icon={fasHeart} color="#888888" />
 									<span style={{ marginRight: "0.8rem" }}>{article.total_likes}</span>
-									<span style={{ marginRight: "0.4rem" }}>
-										<FontAwesomeIcon icon={faComment} color="#595959" />
-									</span>
+									<FontAwesomeIcon icon={faComment} color="#595959" />
 									<span>{comment}</span>
 								</div>
 								<button className={style.heart_btn} onClick={handleHeartClick}>

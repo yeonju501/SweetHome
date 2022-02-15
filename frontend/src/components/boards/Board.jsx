@@ -6,6 +6,9 @@ import ArticleCreate from "../articles/ArticleCreate";
 import style from "style/Board.module.css";
 import BoardInfo from "./BoardInfo";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
+import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -94,9 +97,24 @@ function Board() {
 									state={{ articleId: article.id, board: board }}
 								>
 									<p>{article.username}</p>
-									<p>{article.created_at}</p>
+									<p>{article.created_at.slice(0, 10)}</p>
 									<h3>{article.title}</h3>
+									{article.image_url && (
+										<div>
+											<img
+												src={article.image_url}
+												alt=""
+												style={{ width: "20rem", height: "20rem" }}
+											/>
+										</div>
+									)}
 									<p>{article.content}</p>
+									<div>
+										<FontAwesomeIcon icon={fasHeart} color="#888888" />
+										<span>{article.total_likes}</span>
+										<FontAwesomeIcon icon={faComment} color="#595959" />
+										<span>{article.total_replies}</span>
+									</div>
 								</Link>
 							</li>
 						))}
