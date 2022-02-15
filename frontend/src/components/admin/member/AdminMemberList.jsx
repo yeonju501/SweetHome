@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import adminStyle from "style/Admin.module.css";
+import style from "style/Admin.module.css";
 import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
@@ -51,7 +51,7 @@ function AdminMemberList() {
 
 	return (
 		<div>
-			<table>
+			<table className={style.admin_mb_table}>
 				<thead>
 					<tr>
 						<th>순서</th>
@@ -75,7 +75,7 @@ function AdminMemberList() {
 								<td>{aptMember.phone_number}</td>
 								<td>
 									<button
-										className={adminStyle.delete}
+										className={style.delete}
 										onClick={(e) => {
 											expelMember(aptMember.id);
 										}}

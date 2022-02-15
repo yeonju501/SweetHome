@@ -126,3 +126,24 @@
 .message_nav p span {
 	font-weight: 800;
 }
+
+@media screen and (max-width: 768px) {
+	.Message_div {
+		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.delete {
+		width: 5rem;
+	}
+	.send_message {
+		width: 100vw;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.Messages_btn_container {
+		width: 100vw;
+	}
+}

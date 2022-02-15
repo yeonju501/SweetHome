@@ -61,6 +61,59 @@
 	width: 15rem;
 }
 
+@media screen and (max-width: 1024px) {
+	.asso_div h1 {
+		font-size: 2rem;
+	}
+	.asso_main p {
+		font-size: 1.3rem;
+	}
+
+	.asso_main {
+		transform: translateX(-4rem);
+	}
+	.asso_div a {
+		font-size: 1.2rem;
+	}
+	.personalInfo {
+		height: 40%;
+		margin: 0;
+		margin-right: 1rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.asso_div h1 {
+		font-size: 1.5rem;
+	}
+	.asso_main p {
+		font-size: 1.2rem;
+	}
+
+	.asso_main {
+		transform: translateX(-4rem);
+	}
+	.asso_div a {
+		font-size: 1.1rem;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.asso_div h1 {
+		font-size: 1.2rem;
+	}
+	.asso_main p {
+		font-size: 1rem;
+	}
+
+	.asso_main {
+		transform: translateX(-8rem);
+	}
+	.asso_div a {
+		font-size: 1rem;
+	}
+}
+
 /* AptMemberRequest */
 
 .apt_member_title {

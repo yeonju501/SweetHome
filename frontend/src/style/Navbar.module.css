@@ -33,8 +33,29 @@
 	color: #7e7e7e;
 }
 
+.toggleIcon {
+	font-size: 1.7rem;
+	margin-right: 2rem;
+	cursor: pointer;
+	color: #444444;
+}
 .main_home {
 	font-size: 2.5rem;
 	color: black;
 	font-family: "Leckerli One", cursive;
+}
+
+@media screen and (max-width: 1024px) {
+	.navbar_container {
+		margin: 0 6rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.navbar_container {
+		margin: 0;
+	}
+	.toggleIcon {
+		display: none;
+	}
 }

@@ -42,7 +42,7 @@ function Navbar() {
 				<div className={style.navbar_container}>
 					<div className={style.toggle_container}>
 						{authorityCheck(authority) >= 2 ? (
-							<FontAwesomeIcon className={style.icon} onClick={toggleMenu} icon={faBars} />
+							<FontAwesomeIcon className={style.toggleIcon} onClick={toggleMenu} icon={faBars} />
 						) : null}
 
 						<Link className={style.main_home} to="/main">
