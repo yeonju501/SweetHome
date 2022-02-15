@@ -4,21 +4,14 @@ import { faStar as yellowStar } from "@fortawesome/free-solid-svg-icons";
 import { faStar as emptyStar } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 
-function SidebarStarIcon() {
-	const [status, setStatus] = useState(false);
-
-	const changeColor = () => {
-		setStatus(!status);
-	};
-
+function SidebarStarIcon({ status }) {
 	return status ? (
 		<FontAwesomeIcon
-			onClick={changeColor}
 			icon={yellowStar}
-			style={{ color: "#ffcb14" }}
+			style={{ color: "#ffcb14", cursor: "pointer" }}
 		></FontAwesomeIcon>
 	) : (
-		<FontAwesomeIcon onClick={changeColor} icon={emptyStar}></FontAwesomeIcon>
+		<FontAwesomeIcon style={{ cursor: "pointer" }} icon={emptyStar}></FontAwesomeIcon>
 	);
 }
 
