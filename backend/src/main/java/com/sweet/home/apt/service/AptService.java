@@ -19,6 +19,9 @@ import com.sweet.home.apt.domain.RegisterAptHouseRepository;
 import com.sweet.home.apt.domain.RegisterAptManager;
 import com.sweet.home.apt.domain.RegisterAptManagerRepository;
 import com.sweet.home.auth.domain.Authority;
+import com.sweet.home.board.domain.Board;
+import com.sweet.home.board.domain.BoardRepository;
+import com.sweet.home.board.service.BoardService;
 import com.sweet.home.global.exception.BusinessException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
@@ -36,15 +39,18 @@ public class AptService {
     private final RegisterAptHouseRepository registerAptHouseRepository;
     private final RegisterAptManagerRepository registerAptManagerRepository;
     private final MemberService memberService;
+    private final BoardRepository boardRepository;
 
     public AptService(AptRepository aptRepository, AptHouseRepository aptHouseRepository,
         RegisterAptHouseRepository registerAptHouseRepository,
-        RegisterAptManagerRepository registerAptManagerRepository, MemberService memberService) {
+        RegisterAptManagerRepository registerAptManagerRepository, MemberService memberService,
+        BoardRepository boardRepository) {
         this.aptRepository = aptRepository;
         this.aptHouseRepository = aptHouseRepository;
         this.registerAptHouseRepository = registerAptHouseRepository;
         this.registerAptManagerRepository = registerAptManagerRepository;
         this.memberService = memberService;
+        this.boardRepository = boardRepository;
     }
 
     public Apt findById(Long aptId) {
@@ -211,11 +217,33 @@ public class AptService {
             .orElseGet(() -> aptRepository.save(Apt.createApt(registerAptManager)));
 
         AptHouse aptHouse = aptHouseRepository.findByAptAndDongAndHo(apt, null, null)
-            .orElseGet(() -> aptHouseRepository.save(AptHouse.createAptHouse(apt, null, null)));
+            .orElseGet(() -> {
+                saveDefaultBoards(apt);
+                return aptHouseRepository.save(AptHouse.createAptHouse(apt, null, null));
+            });
 
         registerAptManager.saveDeletedTime();
         member.changeAuthority(Authority.ROLE_MANAGER);
         member.changeAptHouse(aptHouse);
+    }
+
+    @Transactional
+    public void saveDefaultBoards(Apt apt) {
+        Board noticeBoard = Board.builder()
+            .apt(apt)
+            .name("공지사항")
+            .description(apt.getAptName() + "의 공지사항 게시판입니다")
+            .boardStatus(true)
+            .build();
+        boardRepository.save(noticeBoard);
+
+        Board freeBoard = Board.builder()
+            .apt(apt)
+            .name("자유게시판")
+            .description(apt.getAptName() + "의 자유 게시판입니다")
+            .boardStatus(true)
+            .build();
+        boardRepository.save(freeBoard);
     }
 
     @Transactional
