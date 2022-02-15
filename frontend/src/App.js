@@ -5,14 +5,12 @@ import Main from "pages/Main";
 import SignUp from "pages/SignUp";
 import PrivateRoute from "components/PrivateRoute";
 import Profile from "pages/Profile";
-import MessageBox from "pages/MessageBox";
-import ReadReceiveMessage from "components/messages/ReadReceiveMessage";
-import ReadSendMessage from "components/messages/ReadSendMessage";
-import SendMessage from "components/messages/SendMessage";
+import Message from "pages/Message";
+import MessageSend from "components/messages/MessageSend";
 import NotFound from "pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ReadMessageDeatil from "components/messages/ReadMessageDetail";
+import MessageDeatil from "components/messages/MessageDetail";
 import Board from "components/boards/Board";
 import ArticleDetail from "components/articles/ArticleDetail";
 import ArticleUpdate from "components/articles/ArticleUpdate";
@@ -39,6 +37,7 @@ import AdminReportCommentDetail from "components/admin/report/AdminReportComment
 import AdimnAgreementManage from "components/admin/agreement/AdminAgreementManage";
 import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementListSearch";
 import Layout from "components/Layout";
+import MessagePage from "components/messages/MessagePage";
 
 function App() {
 	const [loading, setLoading] = useState(false);
@@ -75,19 +74,15 @@ function App() {
 									<Route path="/boards/:boardId" element={<Board />} />
 									<Route path="/articles/:articleId" element={<ArticleDetail />} />
 									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
-									<Route path="/message-box/" element={<MessageBox />}></Route>
-									<Route path="read-receive-message" element={<ReadReceiveMessage />} />
-									<Route path="read-send-message" element={<ReadSendMessage />} />
-									<Route path="send-message" element={<SendMessage />} />
-									<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
+									<Route path="/messages" element={<MessagePage />} />
+									<Route path="/message-box/" element={<Message />}></Route>
+									<Route path="send-message" element={<MessageSend />} />
+									<Route path="/read-send-message/message-detail" element={<MessageDeatil />} />
 
-									<Route
-										path="/read-receive-message/message-detail"
-										element={<ReadMessageDeatil />}
-									/>
+									<Route path="/read-receive-message/message-detail" element={<MessageDeatil />} />
 									<Route
 										path="/read-send-message/message-detail/send-message"
-										element={<SendMessage />}
+										element={<MessageSend />}
 									/>
 									<Route path="/request/apt-member" element={<AptMemberRequest />} />
 									<Route path="/request/apt-admin" element={<AptAdminRequest />} />

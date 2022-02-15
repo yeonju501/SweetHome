@@ -24,12 +24,12 @@ function SidebarMessage() {
 		<div className={style.sidebar_container}>
 			<ul className={style.sidebar_list}>
 				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="read-receive-message">
+					<Link className={style.sidebar_link} to="messages" state={{ to: "inbox" }}>
 						📥받은 메시지 {unReadMessage.unread_count}
 					</Link>
 				</li>
 				<li className={style.sidebar_back}>
-					<Link className={style.sidebar_link} to="read-send-message">
+					<Link className={style.sidebar_link} to="messages" state={{ to: "sendBox" }}>
 						📤보낸 메시지
 					</Link>
 				</li>

@@ -50,6 +50,7 @@ function SendMessage() {
 
 	return (
 		<div className={style.send_message}>
+			<h1>쪽지 쓰기</h1>
 			<form className={style.send_form}>
 				<div className={style.message_to}>
 					<label className={style.label}>받는 사람</label>
@@ -75,14 +76,13 @@ function SendMessage() {
 					/>
 				</div>
 
-				<input
-					type="textarea"
+				<textarea
 					className={style.writing_area}
 					id="content"
 					value={content}
 					onChange={onChange}
 					required
-				/>
+				></textarea>
 				<div className={style.btn_container}>
 					<button className={style.btn_send} onClick={onSend}>
 						Send

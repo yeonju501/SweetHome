@@ -6,18 +6,17 @@ import tableStyle from "style/ProfileComments.module.css";
 import messageStyle from "style/Messages.module.css";
 import { getMessagesFromServer } from "utils/messagesFunction";
 import ProfilePagination from "components/profile/ProfilePagination";
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-function ReadSendMessage() {
-	const [sendMessageArray, setSendMessageArray] = useState([]);
+function MessageBox(props) {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const [messages, setMessages] = useState([]);
 	const [page, setPage] = useState(0);
-	const size = 10;
 	const [checkItems, setCheckITems] = useState([]);
 	const [pageSize, setPageSize] = useState(0);
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		getMessagesFromServer("send", page, size, setSendMessageArray, setPageSize);
+		getMessagesFromServer(props.action, page, setMessages, setPageSize);
 	}, [page]);
 
 	const changeHandler = (checked, id) => {
@@ -33,21 +32,24 @@ function ReadSendMessage() {
 		e.preventDefault();
 		axios({
 			method: "DELETE",
-			url: `${SERVER_URL}/api/messages/send`,
+			url: `${SERVER_URL}/api/messages/${props.action}`,
 			data: {
 				message_ids: temp,
 			},
-		}).then((res) => {
+		}).then(() => {
 			toast.success("메시지 삭제 완료");
-			navigate("/message-box");
+			navigate("/");
 		});
 	}
 
 	return (
 		<div className={messageStyle.message_container}>
-			<button className={messageStyle.delete} onClick={onDeleteMessages}>
-				삭제
-			</button>
+			<div className={messageStyle.delete_div}>
+				<button className={messageStyle.delete} onClick={onDeleteMessages}>
+					삭제
+				</button>
+			</div>
+
 			<table className={messageStyle.table}>
 				<thead>
 					<tr>
@@ -59,17 +61,17 @@ function ReadSendMessage() {
 					</tr>
 				</thead>
 				<tbody>
-					{sendMessageArray.length > 0 ? (
-						sendMessageArray.map((sendMessage, idx) => (
-							<tr>
+					{messages.length > 0 ? (
+						messages.map((message, idx) => (
+							<tr key={idx}>
 								<td className={tableStyle.check}>
 									<input
 										className={tableStyle.check_box}
 										type="checkbox"
 										onChange={(e) => {
-											changeHandler(e.currentTarget.checked, sendMessage.message_id);
+											changeHandler(e.currentTarget.checked, message.message_id);
 										}}
-										checked={checkItems.includes(sendMessage.message_id) ? true : false}
+										checked={checkItems.includes(message.message_id) ? true : false}
 									/>
 								</td>
 
@@ -77,30 +79,32 @@ function ReadSendMessage() {
 									<Link
 										className={tableStyle.article_title}
 										to="message-detail"
-										state={{ messageId: sendMessage.message_id, position: "send" }}
+										state={{ messageId: message.message_id, position: "send" }}
 									>
-										{sendMessage.title}
+										{message.title}
 									</Link>
 								</td>
-								<td>{sendMessage.receiver_username}</td>
-								<td>{sendMessage.send_at.substring(0, 10)}</td>
-								<td>{sendMessage.read_at === null ? "안읽음" : "읽음"}</td>
+								<td>{message.receiver_username}</td>
+								<td>{message.send_at.substring(0, 10)}</td>
+								<td className={!message.read_at && messageStyle.unread}>
+									{message.read_at === null ? "안읽음" : "읽음"}
+								</td>
 							</tr>
 						))
 					) : (
 						<tr>
 							<td colSpan="5" className={tableStyle.nothing}>
-								받은 메시지가 없습니다
+								{props.action === "receive" ? "받은 쪽지가 없습니다" : "보낸 쪽지가 없습니다"}
 							</td>
 						</tr>
 					)}
 				</tbody>
 			</table>
-			{sendMessageArray.length > 0 && (
-				<ProfilePagination total={pageSize} page={page} setData={setSendMessageArray} />
+			{messages.length > 0 && (
+				<ProfilePagination total={pageSize} page={page} setData={setMessages} />
 			)}
 		</div>
 	);
 }
 
-export default ReadSendMessage;
+export default MessageBox;
