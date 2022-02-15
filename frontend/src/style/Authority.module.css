@@ -61,6 +61,12 @@
 	width: 15rem;
 }
 
+@media screen and (max-width: 1024px) {
+	.asso_div h1 {
+		font-size: 2rem;
+	}
+}
+
 /* AptMemberRequest */
 
 .apt_member_title {

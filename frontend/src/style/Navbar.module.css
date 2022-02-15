@@ -38,3 +38,15 @@
 	color: black;
 	font-family: "Leckerli One", cursive;
 }
+
+@media screen and (max-width: 1024px) {
+	.navbar_container {
+		margin: 0 6rem;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	.navbar_container {
+		margin: 0;
+	}
+}
