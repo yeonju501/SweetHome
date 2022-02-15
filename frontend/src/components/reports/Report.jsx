@@ -3,12 +3,9 @@ import { useSelector } from "react-redux";
 import style from "style/Report.module.css";
 import { useEffect } from "react";
 
-function Report({ setPopUp }) {
+function Report() {
 	const target = useSelector((state) => state.reportInfo);
 
-	useEffect(() => {
-		setPopUp(true);
-	}, []);
 	return (
 		<>
 			{target && (
