@@ -4,20 +4,21 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "style/Sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStar, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import CreateBoard from "../boards/BoardCreate";
+import SidebarStarIcon from "./SidebarStarIcon";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const [boards, setBoards] = useState([]);
-	const [favorites, setFavorites] = useState("");
+	const [favorites, setFavorites] = useState([]);
 	// const [isStarred, setIsStarred] = useState(false);
 	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
-		getBoards();
 		getFavorites();
+		getBoards();
 		if (modalOpen) {
 			document.body.style.cssText = `
 		position: fixed; 
@@ -52,37 +53,65 @@ function SidebarBoards() {
 				method: method,
 			})
 				.then(() => {
+					if (method === "delete") {
+						getFavorites(true, boardId);
+						return;
+					}
 					getFavorites();
+					clickStarIcon(boardId);
 				})
 				.catch((err) => console.log(err.response));
 		});
 	};
 
-	const getBoards = () => {
+	const getBoards = (isDelete = false, boardId = "") => {
 		axios({
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
 			method: "get",
 		}).then((res) => {
+			if (isDelete) {
+				const newBoard = res.data.filter((board) => board.id === boardId);
+				setBoards((prev) => [...prev, ...newBoard]);
+				return;
+			}
+			if (favorites) {
+				const favorId = favorites.map((favor) => favor.id);
+				// favorId.forEach((num) => console.log(num));
+				const boards = res.data;
+				// const selected = boards.filter((board) => board.id !== favorId[0]);
+				// setBoards(selected);
+				// return;
+			}
 			setBoards(res.data);
 		});
 	};
 
-	const getFavorites = () => {
+	const getFavorites = async (isDelete = false, boardId) => {
 		axios({
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/favorites`,
 			method: "get",
 		}).then((res) => {
+			if (isDelete) {
+				setFavorites(res.data);
+				getBoards(true, boardId);
+				return;
+			}
 			setFavorites(res.data);
 		});
 	};
 
+	function clickStarIcon(boardId) {
+		const unStarBoards = boards.filter((board) => board.id !== boardId);
+		setBoards(unStarBoards);
+	}
+
 	return (
 		<div className={style.sidebar_container}>
 			{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
-			<p>
+			<div className={style.request_new_board}>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} className={style.icon} icon={faPlus} />
-				게시판 생성 요청
-			</p>
+				<span>게시판 생성 요청</span>
+			</div>
 
 			<p className={style.sidebar_like}>즐겨찾는 게시판</p>
 			<ul className={style.sidebar_list}>
@@ -96,12 +125,15 @@ function SidebarBoards() {
 							>
 								{favorite.name}
 							</Link>
+							<span onClick={() => handleStarClick(favorite.id)} className={style.star_btn}>
+								<SidebarStarIcon status={true} />
+							</span>
 						</li>
 					))}
 			</ul>
-			<hr style={{ width: "85%" }} />
+			<hr style={{ width: "85%", margin: "2rem 0" }} />
 			<ul className={style.sidebar_list}>
-				{boards &&
+				{boards.length > 0 &&
 					boards.map((board) => (
 						<div key={board.id} className={style.board_name_star}>
 							<li className={style.sidebar_back}>
@@ -119,7 +151,7 @@ function SidebarBoards() {
 								}}
 								className={style.star_btn}
 							>
-								<FontAwesomeIcon icon={faStar} color="#FFCB14"></FontAwesomeIcon>
+								<SidebarStarIcon status={false} />
 							</span>
 						</div>
 					))}
