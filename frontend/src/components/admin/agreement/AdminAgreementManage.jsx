@@ -29,7 +29,7 @@ function AdimnAgreementManage() {
 	return (
 		<div className={style.agreement_page}>
 			{modalOpen && <AgreementCreate isOpen={modalOpen} onCancel={handleModal} />}
-			<p>
+			<p className={style.create_agreement}>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} icon={faPlus} />
 				동의서 생성
 			</p>

@@ -2,8 +2,8 @@ import axios from "axios";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
-import adminStyle from "../../../style/Admin.module.css";
-import pagStyle from "../../../style/Pagination.module.css";
+import adminStyle from "style/Admin.module.css";
+import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -69,7 +69,7 @@ function AdminMemberList() {
 								<td>{aptMember.ho}</td>
 								<td>{aptMember.phone_number}</td>
 								<button
-									className={msgStyle.delete}
+									className={adminStyle.delete}
 									onClick={(e) => {
 										expelMember(aptMember.id);
 									}}

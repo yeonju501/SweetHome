@@ -41,5 +41,26 @@
 /* 동의서 */
 
 .agreement_page {
+	margin-top: 3rem;
+	text-align: center;
 	width: 80%;
+}
+.create_agreement {
+	margin: 1rem 0;
+}
+.delete {
+	background-color: transparent;
+	color: red;
+}
+
+.agreement_tbody {
+	width: 100%;
+	text-align: center;
+}
+.nothing {
+	width: 100%;
+	text-align: center;
+}
+
+.table {
 }

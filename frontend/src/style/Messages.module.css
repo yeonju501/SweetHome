@@ -4,7 +4,7 @@
 }
 .message_container {
 	position: relative;
-	width: 80%;
+	width: 85%;
 	margin-top: 3rem;
 }
 
@@ -111,7 +111,7 @@
 .message_nav {
 	display: flex;
 	justify-content: center;
-	width: 60%;
+	width: 95%;
 	margin-top: 3rem;
 }
 
