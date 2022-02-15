@@ -36,6 +36,8 @@ function SidebarBoards() {
 		setModalOpen(false);
 	};
 
+	const controlStarIcon = () => {};
+
 	const getStarred = async (boardId) => {
 		const response = await axios({
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/favorites`,
@@ -79,10 +81,10 @@ function SidebarBoards() {
 	return (
 		<div className={style.sidebar_container}>
 			{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
-			<p>
+			<div className={style.request_new_board}>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} className={style.icon} icon={faPlus} />
-				게시판 생성 요청
-			</p>
+				<span>게시판 생성 요청</span>
+			</div>
 
 			<p className={style.sidebar_like}>즐겨찾는 게시판</p>
 			<ul className={style.sidebar_list}>
@@ -99,7 +101,7 @@ function SidebarBoards() {
 						</li>
 					))}
 			</ul>
-			<hr style={{ width: "85%" }} />
+			<hr style={{ width: "85%", margin: "2rem 0" }} />
 			<ul className={style.sidebar_list}>
 				{boards &&
 					boards.map((board) => (
@@ -119,7 +121,7 @@ function SidebarBoards() {
 								}}
 								className={style.star_btn}
 							>
-								<FontAwesomeIcon icon={faStar} color="#FFCB14"></FontAwesomeIcon>
+								<FontAwesomeIcon icon={faStar} className={style.star_icon}></FontAwesomeIcon>
 							</span>
 						</div>
 					))}

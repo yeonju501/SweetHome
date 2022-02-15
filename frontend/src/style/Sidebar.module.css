@@ -3,13 +3,25 @@
 	background-color: rgba(256, 256, 256, 0.7);
 	padding: 2rem;
 	width: 22rem;
+	text-align: left;
 }
 
 .sidebar_like {
-	font-size: 0.7rem;
+	font-size: 1.6rem;
 	font-weight: bold;
 	color: #8a8888;
-	margin-top: 2rem;
+	margin: 2rem 0;
+}
+
+.request_new_board {
+	font-size: 1.2rem;
+	margin-left: 0.3rem;
+	display: flex;
+	align-items: center;
+}
+.request_new_board span {
+	margin-left: 0.4rem;
+	transform: translateY(0.1rem);
 }
 
 .sidebar_list {
@@ -35,6 +47,7 @@
 
 .sidebar_link {
 	color: black;
+	font-size: 1.5rem;
 }
 
 .sidebar_link:hover {
@@ -55,4 +68,8 @@
 	background-color: transparent;
 	font-size: 1.3rem;
 	cursor: pointer;
+}
+
+.star_icon {
+	color: #ffcb14;
 }
