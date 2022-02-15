@@ -103,3 +103,23 @@
 .unread {
 	font-weight: 800;
 }
+
+.Message_div {
+	width: 100%;
+}
+
+.message_nav {
+	display: flex;
+	justify-content: center;
+	width: 60%;
+	margin-top: 3rem;
+}
+
+.message_nav p {
+	margin-right: 3rem;
+	font-size: 1.5rem;
+}
+
+.message_nav p span {
+	font-weight: 800;
+}

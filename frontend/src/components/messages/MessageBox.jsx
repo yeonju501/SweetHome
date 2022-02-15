@@ -9,15 +9,14 @@ import ProfilePagination from "components/profile/ProfilePagination";
 
 function MessageBox(props) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const [messages, setMessages] = useState([]);
-	const [page, setPage] = useState(0);
+	const [data, setData] = useState({ messages: [], totalPage: 0, currentPage: 0 });
 	const [checkItems, setCheckITems] = useState([]);
-	const [pageSize, setPageSize] = useState(0);
 	const navigate = useNavigate();
+	const { messages, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		getMessagesFromServer(props.action, page, setMessages, setPageSize);
-	}, [page]);
+		getMessagesFromServer(props.action, currentPage, setData);
+	}, [currentPage]);
 
 	const changeHandler = (checked, id) => {
 		if (checked) {
@@ -101,7 +100,7 @@ function MessageBox(props) {
 				</tbody>
 			</table>
 			{messages.length > 0 && (
-				<ProfilePagination total={pageSize} page={page} setData={setMessages} />
+				<ProfilePagination total={totalPage} page={currentPage} setData={setData} />
 			)}
 		</div>
 	);
