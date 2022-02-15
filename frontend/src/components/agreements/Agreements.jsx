@@ -2,13 +2,15 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AgreementsPagination from "./AgreementsPagination";
+import { authorityCheck } from "utils/authority";
 import style from "style/Board.module.css";
+import { useSelector } from "react-redux";
 
 function Agreements() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [data, setData] = useState({ agreements: [], totalPage: 0, currentPage: 0 });
 	const { agreements, totalPage, currentPage } = data;
-
+	const authority = useSelector((state) => state.userInfo.authority);
 	const today = new Date();
 
 	const agreementProgress = (start_date, end_date) => {
@@ -37,6 +39,7 @@ function Agreements() {
 
 	return (
 		<div className={style.body}>
+			<p>{authorityCheck(authority)}</p>
 			<h1 className={style.agreements_title}>관리 동의서 게시판</h1>
 			<table>
 				<thead>
@@ -44,7 +47,7 @@ function Agreements() {
 						<th>제목</th>
 						<th>기간</th>
 						<th>진행여부</th>
-						<th>동의 목록 보기</th>
+						{authorityCheck(authority) > 2 && <th>동의 목록 보기</th>}
 					</tr>
 				</thead>
 
@@ -67,14 +70,16 @@ function Agreements() {
 									{agreement.start_date.slice(0, 10)} ~ {agreement.end_date.slice(0, 10)}
 								</td>
 								<td>{agreementProgress(agreement.start_date, agreement.end_date)}</td>
-								<td>
-									<Link
-										to={`/agreement-manage/list-search`}
-										state={{ agreementId: agreement.agreement_id }}
-									>
-										동의 목록 보기
-									</Link>
-								</td>
+								{authorityCheck(authority) > 2 && (
+									<td>
+										<Link
+											to={`/agreement-manage/list-search`}
+											state={{ agreementId: agreement.agreement_id }}
+										>
+											동의 목록 보기
+										</Link>
+									</td>
+								)}
 							</tr>
 						))
 					) : (
