@@ -5,9 +5,8 @@ import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
 import { useSelector } from "react-redux";
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
 function SendMessage() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const navigate = useNavigate();
 	const target = useSelector((state) => state.messageInfo);
 
@@ -50,41 +49,45 @@ function SendMessage() {
 	const { receiver_name, title, content } = sendMessage;
 
 	return (
-		<div>
-			<form className={(style.form, style.message_container)}>
-				<p className={style.input_p}>받는 사람</p>
+		<div className={style.send_message}>
+			<form className={style.send_form}>
+				<div className={style.message_to}>
+					<label className={style.label}>받는 사람</label>
+					<input
+						autoFocus="autofocus"
+						className={style.input_box}
+						type="text"
+						id="receiver_name"
+						value={receiver_name}
+						onChange={onChange}
+						required
+					/>
+				</div>
+				<div className={style.message_title}>
+					<label className={style.label}>제목</label>
+					<input
+						className={style.input_box}
+						type="text"
+						id="title"
+						value={title}
+						onChange={onChange}
+						required
+					/>
+				</div>
+
 				<input
-					autoFocus="autofocus"
-					className={style.input_box}
-					type="text"
-					id="receiver_name"
-					value={receiver_name}
-					onChange={onChange}
-					required
-				/>
-				<p className={style.input_p}>제목</p>
-				<input
-					className={style.input_box}
-					type="text"
-					id="title"
-					value={title}
-					onChange={onChange}
-					required
-				/>
-				<p className={style.input_p}>내용</p>
-				<input
-					className={style.input_box}
-					type="text"
+					type="textarea"
+					className={style.writing_area}
 					id="content"
 					value={content}
 					onChange={onChange}
 					required
 				/>
 				<div className={style.btn_container}>
-					<button className={style.send} onClick={onSend}>
+					<button className={style.btn_send} onClick={onSend}>
 						Send
 					</button>
-					<button className={style.delete} onClick={onCancel}>
+					<button className={style.btn_delete} onClick={onCancel}>
 						Cancle
 					</button>
 				</div>

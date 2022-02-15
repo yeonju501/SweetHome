@@ -4,12 +4,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import tableStyle from "style/ProfileComments.module.css";
 import messageStyle from "style/Messages.module.css";
-import paginationStyle from "style/Pagination.module.css";
-import { getMessagesFromServer, messagePagination } from "utils/messagesFunction";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import { getMessagesFromServer } from "utils/messagesFunction";
+import ProfilePagination from "components/profile/ProfilePagination";
 
 function ReadReceiveMessage() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [receiveMessageArray, setReceiveMessageArray] = useState([]);
 	const [page, setPage] = useState(0);
 	const size = 10;
@@ -20,22 +19,6 @@ function ReadReceiveMessage() {
 	useEffect(() => {
 		getMessagesFromServer("receive", page, size, setReceiveMessageArray, setPageSize);
 	}, [page]);
-
-	const pageUp = () => {
-		if (page + 1 >= pageSize) {
-			alert("마지막 페이지 입니다");
-		} else {
-			setPage(page + 1);
-		}
-	};
-
-	const pageDown = () => {
-		if (page === 0) {
-			alert("처음 페이지 입니다");
-		} else {
-			setPage(page - 1);
-		}
-	};
 
 	const changeHandler = (checked, id) => {
 		if (checked) {
@@ -110,18 +93,8 @@ function ReadReceiveMessage() {
 					</tr>
 				)}
 			</table>
-			{receiveMessageArray.length > 0 ? (
-				<div className={messageStyle.pagination_container}>
-					<button className={paginationStyle.btn_pagination} onClick={pageDown}>
-						&lt;
-					</button>
-					{messagePagination(pageSize, setPage)}
-					<button className={paginationStyle.btn_pagination} onClick={pageUp}>
-						&gt;
-					</button>
-				</div>
-			) : (
-				<></>
+			{receiveMessageArray.length > 0 && (
+				<ProfilePagination total={pageSize} page={page} setData={setReceiveMessageArray} />
 			)}
 		</div>
 	);

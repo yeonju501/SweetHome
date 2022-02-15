@@ -1,12 +1,10 @@
-.message_container {
-	border-radius: 8px;
-	margin: 0px 0px 20px 0px;
-	width: 100%;
-}
-
 .detail_container {
 	border: 1px solid;
 	margin: 10px;
+}
+.message_container {
+	width: 60%;
+	margin-top: 3rem;
 }
 
 .pagination_container {
@@ -15,40 +13,64 @@
 }
 
 .btn_container {
+	width: 68%;
 	display: flex;
-	justify-content: center;
+	justify-content: end;
 }
 .delete {
+	display: flex;
+	width: 100%;
+	justify-content: flex-end;
 	color: red;
 	background-color: transparent;
 }
 
-.send {
-	color: blue;
-	background-color: transparent;
+/* send Mesasge */
+.send_form {
+	display: flex;
+	flex-direction: column;
+}
+.send_message {
+	width: 60%;
+	margin-top: 3rem;
 }
 
-.form {
-	padding: 10px;
-}
-
-.input_p {
-	margin-bottom: 10px;
+.writing_area {
+	height: 20rem;
 }
 
 .input_box {
-	background-color: white;
+	margin: 0;
+	width: 31rem;
+}
+.message_to,
+.message_title {
+	margin-bottom: 1.5rem;
+	display: flex;
+	align-items: center;
 }
 
-.p_title {
-	font-size: 15px;
+.label {
+	width: 6rem;
 	font-weight: 800;
+	margin: 0;
+	margin-right: 3rem;
 }
 
-.p_content {
-	font-size: 15px;
+.btn_send {
+	width: 8rem;
+	margin-right: 1rem;
 }
 
-.table_tr {
-	margin-bottom: 50px;
+.btn_delete {
+	width: 8rem;
+	color: red;
+	background-color: transparent;
+	border: 1px solid #dedede;
+	border-radius: 4px;
+	margin: 0;
+}
+
+.table {
+	margin: 0;
 }
