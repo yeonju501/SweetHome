@@ -4,9 +4,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import tableStyle from "style/ProfileComments.module.css";
 import messageStyle from "style/Messages.module.css";
-import paginationStyle from "style/Pagination.module.css";
-import { getMessagesFromServer, messagePagination } from "utils/messagesFunction";
-
+import { getMessagesFromServer } from "utils/messagesFunction";
+import ProfilePagination from "components/profile/ProfilePagination";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadSendMessage() {
@@ -20,22 +19,6 @@ function ReadSendMessage() {
 	useEffect(() => {
 		getMessagesFromServer("send", page, size, setSendMessageArray, setPageSize);
 	}, [page]);
-
-	const pageUp = () => {
-		if (page + 1 >= pageSize) {
-			alert("마지막 페이지 입니다");
-		} else {
-			setPage(page + 1);
-		}
-	};
-
-	const pageDown = () => {
-		if (page === 0) {
-			alert("처음 페이지 입니다");
-		} else {
-			setPage(page - 1);
-		}
-	};
 
 	const changeHandler = (checked, id) => {
 		if (checked) {
@@ -62,66 +45,59 @@ function ReadSendMessage() {
 
 	return (
 		<div className={messageStyle.message_container}>
-			<table>
+			<button className={messageStyle.delete} onClick={onDeleteMessages}>
+				삭제
+			</button>
+			<table className={messageStyle.table}>
 				<thead>
 					<tr>
 						<th></th>
 						<th>제목</th>
 						<th>받는 사람</th>
 						<th>보낸 날짜</th>
-						<button className={messageStyle.delete} onClick={onDeleteMessages}>
-							삭제
-						</button>
+						<th>상태</th>
 					</tr>
 				</thead>
-				{sendMessageArray.length > 0 ? (
-					sendMessageArray.map((sendMessage, idx) => (
-						<tr>
-							<td className={tableStyle.check}>
-								<input
-									className={tableStyle.check_box}
-									type="checkbox"
-									onChange={(e) => {
-										changeHandler(e.currentTarget.checked, sendMessage.message_id);
-									}}
-									checked={checkItems.includes(sendMessage.message_id) ? true : false}
-								/>
-							</td>
+				<tbody>
+					{sendMessageArray.length > 0 ? (
+						sendMessageArray.map((sendMessage, idx) => (
+							<tr>
+								<td className={tableStyle.check}>
+									<input
+										className={tableStyle.check_box}
+										type="checkbox"
+										onChange={(e) => {
+											changeHandler(e.currentTarget.checked, sendMessage.message_id);
+										}}
+										checked={checkItems.includes(sendMessage.message_id) ? true : false}
+									/>
+								</td>
 
-							<td>
-								<Link
-									className={tableStyle.article_title}
-									to="message-detail"
-									state={{ messageId: sendMessage.message_id, position: "send" }}
-								>
-									{sendMessage.title}
-								</Link>
+								<td>
+									<Link
+										className={tableStyle.article_title}
+										to="message-detail"
+										state={{ messageId: sendMessage.message_id, position: "send" }}
+									>
+										{sendMessage.title}
+									</Link>
+								</td>
+								<td>{sendMessage.receiver_username}</td>
+								<td>{sendMessage.send_at.substring(0, 10)}</td>
+								<td>{sendMessage.read_at === null ? "안읽음" : "읽음"}</td>
+							</tr>
+						))
+					) : (
+						<tr>
+							<td colSpan="5" className={tableStyle.nothing}>
+								받은 메시지가 없습니다
 							</td>
-							<td>{sendMessage.receiver_username}</td>
-							<td>{sendMessage.send_at.substring(0, 10)}</td>
-							<td>{sendMessage.read_at === null ? "안읽음" : "읽음"}</td>
 						</tr>
-					))
-				) : (
-					<tr>
-						<td colSpan="5" className={tableStyle.nothing}>
-							받은 메시지가 없습니다
-						</td>
-					</tr>
-				)}
+					)}
+				</tbody>
 			</table>
-			{sendMessageArray.length > 0 ? (
-				<div className={messageStyle.pagination_container}>
-					<button className={paginationStyle.btn_pagination} onClick={pageDown}>
-						&lt;
-					</button>
-					{messagePagination(pageSize, setPage)}
-					<button className={paginationStyle.btn_pagination} onClick={pageUp}>
-						&gt;
-					</button>
-				</div>
-			) : (
-				<></>
+			{sendMessageArray.length > 0 && (
+				<ProfilePagination total={pageSize} page={page} setData={setSendMessageArray} />
 			)}
 		</div>
 	);
