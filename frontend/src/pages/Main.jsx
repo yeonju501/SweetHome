@@ -33,6 +33,8 @@ function Main() {
 				method: "get",
 			}).then((res) => {
 				setHotArticles(res.data);
+				console.log(res.data);
+				console.log(hotArticles);
 			});
 			axios({
 				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/articles/new`,
@@ -57,13 +59,33 @@ function Main() {
 				<p>인기글</p>
 				<ul className={style.articles}>
 					{hotArticles.map((article, idx) => (
-						<li key={idx}>{article.title}</li>
+						<li key={idx} className={style.article}>
+							<Link
+								to={`/articles/${article.article_id}`}
+								state={{
+									articleId: article.article_id,
+									board: { id: article.board_id, name: article.board_name },
+								}}
+							>
+								{article.title}
+							</Link>
+						</li>
 					))}
 				</ul>
 				<p>최신글</p>
 				<ul className={style.articles}>
 					{newArticles.map((article, idx) => (
-						<li key={idx}>{article.title}</li>
+						<li key={idx} className={style.article}>
+							<Link
+								to={`/articles/${article.article_id}`}
+								state={{
+									articleId: article.article_id,
+									board: { id: article.board_id, name: article.board_name },
+								}}
+							>
+								{article.title}
+							</Link>
+						</li>
 					))}
 				</ul>
 				<hr />
