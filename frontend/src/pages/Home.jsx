@@ -27,7 +27,7 @@ function Home() {
 					</h2>
 					<Apart className={style.Home_img} />
 				</div>
-				<SignIn isThisPublic={isThisPublic} setIsPublic={setIsPublic} />
+				<SignIn isThisPublic={isThisPublic} setIsPublic={setIsPublic} className={style.Sign_in} />
 			</div>
 		</>
 	);
