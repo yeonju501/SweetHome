@@ -62,4 +62,7 @@ ul {
 	.div {
 		margin: 0;
 	}
+	.aside {
+		display: none;
+	}
 }

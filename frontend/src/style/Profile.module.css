@@ -72,6 +72,13 @@ button {
 	font-weight: 700;
 }
 
+@media screen and (max-width: 768px) {
+	.profile {
+		width: 100vw;
+		align-items: center;
+	}
+}
+
 /* Profile User Info */
 .profile_form {
 	background-color: #fff;
@@ -157,6 +164,13 @@ button {
 	top: 1rem;
 }
 
+@media screen and (max-width: 768px) {
+	.profile_user {
+		display: flex;
+		justify-content: center;
+		margin-left: 0;
+	}
+}
 /* Image */
 
 .figure {
