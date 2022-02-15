@@ -28,26 +28,34 @@ function Main() {
 				dispatch(SET_USER(res.data));
 			});
 			dispatch(SET_POSITION(toggle, "main"));
-			axios({
-				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/articles/popular`,
-				method: "get",
-			}).then((res) => {
-				setHotArticles(res.data);
-				console.log(res.data);
-				console.log(hotArticles);
-			});
-			axios({
-				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/articles/new`,
-				method: "get",
-			})
-				.then((res) => {
-					setNewArticles(res.data);
-				})
-				.catch((err) => console.log(err.response));
+			if (userInfo) {
+				getHotArticles();
+				getNewArticles();
+			}
 		} catch (err) {
 			console.log(err);
 		}
-	}, []);
+	}, [userInfo]);
+
+	const getHotArticles = () => {
+		axios({
+			url: `${SERVER_URL}/api/apts/${userInfo.apt_house.apt.apt_id}/boards/articles/popular`,
+			method: "get",
+		}).then((res) => {
+			setHotArticles(res.data);
+		});
+	};
+
+	const getNewArticles = () => {
+		axios({
+			url: `${SERVER_URL}/api/apts/${userInfo.apt_house.apt.apt_id}/boards/articles/new`,
+			method: "get",
+		})
+			.then((res) => {
+				setNewArticles(res.data);
+			})
+			.catch((err) => console.log(err.response));
+	};
 
 	return (
 		user &&
