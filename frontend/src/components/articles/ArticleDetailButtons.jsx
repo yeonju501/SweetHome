@@ -31,9 +31,9 @@ function ArticleDetailButtons({ article, articleId }) {
 			}),
 		);
 		await window.open(
-			"/send-message",
-			"send-message",
-			"width=430, height=500,location=no,status=no",
+			`/send-message/${article.username}`,
+			`/send-message/${article.username}`,
+			"width=450, height=600,location=no,status=no",
 		);
 	};
 

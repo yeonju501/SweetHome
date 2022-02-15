@@ -38,6 +38,7 @@ import AdimnAgreementManage from "components/admin/agreement/AdminAgreementManag
 import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementListSearch";
 import Layout from "components/Layout";
 import MessagePage from "components/messages/MessagePage";
+import MessageSendTarget from "components/messages/MessageSendTarget";
 
 function App() {
 	const [loading, setLoading] = useState(false);
@@ -108,6 +109,7 @@ function App() {
 								</Route>
 							</Route>
 							<Route path="/report" element={<Report />} />
+							<Route path="/send-message/:username" element={<MessageSendTarget />} />
 							<Route path="/*" element={<NotFound />} />
 						</Routes>
 					</div>
