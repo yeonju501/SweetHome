@@ -44,6 +44,15 @@ function AgreementDetail() {
 		e.target.value === "agree" ? setAgreementStatus(true) : setAgreementStatus(false);
 	};
 
+	const handleDeleteButtonClick = () => {
+		axios({
+			url: `${SERVER_URL}/api/admin/agreements/${agreementId}`,
+			method: "delete",
+		}).then((res) => {
+			navigate(-1);
+		});
+	};
+
 	const isInProgress = () => {
 		if (progress === "진행중") {
 			return "진행중";
@@ -72,7 +81,7 @@ function AgreementDetail() {
 							</p>
 						)}
 						{authorityCheck(authority) === 3 ? (
-							<button>삭제</button>
+							<button onClick={handleDeleteButtonClick}>삭제</button>
 						) : isInProgress() === "진행중" ? (
 							agreement.my_agreed === null ? (
 								<form onSubmit={handleFormSubmit}>
