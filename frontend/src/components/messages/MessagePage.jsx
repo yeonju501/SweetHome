@@ -5,7 +5,7 @@ function MessagePage() {
 	const location = useLocation();
 	const from = location.state.to;
 	return (
-		<div>
+		<div style={{ width: "100%" }}>
 			{from === "inbox" && <MessageBox action="receive" />}
 			{from !== "inbox" && <MessageBox action="send" />}
 		</div>
