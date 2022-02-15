@@ -2,6 +2,9 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import msgStyle from "style/Messages.module.css";
+import adminStyle from "../../../style/Admin.module.css";
+import pagStyle from "../../../style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -38,10 +41,11 @@ function AdminBoardRequestList() {
 		});
 	};
 	return (
-		<>
+		<div className={adminStyle.div_container}>
 			<table>
 				<thead>
 					<tr>
+						<th>순서</th>
 						<th>신청자</th>
 						<th>내용</th>
 						<th></th>
@@ -52,9 +56,11 @@ function AdminBoardRequestList() {
 					{boardRequestList.length > 0 ? (
 						boardRequestList.map((boardRequest, idx) => (
 							<tr key={idx}>
+								<td>{idx + 1}</td>
 								<td>{boardRequest.name}</td>
 								<td>{boardRequest.description}</td>
 								<button
+									className={msgStyle.send}
 									onClick={(e) => {
 										approveBoard("POST", boardRequest.id);
 									}}
@@ -62,6 +68,7 @@ function AdminBoardRequestList() {
 									승인
 								</button>
 								<button
+									className={msgStyle.delete}
 									onClick={(e) => {
 										approveBoard("DELETE", boardRequest.id);
 									}}
@@ -78,13 +85,23 @@ function AdminBoardRequestList() {
 				</tbody>
 			</table>
 			{boardRequestList.length > 0 ? (
-				<div>
-					<button onClick={() => pageDown(page, pageSize, setPage)}>&lt;</button>
+				<div className={pagStyle.pagination}>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageDown(page, pageSize, setPage)}
+					>
+						&lt;
+					</button>
 					{adminPagination(pageSize, setPage)}
-					<button onClick={() => pageUp(page, pageSize, setPage)}>&gt;</button>
+					<button
+						className={pagStyle.btn_pagination}
+						onClick={() => pageUp(page, pageSize, setPage)}
+					>
+						&gt;
+					</button>
 				</div>
 			) : null}
-		</>
+		</div>
 	);
 }
 

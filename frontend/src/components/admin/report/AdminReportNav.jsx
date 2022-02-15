@@ -1,5 +1,5 @@
 import React from "react";
-import style from "style/Profile.module.css";
+import style from "../../../style/Admin.module.css";
 
 function AdminReportNav({ active, setActive }) {
 	const arr = ["신고 게시글 관리", "신고 댓글 관리"];

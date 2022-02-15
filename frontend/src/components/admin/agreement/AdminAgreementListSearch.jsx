@@ -30,6 +30,7 @@ function AdminAgreementListSearch() {
 		<table>
 			<thead>
 				<tr>
+					<th>순서</th>
 					<th>동</th>
 					<th>호</th>
 					<th>동의여부</th>
@@ -40,6 +41,7 @@ function AdminAgreementListSearch() {
 				{agreementList.length > 0 ? (
 					agreementList.map((agreement, idx) => (
 						<tr key={idx}>
+							<td>{idx + 1}</td>
 							<td>{agreement.dong}</td>
 							<td>{agreement.ho}</td>
 							<td>{agreement.agreement_status === true ? <p>동의 완료</p> : <p>동의 거절</p>}</td>
@@ -48,7 +50,7 @@ function AdminAgreementListSearch() {
 					))
 				) : (
 					<tr>
-						<td colSpan="4">동의 목록이 없습니다</td>
+						<td colSpan="5">동의 목록이 없습니다</td>
 					</tr>
 				)}
 			</tbody>
