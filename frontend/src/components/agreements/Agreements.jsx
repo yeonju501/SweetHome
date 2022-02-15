@@ -39,7 +39,6 @@ function Agreements() {
 
 	return (
 		<div className={style.body}>
-			<p>{authorityCheck(authority)}</p>
 			<h1 className={style.agreements_title}>관리 동의서 게시판</h1>
 			<table>
 				<thead>

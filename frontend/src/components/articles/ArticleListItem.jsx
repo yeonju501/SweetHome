@@ -3,17 +3,26 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment } from "@fortawesome/free-regular-svg-icons";
 import { Link } from "react-router-dom";
 import style from "style/articles/ArticleListItem.module.css";
+import anonymous from "assets/anonymous.jpg";
 
 function ArticleListItem({ article, board }) {
 	const { id, username, created_at, title, content, image_url, total_likes, total_replies } =
 		article;
+
+	const setArticleUserImg = () => {
+		const articleUserImg = article.user_image ? article.user_image : anonymous;
+		return articleUserImg;
+	};
+
 	return (
 		<li className={style.article}>
 			<Link to={`/articles/${id}`} state={{ articleId: id, board: board }}>
 				<div className={style.article_profile}>
-					<div className={style.profile_img}></div>
-					<p>{username} ⋅</p>
-					<p>{created_at.slice(0, 10)}</p>
+					<div className={style.profile_img}>
+						<img src={setArticleUserImg()} alt="profile" />
+					</div>
+					<p>{username} ⋅ </p>
+					<p className={style.created}>{created_at.slice(0, 10)}</p>
 				</div>
 				<h3 className={style.title}>{title}</h3>
 				{image_url && (
