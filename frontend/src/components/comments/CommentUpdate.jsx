@@ -14,7 +14,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 
 	useEffect(() => {
 		isLiked();
-	}, []);
+	}, [isLike]);
 
 	const onChange = (e) => {
 		setCommentContent({ content: e.target.value });

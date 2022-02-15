@@ -8,7 +8,7 @@ function CommentButton({ user, comment, onClick, id, getComments }) {
 	const commentDelete = async () => {
 		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
 			const res = await deleteOrSubmit(user.apt_house.apt.apt_id, id, "delete");
-			res && getComments();
+			res && getComments(true);
 		}
 	};
 
