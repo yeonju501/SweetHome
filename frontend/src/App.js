@@ -6,11 +6,11 @@ import SignUp from "pages/SignUp";
 import PrivateRoute from "components/PrivateRoute";
 import Profile from "pages/Profile";
 import Message from "pages/Message";
-import SendMessage from "components/messages/SendMessage";
+import MessageSend from "components/messages/MessageSend";
 import NotFound from "pages/NotFound";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import ReadMessageDeatil from "components/messages/ReadMessageDetail";
+import MessageDeatil from "components/messages/MessageDetail";
 import Board from "components/boards/Board";
 import ArticleDetail from "components/articles/ArticleDetail";
 import ArticleUpdate from "components/articles/ArticleUpdate";
@@ -76,16 +76,13 @@ function App() {
 									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
 									<Route path="/messages" element={<MessagePage />} />
 									<Route path="/message-box/" element={<Message />}></Route>
-									<Route path="send-message" element={<SendMessage />} />
-									<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
+									<Route path="send-message" element={<MessageSend />} />
+									<Route path="/read-send-message/message-detail" element={<MessageDeatil />} />
 
-									<Route
-										path="/read-receive-message/message-detail"
-										element={<ReadMessageDeatil />}
-									/>
+									<Route path="/read-receive-message/message-detail" element={<MessageDeatil />} />
 									<Route
 										path="/read-send-message/message-detail/send-message"
-										element={<SendMessage />}
+										element={<MessageSend />}
 									/>
 									<Route path="/request/apt-member" element={<AptMemberRequest />} />
 									<Route path="/request/apt-admin" element={<AptAdminRequest />} />
