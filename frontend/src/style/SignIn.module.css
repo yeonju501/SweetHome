@@ -61,16 +61,11 @@ html {
 }
 
 .kakao_button {
-	background-color: rgb(255, 238, 5);
-	color: #000;
-	border: none;
 	width: 26.4rem;
-	height: 3.3rem;
-	border-radius: 2px;
-	font-size: 1.5rem;
-	font-weight: bold;
+	height: 4rem;
 	margin-bottom: 3.7rem;
 	cursor: pointer;
+	background: transparent;
 }
 
 .kakao_button:active {
