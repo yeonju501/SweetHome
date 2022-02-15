@@ -1,10 +1,9 @@
-import AgreementCreate from "components/agreements/AgreementCreate";
-import React from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import AdminAgreementList from "components/agreements/Agreements";
-import { useEffect } from "react";
+import AgreementCreate from "components/agreements/AgreementCreate";
+import style from "style/Admin.module.css";
 
 function AdimnAgreementManage() {
 	const [modalOpen, setModalOpen] = useState(false);
@@ -28,9 +27,9 @@ function AdimnAgreementManage() {
 		}
 	}, [modalOpen]);
 	return (
-		<div>
+		<div className={style.agreement_page}>
 			{modalOpen && <AgreementCreate isOpen={modalOpen} onCancel={handleModal} />}
-			<p>
+			<p className={style.create_agreement}>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} icon={faPlus} />
 				동의서 생성
 			</p>

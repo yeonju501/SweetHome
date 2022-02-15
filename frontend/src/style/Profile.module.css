@@ -1,11 +1,9 @@
 .profile {
 	background-color: #ffff;
 	padding: 4rem 0;
-	margin-left: 4rem;
 	display: flex;
 	flex-direction: column;
-	width: 60%;
-	/* align-items: center; */
+	width: 85%;
 }
 
 .profile_img {
@@ -63,12 +61,6 @@ form {
 	font-size: 1.5rem;
 }
 
-form input {
-	width: 40rem;
-	height: 2.5rem;
-	margin-bottom: 3rem;
-}
-
 button {
 	width: 10rem;
 	height: 4rem;
@@ -109,6 +101,7 @@ button {
 }
 
 .profile_user_info_div input {
+	width: 70%;
 	border: 1px solid darkgray;
 	border-radius: 4px;
 	margin: 0;
@@ -126,7 +119,7 @@ button {
 	align-items: center;
 	margin-top: 5rem;
 	background: #fff;
-	justify-content: space-around;
+	justify-content: center;
 	position: relative;
 }
 
@@ -143,11 +136,13 @@ button {
 	font-weight: 600;
 	cursor: pointer;
 	background: transparent;
-	position: absolute;
-	right: 0;
 }
 .user_name {
 	position: relative;
+}
+
+.user_name input {
+	width: 100%;
 }
 
 .iconDuplicate {
@@ -167,6 +162,7 @@ button {
 
 .figure {
 	position: relative;
+	cursor: pointer;
 }
 
 .input_image {

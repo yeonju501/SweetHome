@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AgreementsPagination from "./AgreementsPagination";
-
+// import style from "style/Admin.module.css";
 function Agreements() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [data, setData] = useState({ agreements: [], totalPage: 0, currentPage: 0 });
@@ -74,7 +74,7 @@ function Agreements() {
 							</tr>
 						))
 					) : (
-						<tr>
+						<tr style={{ textAlign: "center" }}>
 							<td colSpan={3}>작성된 동의서가 없습니다</td>
 						</tr>
 					)}

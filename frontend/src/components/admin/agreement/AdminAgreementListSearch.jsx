@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import style from "style/Admin.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -27,7 +28,7 @@ function AdminAgreementListSearch() {
 			});
 	}, []);
 	return (
-		<table>
+		<table className={style.agreement_table}>
 			<thead>
 				<tr>
 					<th>순서</th>
@@ -37,7 +38,7 @@ function AdminAgreementListSearch() {
 					<th>동의 날짜</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody className={style.agreement_tbody}>
 				{agreementList.length > 0 ? (
 					agreementList.map((agreement, idx) => (
 						<tr key={idx}>
@@ -50,7 +51,9 @@ function AdminAgreementListSearch() {
 					))
 				) : (
 					<tr>
-						<td colSpan="5">동의 목록이 없습니다</td>
+						<td colSpan="5" className={style.nothing}>
+							동의 목록이 없습니다
+						</td>
 					</tr>
 				)}
 			</tbody>

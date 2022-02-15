@@ -4,7 +4,7 @@
 }
 .message_container {
 	position: relative;
-	width: 60%;
+	width: 85%;
 	margin-top: 3rem;
 }
 
@@ -60,7 +60,7 @@
 }
 
 .input_box:focus {
-	border: 1px solid #000;
+	outline: none;
 }
 .message_to,
 .message_title {
@@ -111,7 +111,7 @@
 .message_nav {
 	display: flex;
 	justify-content: center;
-	width: 60%;
+	width: 95%;
 	margin-top: 3rem;
 }
 

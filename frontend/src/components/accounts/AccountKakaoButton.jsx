@@ -1,5 +1,6 @@
 import style from "style/SignIn.module.css";
 import { useNavigate } from "react-router";
+import kakao from "assets/kakaologin.png";
 
 function AccountKakaoButton() {
 	const navigate = useNavigate();
@@ -12,7 +13,7 @@ function AccountKakaoButton() {
 
 	return (
 		<button className={style.kakao_button} onClick={loginWithKakao}>
-			카카오로 시작하기
+			<img src={kakao} alt="" className={style.kakao_button} />
 		</button>
 	);
 }

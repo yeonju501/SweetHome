@@ -51,7 +51,7 @@ function AdminBoardList() {
 						<th>순서</th>
 						<th>이름</th>
 						<th>설명</th>
-						<th></th>
+						<th>설정</th>
 						<th></th>
 					</tr>
 				</thead>
@@ -68,7 +68,7 @@ function AdminBoardList() {
 									</Link>
 								</td>
 								<td>
-									<button className={msgStyle.delete} id={board.id} onClick={onDelete}>
+									<button className={adminStyle.delete} id={board.id} onClick={onDelete}>
 										삭제
 									</button>
 								</td>

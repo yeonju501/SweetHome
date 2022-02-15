@@ -1,6 +1,7 @@
 import { useSelector } from "react-redux";
 import { Outlet } from "react-router";
 import { checkSidebar, checkUseNav } from "utils/authority";
+import Banner from "components/Banner";
 import style from "style/App.module.css";
 
 function Layout() {
@@ -14,6 +15,7 @@ function Layout() {
 				<main className={authority ? style.main : style.public}>
 					<Outlet />
 				</main>
+				{authority && authority !== "준회원" && <Banner />}
 			</div>
 		</>
 	);
