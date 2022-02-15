@@ -68,4 +68,11 @@ public class AptRestController {
     public ResponseEntity<MyRegisterAptManagerResponse> viewMyRegisterManager(@AuthenticationPrincipal String email) {
         return ResponseEntity.ok().body(aptService.viewMyRegisterManager(email));
     }
+
+    //아파트 관리자 등록 요청 - 현재 아파트 관리자 요청 취소 = DELETE
+    @DeleteMapping("/apts/apt-manager")
+    public ResponseEntity<Void> deleteRegisterAptManager(@AuthenticationPrincipal String email) {
+        aptService.deleteRegisterAptManager(email);
+        return ResponseEntity.noContent().build();
+    }
 }
