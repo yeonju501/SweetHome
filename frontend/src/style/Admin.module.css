@@ -3,10 +3,7 @@
 	justify-content: center;
 	flex-direction: column;
 	margin-top: 3rem;
-	width: 60%;
-}
-
-.div_container {
+	width: 80%;
 }
 
 .pagnation_container {
@@ -40,4 +37,9 @@
 .deactive {
 	color: rgba(157, 157, 157);
 }
-/* 네브바 */
+
+/* 동의서 */
+
+.agreement_page {
+	width: 80%;
+}
