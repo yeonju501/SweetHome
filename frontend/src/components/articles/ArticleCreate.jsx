@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import ArticleCreateForm from "./ArticleCreateForm";
+import style from "style/articles/ArticleCreate.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPen } from "@fortawesome/free-solid-svg-icons";
 
 function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 	const [formOpen, setFormOpen] = useState(false);
@@ -16,19 +19,16 @@ function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
 		window.location.replace(`/boards/${boardId}`);
 	};
 
-	return (
-		<div>
-			{formOpen ? (
-				<ArticleCreateForm
-					invertDisabled={invertDisabled}
-					boardId={boardId}
-					getArticlesAfterCreate={getArticlesAfterCreate}
-				/>
-			) : (
-				<div onClick={invertDisabled}>
-					<p>글을 작성해보세요!</p>
-				</div>
-			)}
+	return formOpen ? (
+		<ArticleCreateForm
+			invertDisabled={invertDisabled}
+			boardId={boardId}
+			getArticlesAfterCreate={getArticlesAfterCreate}
+		/>
+	) : (
+		<div onClick={invertDisabled} className={style.closed}>
+			<p className={style.closed_msg}>새 글을 작성해주세요!</p>
+			<FontAwesomeIcon icon={faPen} color="#8f8f8f" />
 		</div>
 	);
 }
