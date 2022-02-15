@@ -3,12 +3,14 @@ import { Link } from "react-router-dom";
 import * as axiosRequest from "utils/profileAxios";
 import style from "style/ProfileComments.module.css";
 import ProfilePagination from "./ProfilePagination";
+import { useSelector } from "react-redux";
 function ProfileArticles() {
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [data, setData] = useState({ articles: [], totalPage: 0, currentPage: 0 });
 	const { articles, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETMYARTICLES(setData, "boards/articles/mine", currentPage);
+		axiosRequest.GETMYARTICLES(setData, "boards/articles/mine", currentPage, user.apt.apt_id);
 	}, [currentPage]);
 
 	return (
