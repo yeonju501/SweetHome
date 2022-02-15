@@ -41,8 +41,11 @@
 	flex-direction: column;
 	margin-top: 3rem;
 }
+
+.send_form input {
+	height: 2.5rem;
+}
 .send_message {
-	width: 60%;
 	margin-top: 3rem;
 }
 

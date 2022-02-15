@@ -78,7 +78,6 @@ function App() {
 									<Route path="/message-box/" element={<Message />}></Route>
 									<Route path="send-message" element={<MessageSend />} />
 									<Route path="/read-send-message/message-detail" element={<MessageDeatil />} />
-
 									<Route path="/read-receive-message/message-detail" element={<MessageDeatil />} />
 									<Route
 										path="/read-send-message/message-detail/send-message"

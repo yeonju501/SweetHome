@@ -116,7 +116,13 @@ function AptMemberRequest(props) {
 							주소 찾기
 						</button>
 						<br />
-						<input type="text" readOnly placeholder="주소" value={address} />
+						<input
+							type="text"
+							readOnly
+							placeholder="주소"
+							value={address}
+							className={style.member_address}
+						/>
 						<br />
 
 						<input
