@@ -6,8 +6,6 @@ import SignUp from "pages/SignUp";
 import PrivateRoute from "components/PrivateRoute";
 import Profile from "pages/Profile";
 import Message from "pages/Message";
-import ReadReceiveMessage from "components/messages/ReadReceiveMessage";
-import ReadSendMessage from "components/messages/ReadSendMessage";
 import SendMessage from "components/messages/SendMessage";
 import NotFound from "pages/NotFound";
 import { ToastContainer } from "react-toastify";
@@ -78,8 +76,6 @@ function App() {
 									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
 									<Route path="/messages" element={<MessagePage />} />
 									<Route path="/message-box/" element={<Message />}></Route>
-									<Route path="read-receive-message" element={<ReadReceiveMessage />} />
-									<Route path="read-send-message" element={<ReadSendMessage />} />
 									<Route path="send-message" element={<SendMessage />} />
 									<Route path="/read-send-message/message-detail" element={<ReadMessageDeatil />} />
 
