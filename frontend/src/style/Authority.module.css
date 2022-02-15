@@ -45,7 +45,6 @@
 }
 
 .asso_checking {
-	/* height: 90%; */
 	margin-right: 4rem;
 }
 .cancel_request {
@@ -100,6 +99,11 @@
 .postal_code {
 	width: 10rem;
 	margin-right: 2rem;
+	margin-bottom: 2rem;
+}
+
+.member_address {
+	margin-bottom: 2rem;
 }
 
 .building {
@@ -145,4 +149,17 @@
 
 .hidden {
 	display: none;
+}
+
+.apt_member_page {
+	margin: 0 auto;
+}
+
+.apt_member_page input {
+	height: 4rem;
+}
+
+.admin_address {
+	margin: 2rem 0;
+	width: 25rem;
 }

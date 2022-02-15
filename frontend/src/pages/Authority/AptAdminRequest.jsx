@@ -64,7 +64,7 @@ function AptAdminRequest() {
 		<div className={style.apt_member_page}>
 			<h1 className={style.apt_member_title}>아파트 관리자 인증</h1>
 			<section className={style.apt_member}>
-				<form onSubmit={onSubmit}>
+				<form onSubmit={onSubmit} className={style.admin_request}>
 					<div className={style.apt_member_form_div}>
 						<aside>
 							<label>주소 입력하기</label>
@@ -80,7 +80,13 @@ function AptAdminRequest() {
 							주소 찾기
 						</button>
 						<br />
-						<input type="text" readOnly placeholder="주소" value={address} />
+						<input
+							type="text"
+							readOnly
+							placeholder="주소"
+							value={address}
+							className={style.admin_address}
+						/>
 					</div>
 					<div>
 						<aside>

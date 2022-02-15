@@ -21,7 +21,7 @@ function NotFound() {
 			>
 				홈으로 돌아가기
 			</Link>
-			<Error />
+			<Error style={{ margin: "0 auto" }} />
 		</div>
 	);
 }
