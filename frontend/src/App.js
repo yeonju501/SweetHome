@@ -5,7 +5,7 @@ import Main from "pages/Main";
 import SignUp from "pages/SignUp";
 import PrivateRoute from "components/PrivateRoute";
 import Profile from "pages/Profile";
-import MessageBox from "pages/MessageBox";
+import Message from "pages/Message";
 import ReadReceiveMessage from "components/messages/ReadReceiveMessage";
 import ReadSendMessage from "components/messages/ReadSendMessage";
 import SendMessage from "components/messages/SendMessage";
@@ -39,6 +39,7 @@ import AdminReportCommentDetail from "components/admin/report/AdminReportComment
 import AdimnAgreementManage from "components/admin/agreement/AdminAgreementManage";
 import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementListSearch";
 import Layout from "components/Layout";
+import MessagePage from "components/messages/MessagePage";
 
 function App() {
 	const [loading, setLoading] = useState(false);
@@ -75,7 +76,8 @@ function App() {
 									<Route path="/boards/:boardId" element={<Board />} />
 									<Route path="/articles/:articleId" element={<ArticleDetail />} />
 									<Route path="/articles/:articleId/update" element={<ArticleUpdate />} />
-									<Route path="/message-box/" element={<MessageBox />}></Route>
+									<Route path="/messages" element={<MessagePage />} />
+									<Route path="/message-box/" element={<Message />}></Route>
 									<Route path="read-receive-message" element={<ReadReceiveMessage />} />
 									<Route path="read-send-message" element={<ReadSendMessage />} />
 									<Route path="send-message" element={<SendMessage />} />

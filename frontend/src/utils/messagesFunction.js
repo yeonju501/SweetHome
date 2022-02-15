@@ -3,10 +3,10 @@ import style from "style/Pagination.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
-export function getMessagesFromServer(api, page, size, funcArray, funcSize) {
+export function getMessagesFromServer(api, page, funcArray, funcSize) {
 	axios({
 		method: "GET",
-		url: `${SERVER_URL}/api/messages/${api}?page=${page}&size=${size}`,
+		url: `${SERVER_URL}/api/messages/${api}?page=${page}&size=10`,
 	})
 		.then((res) => {
 			funcArray(res.data.messages);
