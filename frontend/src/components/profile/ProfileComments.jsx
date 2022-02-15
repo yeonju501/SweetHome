@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import * as axiosRequest from "utils/profileAxios";
 import style from "style/ProfileComments.module.css";
 import ProfilePagination from "./ProfilePagination";
 
 function ProfileComments() {
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [data, setData] = useState({ comments: [], totalPage: 0, currentPage: 0 });
 	const { comments, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETMYCOMMENTS(setData, currentPage);
+		axiosRequest.GETMYCOMMENTS(setData, currentPage, user.apt.apt_id);
 	}, [currentPage]);
 
 	return (

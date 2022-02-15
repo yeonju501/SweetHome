@@ -8,9 +8,9 @@ export function GETUSERINFO(func1, func2) {
 	}).then((res) => func1(func2(res.data)));
 }
 
-export function GETMYCOMMENTS(func1, page) {
+export function GETMYCOMMENTS(func1, page, aptId) {
 	axios({
-		url: `${SERVER_URL}/api/articles/comments/mine/?page=${page}`,
+		url: `${SERVER_URL}/api/apts/${aptId}/articles/comments/mine?page=${page}`,
 		method: "get",
 	}).then((res) => {
 		func1((prev) => ({
@@ -22,9 +22,9 @@ export function GETMYCOMMENTS(func1, page) {
 	});
 }
 
-export function GETMYARTICLES(func1, address, page) {
+export function GETMYARTICLES(func1, address, page, aptId) {
 	axios({
-		url: `${SERVER_URL}/api/${address}/?page=${page}`,
+		url: `${SERVER_URL}/api/apts/${aptId}/${address}?page=${page}`,
 		method: "get",
 	}).then((res) => {
 		func1((prev) => ({

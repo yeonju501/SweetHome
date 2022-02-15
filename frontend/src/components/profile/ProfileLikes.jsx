@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 import ProfilePagination from "./ProfilePagination";
 import * as axiosRequest from "utils/profileAxios";
 import style from "style/ProfileComments.module.css";
 
 function ProfileLikes() {
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const [data, setData] = useState({ articles: [], totalPage: 0, currentPage: 0 });
 	const { articles, totalPage, currentPage } = data;
 
 	useEffect(() => {
-		axiosRequest.GETMYARTICLES(setData, "articles/likes/mine", currentPage);
+		axiosRequest.GETMYARTICLES(setData, "articles/likes/mine", currentPage, user.apt.apt_id);
 	}, [currentPage]);
 
 	return (
