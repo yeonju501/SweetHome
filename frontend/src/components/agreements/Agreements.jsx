@@ -2,7 +2,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AgreementsPagination from "./AgreementsPagination";
-// import style from "style/Admin.module.css";
+import style from "style/Board.module.css";
+
 function Agreements() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [data, setData] = useState({ agreements: [], totalPage: 0, currentPage: 0 });
@@ -35,8 +36,8 @@ function Agreements() {
 	}, [currentPage]);
 
 	return (
-		<div>
-			<h1>관리 동의서 게시판</h1>
+		<div className={style.body}>
+			<h1 className={style.agreements_title}>관리 동의서 게시판</h1>
 			<table>
 				<thead>
 					<tr>

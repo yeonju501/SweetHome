@@ -132,6 +132,9 @@ function SidebarBoards() {
 					))}
 			</ul>
 			<hr style={{ width: "85%", margin: "2rem 0" }} />
+			<p className={style.sidebar_agreements}>
+				<Link to={`/agreements`}>동의서 게시판</Link>
+			</p>
 			<ul className={style.sidebar_list}>
 				{boards.length > 0 &&
 					boards.map((board) => (

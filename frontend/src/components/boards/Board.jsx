@@ -91,7 +91,7 @@ function Board() {
 							<ArticleListItem key={idx} article={article} board={board} />
 						))}
 					</ul>
-					<div ref={pageEnd}>페이지의 끝입니다</div>
+					<div ref={pageEnd}></div>
 				</div>
 			)}
 		</div>
