@@ -140,3 +140,12 @@
 	margin-top: 2rem;
 	border: 1px solid #dedede;
 }
+
+@media screen and (max-width: 768px) {
+	.manage_container {
+		width: 100vw;
+	}
+	.admin_mb_table {
+		font-size: 1.2rem;
+	}
+}
