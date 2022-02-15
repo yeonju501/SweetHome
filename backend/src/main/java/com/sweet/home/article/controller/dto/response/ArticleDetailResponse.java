@@ -18,6 +18,9 @@ public class ArticleDetailResponse {
     @JsonProperty("username")
     private String username;
 
+    @JsonProperty("user_image")
+    private String userImage;
+
     @JsonProperty("content")
     private String content;
 
@@ -38,12 +41,13 @@ public class ArticleDetailResponse {
     @JsonProperty("total_replies")
     private long totalReplies;
 
-    protected ArticleDetailResponse(String title, String email, String username, String content, String image_url,
+    protected ArticleDetailResponse(String title, String email, String username, String userImage, String content, String image_url,
         LocalDateTime createdAt,
         LocalDateTime updatedAt, long totalLikes, long totalReplies) {
         this.title = title;
         this.email = email;
         this.username = username;
+        this.userImage = userImage;
         this.content = content;
         this.image_url = image_url;
         this.createdAt = createdAt;
@@ -57,6 +61,7 @@ public class ArticleDetailResponse {
             article.getTitle(),
             article.getMember().getEmail(),
             article.getMember().getUsername(),
+            article.getMember().getImageUrl(),
             article.getContent(),
             article.getImageUrl(),
             article.getCreatedAt(),
