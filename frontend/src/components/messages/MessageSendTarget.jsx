@@ -5,13 +5,13 @@ import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
 import { useSelector } from "react-redux";
 
-function SendMessage() {
+function MessageSendTarget() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const navigate = useNavigate();
 	const target = useSelector((state) => state.messageInfo);
 
 	const [sendMessage, setSendMessage] = useState({
-		receiver_name: "",
+		receiver_name: target.username,
 		title: "",
 		content: "",
 	});
@@ -34,12 +34,16 @@ function SendMessage() {
 			}).then(() => {
 				toast.success("메시지 전송 완료");
 				setSendMessage({ receiver_name: "", title: "", content: "" });
+				target &&
+					setTimeout(function () {
+						window.close();
+					}, 1600);
 			});
 		}
 	}
 
 	function onCancel() {
-		navigate("/message-box");
+		window.close();
 	}
 
 	const { receiver_name, title, content } = sendMessage;
@@ -92,4 +96,4 @@ function SendMessage() {
 	);
 }
 
-export default SendMessage;
+export default MessageSendTarget;
