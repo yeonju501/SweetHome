@@ -3,7 +3,7 @@ import style from "style/articles/ArticleDetailComment.module.css";
 import CommentUpdate from "./CommentUpdate";
 
 function CommentsList({ comments, articleId, getComments }) {
-	const user = useSelector((state) => state.userInfo.email);
+	const user = useSelector((state) => state.userInfo);
 
 	return (
 		<ul>

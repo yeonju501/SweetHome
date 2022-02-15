@@ -10,6 +10,8 @@ function Comments({ articleId, setComment, totalComments }) {
 	const [comments, setComments] = useState([]);
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const [page, setPage] = useState(1);
+	const [commentNumber, setCommentNumber] = useState(comments.length);
+
 	const getMoreComments = () => {
 		try {
 			axios({
@@ -19,20 +21,21 @@ function Comments({ articleId, setComment, totalComments }) {
 				setPage(page + 1);
 				setComments([...comments, ...res.data.comments]);
 				setComment(res.data.comments.length);
+				comments.map((comment) => setCommentNumber((prev) => prev + comment.replies.length));
 			});
 		} catch (err) {
 			console.log(err);
 		}
 	};
 
-	const getComments = () => {
+	const getComments = (createOrDelete = "") => {
 		try {
 			axios({
 				url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments?page=0&size=5`,
 				method: "get",
 			}).then((res) => {
 				setComments(res.data.comments);
-				setComment();
+				if (createOrDelete) setComment();
 			});
 		} catch (err) {
 			console.log(err);
@@ -51,7 +54,9 @@ function Comments({ articleId, setComment, totalComments }) {
 					<CommentsList articleId={articleId} comments={comments} getComments={getComments} />
 					<button
 						onClick={getMoreComments}
-						className={comments.length < totalComments ? style.more_comment : style.hidden}
+						className={
+							comments.length + commentNumber < totalComments ? style.more_comment : style.hidden
+						}
 					>
 						+
 					</button>
