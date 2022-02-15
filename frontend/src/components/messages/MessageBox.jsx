@@ -44,9 +44,12 @@ function MessageBox(props) {
 
 	return (
 		<div className={messageStyle.message_container}>
-			<button className={messageStyle.delete} onClick={onDeleteMessages}>
-				삭제
-			</button>
+			<div className={messageStyle.delete_div}>
+				<button className={messageStyle.delete} onClick={onDeleteMessages}>
+					삭제
+				</button>
+			</div>
+
 			<table className={messageStyle.table}>
 				<thead>
 					<tr>
