@@ -32,6 +32,7 @@ public class BoardService {
             .collect(Collectors.toList());
     }
 
+
     @Transactional
     public void saveBoard(BoardSaveRequest request, Long aptId) {
         Apt apt = aptService.findById(aptId);
