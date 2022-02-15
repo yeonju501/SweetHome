@@ -3,7 +3,7 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
-import adminStyle from "style/Admin.module.css";
+import style from "style/Admin.module.css";
 import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
@@ -50,7 +50,7 @@ function AdminMemberRegister() {
 	};
 
 	return (
-		<div className={adminStyle.div_container}>
+		<div className={style.div_container}>
 			<table>
 				<thead>
 					<tr>
@@ -59,8 +59,7 @@ function AdminMemberRegister() {
 						<th>동</th>
 						<th>호</th>
 						<th>메시지</th>
-						<th></th>
-						<th></th>
+						<th colSpan="2"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -72,22 +71,26 @@ function AdminMemberRegister() {
 								<td>{aptMember.dong}</td>
 								<td>{aptMember.ho}</td>
 								<td>{aptMember.message}</td>
-								<button
-									className={msgStyle.send}
-									onClick={(e) => {
-										registerMember("POST", aptMember.id);
-									}}
-								>
-									승인
-								</button>
-								<button
-									className={msgStyle.delete}
-									onClick={(e) => {
-										registerMember("DELETE", aptMember.id);
-									}}
-								>
-									거절
-								</button>
+								<td className={style.admin_mb_btn}>
+									<button
+										className={style.admin_mb_accept}
+										onClick={(e) => {
+											registerMember("POST", aptMember.id);
+										}}
+									>
+										승인
+									</button>
+								</td>
+								<td className={style.admin_mb_btn}>
+									<button
+										className={style.admin_mb_decline}
+										onClick={(e) => {
+											registerMember("DELETE", aptMember.id);
+										}}
+									>
+										거절
+									</button>
+								</td>
 							</tr>
 						))
 					) : (

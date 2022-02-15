@@ -2,9 +2,8 @@ import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
-import msgStyle from "style/Messages.module.css";
-import adminStyle from "../../../style/Admin.module.css";
-import pagStyle from "../../../style/Pagination.module.css";
+import style from "style/Admin.module.css";
+import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -19,7 +18,7 @@ function AdminBoardList() {
 	const [page, setPage] = useState(0);
 	const [pageSize, setPageSize] = useState(0);
 
-	useEffect(() => {
+	const getList = () => {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards?page=${page}&size=10`,
@@ -31,28 +30,34 @@ function AdminBoardList() {
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+	useEffect(() => {
+		getList();
 	}, [page]);
 
 	const onDelete = (e) => {
 		const id = e.target.id;
-		axios({
-			method: "DELETE",
-			url: `${SERVER_URL}/api/admin/boards/${id}`,
-		}).catch((err) => {
-			console.log(err);
-		});
+		if (window.confirm("정말로 삭제하시겠습니까?")) {
+			axios({
+				method: "DELETE",
+				url: `${SERVER_URL}/api/admin/boards/${id}`,
+			})
+				.then(() => getList())
+				.catch((err) => {
+					console.log(err);
+				});
+		}
 	};
 
 	return (
-		<div className={adminStyle.div_container}>
+		<div className={style.div_container}>
 			<table>
 				<thead>
 					<tr>
 						<th>순서</th>
 						<th>이름</th>
 						<th>설명</th>
-						<th>설정</th>
-						<th></th>
+						<th colSpan="2"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,13 +67,13 @@ function AdminBoardList() {
 								<td>{idx + 1}</td>
 								<td>{board.name}</td>
 								<td>{board.description}</td>
-								<td>
-									<Link to="board-update" state={{ board: board }}>
+								<td className={style.admin_board_btn}>
+									<Link to="board-update" state={{ board: board }} className={style.update_board}>
 										수정
 									</Link>
 								</td>
-								<td>
-									<button className={adminStyle.delete} id={board.id} onClick={onDelete}>
+								<td className={style.admin_board_btn}>
+									<button className={style.admin_mb_decline} id={board.id} onClick={onDelete}>
 										삭제
 									</button>
 								</td>

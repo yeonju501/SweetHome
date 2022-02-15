@@ -3,8 +3,8 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import msgStyle from "style/Messages.module.css";
-import adminStyle from "../../../style/Admin.module.css";
-import pagStyle from "../../../style/Pagination.module.css";
+import adminStyle from "style/Admin.module.css";
+import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;

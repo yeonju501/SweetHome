@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import AdminMemberList from "./AdminMemberList";
 import AdminMemberNav from "./AdminMemberNav";
 import AdminMemberRegister from "./AdminMemberRegister";
-import style from "../../../style/Admin.module.css";
+import style from "style/Admin.module.css";
 
 function AdminMemberManage() {
 	const [active, setActive] = useState(0);
