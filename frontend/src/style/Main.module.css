@@ -1,7 +1,23 @@
 .body {
-	font-family: "Noto Sans KR", sans-serif;
+	font-size: 1.4rem;
+	margin-top: 2rem;
+	width: 80%;
+}
+
+.body > p {
+	color: rgb(133, 132, 132);
+	font-size: 1.3rem;
+	font-weight: 800;
 }
 
 .articles {
-	height: 30vh;
+	margin-top: 1rem;
+	height: 40vh;
+	width: 100%;
+}
+
+.article {
+	margin: 1rem 0;
+	padding-bottom: 0.5rem;
+	border-bottom: 0.2px solid rgb(212, 212, 212);
 }
