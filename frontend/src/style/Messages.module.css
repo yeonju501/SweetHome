@@ -99,3 +99,7 @@
 .table {
 	margin: 0;
 }
+
+.unread {
+	font-weight: 800;
+}
