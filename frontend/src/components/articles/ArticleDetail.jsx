@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
+import anonymous from "assets/anonymous.jpg";
 
 function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -50,6 +51,11 @@ function ArticleDetail() {
 		});
 	};
 
+	const setArticleUserImg = () => {
+		const articleUserImg = article.user_image ? article.user_image : anonymous;
+		return articleUserImg;
+	};
+
 	return (
 		<div>
 			{article && (
@@ -64,7 +70,9 @@ function ArticleDetail() {
 						<article className={style.article}>
 							<div className={style.article_top}>
 								<div className={style.profile}>
-									<div className={style.profile_img}></div>
+									<div className={style.profile_img}>
+										<img src={setArticleUserImg()} alt="profile" />
+									</div>
 									<div>
 										<p>{article.username}</p>
 										<p>{article.created_at.slice(0, 10)}</p>
@@ -75,24 +83,24 @@ function ArticleDetail() {
 
 							<h3 className={style.article_title}>{article.title}</h3>
 							{article.image_url && (
-								<div>
-									<img src={article.image_url} alt="" style={{ width: "20rem", height: "20rem" }} />
+								<div className={style.article_img}>
+									<img src={article.image_url} alt="article" />
 								</div>
 							)}
 							<p className={style.article_content}>{article.content}</p>
 
 							<div className={style.article_bottom}>
 								<div className={style.article_bottom_info}>
-									<FontAwesomeIcon icon={fasHeart} color="#888888" />
+									<FontAwesomeIcon icon={fasHeart} color="#888888" size="lg" />
 									<span style={{ marginRight: "0.8rem" }}>{article.total_likes}</span>
-									<FontAwesomeIcon icon={faComment} color="#595959" />
+									<FontAwesomeIcon icon={faComment} color="#595959" size="lg" />
 									<span>{comment}</span>
 								</div>
 								<button className={style.heart_btn} onClick={handleHeartClick}>
 									{isLiked ? (
-										<FontAwesomeIcon icon={fasHeart} color="red" />
+										<FontAwesomeIcon icon={fasHeart} color="red" size="2x" />
 									) : (
-										<FontAwesomeIcon icon={farHeart} color="gray" />
+										<FontAwesomeIcon icon={fasHeart} color="#dedede" size="2x" />
 									)}
 								</button>
 							</div>
