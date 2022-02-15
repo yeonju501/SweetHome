@@ -24,13 +24,28 @@
 	transform: translateY(0.1rem);
 }
 
+.sidebar_agreements {
+	color: black;
+	font-size: 1.5rem;
+	margin-bottom: 0.5rem;
+}
+
+.sidebar_agreements:hover {
+	background-color: #dfdfdf;
+	border-radius: 0.3rem;
+}
+
+.sidebar_agreements:active {
+	background-color: #b7b7b7;
+	border-radius: 0.3rem;
+}
+
 .sidebar_list {
 	list-style: none;
 	margin-bottom: 1rem;
 }
 
 .sidebar_back {
-	font-size: 1.2rem;
 	margin-bottom: 0.5rem;
 	color: black;
 }
