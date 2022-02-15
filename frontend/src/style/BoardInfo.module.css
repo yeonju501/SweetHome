@@ -4,11 +4,13 @@
 }
 
 .board_title {
-	font-size: 2rem;
+	font-size: 2.7rem;
 	font-weight: bold;
 	margin-bottom: 1rem;
 }
 
 .board_description {
 	color: rgba(61, 61, 61, 0.5);
+	font-size: 1.4rem;
+	font-weight: bold;
 }

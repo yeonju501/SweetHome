@@ -78,7 +78,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 				/>
 				<div className={style.button_box}>
 					<label htmlFor="file" className={style.input_file}>
-						<FontAwesomeIcon icon={faCamera} color="#afafaf" />
+						<FontAwesomeIcon icon={faCamera} color="#afafaf" size="lg" />
 					</label>
 					<input
 						type="file"
