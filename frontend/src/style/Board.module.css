@@ -1,13 +1,12 @@
 .body {
-	width: 100%;
-}
-
-.article {
-	list-style: none;
-	border-bottom: 1px solid black;
+	width: 60%;
 }
 
 .article_list {
 	overflow: scroll;
 	height: 75vh;
+}
+
+.article_list::-webkit-scrollbar {
+	display: none;
 }

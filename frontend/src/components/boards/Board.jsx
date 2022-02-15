@@ -1,14 +1,11 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import axios from "axios";
 import { useLocation } from "react-router-dom";
-import { Link } from "react-router-dom";
 import ArticleCreate from "../articles/ArticleCreate";
 import style from "style/Board.module.css";
 import BoardInfo from "./BoardInfo";
 import { useSelector } from "react-redux";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
-import { faComment } from "@fortawesome/free-regular-svg-icons";
+import ArticleListItem from "components/articles/ArticleListItem";
 
 function Board() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -91,32 +88,7 @@ function Board() {
 				<div id="infiniteScroll" className={style.article_list}>
 					<ul>
 						{articles.map((article, idx) => (
-							<li className={style.article} key={idx}>
-								<Link
-									to={`/articles/${article.id}`}
-									state={{ articleId: article.id, board: board }}
-								>
-									<p>{article.username}</p>
-									<p>{article.created_at.slice(0, 10)}</p>
-									<h3>{article.title}</h3>
-									{article.image_url && (
-										<div>
-											<img
-												src={article.image_url}
-												alt=""
-												style={{ width: "20rem", height: "20rem" }}
-											/>
-										</div>
-									)}
-									<p>{article.content}</p>
-									<div>
-										<FontAwesomeIcon icon={fasHeart} color="#888888" />
-										<span>{article.total_likes}</span>
-										<FontAwesomeIcon icon={faComment} color="#595959" />
-										<span>{article.total_replies}</span>
-									</div>
-								</Link>
-							</li>
+							<ArticleListItem key={idx} article={article} board={board} />
 						))}
 					</ul>
 					<div ref={pageEnd}>페이지의 끝입니다</div>
