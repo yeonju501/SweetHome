@@ -2,6 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import errorMessage from "store/errorMessage";
 import ReactModal from "react-modal";
+import style from "style/AgreementCreate.module.css";
 
 function AgreementCreate(props) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -47,8 +48,8 @@ function AgreementCreate(props) {
 
 	return (
 		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
-			<h1>동의서 작성</h1>
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={handleFormSubmit} className={style.form}>
+				<h1>동의서 작성</h1>
 				<input
 					type="text"
 					id="title"
@@ -56,19 +57,25 @@ function AgreementCreate(props) {
 					onChange={handleInputChange}
 					placeholder="제목을 입력하세요"
 				/>
-				<label>시작 날짜</label>
-				<input type="date" id="start_date" value={start_date} onChange={handleInputChange} />
-				<label>종료 날짜</label>
-				<input type="date" id="end_date" value={end_date} onChange={handleInputChange} />
-
+				<div className={style.deadline}>
+					<label className={style.label}>시작 날짜</label>
+					<input type="date" id="start_date" value={start_date} onChange={handleInputChange} />
+					<label className={style.label}>종료 날짜</label>
+					<input type="date" id="end_date" value={end_date} onChange={handleInputChange} />
+				</div>
 				<textarea
 					id="content"
 					placeholder="동의서 내용을 입력하세요"
 					value={content}
 					onChange={handleInputChange}
+					className={style.textarea}
 				></textarea>
-				<button>작성</button>
-				<button onClick={onCancel}>취소</button>
+				<div>
+					<button className={style.submit_btn}>작성</button>
+					<button className={style.cancel_btn} onClick={onCancel}>
+						취소
+					</button>
+				</div>
 			</form>
 		</ReactModal>
 	);
