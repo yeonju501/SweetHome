@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
+import style from "style/Admin.module.css";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -25,7 +26,6 @@ function AdminReportCommentDetail() {
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/${id}/reports`,
 		})
 			.then((res) => {
-				console.log(res.data);
 				setReportComments(res.data);
 			})
 			.catch((err) => {
@@ -54,36 +54,35 @@ function AdminReportCommentDetail() {
 			console.log(err);
 		});
 	};
+
 	return (
 		<>
 			<div>
-				<h1>
-					신고 게시글 : {commentDetail.title} 신고 횟수 : {commentDetail.totalReports}
-				</h1>
+				<h1>신고 횟수 : {commentDetail.totalReports}</h1>
 				<h2>작성자 : {commentDetail.username}</h2>
 				<h2>내용 : {commentDetail.content}</h2>
+			</div>
+			<div className={style.info_report_article}>
+				<button onClick={onApprove} className={style.admin_report_btns}>
+					블락
+				</button>
+				<button onClick={onReject} className={style.admin_report_decline}>
+					해제
+				</button>
 			</div>
 			<table>
 				<thead>
 					<tr>
 						<td>신고자</td>
 						<td>신고 내용</td>
-						<td></td>
-						<td></td>
 					</tr>
 				</thead>
 				<tbody>
 					{reportComments.length > 0
 						? reportComments.map((reportComment, idx) => (
 								<tr key={idx}>
-									<td>{reportComment.username}</td>
+									<td>{reportComment.report_username}</td>
 									<td>{reportComment.content}</td>
-									<td>
-										<button onClick={onApprove}>승인</button>
-									</td>
-									<td>
-										<button onClick={onReject}>거부</button>
-									</td>
 								</tr>
 						  ))
 						: null}
