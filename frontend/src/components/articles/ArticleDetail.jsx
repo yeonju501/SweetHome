@@ -57,7 +57,7 @@ function ArticleDetail() {
 	};
 
 	return (
-		<div>
+		<div className={style.article_detail_page}>
 			{article && (
 				<section className={style.article_detail}>
 					<div className={style.article_to_board}>
