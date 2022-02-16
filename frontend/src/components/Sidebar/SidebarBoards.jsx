@@ -5,7 +5,6 @@ import { useSelector } from "react-redux";
 import style from "style/Sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import CreateBoard from "../boards/BoardCreate";
 import SidebarStarIcon from "./SidebarStarIcon";
 
 function SidebarBoards() {
@@ -13,28 +12,14 @@ function SidebarBoards() {
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const [boards, setBoards] = useState([]);
 	const [favorites, setFavorites] = useState([]);
-	// const [isStarred, setIsStarred] = useState(false);
-	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		getFavorites();
 		getBoards();
-		if (modalOpen) {
-			document.body.style.cssText = `
-		position: fixed; 
-		top: -${window.scrollY}px;
-		overflow-y: scroll;
-		width: 100%;`;
-			return () => {
-				const scrollY = document.body.style.top;
-				document.body.style.cssText = "";
-				window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
-			};
-		}
 	}, []);
 
-	const handleModal = () => {
-		setModalOpen(false);
+	const handleModal = async () => {
+		await window.open("/board-create", "board", "width=430, height=500, location=no, status=no");
 	};
 
 	const getStarred = async (boardId) => {
@@ -94,7 +79,6 @@ function SidebarBoards() {
 					const favorId = value.map((favor) => favor.id);
 					const boards = res.data;
 					const selected = boards.filter((board) => !favorId.includes(board.id));
-					console.log(selected);
 					setBoards(selected);
 					return;
 				}
@@ -110,9 +94,8 @@ function SidebarBoards() {
 
 	return (
 		<div className={style.sidebar_container}>
-			{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
-			<div className={style.request_new_board}>
-				<FontAwesomeIcon onClick={() => setModalOpen(true)} className={style.icon} icon={faPlus} />
+			<div className={style.request_new_board} onClick={handleModal} style={{ cursor: "pointer" }}>
+				<FontAwesomeIcon className={style.icon} icon={faPlus} />
 				<span>게시판 생성 요청</span>
 			</div>
 

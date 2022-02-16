@@ -39,7 +39,7 @@ import AdminAgreementListSearch from "components/admin/agreement/AdminAgreementL
 import Layout from "components/Layout";
 import MessagePage from "components/messages/MessagePage";
 import MessageSendTarget from "components/messages/MessageSendTarget";
-
+import BoardCreate from "components/boards/BoardCreate";
 function App() {
 	const [loading, setLoading] = useState(false);
 	useEffect(() => {
@@ -111,6 +111,7 @@ function App() {
 							<Route path="/send-message/:username" element={<MessageSendTarget />} />
 							<Route path="/*" element={<NotFound />} />
 							<Route path="/super-admin" element={<Admin />} />
+							<Route path="/board-create" element={<BoardCreate />} />
 						</Routes>
 					</div>
 				</Router>

@@ -15,8 +15,10 @@
 	margin-bottom: 5rem;
 }
 
+.form input:focus {
+	outline: none;
+}
 .submit_btn {
-	margin-top: 5rem;
 	margin-right: 2rem;
 	border-radius: 0.6rem;
 }
@@ -26,4 +28,8 @@
 	border: 0.5px solid #0087e8;
 	color: #0087e8;
 	border-radius: 0.6rem;
+}
+
+.board_btns {
+	display: flex;
 }
