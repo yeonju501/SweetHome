@@ -13,6 +13,10 @@
 	font-weight: 600;
 }
 
+.comment_content {
+	white-space: pre;
+}
+
 .comments_li {
 	list-style: none;
 	/* border-top: 1px solid #dedede; */

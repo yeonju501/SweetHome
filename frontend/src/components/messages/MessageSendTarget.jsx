@@ -23,20 +23,18 @@ function MessageSendTarget() {
 
 	function onSend(e) {
 		e.preventDefault();
-		const checkValue = e.target.checkValidity();
-		if (checkValue) {
+		if (title.trim() && content.trim()) {
 			axios({
 				method: "POST",
 				url: `${SERVER_URL}/api/messages/`,
 				data: sendMessage,
 			}).then(() => {
-				toast.success("메시지 전송 완료");
 				setSendMessage({ receiver_name: "", title: "", content: "" });
-				target &&
-					setTimeout(function () {
-						window.close();
-					}, 1600);
+				alert("쪽지가 전송 되었습니다");
+				window.close();
 			});
+		} else {
+			alert("제목과 내용 모두 입력해주세요");
 		}
 	}
 

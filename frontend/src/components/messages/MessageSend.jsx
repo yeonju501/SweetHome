@@ -4,6 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
 import { useSelector } from "react-redux";
+import errorMessage from "store/errorMessage";
 
 function SendMessage() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -25,16 +26,22 @@ function SendMessage() {
 
 	function onSend(e) {
 		e.preventDefault();
-		const checkValue = e.target.checkValidity();
-		if (checkValue) {
+
+		if (receiver_name.trim() && title.trim() && content.trim()) {
 			axios({
 				method: "POST",
 				url: `${SERVER_URL}/api/messages/`,
 				data: sendMessage,
-			}).then(() => {
-				toast.success("메시지 전송 완료");
-				setSendMessage({ receiver_name: "", title: "", content: "" });
-			});
+			})
+				.then(() => {
+					toast.success("메시지 전송 완료");
+					setSendMessage({ receiver_name: "", title: "", content: "" });
+				})
+				.catch((err) => {
+					errorMessage(err.response.data.error_code);
+				});
+		} else {
+			alert("받는 사람과 제목, 내용을 모두 입력하세요");
 		}
 	}
 

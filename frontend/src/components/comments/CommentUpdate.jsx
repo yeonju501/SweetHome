@@ -68,7 +68,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 			) : (
 				<div className={style.comments_box}>
 					<p id={style.comment_username}>{comment.username}</p>
-					<p>{comment.content}</p>
+					<p className={style.comment_content}>{comment.content}</p>
 					<CommentLike
 						comment={comment}
 						setActivate={setActivate}

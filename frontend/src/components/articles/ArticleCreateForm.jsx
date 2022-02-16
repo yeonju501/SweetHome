@@ -90,7 +90,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 						/>
 					</div>
 					<div className={style.button_box}>
-						<button onClick={invertDisabled} className={style.outline_btn}>
+						<button onClick={invertDisabled} type="button" className={style.outline_btn}>
 							취소
 						</button>
 						<button type="submit">작성</button>
