@@ -13,7 +13,6 @@ function Main() {
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
-	const user = useSelector((state) => state.userInfo);
 
 	const [hotArticles, setHotArticles] = useState([]);
 	const [newArticles, setNewArticles] = useState([]);
@@ -28,14 +27,17 @@ function Main() {
 				dispatch(SET_USER(res.data));
 			});
 			dispatch(SET_POSITION(toggle, "main"));
-			if (userInfo) {
-				getHotArticles();
-				getNewArticles();
-			}
 		} catch (err) {
 			console.log(err);
 		}
 	}, []);
+
+	useEffect(() => {
+		if (userInfo) {
+			getHotArticles();
+			getNewArticles();
+		}
+	}, [userInfo]);
 
 	const getHotArticles = () => {
 		axios({
@@ -58,7 +60,6 @@ function Main() {
 	};
 
 	return (
-		user &&
 		userInfo &&
 		(userInfo.authority === "준회원" ? (
 			<AssoMemberpage />
