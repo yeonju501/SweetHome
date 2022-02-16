@@ -82,6 +82,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers(POST, "/api/members/find-pw").permitAll()
             .antMatchers(POST, "/api/members/exist-email").permitAll()
             .antMatchers(POST, "/api/members/exist-name").permitAll()
+            .antMatchers("/api/apts/**/admin/**").permitAll()
             .antMatchers("/api/admin/**")
             .hasAnyAuthority(Authority.ROLE_MANAGER.getAuthorityCode(), Authority.ROLE_ADMIN.getAuthorityCode())
             .antMatchers("/api/superadmin/**").hasAnyAuthority(Authority.ROLE_ADMIN.getAuthorityCode())
