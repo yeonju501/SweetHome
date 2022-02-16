@@ -77,7 +77,7 @@ function MessageBox(props) {
 								<td>
 									<Link
 										className={tableStyle.article_title}
-										to="message-detail"
+										to="/message-detail"
 										state={{ messageId: message.message_id, position: "send" }}
 									>
 										{message.title}

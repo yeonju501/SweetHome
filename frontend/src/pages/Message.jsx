@@ -34,7 +34,7 @@ function Message() {
 					<span> 보낸 메시지</span> : {sendMessageCnt.all_count}
 				</p>
 			</div>
-			<MessageBox action="receiver" />
+			<MessageBox action="receive" />
 		</div>
 	);
 }
