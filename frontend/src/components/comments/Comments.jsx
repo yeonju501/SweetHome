@@ -18,8 +18,8 @@ function Comments({ articleId, setComment, totalComments, getTotalComments }) {
 				url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments?page=${page}&size=5`,
 				method: "get",
 			}).then((res) => {
-				setPage(page + 1);
 				setComments([...comments, ...res.data.comments]);
+				setPage(page + 1);
 				setComment(res.data.comments.length);
 				comments.map((comment) => setCommentNumber((prev) => prev + comment.replies.length));
 			});
