@@ -56,7 +56,7 @@ public class Article extends BaseEntity {
     private int totalReports;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("(select count(1) from comment c where c.article_id = article_id and c.deleted_at is null)")
+    @Formula("(select count(1) from comment c where c.article_id = article_id and c.deleted_at is null and c.blocked_at is null)")
     private int totalReplies;
 
     private static final int BLOCK_STANDARD = 5;
