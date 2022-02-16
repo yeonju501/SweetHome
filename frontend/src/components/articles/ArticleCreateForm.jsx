@@ -77,16 +77,18 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 					className={style.textarea}
 				/>
 				<div className={style.button_box}>
-					<label htmlFor="file" className={style.input_file}>
-						<FontAwesomeIcon icon={faCamera} color="#afafaf" size="lg" />
-					</label>
-					<input
-						type="file"
-						id="file"
-						accept="image/*"
-						onChange={handleImageChange}
-						style={{ display: "none" }}
-					/>
+					<div>
+						<label htmlFor="file" className={style.file_label}>
+							<FontAwesomeIcon icon={faCamera} color="#afafaf" size="lg" />
+						</label>
+						<input
+							type="file"
+							id="file"
+							className={style.input_file}
+							accept="image/*"
+							onChange={handleImageChange}
+						/>
+					</div>
 					<div className={style.button_box}>
 						<button onClick={invertDisabled} className={style.outline_btn}>
 							취소

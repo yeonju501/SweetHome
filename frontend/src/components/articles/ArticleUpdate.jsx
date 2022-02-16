@@ -3,6 +3,9 @@ import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import style from "style/articles/ArticleCreate.module.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCamera } from "@fortawesome/free-solid-svg-icons";
 
 function ArticleUpdate() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -36,7 +39,6 @@ function ArticleUpdate() {
 			"article",
 			new Blob([JSON.stringify(articleData)], { type: "application/json" }),
 		);
-		console.log(imgFile);
 		imgFile
 			? formData.append("image", imgFile)
 			: formData.append("image", new Blob([]), { type: "multipart/form-data" });
@@ -53,6 +55,8 @@ function ArticleUpdate() {
 					navigate(-1);
 				})
 				.catch((err) => console.log(err.response));
+		} else {
+			alert("제목과 내용 모두 입력해주세요!");
 		}
 	};
 
@@ -69,15 +73,42 @@ function ArticleUpdate() {
 	};
 
 	return (
-		<div>
+		<div className={style.update_body}>
 			<form onSubmit={handleFormSubmit}>
-				<input type="text" id="title" value={title} onChange={handleInputChange} />
-				<hr />
-				<input type="text" id="content" value={content} onChange={handleInputChange} />
-				<hr />
-				<input type="file" accept="image/*" onChange={handleImageChange} />
-				<button onClick={handleCancelButtonClick}>취소</button>
-				<button>수정</button>
+				<input
+					type="text"
+					id="title"
+					className={style.input_text}
+					value={title}
+					onChange={handleInputChange}
+				/>
+				<input
+					type="text"
+					id="content"
+					className={style.textarea}
+					value={content}
+					onChange={handleInputChange}
+				/>
+				<div className={style.button_box}>
+					<div>
+						<label htmlFor="file" className={style.file_label}>
+							<FontAwesomeIcon icon={faCamera} color="#afafaf" size="lg" />
+						</label>
+						<input
+							type="file"
+							id="file"
+							className={style.input_file}
+							accept="image/*"
+							onChange={handleImageChange}
+						/>
+					</div>
+					<div className={style.updateBtns}>
+						<button onClick={handleCancelButtonClick} className={style.outline_btn}>
+							취소
+						</button>
+						<button>수정</button>
+					</div>
+				</div>
 			</form>
 		</div>
 	);
