@@ -40,9 +40,14 @@ function ReportType({ id, targetType }) {
 			.then(() => {
 				setType({ type: "", content: "" });
 				setReportCompleted(true);
-				window.location.close();
+				alert("신고가 완료 되었습니다");
+				window.close();
 			})
-			.catch((err) => console.log(err));
+			.catch((err) => {
+				if (err.response.status === 400) {
+					alert("이미 신고를 하셨습니다.");
+				}
+			});
 	};
 
 	const closeWindow = () => {
