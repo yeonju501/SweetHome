@@ -1,6 +1,6 @@
 .article_detail {
 	display: flex;
-	width: 50vw;
+	width: 80%;
 	flex-direction: column;
 	margin: 0 auto;
 }
@@ -67,14 +67,16 @@
 }
 
 .article_img {
-	width: 40rem;
+	width: 100%;
 	height: auto;
 	margin-bottom: 3rem;
 }
 
 .article_img > img {
-	width: 100%;
+	width: 90%;
 	height: auto;
+	margin: 0 auto;
+	display: block;
 }
 
 .article_content {

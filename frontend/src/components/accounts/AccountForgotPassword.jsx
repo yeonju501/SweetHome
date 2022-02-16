@@ -43,7 +43,7 @@ function AccountForgotPassword() {
 				</p>
 				<form className={style.form} onSubmit={onSubmit}>
 					<input type="text" placeholder="email" id="email" onChange={onChange} value={email} />
-					<button className={style.btn_forgot_pw}>이메일로 임시비밀 번호 받기</button>
+					<button className={style.btn_forgot_pw}>이메일로 임시 비밀번호 받기</button>
 				</form>
 				<div className={style.forgot_pw_links}>
 					<Link to="/sign-up">회원가입 하러 가기</Link>
