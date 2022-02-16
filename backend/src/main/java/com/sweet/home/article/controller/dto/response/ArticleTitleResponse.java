@@ -33,6 +33,9 @@ public class ArticleTitleResponse {
     @JsonProperty("total_replies")
     private int totalReplies;
 
+    @JsonProperty("total_reports")
+    private int totalReports;
+
     @JsonFormat
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
@@ -41,7 +44,7 @@ public class ArticleTitleResponse {
     }
 
     public ArticleTitleResponse(Long id, String title, String username, String user_image, String content, String imageUrl,
-        int totalLikes, int totalReplies, LocalDateTime createdAt) {
+        int totalLikes, int totalReplies, int totalReports, LocalDateTime createdAt) {
         this.id = id;
         this.title = title;
         this.username = username;
@@ -50,6 +53,7 @@ public class ArticleTitleResponse {
         this.imageUrl = imageUrl;
         this.totalLikes = totalLikes;
         this.totalReplies = totalReplies;
+        this.totalReports = totalReports;
         this.createdAt = createdAt;
     }
 
@@ -63,6 +67,7 @@ public class ArticleTitleResponse {
             article.getImageUrl(),
             article.getTotalLikes(),
             article.getTotalReplies(),
+            article.getTotalReports(),
             article.getCreatedAt()
         );
     }

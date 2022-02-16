@@ -123,7 +123,7 @@ public class ArticleService {
     @Transactional
     public Article findBlockedArticleById(Long articleId) {
         return articleRepository.findByIdAndBlockedAtIsNotNull(articleId)
-            .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
+            .orElseThrow(() -> new BusinessException(ErrorCode.ARTICLE_NOT_FOUND_BY_ID));
     }
 
     @Transactional

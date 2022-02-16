@@ -3,6 +3,7 @@ package com.sweet.home.article.controller;
 import com.sweet.home.article.controller.dto.response.ArticlesLikeResponse;
 import com.sweet.home.article.controller.dto.response.LikeStatusResponse;
 import com.sweet.home.article.service.ArticleLikeService;
+import com.sweet.home.global.aop.AptChecker;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
@@ -24,23 +25,27 @@ public class ArticleLikeRestController {
         this.articleLikeService = articleLikeService;
     }
 
+    @AptChecker
     @PostMapping("/{aptId}/articles/{articleId}/likes")
     public ResponseEntity<Void> likeArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         articleLikeService.likeArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
 
+    @AptChecker
     @GetMapping("/{aptId}/articles/{articleId}/likes")
     public ResponseEntity<LikeStatusResponse> showArticleLikeStatus(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         return ResponseEntity.ok().body(new LikeStatusResponse(articleLikeService.showArticleLikeStatus(email, articleId)));
     }
 
+    @AptChecker
     @GetMapping("/{aptId}/articles/likes/mine")
     public ResponseEntity<ArticlesLikeResponse> showMyArticleLikes(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PageableDefault
         Pageable pageable) {
         return ResponseEntity.ok().body(articleLikeService.showArticleLikes(email, pageable));
     }
 
+    @AptChecker
     @DeleteMapping("/{aptId}/articles/{articleId}/likes")
     public ResponseEntity<Void> deleteLike(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
         articleLikeService.deleteLike(email, articleId);

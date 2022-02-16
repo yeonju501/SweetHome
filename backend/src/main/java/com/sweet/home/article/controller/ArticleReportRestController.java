@@ -5,6 +5,7 @@ import com.sweet.home.article.controller.dto.response.ArticleReportsResponse;
 import com.sweet.home.article.service.ArticleDeleteService;
 import com.sweet.home.article.service.ArticleReportService;
 import com.sweet.home.article.service.ArticleService;
+import com.sweet.home.global.aop.AptChecker;
 import com.sweet.home.report.controller.dto.request.ReportSaveRequest;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +36,7 @@ public class ArticleReportRestController {
         this.articleDeleteService = articleDeleteService;
     }
 
+    @AptChecker
     @PostMapping("/{aptId}/articles/{articleId}/reports")
     public ResponseEntity<Void> reportArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId, @RequestBody
         ReportSaveRequest request) {
@@ -43,23 +45,27 @@ public class ArticleReportRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @AptChecker
     @GetMapping("/{aptId}/admin/articles/reports")
     public ResponseEntity<ArticleReportsResponse> showBlockedArticles(@PathVariable Long aptId,
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(articleService.showBlockedArticles(pageable));
     }
 
+    @AptChecker
     @GetMapping("/{aptId}/admin/articles/{articleId}/reports")
     public ResponseEntity<List<ArticleReportDetailResponse>> showReports(@PathVariable Long aptId, @PathVariable Long articleId) {
         return ResponseEntity.ok().body(articleReportService.showReports(articleId));
     }
 
+    @AptChecker
     @PostMapping("/{aptId}/admin/articles/{articleId}/reports")
     public ResponseEntity<Void> approveReports(@PathVariable Long aptId, @PathVariable Long articleId) {
         articleDeleteService.cascadeDeleteArticle(articleId);
         return ResponseEntity.noContent().build();
     }
 
+    @AptChecker
     @DeleteMapping("/{aptId}/admin/articles/{articleId}/reports")
     public ResponseEntity<Void> disapproveReports(@PathVariable Long aptId, @PathVariable Long articleId) {
         articleReportService.deleteAllByArticle(articleId);

@@ -5,6 +5,7 @@ import com.sweet.home.comment.controller.dto.response.CommentsReportResponse;
 import com.sweet.home.comment.service.CommentDeleteService;
 import com.sweet.home.comment.service.CommentReportService;
 import com.sweet.home.comment.service.CommentService;
+import com.sweet.home.global.aop.AptChecker;
 import com.sweet.home.report.controller.dto.request.ReportSaveRequest;
 import java.util.List;
 import org.springframework.data.domain.Pageable;
@@ -35,6 +36,7 @@ public class CommentReportRestController {
         this.commentDeleteService = commentDeleteService;
     }
 
+    @AptChecker
     @PostMapping("/{aptId}/comments/{commentId}/reports")
     public ResponseEntity<Void> reportComment(@AuthenticationPrincipal String email, @PathVariable Long commentId, @RequestBody
         ReportSaveRequest request) {
@@ -43,17 +45,20 @@ public class CommentReportRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @AptChecker
     @GetMapping("/{aptId}/admin/comments/reports")
     public ResponseEntity<CommentsReportResponse> showBlockedComments(
         @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
         return ResponseEntity.ok().body(commentService.showBlockedComments(pageable));
     }
 
+    @AptChecker
     @GetMapping("/{aptId}/admin/comments/{commentId}/reports")
     public ResponseEntity<List<CommentReportDetailResponse>> showReports(@PathVariable Long commentId) {
         return ResponseEntity.ok().body(commentReportService.showReports(commentId));
     }
 
+    @AptChecker
     @PostMapping("/{aptId}/admin/comments/{commentId}/reports")
     public ResponseEntity<Void> approveReports(@PathVariable Long commentId) {
         commentDeleteService.cascadeDeleteComment(commentId);
@@ -61,6 +66,7 @@ public class CommentReportRestController {
         return ResponseEntity.noContent().build();
     }
 
+    @AptChecker
     @DeleteMapping("/{aptId}/admin/comments/{commentId}/reports")
     public ResponseEntity<Void> disapproveReports(@PathVariable Long commentId) {
         commentReportService.deleteAllByComment(commentId);
