@@ -1,9 +1,10 @@
 import style from "style/Authority.module.css";
-import { cancelOrRefer } from "utils/authorityRequest";
+import { cancelOrRefer, hasRequestAptAdmin } from "utils/authorityRequest";
 
 function AptMemberCancel({ setIsRequest }) {
 	const cancelRequest = () => {
 		cancelOrRefer("delete", setIsRequest);
+		hasRequestAptAdmin("delete", setIsRequest);
 	};
 
 	return (
