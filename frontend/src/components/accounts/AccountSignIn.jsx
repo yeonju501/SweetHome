@@ -29,7 +29,7 @@ function SignIn({ isThisPublic }) {
 
 	function onSubmit(e) {
 		e.preventDefault();
-		isValid && submitAxios("login", inputValue, "/main", true);
+		isValid && submitAxios("login", inputValue, "/", true);
 	}
 
 	return !token ? (
