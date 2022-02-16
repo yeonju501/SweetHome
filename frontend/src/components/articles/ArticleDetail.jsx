@@ -60,11 +60,13 @@ function ArticleDetail() {
 		<div className={style.article_detail_page}>
 			{article && (
 				<section className={style.article_detail}>
-					<div className={style.article_to_board}>
-						<Link to={`/boards/${board.id}`} state={{ board: board }}>
-							{board.name}
-						</Link>
-					</div>
+					{board && (
+						<div className={style.article_to_board}>
+							<Link to={`/boards/${board.id}`} state={{ board: board }}>
+								{board.name}
+							</Link>
+						</div>
+					)}
 
 					<div className={style.article_comment_box}>
 						<article className={style.article}>
