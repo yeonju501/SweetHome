@@ -10,9 +10,10 @@ import { useDispatch } from "react-redux";
 import { SET_USER } from "store/user";
 import { useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
-
+import { SET_POSITION } from "store/toggle";
 function Profile() {
 	const user = useSelector((state) => state.userInfo);
+	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const [active, setActive] = useState(0);
 	const [intro, setIntro] = useState({
 		email: user.email,
@@ -22,6 +23,7 @@ function Profile() {
 	const dispatch = useDispatch();
 	useEffect(() => {
 		GETUSERINFO(dispatch, SET_USER);
+		dispatch(SET_POSITION(toggle, "profile"));
 	}, []);
 
 	return (
