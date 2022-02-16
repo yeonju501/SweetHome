@@ -104,3 +104,9 @@ textarea:focus {
 	font-size: 2rem;
 	text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+	.no_comments {
+		font-size: 1.5rem;
+	}
+}

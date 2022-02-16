@@ -88,10 +88,18 @@
 .star_icon {
 	color: #ffcb14;
 }
+.show {
+	display: block;
+}
+
+.unshow {
+	display: hidden;
+}
 
 @media screen and (max-width: 768px) {
 	.sidebar_container {
 		width: 15rem;
 		padding: 1rem;
+		height: 100vh;
 	}
 }

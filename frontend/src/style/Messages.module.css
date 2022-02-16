@@ -129,7 +129,7 @@
 
 @media screen and (max-width: 768px) {
 	.Message_div {
-		width: 100vw;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;
@@ -138,7 +138,7 @@
 		width: 5rem;
 	}
 	.send_message {
-		width: 100vw;
+		width: 100%;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

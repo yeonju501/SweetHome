@@ -109,11 +109,11 @@
 
 @media screen and (max-width: 768px) {
 	.article_detail_page {
-		width: 100vw;
+		width: 98%;
 	}
 	.article_detail {
 		margin: 0;
-		width: 100vw;
+		width: 100%;
 	}
 	.profile_img {
 		width: 5rem;
