@@ -40,7 +40,7 @@ function ProfileLikes() {
 								<td>
 									<Link
 										to={`/articles/${article.article_id}`}
-										state={{ id: article.article_id }}
+										state={{ articleId: article.article_id }}
 										className={style.article_title}
 									>
 										{article.title}
