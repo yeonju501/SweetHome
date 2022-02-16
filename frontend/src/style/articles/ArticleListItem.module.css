@@ -51,6 +51,7 @@
 .content {
 	font-size: 1.8rem;
 	margin: 2rem 0 4rem;
+	white-space: pre;
 }
 
 .article_bottom > span {

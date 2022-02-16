@@ -87,7 +87,7 @@ function ArticleDetail() {
 									<img src={article.image_url} alt="article" />
 								</div>
 							)}
-							<p className={style.article_content}>{article.content}</p>
+							<div className={style.article_content}>{article.content}</div>
 
 							<div className={style.article_bottom}>
 								<div className={style.article_bottom_info}>
