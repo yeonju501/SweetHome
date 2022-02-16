@@ -6,14 +6,12 @@
 .app_js {
 	display: flex;
 	flex-direction: column;
-	height: 100vh;
 }
 
 .main {
 	display: flex;
 	justify-content: start;
-	height: 100vh;
-	width: 100vw;
+	width: 100%;
 	background-color: #fff;
 }
 .public {
@@ -34,8 +32,8 @@ a {
 
 .div {
 	display: flex;
-	margin: 0 12rem;
-	height: 100%;
+	justify-content: space-between;
+	margin: 0 20rem;
 	background: #fff;
 }
 
