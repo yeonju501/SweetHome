@@ -14,7 +14,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId, getTotalComm
 
 	useEffect(() => {
 		isLiked();
-		getComments();
+		// getComments();
 	}, [isLike]);
 
 	const onChange = (e) => {
@@ -62,7 +62,9 @@ function CommentUpdate({ comment, getComments, user, id, articleId, getTotalComm
 					<form onSubmit={onSubmit}>
 						<p>{comment.username}</p>
 						<textarea type="text" value={content || ""} onChange={onChange} />
-						<button>확인</button>
+						<div class={style.update_btn}>
+							<button class={style.update_confirm}>확인</button>
+						</div>
 					</form>
 				</div>
 			) : (
