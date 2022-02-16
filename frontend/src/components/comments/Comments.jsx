@@ -5,7 +5,7 @@ import CommentsList from "./CommentsList";
 import style from "style/articles/ArticleDetailComment.module.css";
 import { useSelector } from "react-redux";
 
-function Comments({ articleId, setComment, totalComments }) {
+function Comments({ articleId, setComment, totalComments, getTotalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
 	const user = useSelector((state) => state.userInfo.apt_house);
@@ -48,10 +48,19 @@ function Comments({ articleId, setComment, totalComments }) {
 
 	return (
 		<div>
-			<CommentCreate articleId={articleId} getComments={getComments} />
+			<CommentCreate
+				articleId={articleId}
+				getComments={getComments}
+				getTotalComments={getTotalComments}
+			/>
 			{comments.length > 0 ? (
 				<div className={style.comments}>
-					<CommentsList articleId={articleId} comments={comments} getComments={getComments} />
+					<CommentsList
+						articleId={articleId}
+						comments={comments}
+						getComments={getComments}
+						getTotalComments={getTotalComments}
+					/>
 					<button
 						onClick={getMoreComments}
 						className={

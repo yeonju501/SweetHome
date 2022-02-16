@@ -21,13 +21,7 @@ function ArticleDetail() {
 	const user = useSelector((state) => state.userInfo.apt_house);
 
 	useEffect(() => {
-		axios({
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/${articleId}`,
-			method: "get",
-		}).then((res) => {
-			setArticle(res.data);
-			setComment(res.data.total_replies);
-		});
+		getArticle();
 		getIsLiked();
 	}, [isLiked, comment]);
 
@@ -37,6 +31,16 @@ function ArticleDetail() {
 			method: "get",
 		}).then((res) => {
 			setIsLiked(res.data.is_liked);
+		});
+	};
+
+	const getArticle = () => {
+		axios({
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/${articleId}`,
+			method: "get",
+		}).then((res) => {
+			setArticle(res.data);
+			setComment(res.data.total_replies);
 		});
 	};
 
@@ -105,7 +109,12 @@ function ArticleDetail() {
 								</button>
 							</div>
 						</article>
-						<Comments articleId={articleId} totalComments={comment} setComment={setComment} />
+						<Comments
+							articleId={articleId}
+							totalComments={comment}
+							setComment={setComment}
+							getTotalComments={getArticle}
+						/>
 					</div>
 				</section>
 			)}

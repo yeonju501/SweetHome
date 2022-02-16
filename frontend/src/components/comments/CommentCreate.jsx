@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import style from "style/articles/ArticleDetailComment.module.css";
 import { useSelector } from "react-redux";
 
-function CommentCreate({ articleId, getComments }) {
+function CommentCreate({ articleId, getComments, getTotalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
@@ -24,6 +24,7 @@ function CommentCreate({ articleId, getComments }) {
 			  }).then(() => {
 					setComment({ content: "" });
 					getComments(true);
+					getTotalComments();
 			  })
 			: toast.error("error");
 	};
