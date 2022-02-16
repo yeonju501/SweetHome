@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
@@ -7,7 +6,6 @@ import { useSelector } from "react-redux";
 
 function MessageSendTarget() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const navigate = useNavigate();
 	const target = useSelector((state) => state.messageInfo);
 
 	const [sendMessage, setSendMessage] = useState({
@@ -49,10 +47,10 @@ function MessageSendTarget() {
 	const { receiver_name, title, content } = sendMessage;
 
 	return (
-		<div className={style.send_message}>
+		<div className={style.send_message_target}>
 			<h1>쪽지 쓰기</h1>
-			<form className={style.send_form}>
-				<div className={style.message_to}>
+			<form className={style.send_form_target}>
+				<div className={style.message_to_target}>
 					<label className={style.label}>받는 사람</label>
 					<input
 						autoFocus="autofocus"
@@ -64,7 +62,7 @@ function MessageSendTarget() {
 						required
 					/>
 				</div>
-				<div className={style.message_title}>
+				<div className={style.message_title_target}>
 					<label className={style.label}>제목</label>
 					<input
 						className={style.input_box}
@@ -77,13 +75,13 @@ function MessageSendTarget() {
 				</div>
 
 				<textarea
-					className={style.writing_area}
+					className={style.writing_area_target}
 					id="content"
 					value={content}
 					onChange={onChange}
 					required
 				></textarea>
-				<div className={style.btn_container}>
+				<div className={style.btn_container_target}>
 					<button className={style.btn_send} onClick={onSend}>
 						Send
 					</button>

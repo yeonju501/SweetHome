@@ -33,7 +33,7 @@ function ArticleDetailButtons({ article, articleId }) {
 		await window.open(
 			`/send-message/${article.username}`,
 			`/send-message/${article.username}`,
-			"width=450, height=600,location=no,status=no",
+			"width=450, height=500,location=no,status=no",
 		);
 	};
 
