@@ -147,3 +147,29 @@
 		width: 100vw;
 	}
 }
+
+.send_message_target h1 {
+	text-align: center;
+	margin: 4rem 0;
+}
+
+.writing_area_target {
+	height: 20rem;
+	width: 40rem;
+	border: 1px solid rgb(133, 133, 133);
+	margin: 2rem auto;
+}
+
+.send_form_target div {
+	display: flex;
+	justify-content: center;
+	margin-bottom: 1rem;
+}
+.send_form_target div input {
+	height: 2.5rem;
+	padding: 0.5rem;
+}
+.btn_container_target {
+	display: flex;
+	justify-content: center;
+}
