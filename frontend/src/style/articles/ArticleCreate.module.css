@@ -63,10 +63,19 @@
 	padding: 0.5rem;
 }
 
-.input_file {
+.file_label {
 	width: max-content;
 	cursor: pointer;
 	padding: 0.5rem;
+}
+
+.input_file {
+	color: #838383;
+	font-size: 1.2rem;
+}
+
+.input_file::file-selector-button {
+	display: none;
 }
 
 .button_box {
@@ -81,4 +90,20 @@
 	background-color: transparent;
 	border: 0.5px solid #0087e8;
 	color: #0087e8;
+}
+
+.update_body {
+	width: 80%;
+	padding: 3rem;
+	margin: 4rem auto 0;
+}
+
+.updateBtns > button {
+	font-size: 1.3rem;
+	width: max-content;
+	height: auto;
+	padding: 0.4rem 0.6rem;
+	font-weight: 400;
+	border-radius: 0.8rem;
+	margin-right: 0.8rem;
 }
