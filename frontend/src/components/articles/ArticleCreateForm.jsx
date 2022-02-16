@@ -26,6 +26,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 			? formData.append("image", imgFile)
 			: formData.append("image", new Blob([]), { type: "multipart/form-data" });
 
+		console.log(imgFile);
 		if (title.trim() && content.trim()) {
 			axios({
 				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/articles`,
@@ -50,6 +51,11 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 
 	const handleImageChange = (e) => {
 		e.preventDefault();
+		if (e.target.files && e.target.files[0].size > 1 * 1024 * 1024) {
+			alert("1MB 이상의 이미지 파일은 등록할 수 없습니다.");
+			e.target.value = null;
+			return;
+		}
 		if (e.target.files) {
 			const uploadFile = e.target.files[0];
 			setImgFile(uploadFile);
