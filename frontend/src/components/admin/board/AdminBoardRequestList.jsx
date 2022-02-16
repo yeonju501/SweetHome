@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import msgStyle from "style/Messages.module.css";
-import adminStyle from "style/Admin.module.css";
+import style from "style/Admin.module.css";
 import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
@@ -21,7 +21,7 @@ function AdminBoardRequestList() {
 	const [page, setPage] = useState(0);
 	const [pageSize, setPageSize] = useState(0);
 
-	useEffect(() => {
+	const getList = () => {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards?page=${page}&size=10`,
@@ -33,26 +33,30 @@ function AdminBoardRequestList() {
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+	useEffect(() => {
+		getList();
 	}, [page]);
 
 	const approveBoard = (method, id) => {
 		axios({
 			method,
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards/${id}/approve`,
-		}).catch((err) => {
-			console.log(err);
-		});
+		})
+			.then(() => getList())
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 	return (
-		<div className={adminStyle.div_container}>
+		<div className={style.div_container}>
 			<table>
 				<thead>
 					<tr>
 						<th>순서</th>
 						<th>신청자</th>
 						<th>내용</th>
-						<th></th>
-						<th></th>
+						<th colSpan="2"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -62,22 +66,26 @@ function AdminBoardRequestList() {
 								<td>{idx + 1}</td>
 								<td>{boardRequest.name}</td>
 								<td>{boardRequest.description}</td>
-								<button
-									className={msgStyle.send}
-									onClick={(e) => {
-										approveBoard("POST", boardRequest.id);
-									}}
-								>
-									승인
-								</button>
-								<button
-									className={msgStyle.delete}
-									onClick={(e) => {
-										approveBoard("DELETE", boardRequest.id);
-									}}
-								>
-									거절
-								</button>
+								<td className={style.board_request_btns}>
+									<button
+										className={style.board_request_btn}
+										onClick={(e) => {
+											approveBoard("POST", boardRequest.id);
+										}}
+									>
+										승인
+									</button>
+								</td>
+								<td className={style.board_request_btns}>
+									<button
+										className={style.board_request_deline}
+										onClick={(e) => {
+											approveBoard("DELETE", boardRequest.id);
+										}}
+									>
+										거절
+									</button>
+								</td>
 							</tr>
 						))
 					) : (

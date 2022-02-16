@@ -71,7 +71,9 @@ function AdminBoardUpdate() {
 				/>
 				<div className={style.admin_board_update_btns}>
 					<button>등록</button>
-					<button type="button">취소</button>
+					<button type="button" onClick={() => navigate("/board-manage")}>
+						취소
+					</button>
 				</div>
 			</form>
 		</div>

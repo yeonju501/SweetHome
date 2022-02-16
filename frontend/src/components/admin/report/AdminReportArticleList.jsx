@@ -49,7 +49,11 @@ function AdminReportArticleList() {
 								<td>{reportArticle.title}</td>
 								<td>{reportArticle.username}</td>
 								<td>
-									<Link to="report-article-detail" state={{ articleId: reportArticle.id }}>
+									<Link
+										to="report-article-detail"
+										state={{ articleId: reportArticle.id }}
+										style={{ fontWeight: "800" }}
+									>
 										자세히보기
 									</Link>
 								</td>

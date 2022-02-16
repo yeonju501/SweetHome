@@ -1,9 +1,8 @@
 .manage_container {
 	display: flex;
 	flex-direction: column;
-	margin-top: 3rem;
 	width: 90%;
-	margin-right: 0;
+	margin: 3rem auto;
 }
 
 .pagnation_container {
@@ -116,7 +115,11 @@
 }
 
 .update_board {
-	font-weight: 800;
+	width: 5rem;
+}
+
+.update_board a {
+	color: #fff;
 }
 
 /* 아파트 관리자 게시판 업데이트 */
@@ -167,4 +170,66 @@
 		width: 98%;
 		padding: 1rem;
 	}
+}
+
+@media screen and (max-width: 500px) {
+	.admin_board_update {
+		margin: 3rem auto;
+	}
+}
+
+/* 게시판 신청 목록 */
+.board_request_btn {
+	width: 5rem;
+}
+
+.board_request_deline {
+	width: 5rem;
+	color: red;
+	background: transparent;
+	border: 1px solid #dedede;
+	margin-left: 1rem;
+}
+
+.board_request_btns {
+	width: 5rem;
+}
+
+/* 신고 상세보기 */
+
+.admin_report {
+	width: 90%;
+	margin: 3rem auto;
+}
+
+.info_report_article {
+	display: flex;
+	justify-content: flex-end;
+}
+
+.info_reported_article span {
+	font-weight: 300;
+	font-size: 1.5rem;
+}
+
+.info_reported_article h1 {
+	font-size: 2rem;
+	margin-bottom: 1rem;
+}
+
+.info_reported_article h4 {
+	font-size: 1.6rem;
+	margin-bottom: 1rem;
+}
+
+.admin_report_btns {
+	width: 5rem;
+}
+
+.admin_report_decline {
+	width: 5rem;
+	background-color: transparent;
+	color: red;
+	border: 1px solid #dedede;
+	margin-left: 1rem;
 }
