@@ -14,6 +14,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 
 	useEffect(() => {
 		isLiked();
+		getComments();
 	}, [isLike]);
 
 	const onChange = (e) => {

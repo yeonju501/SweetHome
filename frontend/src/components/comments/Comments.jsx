@@ -11,6 +11,7 @@ function Comments({ articleId, setComment, totalComments }) {
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const [page, setPage] = useState(1);
 	const [commentNumber, setCommentNumber] = useState(comments.length);
+	const [change, setChange] = useState(true);
 
 	const getMoreComments = () => {
 		try {
