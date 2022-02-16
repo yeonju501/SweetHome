@@ -71,7 +71,7 @@ function AdminReportCommentList() {
 						))
 					) : (
 						<tr>
-							<td colSpan="4">신고 게시글이 없습니다</td>
+							<td colSpan="4">신고 댓글이 없습니다</td>
 						</tr>
 					)}
 				</tbody>

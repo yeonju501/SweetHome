@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import style from "style/Admin.module.css";
 
@@ -9,7 +9,7 @@ const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 function AdminReportCommentDetail() {
 	const location = useLocation();
 	const user = useSelector((state) => state.userInfo.apt_house);
-
+	const navigate = useNavigate();
 	const commentId = location.state.commentId;
 	const [reportComments, setReportComments] = useState([]);
 
@@ -41,18 +41,22 @@ function AdminReportCommentDetail() {
 		axios({
 			method: "POST",
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/${commentId}/reports`,
-		}).catch((err) => {
-			console.log(err);
-		});
+		})
+			.then(() => navigate("/report-manage"))
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	const onReject = () => {
 		axios({
 			method: "DELETE",
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/${commentId}/reports`,
-		}).catch((err) => {
-			console.log(err);
-		});
+		})
+			.then(() => navigate("/report-manage"))
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (
