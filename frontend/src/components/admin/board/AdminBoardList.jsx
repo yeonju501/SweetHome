@@ -68,12 +68,14 @@ function AdminBoardList() {
 								<td>{board.name}</td>
 								<td>{board.description}</td>
 								<td className={style.admin_board_btn}>
-									<Link to="board-update" state={{ board: board }} className={style.update_board}>
-										수정
-									</Link>
+									<button className={style.update_board}>
+										<Link to="board-update" state={{ board: board }}>
+											수정
+										</Link>
+									</button>
 								</td>
 								<td className={style.admin_board_btn}>
-									<button className={style.admin_mb_decline} id={board.id} onClick={onDelete}>
+									<button className={style.board_request_deline} id={board.id} onClick={onDelete}>
 										삭제
 									</button>
 								</td>
@@ -86,7 +88,7 @@ function AdminBoardList() {
 					)}
 				</tbody>
 			</table>
-			{boardList.length > 0 ? (
+			{boardList.length > 10 ? (
 				<div className={pagStyle.pagination}>
 					<button
 						className={pagStyle.btn_pagination}

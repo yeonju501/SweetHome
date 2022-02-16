@@ -1,12 +1,14 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import style from "style/Admin.module.css";
 
 function AdminReportArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const location = useLocation();
+	const navigate = useNavigate();
 	const articleId = location.state.articleId;
 	const [reportArticles, setReportArticles] = useState({
 		report_id: "",
@@ -57,29 +59,30 @@ function AdminReportArticleDetail() {
 	const onApprove = () => {
 		axios({
 			method: "POST",
-			url: `${SERVER_URL}/api/admin/articles/${articleId}/reports`,
-		}).catch((err) => {
-			console.log(err);
-		});
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/articles/${articleId}/reports`,
+		}).then(() => navigate("/report-manage"));
 	};
 
 	const onReject = () => {
 		axios({
 			method: "DELETE",
-			url: `${SERVER_URL}/api/admin/articles/${articleId}/reports`,
-		}).catch((err) => {
-			console.log(err);
-		});
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/articles/${articleId}/reports`,
+		})
+			.then(() => navigate("/report-manage"))
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 	return (
-		<>
-			<div>
-				<h1>
-					신고 게시글 : {articleDetail.title} 신고 횟수 : {articleDetail.total_reports}
-				</h1>
-				<h2>작성자 : {articleDetail.username}</h2>
-				<h2>내용 : {articleDetail.content}</h2>
-			</div>
+		<section className={style.admin_report}>
+			<article className={style.info_report_article}>
+				<button className={style.admin_report_btns} onClick={onApprove}>
+					블락
+				</button>
+				<button className={style.admin_report_decline} onClick={onReject}>
+					해제
+				</button>
+			</article>
 			<table>
 				<thead>
 					<tr>
@@ -95,14 +98,12 @@ function AdminReportArticleDetail() {
 								<tr key={idx}>
 									<td>{reportArticle.report_username}</td>
 									<td>{reportArticle.content}</td>
-									<button onClick={onApprove}>승인</button>
-									<button onClick={onReject}>거부</button>
 								</tr>
 						  ))
 						: null}
 				</tbody>
 			</table>
-		</>
+		</section>
 	);
 }
 
