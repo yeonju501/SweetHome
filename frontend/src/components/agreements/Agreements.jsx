@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import AgreementsPagination from "./AgreementsPagination";
 import { authorityCheck } from "utils/authority";
-import style from "style/Board.module.css";
+import style from "style/Admin.module.css";
 import { useSelector } from "react-redux";
 
 function Agreements() {
@@ -38,7 +38,7 @@ function Agreements() {
 	}, [currentPage]);
 
 	return (
-		<div className={style.body}>
+		<div>
 			<h1 className={style.agreements_title}>관리 동의서 게시판</h1>
 			<table>
 				<thead>
@@ -82,8 +82,8 @@ function Agreements() {
 							</tr>
 						))
 					) : (
-						<tr style={{ textAlign: "center" }}>
-							<td colSpan={3}>작성된 동의서가 없습니다</td>
+						<tr>
+							<td colSpan={5}>작성된 동의서가 없습니다</td>
 						</tr>
 					)}
 				</tbody>

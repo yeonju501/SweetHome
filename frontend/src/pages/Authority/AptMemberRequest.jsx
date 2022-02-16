@@ -149,7 +149,7 @@ function AptMemberRequest(props) {
 						<aside>
 							<label>기타</label>
 						</aside>
-						<textarea cols="30" rows="10" onChange={changeMessage}></textarea>
+						<textarea cols="35" rows="30" onChange={changeMessage}></textarea>
 					</div>
 					<button className={style.btn_submit}>제출하기</button>
 				</form>

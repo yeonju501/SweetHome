@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { SET_USER } from "store/user";
 import { SET_POSITION } from "store/toggle";
@@ -10,7 +10,6 @@ import style from "style/Main.module.css";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function Main() {
-	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
@@ -97,9 +96,6 @@ function Main() {
 						</li>
 					))}
 				</ul>
-				<hr />
-				<p>{userInfo.username}</p>
-				<p>회원등급 : {userInfo.authority}</p>
 			</div>
 		))
 	);

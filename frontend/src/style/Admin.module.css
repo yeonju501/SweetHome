@@ -1,9 +1,9 @@
 .manage_container {
 	display: flex;
-	justify-content: center;
 	flex-direction: column;
 	margin-top: 3rem;
-	width: 85%;
+	width: 90%;
+	margin-right: 0;
 }
 
 .pagnation_container {
@@ -43,7 +43,7 @@
 .agreement_page {
 	margin-top: 3rem;
 	text-align: center;
-	width: 80%;
+	width: 90%;
 }
 .create_agreement {
 	margin: 1rem 0;
@@ -144,8 +144,13 @@
 @media screen and (max-width: 768px) {
 	.manage_container {
 		width: 100vw;
+		padding: 0 1rem;
 	}
 	.admin_mb_table {
 		font-size: 1.2rem;
+	}
+	.agreement_page {
+		width: 100vw;
+		padding: 1rem;
 	}
 }

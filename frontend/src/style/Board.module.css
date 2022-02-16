@@ -1,6 +1,10 @@
+.body {
+	width: 90%;
+}
+
 .article_list {
 	overflow: scroll;
-	height: 75vh;
+	height: 100vh;
 }
 
 .article_list::-webkit-scrollbar {
@@ -18,5 +22,6 @@
 @media screen and (max-width: 768px) {
 	.body {
 		width: 100vw;
+		padding: 0 1rem;
 	}
 }

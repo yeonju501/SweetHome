@@ -106,3 +106,17 @@
 	background-color: transparent;
 	margin-right: 0.5rem;
 }
+
+@media screen and (max-width: 768px) {
+	.article_detail_page {
+		width: 100vw;
+	}
+	.article_detail {
+		margin: 0;
+		width: 100vw;
+	}
+	.profile_img {
+		width: 5rem;
+		height: 5rem;
+	}
+}
