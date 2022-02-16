@@ -21,7 +21,7 @@
 /* 관리자의 관리 동의서 게시판.  */
 @media screen and (max-width: 768px) {
 	.body {
-		width: 100vw;
+		width: 98%;
 		padding: 0 1rem;
 	}
 }

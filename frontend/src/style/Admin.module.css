@@ -143,14 +143,14 @@
 
 @media screen and (max-width: 768px) {
 	.manage_container {
-		width: 100vw;
+		width: 98%;
 		padding: 0 1rem;
 	}
 	.admin_mb_table {
 		font-size: 1.2rem;
 	}
 	.agreement_page {
-		width: 100vw;
+		width: 98%;
 		padding: 1rem;
 	}
 }

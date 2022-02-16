@@ -5,7 +5,7 @@ function ProfileNav({ active, setActive }) {
 	const arr = ["회원정보", "내가 작성한 글", "내가 작성한 댓글", "내가 좋아요한 글", "이사가기"];
 
 	return (
-		<div>
+		<div className={style.profile_nav}>
 			<ul className={style.nav}>
 				{arr.map((item, idx) => (
 					<li

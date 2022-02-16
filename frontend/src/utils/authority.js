@@ -16,10 +16,5 @@ export function checkUseNav(authority) {
 
 export function checkSidebar(authority) {
 	const authorityGrade = authority_value.indexOf(authority);
-	if (authorityGrade >= 2)
-		return (
-			<aside className={style.aside}>
-				<Sidebar />
-			</aside>
-		);
+	if (authorityGrade >= 2) return <Sidebar />;
 }

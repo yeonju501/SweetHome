@@ -75,7 +75,7 @@ button {
 
 @media screen and (max-width: 768px) {
 	.profile {
-		width: 100vw;
+		width: 98%;
 		align-items: center;
 	}
 }
@@ -172,6 +172,13 @@ button {
 		margin-left: 0;
 	}
 }
+
+@media screen and (max-width: 500px) {
+	.profile_nav ul li {
+		font-size: 1.25rem;
+	}
+}
+
 /* Image */
 
 .figure {

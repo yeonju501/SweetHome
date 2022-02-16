@@ -6,6 +6,7 @@
 .app_js {
 	display: flex;
 	flex-direction: column;
+	height: 100vh;
 }
 
 .main {
@@ -63,6 +64,10 @@ ul {
 		margin: 0;
 	}
 	.aside {
-		display: none;
+		margin: 0;
+	}
+
+	.main {
+		max-width: 100%;
 	}
 }

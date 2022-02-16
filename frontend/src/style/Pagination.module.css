@@ -9,7 +9,8 @@
 .btn_pagination {
 	border: none;
 	border-radius: 8px;
-	padding: 8px;
+	width: max-content;
+	padding: 10px;
 	margin: 0;
 	background: transparent;
 	color: black;
@@ -20,6 +21,7 @@
 	background: tomato;
 	cursor: pointer;
 	transform: translateY(-2px);
+	height: auto;
 }
 
 .btn_pagination:disabled {
@@ -34,4 +36,7 @@
 	color: white;
 	cursor: revert;
 	transform: revert;
+	font-size: 1.5rem;
+	width: max-content;
+	height: auto;
 }

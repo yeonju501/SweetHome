@@ -55,7 +55,10 @@
 	.navbar_container {
 		margin: 0 1rem;
 	}
-	.toggleIcon {
+}
+
+@media screen and (max-width: 500px) {
+	.main_home {
 		display: none;
 	}
 }

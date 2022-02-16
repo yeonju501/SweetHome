@@ -127,27 +127,6 @@
 	font-weight: 800;
 }
 
-@media screen and (max-width: 768px) {
-	.Message_div {
-		width: 100vw;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.delete {
-		width: 5rem;
-	}
-	.send_message {
-		width: 100vw;
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
-	.Messages_btn_container {
-		width: 100vw;
-	}
-}
-
 .send_message_target h1 {
 	text-align: center;
 	margin: 4rem 0;
@@ -172,4 +151,41 @@
 .btn_container_target {
 	display: flex;
 	justify-content: center;
+}
+
+@media screen and (max-width: 768px) {
+	.Message_div {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.delete {
+		width: 5rem;
+	}
+	.send_message {
+		width: 100%;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
+	.Messages_btn_container {
+		width: 100vw;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.message_container {
+		margin: 3rem auto;
+	}
+	.message_nav p {
+		margin-right: 1rem;
+	}
+	.send_form div input {
+		width: 20rem;
+	}
+
+	.send_form textarea {
+		width: 29rem;
+	}
 }

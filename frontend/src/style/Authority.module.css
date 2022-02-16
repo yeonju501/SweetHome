@@ -13,6 +13,11 @@
 	margin-bottom: 2rem;
 }
 
+.asso_sec_div {
+	display: flex;
+	align-items: center;
+	height: 100vh;
+}
 .asso_main {
 	display: flex;
 	flex-direction: column;
@@ -100,17 +105,30 @@
 
 @media screen and (max-width: 500px) {
 	.asso_div h1 {
-		font-size: 1.2rem;
+		font-size: 2rem;
+	}
+	.asso_main {
+		text-align: center;
+		margin: 4rem auto;
+		padding: 0;
+		transform: translate(0);
 	}
 	.asso_main p {
-		font-size: 1rem;
+		font-size: 1.5rem;
+	}
+	.asso_sec_div {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
 	}
 
-	.asso_main {
-		transform: translateX(-8rem);
-	}
 	.asso_div a {
-		font-size: 1rem;
+		font-size: 1.6rem;
+	}
+
+	.personalInfo {
+		margin-top: 5rem;
+		width: 40rem;
 	}
 }
 

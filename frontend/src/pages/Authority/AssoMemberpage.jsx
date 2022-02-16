@@ -19,7 +19,7 @@ function AssoMemberpage() {
 	return (
 		<div className={style.asso_div}>
 			{isRequest ? (
-				<div style={{ display: "flex", alignItems: "center", height: "100vh" }}>
+				<div className={style.asso_sec_div}>
 					<PersonalInfo className={style.personalInfo} />
 					<main className={style.asso_main}>
 						<h1>SweetHome을 찾아주셔서 감사합니다</h1>
