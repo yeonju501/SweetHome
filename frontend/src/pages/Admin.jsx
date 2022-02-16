@@ -1,3 +1,4 @@
+import AdminMemberList from "components/admin/member/AdminMemberList";
 import React from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -11,9 +12,10 @@ function Admin() {
 		dispatch(SET_POSITION(toggle, "admin"));
 	}, []);
 	return (
-		<>
+		<div style={{ margin: "3rem 0" }}>
 			<h1>Admin Page</h1>
-		</>
+			<AdminMemberList />
+		</div>
 	);
 }
 

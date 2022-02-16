@@ -112,6 +112,7 @@ function App() {
 							<Route path="/*" element={<NotFound />} />
 							<Route path="/super-admin" element={<Admin />} />
 							<Route path="/board-create" element={<BoardCreate />} />
+							<Route path="/create-agreement" element={<AgreementCreate />} />
 						</Routes>
 					</div>
 				</Router>
