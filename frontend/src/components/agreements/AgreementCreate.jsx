@@ -17,29 +17,32 @@ function AgreementCreate(props) {
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
-
-		axios({
-			url: `${SERVER_URL}/api/admin/agreements`,
-			method: "post",
-			data: {
-				title,
-				content,
-				start_date: `${start_date}T00:00:00`,
-				end_date: `${end_date}T23:59:59`,
-			},
-		})
-			.then(() => {
-				setAgreementData({
-					title: "",
-					content: "",
-					start_date: "",
-					end_date: "",
-				});
-				onCancel();
+		if (title.trim() && content.trim() && start_date && end_date) {
+			axios({
+				url: `${SERVER_URL}/api/admin/agreements`,
+				method: "post",
+				data: {
+					title,
+					content,
+					start_date: `${start_date}T00:00:00`,
+					end_date: `${end_date}T23:59:59`,
+				},
 			})
-			.catch((err) => {
-				errorMessage(err.response.data.error_code);
-			});
+				.then(() => {
+					setAgreementData({
+						title: "",
+						content: "",
+						start_date: "",
+						end_date: "",
+					});
+					onCancel();
+				})
+				.catch((err) => {
+					errorMessage(err.response.data.error_code);
+				});
+		} else {
+			alert("동의서 제목, 내용, 시작 날짜, 종료 날짜를 모두 입력해주세요.");
+		}
 	};
 
 	const handleInputChange = (e) => {
