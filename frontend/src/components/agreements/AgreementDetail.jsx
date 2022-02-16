@@ -88,30 +88,34 @@ function AgreementDetail() {
 						agreement.my_agreed === null ? (
 							<form onSubmit={handleFormSubmit}>
 								<div>
-									<input
-										type="radio"
-										id="agree"
-										name="status"
-										value="agree"
-										onChange={handleInputChange}
-									/>
-									<label htmlFor="agree">동의</label>
-									<input
-										type="radio"
-										id="disagree"
-										name="status"
-										value="disagree"
-										onChange={handleInputChange}
-									/>
-									<label htmlFor="disagree">반대</label>
+									<div className={style.radio_btn}>
+										<input
+											type="radio"
+											id="agree"
+											name="status"
+											value="agree"
+											onChange={handleInputChange}
+										/>
+										<label htmlFor="agree" className={style.first_label}>
+											동의
+										</label>
+										<input
+											type="radio"
+											id="disagree"
+											name="status"
+											value="disagree"
+											onChange={handleInputChange}
+										/>
+										<label htmlFor="disagree">반대</label>
+									</div>
 									<button>제출</button>
 								</div>
 							</form>
 						) : (
-							<p>이미 제출한 동의서입니다</p>
+							<p className={style.not_in_progress}>이미 제출한 동의서입니다</p>
 						)
 					) : (
-						<p>{isInProgress()}</p>
+						<p className={style.not_in_progress}>{isInProgress()}</p>
 					)}
 				</article>
 			</div>
