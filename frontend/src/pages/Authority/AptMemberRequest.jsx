@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import DaumPostcode from "react-daum-postcode";
 import style from "style/Authority.module.css";
 import { toast } from "react-toastify";
@@ -15,6 +15,11 @@ function AptMemberRequest(props) {
 		postalCode: "",
 	});
 	const [hasRequest, setHasRequest] = useState(false);
+	const [isModal, setIsModal] = useState(false);
+	const { address, building, unit, buildingCode, postalCode } = addresses;
+	const [message, setMessage] = useState("");
+	const URL = process.env.REACT_APP_SERVER_URL;
+	const modal = useRef();
 
 	useEffect(() => {
 		axios({
@@ -28,11 +33,9 @@ function AptMemberRequest(props) {
 			.catch(() => setHasRequest(false));
 	}, []);
 
-	const [isModal, setIsModal] = useState(false);
-	const { address, building, unit, buildingCode, postalCode } = addresses;
-	const [message, setMessage] = useState("");
-	const URL = process.env.REACT_APP_SERVER_URL;
-
+	const handleCloseModal = (e) => {
+		if (isModal && (!modal.current || !modal.current.contains(e.target))) setIsModal(false);
+	};
 	const onChange = (e) => {
 		setAddress((prev) => ({ ...prev, [e.target.id]: e.target.value }));
 	};
@@ -50,6 +53,13 @@ function AptMemberRequest(props) {
 		e.preventDefault();
 		cancelOrRefer("delete", setHasRequest, false, true);
 	};
+
+	useEffect(() => {
+		window.addEventListener("click", handleCloseModal);
+		return () => {
+			window.removeEventListener("click", handleCloseModal);
+		};
+	}, []);
 	const onComplete = (data) => {
 		let addr;
 		data.userSelectedType === "R" ? (addr = data.roadAddress) : (addr = data.jibunAddress);
@@ -112,7 +122,7 @@ function AptMemberRequest(props) {
 							className={style.postal_code}
 							value={postalCode}
 						/>
-						<button type="button" onClick={findAddress}>
+						<button ref={modal} type="button" onClick={findAddress}>
 							주소 찾기
 						</button>
 						<br />
@@ -153,11 +163,7 @@ function AptMemberRequest(props) {
 					</div>
 					<button className={style.btn_submit}>제출하기</button>
 				</form>
-				<div>
-					<div>
-						{isModal ? <DaumPostcode className={style.showModal} onComplete={onComplete} /> : null}
-					</div>
-				</div>
+				<div>{isModal && <DaumPostcode className={style.showModal} onComplete={onComplete} />}</div>
 			</div>
 		</div>
 	);

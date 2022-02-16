@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import DaumPostcode from "react-daum-postcode";
 import style from "style/Authority.module.css";
 import errorMessage from "store/errorMessage";
@@ -12,12 +12,22 @@ function AptAdminRequest() {
 		postalCode: "",
 	});
 	const [addressInfo, setAddressInfo] = useState("");
+	const modal = useRef();
 
 	const [isModal, setIsModal] = useState(false);
 	const { address, buildingCode, postalCode } = addresses;
 	const [message, setMessage] = useState("");
 	const URL = process.env.REACT_APP_SERVER_URL;
+	const handleCloseModal = (e) => {
+		if (isModal && (!modal.current || !modal.current.contains(e.target))) setIsModal(false);
+	};
 
+	useEffect(() => {
+		window.addEventListener("click", handleCloseModal);
+		return () => {
+			window.removeEventListener("click", handleCloseModal);
+		};
+	}, []);
 	const changeMessage = (e) => {
 		setMessage(e.target.value);
 	};
@@ -37,7 +47,6 @@ function AptAdminRequest() {
 		});
 		setAddressInfo(data);
 		findAddress();
-		console.log(addressInfo);
 	};
 
 	const onSubmit = (e) => {
@@ -88,7 +97,7 @@ function AptAdminRequest() {
 							className={style.postal_code}
 							value={postalCode}
 						/>
-						<button type="button" onClick={findAddress}>
+						<button ref={modal} type="button" onClick={findAddress}>
 							주소 찾기
 						</button>
 						<br />
@@ -108,11 +117,7 @@ function AptAdminRequest() {
 					</div>
 					<button className={style.btn_submit}>제출하기</button>
 				</form>
-				<div>
-					<div>
-						{isModal ? <DaumPostcode className={style.showModal} onComplete={onComplete} /> : null}
-					</div>
-				</div>
+				<div>{isModal && <DaumPostcode className={style.showModal} onComplete={onComplete} />}</div>
 			</section>
 		</div>
 	);
