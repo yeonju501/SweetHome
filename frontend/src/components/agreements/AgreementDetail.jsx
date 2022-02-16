@@ -71,7 +71,7 @@ function AgreementDetail() {
 					<h2 className={style.title}>{agreement.title}</h2>
 				</div>
 				<article>
-					<p className={style.content}>{agreement.content}</p>
+					<div className={style.content}>{agreement.content}</div>
 					<p className={style.user_info}>
 						{user.apt_house.dong} 동 {user.apt_house.ho} 호 {user.username}
 					</p>

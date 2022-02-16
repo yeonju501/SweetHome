@@ -76,9 +76,11 @@
 	width: 100%;
 	height: auto;
 }
+
 .article_content {
 	font-size: 2rem;
 	margin-bottom: 5rem;
+	white-space: pre;
 }
 
 .article_bottom {

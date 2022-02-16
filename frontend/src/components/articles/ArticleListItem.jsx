@@ -30,7 +30,7 @@ function ArticleListItem({ article, board }) {
 						<img src={image_url} alt="" />
 					</div>
 				)}
-				<p className={style.content}>{content}</p>
+				<div className={style.content}>{content}</div>
 				<div className={style.article_bottom}>
 					<FontAwesomeIcon icon={fasHeart} color="#888888" className={style.icons} size="lg" />
 					<span className={style.icons}>{total_likes}</span>
