@@ -4,7 +4,7 @@ import style from "style/articles/ArticleCreate.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen } from "@fortawesome/free-solid-svg-icons";
 
-function ArticleCreate({ boardId, getArticles, setPageNumber, setArticles }) {
+function ArticleCreate({ boardId }) {
 	const [formOpen, setFormOpen] = useState(false);
 
 	useEffect(() => {

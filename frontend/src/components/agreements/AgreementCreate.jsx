@@ -1,10 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
 import errorMessage from "store/errorMessage";
-import ReactModal from "react-modal";
 import style from "style/AgreementCreate.module.css";
 
-function AgreementCreate(props) {
+function AgreementCreate({ getAgreementsPage1 }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [agreementData, setAgreementData] = useState({
 		title: "",
@@ -13,7 +12,6 @@ function AgreementCreate(props) {
 		end_date: "",
 	});
 	const { title, content, start_date, end_date } = agreementData;
-	const { isOpen, onCancel } = props;
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
@@ -29,14 +27,14 @@ function AgreementCreate(props) {
 				},
 			})
 				.then(() => {
-					props.setNewAgreement(true);
+					getAgreementsPage1();
+					window.close();
 					setAgreementData({
 						title: "",
 						content: "",
 						start_date: "",
 						end_date: "",
 					});
-					onCancel();
 				})
 				.catch((err) => {
 					errorMessage(err.response);
@@ -51,37 +49,36 @@ function AgreementCreate(props) {
 	};
 
 	return (
-		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()}>
-			<form onSubmit={handleFormSubmit} className={style.form}>
-				<h1>동의서 작성</h1>
-				<input
-					type="text"
-					id="title"
-					value={title}
-					onChange={handleInputChange}
-					placeholder="제목을 입력하세요"
-				/>
-				<div className={style.deadline}>
-					<label className={style.label}>시작 날짜</label>
-					<input type="date" id="start_date" value={start_date} onChange={handleInputChange} />
-					<label className={style.label}>종료 날짜</label>
-					<input type="date" id="end_date" value={end_date} onChange={handleInputChange} />
-				</div>
-				<textarea
-					id="content"
-					placeholder="동의서 내용을 입력하세요"
-					value={content}
-					onChange={handleInputChange}
-					className={style.textarea}
-				></textarea>
-				<div>
-					<button className={style.submit_btn}>작성</button>
-					<button className={style.cancel_btn} onClick={onCancel}>
-						취소
-					</button>
-				</div>
-			</form>
-		</ReactModal>
+		<form onSubmit={handleFormSubmit} className={style.form}>
+			<h1>동의서 작성</h1>
+			<div className={style.deadline}>
+				<label className={style.label}>시작 날짜</label>
+				<input type="date" id="start_date" value={start_date} onChange={handleInputChange} />
+				<label className={style.label}>종료 날짜</label>
+				<input type="date" id="end_date" value={end_date} onChange={handleInputChange} />
+			</div>
+			<input
+				type="text"
+				id="title"
+				value={title}
+				onChange={handleInputChange}
+				placeholder="제목을 입력하세요"
+			/>
+
+			<textarea
+				id="content"
+				placeholder="동의서 내용을 입력하세요"
+				value={content}
+				onChange={handleInputChange}
+				className={style.textarea}
+			></textarea>
+			<div className={style.btns}>
+				<button className={style.submit_btn}>작성</button>
+				<button className={style.cancel_btn} type="button" onClick={() => window.close()}>
+					취소
+				</button>
+			</div>
+		</form>
 	);
 }
 

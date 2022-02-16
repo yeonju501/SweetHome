@@ -5,6 +5,9 @@ import AgreementsPagination from "./AgreementsPagination";
 import { authorityCheck } from "utils/authority";
 import style from "style/Admin.module.css";
 import { useSelector } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+import AgreementCreate from "./AgreementCreate";
 
 function Agreements({ newAgreement }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -13,6 +16,9 @@ function Agreements({ newAgreement }) {
 	const authority = useSelector((state) => state.userInfo.authority);
 	const today = new Date();
 
+	const handleModal = () => {
+		window.open("/create-agreement", "agreement", "width=430, height=500,location=no,status=no");
+	};
 	const agreementProgress = (start_date, end_date) => {
 		if (new Date(start_date) > today) {
 			return "진행 예정";
@@ -55,7 +61,14 @@ function Agreements({ newAgreement }) {
 
 	return (
 		<div>
-			<h1 className={style.agreements_title}>동의서 게시판</h1>
+			<div class={style.agreement_headers}>
+				<h1 className={style.agreements_title}>동의서 게시판</h1>
+				<p className={style.create_agreement} onClick={handleModal}>
+					<FontAwesomeIcon icon={faPlus} />
+					동의서 생성
+				</p>
+			</div>
+
 			<table>
 				<thead>
 					<tr>
@@ -104,6 +117,9 @@ function Agreements({ newAgreement }) {
 					)}
 				</tbody>
 			</table>
+			<div style={{ display: "none" }}>
+				<AgreementCreate getAgreementsPage1={getAgreementsPage1} />
+			</div>
 			{agreements.length > 0 && (
 				<footer>
 					<AgreementsPagination page={currentPage} total={totalPage} setData={setData} />
