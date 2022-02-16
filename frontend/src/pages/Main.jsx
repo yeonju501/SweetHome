@@ -33,7 +33,7 @@ function Main() {
 	}, []);
 
 	useEffect(() => {
-		if (userInfo) {
+		if (userInfo && userInfo.authority !== "준회원") {
 			getHotArticles();
 			getNewArticles();
 		}
