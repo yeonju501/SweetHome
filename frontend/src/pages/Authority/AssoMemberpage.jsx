@@ -12,7 +12,7 @@ function AssoMemberpage() {
 	useEffect(() => {
 		cancelOrRefer("get", setIsRequest);
 		if (isRequest) {
-			hasRequestAptAdmin(setIsRequest);
+			hasRequestAptAdmin("get", setIsRequest);
 		}
 	}, []);
 
