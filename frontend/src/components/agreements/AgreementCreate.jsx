@@ -29,6 +29,7 @@ function AgreementCreate(props) {
 				},
 			})
 				.then(() => {
+					props.setNewAgreement(true);
 					setAgreementData({
 						title: "",
 						content: "",
@@ -38,7 +39,7 @@ function AgreementCreate(props) {
 					onCancel();
 				})
 				.catch((err) => {
-					errorMessage(err.response.data.error_code);
+					errorMessage(err.response);
 				});
 		} else {
 			alert("동의서 제목, 내용, 시작 날짜, 종료 날짜를 모두 입력해주세요.");
