@@ -38,7 +38,7 @@ function ProfileComments() {
 								<td>
 									<Link
 										to={`/articles/${comment.article_id}`}
-										state={{ id: comment.article_id }}
+										state={{ articleId: comment.article_id }}
 										className={style.article_title}
 									>
 										{comment.article_title}
@@ -47,7 +47,7 @@ function ProfileComments() {
 								<td>
 									<Link
 										to={`/articles/${comment.article_id}`}
-										state={{ id: comment.article_id }}
+										state={{ articleId: comment.article_id }}
 										className={style.article_title}
 									>
 										{comment.content}
