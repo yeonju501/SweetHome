@@ -12,22 +12,22 @@ function SidebarAdmin() {
 					<>
 						<li className={style.sidebar_back}>
 							<Link className={style.sidebar_link} to="member-manage">
-								👨‍👩‍👧‍👦 회원 관리
+								회원 관리
 							</Link>
 						</li>
 						<li className={style.sidebar_back}>
 							<Link className={style.sidebar_link} to="board-manage">
-								📚 게시판 관리
+								게시판 관리
 							</Link>
 						</li>
 						<li className={style.sidebar_back}>
 							<Link className={style.sidebar_link} to="agreement-manage">
-								📋 관리동의서
+								관리동의서
 							</Link>
 						</li>
 						<li className={style.sidebar_back}>
 							<Link className={style.sidebar_link} to="report-manage">
-								🚧 신고 관리
+								신고 관리
 							</Link>
 						</li>
 					</>
