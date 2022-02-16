@@ -39,7 +39,7 @@ function Agreements() {
 
 	return (
 		<div>
-			<h1 className={style.agreements_title}>관리 동의서 게시판</h1>
+			<h1 className={style.agreements_title}>동의서 게시판</h1>
 			<table>
 				<thead>
 					<tr>

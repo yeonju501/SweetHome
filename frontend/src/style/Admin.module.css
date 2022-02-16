@@ -39,6 +39,15 @@
 }
 
 /* 동의서 */
+.agreements_container {
+	width: 100%;
+}
+
+.agreements_title {
+	font-size: 2.7rem;
+	margin-top: 2rem;
+	text-align: center;
+}
 
 .agreement_page {
 	margin-top: 3rem;
@@ -48,6 +57,7 @@
 .create_agreement {
 	margin: 1rem 0;
 }
+
 .delete {
 	background-color: transparent;
 	color: red;
@@ -145,6 +155,10 @@
 	.manage_container {
 		width: 98%;
 		padding: 0 1rem;
+	}
+	.create_agreement {
+		width: 98%;
+		margin: 1rem 0;
 	}
 	.admin_mb_table {
 		font-size: 1.2rem;
