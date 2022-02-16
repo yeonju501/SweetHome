@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import style from "style/articles/ArticleDetailComment.module.css";
 import CommentUpdate from "./CommentUpdate";
 
-function CommentsList({ comments, articleId, getComments }) {
+function CommentsList({ comments, articleId, getComments, getTotalComments }) {
 	const user = useSelector((state) => state.userInfo);
 
 	return (
@@ -16,6 +16,7 @@ function CommentsList({ comments, articleId, getComments }) {
 							user={user}
 							id={comment.id}
 							articleId={articleId}
+							getTotalComments={getTotalComments}
 						/>
 						{comment.replies.map((nestedComment) => (
 							<div key={nestedComment.id} className={style.comments_nsted}>
@@ -24,6 +25,7 @@ function CommentsList({ comments, articleId, getComments }) {
 									getComments={getComments}
 									user={user}
 									id={nestedComment.id}
+									getTotalComments={getTotalComments}
 								/>
 							</div>
 						))}

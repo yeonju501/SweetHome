@@ -5,7 +5,7 @@ import CommentLike from "./CommentLike";
 import { commnetAxios, deleteOrSubmit } from "utils/commentAxios";
 import CommentButton from "./CommentButton";
 
-function CommentUpdate({ comment, getComments, user, id, articleId }) {
+function CommentUpdate({ comment, getComments, user, id, articleId, getTotalComments }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const [activate, setActivate] = useState(true);
@@ -92,6 +92,7 @@ function CommentUpdate({ comment, getComments, user, id, articleId }) {
 				getComments={getComments}
 				activate={activate}
 				setActivate={setActivate}
+				getTotalComments={getTotalComments}
 			/>
 		</>
 	);
