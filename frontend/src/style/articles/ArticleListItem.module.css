@@ -2,7 +2,7 @@
 	list-style: none;
 	border-bottom: 0.5px solid rgba(204, 204, 204, 0.5);
 	height: auto;
-	padding: 2rem 0;
+	margin: 2rem 0;
 }
 
 .article_profile {
@@ -60,6 +60,9 @@
 	font-size: 1.3rem;
 }
 
+.article_bottom {
+	margin-bottom: 2rem;
+}
 .icons {
 	margin-right: 0.8rem;
 }
