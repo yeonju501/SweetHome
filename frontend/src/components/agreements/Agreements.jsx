@@ -63,10 +63,12 @@ function Agreements({ newAgreement }) {
 		<div>
 			<div className={style.agreement_headers}>
 				<h1 className={style.agreements_title}>동의서 게시판</h1>
-				<p className={style.create_agreement} onClick={handleModal}>
-					<FontAwesomeIcon icon={faPlus} />
-					동의서 생성
-				</p>
+				{authorityCheck(authority) > 2 && (
+					<p className={style.create_agreement} onClick={handleModal}>
+						<FontAwesomeIcon icon={faPlus} />
+						동의서 생성
+					</p>
+				)}
 			</div>
 
 			<table>
