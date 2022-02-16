@@ -63,40 +63,43 @@ function SidebarBoards() {
 				.catch((err) => console.log(err.response));
 		});
 	};
-
-	const getBoards = (isDelete = false, boardId = "") => {
-		axios({
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
-			method: "get",
-		}).then((res) => {
-			if (isDelete) {
-				const newBoard = res.data.filter((board) => board.id === boardId);
-				setBoards((prev) => [...prev, ...newBoard]);
-				return;
-			}
-			if (favorites) {
-				const favorId = favorites.map((favor) => favor.id);
-				// favorId.forEach((num) => console.log(num));
-				const boards = res.data;
-				// const selected = boards.filter((board) => board.id !== favorId[0]);
-				// setBoards(selected);
-				// return;
-			}
-			setBoards(res.data);
-		});
-	};
-
 	const getFavorites = async (isDelete = false, boardId) => {
-		axios({
+		const response = axios({
 			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/favorites`,
 			method: "get",
 		}).then((res) => {
 			if (isDelete) {
 				setFavorites(res.data);
 				getBoards(true, boardId);
-				return;
+				return res.data;
 			}
 			setFavorites(res.data);
+			return res.data;
+		});
+		return response;
+	};
+
+	const getBoards = (isDelete = false, boardId = "") => {
+		getFavorites().then((value) => {
+			axios({
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
+				method: "get",
+			}).then((res) => {
+				if (isDelete) {
+					const newBoard = res.data.filter((board) => board.id === boardId);
+					setBoards((prev) => [...prev, ...newBoard]);
+					return;
+				}
+				if (value) {
+					const favorId = value.map((favor) => favor.id);
+					const boards = res.data;
+					const selected = boards.filter((board) => !favorId.includes(board.id));
+					console.log(selected);
+					setBoards(selected);
+					return;
+				}
+				setBoards(res.data);
+			});
 		});
 	};
 
@@ -117,7 +120,7 @@ function SidebarBoards() {
 			<ul className={style.sidebar_list}>
 				{favorites &&
 					favorites.map((favorite) => (
-						<li className={style.sidebar_back} key={favorite.id}>
+						<li className={style.fav_sidebar_back} key={favorite.id}>
 							<Link
 								className={style.sidebar_link}
 								to={`/boards/${favorite.id}`}
