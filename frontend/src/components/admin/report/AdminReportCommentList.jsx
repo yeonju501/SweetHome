@@ -1,13 +1,16 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import adminStyle from "../../../style/Admin.module.css";
-import pagStyle from "../../../style/Pagination.module.css";
+import adminStyle from "style/Admin.module.css";
+import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
+import { useSelector } from "react-redux";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function AdminReportCommentList() {
+	const user = useSelector((state) => state.userInfo.apt_house);
+
 	const [reportComments, setReportComments] = useState({
 		totalReports: "",
 		id: "",
@@ -21,7 +24,7 @@ function AdminReportCommentList() {
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/comments/reports?page=${page}&size=10`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/reports?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setReportComments(res.data.blocked_comments);

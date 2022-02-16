@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import msgStyle from "style/Messages.module.css";
 import adminStyle from "style/Admin.module.css";
 import pagStyle from "style/Pagination.module.css";
@@ -15,13 +16,15 @@ function AdminBoardRequestList() {
 		name: "",
 		description: "",
 	});
+	const user = useSelector((state) => state.userInfo.apt_house);
+
 	const [page, setPage] = useState(0);
 	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/boards?page=${page}&size=10`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setBoardRequestList(res.data.boards);
@@ -35,7 +38,7 @@ function AdminBoardRequestList() {
 	const approveBoard = (method, id) => {
 		axios({
 			method,
-			url: `${SERVER_URL}/api/admin/boards/${id}/approve`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards/${id}/approve`,
 		}).catch((err) => {
 			console.log(err);
 		});

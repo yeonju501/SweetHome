@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import { useSelector } from "react-redux";
 
 function AdminReportArticleDetail() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const location = useLocation();
 	const articleId = location.state.articleId;
 	const [reportArticles, setReportArticles] = useState({
@@ -26,7 +27,7 @@ function AdminReportArticleDetail() {
 	function getReportArticleDetail(id) {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/articles/${id}/reports`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/articles/${id}/reports`,
 		})
 			.then((res) => {
 				setReportArticles(res.data);
@@ -39,7 +40,7 @@ function AdminReportArticleDetail() {
 	function getArticleDetail(id) {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/boards/articles/${id}`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/articles/${id}`,
 		})
 			.then((res) => {
 				setArticleDetail(res.data);

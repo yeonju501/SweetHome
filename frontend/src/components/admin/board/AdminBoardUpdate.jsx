@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import style from "style/Admin.module.css";
 
 function AdminBoardUpdate() {
+	const user = useSelector((state) => state.userInfo.apt_house);
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const location = useLocation();
 	const navigate = useNavigate();
@@ -14,7 +16,6 @@ function AdminBoardUpdate() {
 	});
 
 	useEffect(() => {
-		console.log(location.state.board);
 		setBoardUpdate(location.state.board);
 	}, []);
 
@@ -31,7 +32,7 @@ function AdminBoardUpdate() {
 		if (checkValue) {
 			axios({
 				method: "PUT",
-				url: `${SERVER_URL}/api/admin/boards/${boardUpdate.id}`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards/${boardUpdate.id}`,
 				data: {
 					name: boardUpdate.name,
 					description: boardUpdate.description,

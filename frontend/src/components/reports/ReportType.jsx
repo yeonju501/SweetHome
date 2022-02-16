@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import style from "style/Report.module.css";
 
 function ReportType({ id, targetType }) {
@@ -7,6 +8,7 @@ function ReportType({ id, targetType }) {
 	const [reportTypes, setReportTypes] = useState([]);
 	const [types, setType] = useState({ type: "", content: "" });
 	const [reportCompleted, setReportCompleted] = useState(false);
+	const user = useSelector((state) => state.userInfo.apt_house);
 
 	useEffect(() => {
 		axios.get(`${URL}/api/boards/reporttypes`).then((res) => setReportTypes(res.data));
@@ -28,14 +30,19 @@ function ReportType({ id, targetType }) {
 		if (type === "기타" && !content) return alert("신고 사유를 작성해주세요");
 
 		axios({
-			url: `${URL}/api/${targetType}/${id}/reports`,
+			url: `${URL}/api/apts/${user.apt.apt_id}/${targetType}/${id}/reports`,
 			method: "post",
 			data: types,
-		}).then(() => {
-			// setType({ type: "", content: "" });
-			// alert("성공");
-			setReportCompleted(true);
-		});
+			headers: {
+				"Content-type": "application/json",
+			},
+		})
+			.then(() => {
+				setType({ type: "", content: "" });
+				setReportCompleted(true);
+				window.location.close();
+			})
+			.catch((err) => console.log(err));
 	};
 
 	const closeWindow = () => {

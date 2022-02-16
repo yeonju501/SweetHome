@@ -1,21 +1,16 @@
 import axios from "axios";
-import React from "react";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function AdminReportCommentDetail() {
 	const location = useLocation();
+	const user = useSelector((state) => state.userInfo.apt_house);
+
 	const commentId = location.state.commentId;
-	const [reportComments, setReportComments] = useState({
-		id: "",
-		username: "",
-		content: "",
-		created_at: "",
-		totalReports: "",
-	});
+	const [reportComments, setReportComments] = useState([]);
 
 	const [commentDetail, setCommentDetail] = useState({
 		id: location.state.commentId,
@@ -27,10 +22,11 @@ function AdminReportCommentDetail() {
 	function getReportCommentDetail(id) {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/comments/reports`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/${id}/reports`,
 		})
 			.then((res) => {
-				setReportComments(res.data.blocked_comments);
+				console.log(res.data);
+				setReportComments(res.data);
 			})
 			.catch((err) => {
 				console.log(err);
@@ -44,7 +40,7 @@ function AdminReportCommentDetail() {
 	const onApprove = () => {
 		axios({
 			method: "POST",
-			url: `${SERVER_URL}/api/admin/comments/${commentId}/reports`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/${commentId}/reports`,
 		}).catch((err) => {
 			console.log(err);
 		});
@@ -53,7 +49,7 @@ function AdminReportCommentDetail() {
 	const onReject = () => {
 		axios({
 			method: "DELETE",
-			url: `${SERVER_URL}/api/admin/comments/${commentId}/reports`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/comments/${commentId}/reports`,
 		}).catch((err) => {
 			console.log(err);
 		});
@@ -82,8 +78,12 @@ function AdminReportCommentDetail() {
 								<tr key={idx}>
 									<td>{reportComment.username}</td>
 									<td>{reportComment.content}</td>
-									<button onClick={onApprove}>승인</button>
-									<button onClick={onReject}>거부</button>
+									<td>
+										<button onClick={onApprove}>승인</button>
+									</td>
+									<td>
+										<button onClick={onReject}>거부</button>
+									</td>
 								</tr>
 						  ))
 						: null}

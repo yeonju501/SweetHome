@@ -1,26 +1,23 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import adminStyle from "../../../style/Admin.module.css";
-import pagStyle from "../../../style/Pagination.module.css";
+import adminStyle from "style/Admin.module.css";
+import pagStyle from "style/Pagination.module.css";
 import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function AdminReportArticleList() {
-	const [reportArticles, setReportArticles] = useState({
-		totalReports: "",
-		id: "",
-		title: "",
-		username: "",
-	});
+	const user = useSelector((state) => state.userInfo.apt_house);
+	const [reportArticles, setReportArticles] = useState([]);
 	const [page, setPage] = useState(0);
 	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/articles/reports?page=${page}&size=10`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/articles/reports?page=${page}&size=10`,
 		})
 			.then((res) => {
 				setReportArticles(res.data.articles);
@@ -30,6 +27,7 @@ function AdminReportArticleList() {
 				console.log(err);
 			});
 	}, [page]);
+
 	return (
 		<div className={adminStyle.div_container}>
 			<table>
