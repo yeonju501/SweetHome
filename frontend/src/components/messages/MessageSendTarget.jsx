@@ -83,10 +83,10 @@ function MessageSendTarget() {
 				></textarea>
 				<div className={style.btn_container_target}>
 					<button className={style.btn_send} onClick={onSend}>
-						Send
+						전송
 					</button>
 					<button className={style.btn_delete} onClick={onCancel}>
-						Cancle
+						취소
 					</button>
 				</div>
 			</form>
