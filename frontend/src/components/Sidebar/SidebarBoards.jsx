@@ -117,7 +117,7 @@ function SidebarBoards() {
 			<ul className={style.sidebar_list}>
 				{favorites &&
 					favorites.map((favorite) => (
-						<li className={style.sidebar_back} key={favorite.id}>
+						<li className={style.fav_sidebar_back} key={favorite.id}>
 							<Link
 								className={style.sidebar_link}
 								to={`/boards/${favorite.id}`}
