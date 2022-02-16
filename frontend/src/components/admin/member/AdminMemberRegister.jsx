@@ -23,6 +23,10 @@ function AdminMemberRegister() {
 	const [pageSize, setPageSize] = useState(0);
 
 	useEffect(() => {
+		getRegisterMember();
+	}, [page]);
+
+	const getRegisterMember = () => {
 		axios({
 			method: "GET",
 			url: `${SERVER_URL}/api/admin/apts/register?page=${page}&size=10`,
@@ -34,7 +38,7 @@ function AdminMemberRegister() {
 			.catch((err) => {
 				console.log(err);
 			});
-	}, [page]);
+	};
 
 	const registerMember = (method_, id) => {
 		console.log(method_, id);
@@ -44,9 +48,13 @@ function AdminMemberRegister() {
 			data: {
 				apt_house_member_id: id,
 			},
-		}).catch((err) => {
-			console.log(err);
-		});
+		})
+			.then(() => {
+				getRegisterMember();
+			})
+			.catch((err) => {
+				console.log(err);
+			});
 	};
 
 	return (

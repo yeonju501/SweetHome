@@ -7,7 +7,7 @@ import style from "style/Admin.module.css";
 
 function AdimnAgreementManage() {
 	const [modalOpen, setModalOpen] = useState(false);
-
+	const [newAgreement, setNewAgreement] = useState(false);
 	const handleModal = () => {
 		setModalOpen(false);
 	};
@@ -28,14 +28,20 @@ function AdimnAgreementManage() {
 	}, [modalOpen]);
 	return (
 		<div className={style.agreement_page}>
-			{modalOpen && <AgreementCreate isOpen={modalOpen} onCancel={handleModal} />}
+			{modalOpen && (
+				<AgreementCreate
+					isOpen={modalOpen}
+					onCancel={handleModal}
+					setNewAgreement={setNewAgreement}
+				/>
+			)}
 			<p className={style.create_agreement}>
 				<FontAwesomeIcon onClick={() => setModalOpen(true)} icon={faPlus} />
 				동의서 생성
 			</p>
 
 			<div>
-				<AdminAgreementList />
+				<AdminAgreementList newAgreement={newAgreement} />
 			</div>
 		</div>
 	);

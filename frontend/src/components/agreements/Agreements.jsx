@@ -6,7 +6,7 @@ import { authorityCheck } from "utils/authority";
 import style from "style/Admin.module.css";
 import { useSelector } from "react-redux";
 
-function Agreements() {
+function Agreements({ newAgreement }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [data, setData] = useState({ agreements: [], totalPage: 0, currentPage: 0 });
 	const { agreements, totalPage, currentPage } = data;
@@ -22,6 +22,22 @@ function Agreements() {
 			return "진행중";
 		}
 	};
+
+	const getAgreementsPage1 = () => {
+		axios({
+			url: `${SERVER_URL}/api/agreements`,
+			method: "get",
+		}).then((res) => {
+			setData((prev) => ({
+				...prev,
+				agreements: res.data.agreements,
+				totalPage: res.data.total_page_count,
+				currentPage: res.data.current_page_count,
+			}));
+		});
+	};
+
+	if (newAgreement) getAgreementsPage1();
 
 	useEffect(() => {
 		axios({
