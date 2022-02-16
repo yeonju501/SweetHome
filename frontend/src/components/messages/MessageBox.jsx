@@ -37,7 +37,7 @@ function MessageBox(props) {
 			},
 		}).then(() => {
 			toast.success("메시지 삭제 완료");
-			navigate("/");
+			navigate("/message-box");
 		});
 	}
 

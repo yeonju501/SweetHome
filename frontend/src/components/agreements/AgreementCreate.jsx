@@ -15,6 +15,9 @@ function AgreementCreate({ getAgreementsPage1 }) {
 
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
+		if (start_date > end_date) {
+			alert("날짜를 확인해주세요");
+		}
 		if (title.trim() && content.trim() && start_date && end_date) {
 			axios({
 				url: `${SERVER_URL}/api/admin/agreements`,
@@ -28,7 +31,6 @@ function AgreementCreate({ getAgreementsPage1 }) {
 			})
 				.then(() => {
 					getAgreementsPage1();
-					window.close();
 					setAgreementData({
 						title: "",
 						content: "",
@@ -39,6 +41,7 @@ function AgreementCreate({ getAgreementsPage1 }) {
 				.catch((err) => {
 					errorMessage(err.response);
 				});
+			window.close();
 		} else {
 			alert("동의서 제목, 내용, 시작 날짜, 종료 날짜를 모두 입력해주세요.");
 		}
