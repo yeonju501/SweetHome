@@ -77,6 +77,20 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 			toast.error("회원 정보가 변경 되지 않았습니다.");
 		}
 	};
+
+	const setProfileImage = (e) => {
+		e.preventDefault();
+		if (e.target.files && e.target.files[0].size > 1 * 1024 * 1024) {
+			alert("1MB 이상의 이미지 파일은 등록할 수 없습니다.");
+			e.target.value = null;
+			return;
+		}
+		if (e.target.files) {
+			const uploadFile = e.target.files[0];
+			setFiles(uploadFile);
+		}
+	};
+
 	return (
 		userInfo.username && (
 			<>
@@ -87,7 +101,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 							className={style.input_image}
 							type="file"
 							accept="image/*"
-							onChange={(e) => setFiles(e.target.files[0])}
+							onChange={setProfileImage}
 						/>
 						<img
 							src={user.image_url ? user.image_url : anonymous}
