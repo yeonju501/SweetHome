@@ -1,7 +1,12 @@
 .ad_div {
 	width: 22%;
+	margin-top: 2rem;
 	display: flex;
 	flex-direction: column;
+}
+
+.ad {
+	margin-bottom: 2rem;
 }
 
 @media screen and (max-width: 1024px) {
