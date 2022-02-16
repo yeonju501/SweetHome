@@ -40,7 +40,7 @@ function AdminBoardList() {
 		if (window.confirm("정말로 삭제하시겠습니까?")) {
 			axios({
 				method: "DELETE",
-				url: `${SERVER_URL}/api/admin/boards/${id}`,
+				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards/${id}`,
 			})
 				.then(() => getList())
 				.catch((err) => {
