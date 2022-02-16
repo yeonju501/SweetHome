@@ -49,15 +49,15 @@ public class Agreement extends BaseEntity {
     private LocalDateTime endDate;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("select count(1) from agreed_house ah where ah.agreement_id = agreement_id and ah.agreement_status = true and ah.deleted_at is null")
+    @Formula("(select count(1) from agreed_house ah where ah.agreement_id = agreement_id and ah.agreement_status = true and ah.deleted_at is null)")
     private Long totalAgreed;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("select count(1) from agreed_house ah where ah.agreement_id = agreement_id and ah.agreement_status = false and ah.deleted_at is null")
+    @Formula("(select count(1) from agreed_house ah where ah.agreement_id = agreement_id and ah.agreement_status = false and ah.deleted_at is null)")
     private Long totalDisagreed;
 
     @Basic(fetch = FetchType.LAZY)
-    @Formula("select count(1) from apt_house ah where ah.apt_id = apt_id and ah.dong is not null")
+    @Formula("(select count(1) from apt_house ah where ah.apt_id = apt_id and ah.dong is not null)")
     private Long totalAptHouse;
 
     protected Agreement() {
