@@ -63,6 +63,7 @@ function AdminReportCommentList() {
 											username: reportComment.username,
 											totalReports: reportComment.totalReports,
 										}}
+										style={{ fontWeight: "800" }}
 									>
 										자세히보기
 									</Link>
