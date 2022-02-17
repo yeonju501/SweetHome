@@ -15,8 +15,10 @@
 }
 .profile_user {
 	display: flex;
-	margin-left: 5rem;
+	align-items: center;
+	justify-content: center;
 	margin-bottom: 3rem;
+	position: relative;
 }
 
 .title {
@@ -86,7 +88,6 @@ button {
 	background-color: #fff;
 	display: flex;
 	justify-content: center;
-	padding-right: 2rem;
 }
 
 .profile_user_info_div {
@@ -128,7 +129,6 @@ button {
 	margin-top: 5rem;
 	background: #fff;
 	justify-content: center;
-	position: relative;
 }
 
 .profile_btn button:first-child:disabled {
@@ -144,6 +144,9 @@ button {
 	font-weight: 600;
 	cursor: pointer;
 	background: transparent;
+	position: absolute;
+	right: 0;
+	border: 1px solid #dedede;
 }
 .user_name {
 	position: relative;
