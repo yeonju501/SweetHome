@@ -139,16 +139,16 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 				</div>
 				<ProfileNav active={active} setActive={setActive} />
 				<form onSubmit={onSubmit} className={style.profile_form}>
-					<div className={style.profile_user_info_div}>
+					<div className={`${style.profile_user_info_div} ${style.first_div}`}>
 						<aside>
 							<label htmlFor="username">닉네임</label>
 						</aside>
 						<div className={style.user_name}>
 							<input type="text" id="username" value={username || ""} onChange={onChange} />
-							<button type="button" onClick={checkUserDup}>
-								중복 검사
-							</button>
 						</div>
+						<button type="button" onClick={checkUserDup} className={style.btn_duplicate}>
+							중복 검사
+						</button>
 					</div>
 					<div className={style.profile_user_info_div}>
 						<aside>
