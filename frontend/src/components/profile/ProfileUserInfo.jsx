@@ -12,6 +12,9 @@ import { GETUSERINFO } from "utils/profileAxios";
 import { SET_USER } from "store/user";
 import anonymous from "assets/anonymous.jpg";
 import ProfileNav from "./ProfileNav";
+import { persistor } from "index";
+import errorMessage from "store/errorMessage";
+import { cookieDelete } from "utils/manageToken";
 
 function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -93,6 +96,20 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 		}
 	};
 
+	const deleteAccount = () => {
+		window.confirm("정말로 회원 탈퇴를 진행 하시겠습니까?") &&
+			axios({
+				url: `${SERVER_URL}/api/members`,
+				method: "delete",
+			})
+				.then(() => {
+					persistor.purge();
+					cookieDelete();
+				})
+				.then(() => window.location.replace("/"))
+				.catch((err) => errorMessage(err.response.data.error_code));
+	};
+
 	return (
 		userInfo.username && (
 			<>
@@ -116,6 +133,10 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 						<h1 className={style.title}>{intro.username}</h1>
 						<p className={style.email}>{intro.email}</p>
 					</div>
+
+					<button type="button" onClick={deleteAccount} className={style.deleteAccount}>
+						회원 탈퇴
+					</button>
 				</div>
 				<ProfileNav active={active} setActive={setActive} />
 				<form onSubmit={onSubmit} className={style.profile_form}>
