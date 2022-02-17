@@ -69,9 +69,7 @@ function Main() {
 				<ul className={style.articles}>
 					{hotArticles.map((article, idx) => (
 						<div className={style.hot_articles} key={idx}>
-							<li>
-								<Link to={`/boards/${article.board_id}`}>{article.board_name}</Link>
-							</li>
+							<li className={style.board_name}>{article.board_name}</li>
 							<li className={style.article}>
 								<Link
 									to={`/articles/${article.article_id}`}
@@ -90,11 +88,7 @@ function Main() {
 				<ul className={style.articles}>
 					{newArticles.map((article, idx) => (
 						<div className={style.new_articles} key={idx}>
-							<li>
-								<Link to={`/boards/${article.board_id}`} state={{ board: article.board_id }}>
-									{article.board_name}
-								</Link>
-							</li>
+							<li>{article.board_name}</li>
 							<li className={style.article}>
 								<Link
 									to={`/articles/${article.article_id}`}

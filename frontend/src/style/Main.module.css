@@ -1,13 +1,14 @@
 .body {
 	font-size: 1.4rem;
-	margin-top: 5rem;
+	margin-top: 3rem;
 	width: 90%;
 }
 
 .body > p {
 	color: #000;
-	font-size: 1.5rem;
-	font-weight: 800;
+	font-size: 2rem;
+	font-weight: bold;
+	margin-bottom: 2rem;
 }
 
 .articles {
