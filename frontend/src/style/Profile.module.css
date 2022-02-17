@@ -168,6 +168,13 @@ button {
 	position: relative;
 }
 
+.duplic {
+	font-size: 1rem;
+	text-align: center;
+	color: darkgray;
+	margin-right: 8rem;
+}
+
 @media screen and (max-width: 1270px) {
 	.deleteAccount {
 		display: none;

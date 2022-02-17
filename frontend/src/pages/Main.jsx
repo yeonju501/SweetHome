@@ -13,8 +13,6 @@ function Main() {
 	const dispatch = useDispatch();
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
-
-	const [hotArticles, setHotArticles] = useState([]);
 	const [newArticles, setNewArticles] = useState([]);
 
 	useEffect(() => {
@@ -34,19 +32,9 @@ function Main() {
 
 	useEffect(() => {
 		if (userInfo && userInfo.authority !== "준회원") {
-			getHotArticles();
 			getNewArticles();
 		}
 	}, [userInfo]);
-
-	const getHotArticles = () => {
-		axios({
-			url: `${SERVER_URL}/api/apts/${userInfo.apt_house.apt.apt_id}/boards/articles/popular`,
-			method: "get",
-		}).then((res) => {
-			setHotArticles(res.data.splice(0, 2));
-		});
-	};
 
 	const getNewArticles = () => {
 		axios({
@@ -65,25 +53,6 @@ function Main() {
 			<AssoMemberpage />
 		) : (
 			<div className={style.body}>
-				<p>실시간 인기글</p>
-				<ul className={style.articles}>
-					{hotArticles.map((article, idx) => (
-						<div className={style.hot_articles} key={idx}>
-							<li className={style.board_name}>{article.board_name}</li>
-							<li className={style.article}>
-								<Link
-									to={`/articles/${article.article_id}`}
-									state={{
-										articleId: article.article_id,
-										board: { id: article.board_id, name: article.board_name },
-									}}
-								>
-									{article.title}
-								</Link>
-							</li>
-						</div>
-					))}
-				</ul>
 				<p className={style.new_articles_p}>최신글</p>
 				<ul className={style.articles}>
 					{newArticles.map((article, idx) => (

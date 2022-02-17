@@ -46,7 +46,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const checkUserDup = () => {
 		const data = { value: username };
 		if (username === user.username) {
-			alert("현재 사용중인 닉네임입니다");
+			alert("현재 닉네임과 같습니다");
 			return setIsDup(2);
 		}
 		thisDuplicte("name", data, setIsDup);
@@ -56,14 +56,18 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 		if (isDup === 2 && isValid && username.trim().length > 0) {
 			const formData = new FormData();
 			const data = { email, password, username, phone_number };
-			formData.append("image", imgFile);
+			if (imgFile) {
+				formData.append("image", imgFile);
+			} else {
+				formData.append("image", new Blob([]), { type: "multipart/form-data" });
+			}
 			formData.append("profile", new Blob([JSON.stringify(data)], { type: "application/json" }));
 			axios({
 				method: "put",
 				url: `${SERVER_URL}/api/members/my-profile`,
 				data: formData,
 			})
-				.then((res) => {
+				.then(() => {
 					setLoading(!loading);
 					setIntro({
 						...intro,
@@ -71,7 +75,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 						username,
 						image_url: user.image_url,
 					});
-					setUserInfo({ ...userInfo, password: "" });
+					setUserInfo({ ...userInfo, password: null });
 				})
 				.then(() => toast.success("회원정보가 변경 되었습니다"))
 				.catch((err) => console.log(err.response.data));
@@ -150,6 +154,8 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 							중복 검사
 						</button>
 					</div>
+					<p className={style.duplic}>중복검사 버튼을 눌러주세요</p>
+
 					<div className={style.profile_user_info_div}>
 						<aside>
 							<label htmlFor="email">Email</label>
