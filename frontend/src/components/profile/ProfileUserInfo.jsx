@@ -22,13 +22,13 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const [isDup, setIsDup] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [userInfo, setUserInfo] = useState({
-		username: "",
-		email: "",
+		username: null,
+		email: null,
 		phone_number: "",
 		authority: "",
 		apt_house: {},
-		password: "",
-		image_url: "",
+		password: null,
+		image_url: null,
 	});
 	const profileImage = useRef(null);
 	const [imgFile, setFiles] = useState(null);
