@@ -9,6 +9,12 @@ test :
     - echo 'start deployment' 
   script:
     - echo 'script ing'
+    - cd /home/S06P12D106
+    - ls
+    - echo 'cd'
+    - source "/home/S06P12D106"
+    - ls
+    - echo 'source'
   after_script:
     - echo 'deployment is done'
   tags:
