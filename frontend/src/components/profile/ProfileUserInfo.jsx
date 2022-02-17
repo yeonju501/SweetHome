@@ -32,7 +32,6 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		console.log(user);
 		GETUSERINFO(dispatch, SET_USER);
 		setUserInfo(user);
 	}, []);
@@ -63,7 +62,6 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 				data: formData,
 			})
 				.then((res) => {
-					console.log(res.data);
 					setLoading(!loading);
 					setIntro({
 						...intro,

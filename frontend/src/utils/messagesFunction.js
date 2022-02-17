@@ -9,7 +9,7 @@ export function getMessagesFromServer(api, page, funcArray) {
 		url: `${SERVER_URL}/api/messages/${api}?page=${page}&size=10`,
 	})
 		.then((res) => {
-			funcArray((prev) => ({
+			funcArray(() => ({
 				messages: res.data.messages,
 				totalPage: res.data.total_page_count,
 				currentPage: res.data.current_page_count,
@@ -43,7 +43,6 @@ export function getDetailMessageFromServer(id, funDetail) {
 		url: `${SERVER_URL}/api/messages/${id}`,
 	})
 		.then((res) => {
-			console.log(res.data);
 			funDetail(res.data);
 		})
 		.catch((err) => {
