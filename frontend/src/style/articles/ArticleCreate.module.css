@@ -83,12 +83,14 @@
 	align-items: center;
 	height: min-content;
 	padding: 0.5rem 0;
+	position: relative;
 }
 
 .outline_btn {
 	background-color: transparent;
 	border: 0.5px solid #0087e8;
 	color: #0087e8;
+	transform: translateX(-1rem);
 }
 
 .update_body {
@@ -105,4 +107,23 @@
 	font-weight: 400;
 	border-radius: 0.8rem;
 	margin-right: 0.8rem;
+}
+
+.btns {
+	position: absolute;
+	right: 0;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	height: min-content;
+	padding: 0.5rem 0;
+}
+
+.btns > button {
+	font-size: 1.3rem;
+	width: max-content;
+	height: auto;
+	padding: 0.4rem 0.6rem;
+	font-weight: 400;
+	border-radius: 0.8rem;
 }

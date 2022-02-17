@@ -10,7 +10,7 @@ import CreateBoard from "components/boards/BoardCreate";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-	const user = useSelector((state) => state.userInfo.apt_house);
+	const user = useSelector((state) => state.userInfo);
 	const [boards, setBoards] = useState([]);
 	const [favorites, setFavorites] = useState([]);
 	const [modalOpen, setModalOpen] = useState(false);
@@ -38,7 +38,7 @@ function SidebarBoards() {
 
 	const getStarred = async (boardId) => {
 		const response = await axios({
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/favorites`,
+			url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/${boardId}/favorites`,
 			method: "get",
 		});
 		return response.data.is_liked;
@@ -48,7 +48,7 @@ function SidebarBoards() {
 		getStarred(boardId).then((value) => {
 			const method = value ? "delete" : "post";
 			axios({
-				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/favorites`,
+				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/${boardId}/favorites`,
 				method: method,
 			})
 				.then(() => {
@@ -64,7 +64,7 @@ function SidebarBoards() {
 	};
 	const getFavorites = async (isDelete = false, boardId) => {
 		const response = axios({
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/favorites`,
+			url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards/favorites`,
 			method: "get",
 		}).then((res) => {
 			if (isDelete) {
@@ -81,7 +81,7 @@ function SidebarBoards() {
 	const getBoards = (isDelete = false, boardId = "") => {
 		getFavorites().then((value) => {
 			axios({
-				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards`,
+				url: `${SERVER_URL}/api/apts/${user.apt_house.apt.apt_id}/boards`,
 				method: "get",
 			}).then((res) => {
 				if (isDelete) {
@@ -107,64 +107,66 @@ function SidebarBoards() {
 	}
 
 	return (
-		<div className={style.sidebar_container}>
-			{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
-			<div
-				className={style.request_new_board}
-				onClick={() => setModalOpen(true)}
-				style={{ cursor: "pointer" }}
-			>
-				<FontAwesomeIcon className={style.icon} icon={faPlus} />
-				<span>게시판 생성 요청</span>
-			</div>
+		!user.authority === "admin" && (
+			<div className={style.sidebar_container}>
+				{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
+				<div
+					className={style.request_new_board}
+					onClick={() => setModalOpen(true)}
+					style={{ cursor: "pointer" }}
+				>
+					<FontAwesomeIcon className={style.icon} icon={faPlus} />
+					<span>게시판 생성 요청</span>
+				</div>
 
-			<p className={style.sidebar_like}>즐겨찾는 게시판</p>
-			<ul className={style.sidebar_list}>
-				{favorites &&
-					favorites.map((favorite) => (
-						<li className={style.fav_sidebar_back} key={favorite.id}>
-							<Link
-								className={style.sidebar_link}
-								to={`/boards/${favorite.id}`}
-								state={{ favorite }}
-							>
-								{favorite.name}
-							</Link>
-							<span onClick={() => handleStarClick(favorite.id)} className={style.star_btn}>
-								<SidebarStarIcon status={true} />
-							</span>
-						</li>
-					))}
-			</ul>
-			<hr style={{ width: "85%", margin: "2rem 0" }} />
-			<p className={style.sidebar_agreements}>
-				<Link to={`/agreements`}>동의서 게시판</Link>
-			</p>
-			<ul className={style.sidebar_list}>
-				{boards.length > 0 &&
-					boards.map((board) => (
-						<div key={board.id} className={style.board_name_star}>
-							<li className={style.sidebar_back}>
+				<p className={style.sidebar_like}>즐겨찾는 게시판</p>
+				<ul className={style.sidebar_list}>
+					{favorites &&
+						favorites.map((favorite) => (
+							<li className={style.fav_sidebar_back} key={favorite.id}>
 								<Link
 									className={style.sidebar_link}
-									to={`/boards/${board.id}`}
-									state={{ board: board }}
+									to={`/boards/${favorite.id}`}
+									state={{ favorite }}
 								>
-									{board.name}
+									{favorite.name}
 								</Link>
+								<span onClick={() => handleStarClick(favorite.id)} className={style.star_btn}>
+									<SidebarStarIcon status={true} />
+								</span>
 							</li>
-							<span
-								onClick={() => {
-									handleStarClick(board.id);
-								}}
-								className={style.star_btn}
-							>
-								<SidebarStarIcon status={false} />
-							</span>
-						</div>
-					))}
-			</ul>
-		</div>
+						))}
+				</ul>
+				<hr style={{ width: "85%", margin: "2rem 0" }} />
+				<p className={style.sidebar_agreements}>
+					<Link to={`/agreements`}>동의서 게시판</Link>
+				</p>
+				<ul className={style.sidebar_list}>
+					{boards.length > 0 &&
+						boards.map((board) => (
+							<div key={board.id} className={style.board_name_star}>
+								<li className={style.sidebar_back}>
+									<Link
+										className={style.sidebar_link}
+										to={`/boards/${board.id}`}
+										state={{ board: board }}
+									>
+										{board.name}
+									</Link>
+								</li>
+								<span
+									onClick={() => {
+										handleStarClick(board.id);
+									}}
+									className={style.star_btn}
+								>
+									<SidebarStarIcon status={false} />
+								</span>
+							</div>
+						))}
+				</ul>
+			</div>
+		)
 	);
 }
 

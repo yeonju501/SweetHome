@@ -7,7 +7,7 @@ function ProfileButtons({ password, isDup }) {
 	return (
 		<div className={style.profile_btn}>
 			<div className={style.profile_btns}>
-				<button disabled={!password || !(isDup === 2)}>저장</button>
+				<button disabled={!(isDup === 2)}>저장</button>
 				<button onClick={onCancel}>취소</button>
 			</div>
 		</div>

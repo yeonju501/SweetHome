@@ -34,6 +34,11 @@ export function isThisDuplicte(api, data, setState) {
 		data,
 	})
 		.then((res) => {
+			if (res.data.result) {
+				alert("이미 사용중인 닉네임입니다.");
+			} else {
+				alert("사용 가능한 닉네임입니다");
+			}
 			res.data.result ? setState(1) : setState(2);
 		})
 		.catch((err) => errorMessage(err.response.data.error_code));

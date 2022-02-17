@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 import * as inputValid from "utils/inputValid";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -22,13 +20,13 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const [isDup, setIsDup] = useState(0);
 	const [loading, setLoading] = useState(false);
 	const [userInfo, setUserInfo] = useState({
-		username: "",
-		email: "",
+		username: null,
+		email: null,
 		phone_number: "",
 		authority: "",
 		apt_house: {},
-		password: "",
-		image_url: "",
+		password: null,
+		image_url: null,
 	});
 	const profileImage = useRef(null);
 	const [imgFile, setFiles] = useState(null);
@@ -48,6 +46,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const checkUserDup = () => {
 		const data = { value: username };
 		if (username === user.username) {
+			alert("현재 사용중인 닉네임입니다");
 			return setIsDup(2);
 		}
 		isThisDuplicte("name", data, setIsDup);
@@ -140,21 +139,16 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 				</div>
 				<ProfileNav active={active} setActive={setActive} />
 				<form onSubmit={onSubmit} className={style.profile_form}>
-					<div className={style.profile_user_info_div}>
+					<div className={`${style.profile_user_info_div} ${style.first_div}`}>
 						<aside>
 							<label htmlFor="username">닉네임</label>
 						</aside>
 						<div className={style.user_name}>
-							<input
-								type="text"
-								id="username"
-								value={username || ""}
-								onChange={onChange}
-								onBlur={checkUserDup}
-							/>
-							{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
-								(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
+							<input type="text" id="username" value={username || ""} onChange={onChange} />
 						</div>
+						<button type="button" onClick={checkUserDup} className={style.btn_duplicate}>
+							중복 검사
+						</button>
 					</div>
 					<div className={style.profile_user_info_div}>
 						<aside>
