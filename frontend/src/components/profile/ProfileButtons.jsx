@@ -2,6 +2,8 @@ import axios from "axios";
 import errorMessage from "store/errorMessage";
 import { cookieDelete } from "utils/manageToken";
 import style from "style/Profile.module.css";
+import { persistor } from "index";
+
 function ProfileButtons({ password, isDup }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const deleteAccount = () => {
@@ -12,6 +14,8 @@ function ProfileButtons({ password, isDup }) {
 			})
 				.then(() => {
 					cookieDelete();
+					persistor.purge();
+
 					window.location.replace("/");
 				})
 				.catch((err) => errorMessage(err.response.data.error_code));

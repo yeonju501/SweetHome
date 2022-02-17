@@ -23,7 +23,7 @@ function CommentCreate({ articleId, getComments, getTotalComments }) {
 					data: comment,
 			  }).then(() => {
 					setComment({ content: "" });
-					getComments(true);
+					getComments();
 					getTotalComments();
 			  })
 			: toast.error("error");

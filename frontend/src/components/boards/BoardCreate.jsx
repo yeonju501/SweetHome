@@ -15,6 +15,15 @@ function CreateBoard(props) {
 		setBoardInfo({ ...boardInfo, [e.target.id]: e.target.value });
 	};
 
+	const customStyles = {
+		content: {
+			top: "50%",
+			left: "50%",
+			width: "50rem",
+			height: "50rem",
+			transform: "translate(-50%, -50%)",
+		},
+	};
 	const handleFormSubmit = (e) => {
 		e.preventDefault();
 		if (name.trim() && description.trim()) {
@@ -25,7 +34,6 @@ function CreateBoard(props) {
 			})
 				.then(() => {
 					setBoardInfo({ name: "", description: "" });
-					window.close();
 				})
 				.catch((err) => {
 					console.log(err);
@@ -33,32 +41,35 @@ function CreateBoard(props) {
 		} else {
 			alert("게시판명과 소개글을 모두 입력해주세요!");
 		}
+		onCancel();
 	};
 
 	return (
-		<form onSubmit={handleFormSubmit} className={style.form}>
-			<h1 className="">게시판 생성</h1>
-			<input
-				type="text"
-				id="name"
-				value={name}
-				onChange={handleInputChange}
-				placeholder="게시판명을 입력하세요"
-			/>
-			<input
-				type="text"
-				id="description"
-				value={description}
-				onChange={handleInputChange}
-				placeholder="게시판 소개글을 입력하세요"
-			/>
-			<div className={style.board_btns}>
-				<button className={style.submit_btn}>등록</button>
-				<button className={style.cancel_btn} type="button" onClick={() => window.close()}>
-					취소
-				</button>
-			</div>
-		</form>
+		<ReactModal isOpen={isOpen} onRequestClose={() => onCancel()} style={customStyles}>
+			<form onSubmit={handleFormSubmit} className={style.form}>
+				<h1 className="">게시판 생성</h1>
+				<input
+					type="text"
+					id="name"
+					value={name}
+					onChange={handleInputChange}
+					placeholder="게시판명을 입력하세요"
+				/>
+				<input
+					type="text"
+					id="description"
+					value={description}
+					onChange={handleInputChange}
+					placeholder="게시판 소개글을 입력하세요"
+				/>
+				<div>
+					<button className={style.submit_btn}>등록</button>
+					<button className={style.cancel_btn} type="button" onClick={() => onCancel()}>
+						취소
+					</button>
+				</div>
+			</form>
+		</ReactModal>
 	);
 }
 

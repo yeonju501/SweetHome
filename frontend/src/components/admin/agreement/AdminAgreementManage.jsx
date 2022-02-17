@@ -35,12 +35,16 @@ function AdimnAgreementManage() {
 					setNewAgreement={setNewAgreement}
 				/>
 			)}
-			<p className={style.create_agreement}>
-				<FontAwesomeIcon onClick={() => setModalOpen(true)} icon={faPlus} />
-				동의서 생성
-			</p>
 
 			<div>
+				<p
+					className={style.create_agreement}
+					onClick={() => setModalOpen(true)}
+					style={{ cursor: "pointer" }}
+				>
+					<FontAwesomeIcon icon={faPlus} />
+					동의서 생성
+				</p>
 				<AdminAgreementList newAgreement={newAgreement} />
 			</div>
 		</div>

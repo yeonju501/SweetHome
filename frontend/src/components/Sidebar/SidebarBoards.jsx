@@ -6,37 +6,34 @@ import style from "style/Sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import SidebarStarIcon from "./SidebarStarIcon";
+import CreateBoard from "components/boards/BoardCreate";
 
 function SidebarBoards() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const [boards, setBoards] = useState([]);
 	const [favorites, setFavorites] = useState([]);
+	const [modalOpen, setModalOpen] = useState(false);
 
 	useEffect(() => {
 		getFavorites();
 		getBoards();
+		if (modalOpen) {
+			document.body.style.cssText = `
+		position: fixed; 
+		top: -${window.scrollY}px;
+		overflow-y: scroll;
+		width: 100%;`;
+			return () => {
+				const scrollY = document.body.style.top;
+				document.body.style.cssText = "";
+				window.scrollTo(0, parseInt(scrollY || "0", 10) * -1);
+			};
+		}
 	}, []);
 
-	const handleModal = async () => {
-		function createPopupWin(pageURL, pageTitle, popupWinWidth, popupWinHeight) {
-			let left = window.screen.width / 2 - popupWinWidth / 2;
-			let top = window.screen.height / 2 - popupWinHeight / 2;
-			let myWindow = window.open(
-				pageURL,
-				pageTitle,
-				"resizable=yes, width=" +
-					popupWinWidth +
-					", height=" +
-					popupWinHeight +
-					", top=" +
-					top +
-					", left=" +
-					left,
-			);
-		}
-
-		createPopupWin("/board-create", "board", 430, 500);
+	const handleModal = () => {
+		setModalOpen(false);
 	};
 
 	const getStarred = async (boardId) => {
@@ -111,7 +108,12 @@ function SidebarBoards() {
 
 	return (
 		<div className={style.sidebar_container}>
-			<div className={style.request_new_board} onClick={handleModal} style={{ cursor: "pointer" }}>
+			{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
+			<div
+				className={style.request_new_board}
+				onClick={() => setModalOpen(true)}
+				style={{ cursor: "pointer" }}
+			>
 				<FontAwesomeIcon className={style.icon} icon={faPlus} />
 				<span>게시판 생성 요청</span>
 			</div>

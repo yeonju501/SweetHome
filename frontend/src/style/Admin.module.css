@@ -236,6 +236,8 @@
 
 .create_agreement {
 	font-size: 1.5rem;
+	transform: translateY(3.5rem);
+	text-align: right;
 }
 
 .agreement_headers {

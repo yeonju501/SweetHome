@@ -7,7 +7,7 @@ function CommentsList({ comments, articleId, getComments, getTotalComments }) {
 
 	return (
 		<ul>
-			{comments &&
+			{comments.length > 0 &&
 				comments.map((comment) => (
 					<li key={comment.id} className={style.comments_li}>
 						<CommentUpdate
