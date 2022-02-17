@@ -178,6 +178,17 @@
 	}
 }
 
+/* 게시판 신청 버튼 */
+.button_box {
+	display: flex;
+	justify-content: end;
+}
+
+.agreement_create_btn {
+	background-color: transparent;
+	color: black;
+}
+
 /* 게시판 신청 목록 */
 .board_request_btn {
 	width: 5rem;
