@@ -44,8 +44,6 @@ function ReadMessageDeatil() {
 				<button className={style.msg_delete} onClick={onDeleteMessage}>
 					삭제
 				</button>
-
-				<button className={style.msg_delete}>신고</button>
 			</div>
 			<div className={style.message_detail}>
 				<div>
