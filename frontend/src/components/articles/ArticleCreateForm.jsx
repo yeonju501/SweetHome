@@ -26,7 +26,6 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 			? formData.append("image", imgFile)
 			: formData.append("image", new Blob([]), { type: "multipart/form-data" });
 
-		console.log(imgFile);
 		if (title.trim() && content.trim()) {
 			axios({
 				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${boardId}/articles`,
@@ -72,6 +71,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 					onChange={handleInputChange}
 					placeholder="제목을 입력하세요"
 					className={style.input_text}
+					maxLength="45"
 				/>
 
 				<textarea
