@@ -32,7 +32,6 @@ public class BoardService {
             .collect(Collectors.toList());
     }
 
-
     @Transactional
     public void saveBoard(BoardSaveRequest request, Long aptId) {
         Apt apt = aptService.findById(aptId);
@@ -48,5 +47,10 @@ public class BoardService {
     public Board findById(Long boardId) {
         return boardRepository.findById(boardId)
             .orElseThrow(() -> new BusinessException(ErrorCode.BOARD_NOT_FOUND_BY_ID));
+    }
+
+    @Transactional
+    public List<Board> findAllByApt(Long aptId) {
+        return boardRepository.findAllByAptIdAndBoardStatusIsNotNull(aptId);
     }
 }
