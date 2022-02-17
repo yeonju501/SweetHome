@@ -55,52 +55,50 @@ function ReadMessageDeatil() {
 	};
 
 	return (
-		<>
-			<h1 className={style.title_msg}>상세 보기</h1>
-			<div className={style.message_detail_container}>
-				<button className={style.msg_delete} onClick={onDeleteMessage}>
-					삭제
-				</button>
+		<div className={style.message_detail_container}>
+			<div>
+				{position === "receive" ? (
+					<button onClick={handleReplyButtonClick} className={style.reply}>
+						답장
+					</button>
+				) : (
+					<></>
+				)}
 			</div>
-			<div className={style.message_detail}>
-				<div>
-					{position === "receive" ? (
-						<button onClick={handleReplyButtonClick} className={style.reply}>
-							답장
+			{position === "send" ? (
+				<div className={style.msg_detail_to}>
+					<div className={style.msg_detail_header}>
+						<span className={style.p_title}>받는 사람 : </span>
+						<span className={style.p_content}> {messageDetail.receiver_username}</span>
+						<button className={style.msg_delete} onClick={onDeleteMessage}>
+							삭제
 						</button>
-					) : (
-						<></>
-					)}
-				</div>
-				<div className={style.msg_detail_container}>
-					{position === "send" ? (
-						<div>
-							<span className={style.p_title}>받는 사람 : </span>
-							<span className={style.p_content}> {messageDetail.receiver_username}</span>
-							<br />
-						</div>
-					) : (
-						<div>
-							<span className={style.p_title}>보낸 사람 : </span>
-							<span className={style.p_content}> {messageDetail.sender_username}</span>
-							<br />
-						</div>
-					)}
-					<div>
-						<span className={style.p_title}>날짜 : </span>
-						<span className={style.p_content}> {messageDetail.send_at.substring(0, 10)}</span>
-						<br />
 					</div>
-				</div>
-				<div className={style.msg_detail_container}>
-					<span className={style.p_title}>제목 : </span>
-					<span className={style.p_content}> {messageDetail.title}</span>
+
 					<br />
-					<span className={style.p_title}>내용 : </span>
-					<span className={style.p_content}> {messageDetail.content}</span>
 				</div>
+			) : (
+				<div className={style.msg_detail_to}>
+					<span className={style.p_title}>보낸 사람 : </span>
+					<span className={style.p_content}> {messageDetail.sender_username}</span>
+					<button className={style.msg_delete} onClick={onDeleteMessage}>
+						삭제
+					</button>
+					<br />
+				</div>
+			)}
+			<div className={style.msg_detail_date}>
+				<span className={style.p_title}>날짜 : </span>
+				<span className={style.p_content}> {messageDetail.send_at.substring(0, 10)}</span>
+				<br />
 			</div>
-		</>
+			<div className={style.msg_detail_container}>
+				<span className={style.p_title}>제목 : </span>
+				<span className={style.p_content}> {messageDetail.title}</span>
+				<br />
+				<span className={style.p_content}> {messageDetail.content}</span>
+			</div>
+		</div>
 	);
 }
 
