@@ -8,7 +8,6 @@ deploy-to-server:
   script:
     - cd /home/ubuntu/S06P12D106/
     - cd backend
-    - kill $(lsof -t -i:8000)
     - cd /home/ununtu/S06P12D106/frontend/
     - sudo npm install
     - sudo npm run build
