@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import ProfileButtons from "./ProfileButtons";
 import style from "style/Profile.module.css";
-import { isThisDuplicte } from "utils/accountAxios";
+import { thisDuplicte } from "utils/accountAxios";
 import { useDispatch, useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
 import { SET_USER } from "store/user";
@@ -49,7 +49,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 			alert("현재 사용중인 닉네임입니다");
 			return setIsDup(2);
 		}
-		isThisDuplicte("name", data, setIsDup);
+		thisDuplicte("name", data, setIsDup);
 	};
 	const onSubmit = (e) => {
 		e.preventDefault();

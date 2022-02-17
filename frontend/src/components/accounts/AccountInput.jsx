@@ -42,7 +42,7 @@ function SignInPassword({ onChange, password, email, isSignUp }) {
 			<div className={style.password_div}>
 				<input
 					type={passwordType.type}
-					placeholder="숫자 + 문자로 비밀번호를 입력하세요"
+					placeholder="숫자와 특수문자를 꼭 포함해주세요"
 					onChange={onChange}
 					value={password}
 					id="password"

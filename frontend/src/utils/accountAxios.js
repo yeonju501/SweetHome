@@ -34,6 +34,24 @@ export function isThisDuplicte(api, data, setState) {
 		data,
 	})
 		.then((res) => {
+			res.data.result ? setState(1) : setState(2);
+		})
+		.catch((err) => errorMessage(err.response.data.error_code));
+}
+
+export function thisDuplicte(api, data, setState) {
+	if (api === "email") {
+		if (!inputValid.emailValid(data.value)) {
+			return setState(1);
+		}
+	}
+	axios({
+		url: `${SERVER_URL}/api/members/exist-${api}`,
+		method: "post",
+		headers: { "Content-Type": "application/json" },
+		data,
+	})
+		.then((res) => {
 			if (res.data.result) {
 				alert("이미 사용중인 닉네임입니다.");
 			} else {
