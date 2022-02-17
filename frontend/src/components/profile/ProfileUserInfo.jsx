@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCheck, faBan } from "@fortawesome/free-solid-svg-icons";
 import * as inputValid from "utils/inputValid";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -48,6 +46,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const checkUserDup = () => {
 		const data = { value: username };
 		if (username === user.username) {
+			alert("현재 사용중인 닉네임입니다");
 			return setIsDup(2);
 		}
 		isThisDuplicte("name", data, setIsDup);
@@ -145,15 +144,10 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 							<label htmlFor="username">닉네임</label>
 						</aside>
 						<div className={style.user_name}>
-							<input
-								type="text"
-								id="username"
-								value={username || ""}
-								onChange={onChange}
-								onBlur={checkUserDup}
-							/>
-							{(isDup === 1 && <FontAwesomeIcon icon={faBan} className={style.iconDuplicate} />) ||
-								(isDup === 2 && <FontAwesomeIcon icon={faCheck} className={style.notDupl} />)}
+							<input type="text" id="username" value={username || ""} onChange={onChange} />
+							<button type="button" onClick={checkUserDup}>
+								중복 검사
+							</button>
 						</div>
 					</div>
 					<div className={style.profile_user_info_div}>
