@@ -47,8 +47,8 @@
 }
 
 .img_box > img {
-	width: 50rem;
-	height: 40rem;
+	max-width: 100%;
+	height: auto;
 }
 
 .content {

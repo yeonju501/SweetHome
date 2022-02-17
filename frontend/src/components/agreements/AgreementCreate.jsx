@@ -88,7 +88,7 @@ function AgreementCreate(props) {
 				></textarea>
 				<div>
 					<button className={style.submit_btn}>작성</button>
-					<button className={style.cancel_btn} onClick={onCancel}>
+					<button className={style.cancel_btn} type="button" onClick={onCancel}>
 						취소
 					</button>
 				</div>
