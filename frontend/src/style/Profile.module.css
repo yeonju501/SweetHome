@@ -11,6 +11,7 @@
 	border-radius: 50%;
 	width: 5rem;
 	height: 100%;
+	border: 1px solid #dedede;
 }
 .profile_user {
 	display: flex;

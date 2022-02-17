@@ -11,6 +11,7 @@ import { SET_USER } from "store/user";
 import { useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
 import { SET_POSITION } from "store/toggle";
+
 function Profile() {
 	const user = useSelector((state) => state.userInfo);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
@@ -35,7 +36,11 @@ function Profile() {
 			{active === 1 && <ProfileArticles />}
 			{active === 2 && <ProfileComments />}
 			{active === 3 && <ProfileLikes />}
-			{active === 4 && <AptMemberRequest moving="이사가기" />}
+			{active === 4 && (
+				<div style={{ margin: "2rem auto" }}>
+					<AptMemberRequest moving="이사가기" />
+				</div>
+			)}
 		</div>
 	);
 }
