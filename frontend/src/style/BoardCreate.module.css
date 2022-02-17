@@ -1,7 +1,7 @@
 .form {
-	width: 50vw;
+	width: 50rem;
 	margin: 0 auto;
-	text-align: center;
+	display: flex;
 }
 
 .form > h1 {
@@ -9,6 +9,7 @@
 }
 
 .form > input {
+	width: 40rem;
 	height: 4rem;
 	padding-left: 1rem;
 	font-size: 1.5rem;
