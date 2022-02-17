@@ -90,7 +90,7 @@ function MessageBox(props) {
 								)}
 
 								<td>{message.send_at.substring(0, 10)}</td>
-								<td className={!message.read_at && messageStyle.unread}>
+								<td className={!message.read_at ? messageStyle.unread : undefined}>
 									{message.read_at === null ? "안읽음" : "읽음"}
 								</td>
 							</tr>
