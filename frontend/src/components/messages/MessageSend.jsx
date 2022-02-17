@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
-import { useSelector } from "react-redux";
 import errorMessage from "store/errorMessage";
 
 function SendMessage() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const navigate = useNavigate();
-	const target = useSelector((state) => state.messageInfo);
+	const location = useLocation();
 
 	const [sendMessage, setSendMessage] = useState({
 		receiver_name: "",
