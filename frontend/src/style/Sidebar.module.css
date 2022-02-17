@@ -30,16 +30,6 @@
 	margin-bottom: 0.5rem;
 }
 
-.sidebar_agreements:hover {
-	background-color: #dfdfdf;
-	border-radius: 0.3rem;
-}
-
-.sidebar_agreements:active {
-	background-color: #b7b7b7;
-	border-radius: 0.3rem;
-}
-
 .sidebar_list {
 	list-style: none;
 	margin-bottom: 1rem;
@@ -57,27 +47,9 @@
 	color: black;
 }
 
-.board_name_star:hover {
-	background-color: #dfdfdf;
-	border-radius: 0.3rem;
-}
-
-.board_name_star:active {
-	background-color: #b7b7b7;
-	border-radius: 0.3rem;
-}
-
 .sidebar_link {
 	color: black;
 	font-size: 1.5rem;
-}
-
-.sidebar_link:hover {
-	color: #319cff;
-}
-
-.sidebar_link:active {
-	color: #319cff;
 }
 
 .board_name_star {

@@ -169,6 +169,16 @@ button {
 	top: 1rem;
 }
 
+@media screen and (max-width: 1270px) {
+	.deleteAccount {
+		display: none;
+	}
+}
+@media screen and (max-width: 1000px) {
+	.profile {
+		width: 100%;
+	}
+}
 @media screen and (max-width: 768px) {
 	.profile_user {
 		display: flex;
@@ -180,6 +190,9 @@ button {
 @media screen and (max-width: 500px) {
 	.profile_nav ul li {
 		font-size: 1.25rem;
+	}
+	.date {
+		display: hidden;
 	}
 }
 

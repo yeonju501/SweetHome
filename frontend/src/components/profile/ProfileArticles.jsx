@@ -22,7 +22,7 @@ function ProfileArticles() {
 							게시판 이름
 						</th>
 						<th>제목</th>
-						<th>작성 날짜</th>
+						<th className={style.date}>작성 날짜</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -42,7 +42,7 @@ function ProfileArticles() {
 										{article.title}
 									</Link>
 								</td>
-								<td>{article.created_at.slice(0, 10)}</td>
+								<td className={style.date}>{article.created_at.slice(0, 10)}</td>
 							</tr>
 						))
 					) : (
