@@ -25,17 +25,17 @@ function SidebarMessage() {
 			<ul className={style.sidebar_list}>
 				<li className={style.sidebar_back}>
 					<Link className={style.sidebar_link} to="messages" state={{ to: "inbox" }}>
-						📥받은 메시지 {unReadMessage.unread_count}
+						받은 메시지 {unReadMessage.unread_count}
 					</Link>
 				</li>
 				<li className={style.sidebar_back}>
 					<Link className={style.sidebar_link} to="messages" state={{ to: "sendBox" }}>
-						📤보낸 메시지
+						보낸 메시지
 					</Link>
 				</li>
 				<li className={style.sidebar_back}>
 					<Link className={style.sidebar_link} to="send-message" onClick={fromSideBar}>
-						📝메시지 보내기
+						메시지 보내기
 					</Link>
 				</li>
 			</ul>

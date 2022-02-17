@@ -34,7 +34,7 @@ function SidebarAdmin() {
 				) : (
 					<li className={style.sidebar_back}>
 						<Link className={style.sidebar_link} to="site">
-							👨‍👩‍👧‍👦 아파트 관리자 관리
+							아파트 관리자 관리
 						</Link>
 					</li>
 				)}

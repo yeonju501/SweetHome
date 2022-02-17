@@ -163,7 +163,7 @@ function AptMemberRequest(props) {
 					</div>
 					<button className={style.btn_submit}>제출하기</button>
 				</form>
-				<div>{isModal && <DaumPostcode className={style.showModal} onComplete={onComplete} />}</div>
+				{isModal && <DaumPostcode className={style.showModal} onComplete={onComplete} />}
 			</div>
 		</div>
 	);

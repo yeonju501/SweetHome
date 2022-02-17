@@ -11,6 +11,7 @@ import { SET_USER } from "store/user";
 import { useSelector } from "react-redux";
 import { GETUSERINFO } from "utils/profileAxios";
 import { SET_POSITION } from "store/toggle";
+
 function Profile() {
 	const user = useSelector((state) => state.userInfo);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
