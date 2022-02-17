@@ -56,16 +56,23 @@ function ReadMessageDeatil() {
 
 	return (
 		<div className={style.message_detail_container}>
-			<div>
-				{position === "receive" ? (
-					<button onClick={handleReplyButtonClick} className={style.reply}>
-						답장
-					</button>
-				) : (
-					<></>
-				)}
-			</div>
-			{position === "send" ? (
+			{position === "receive" ? (
+				<div className={style.msg_detail_to}>
+					<div>
+						<span className={style.p_title}>보낸 사람 : </span>
+						<span className={style.p_content}> {messageDetail.sender_username}</span>
+						<br />
+					</div>
+					<div>
+						<button onClick={handleReplyButtonClick} className={style.reply}>
+							답장
+						</button>
+						<button className={style.msg_delete_reply} onClick={onDeleteMessage}>
+							삭제
+						</button>
+					</div>
+				</div>
+			) : (
 				<div className={style.msg_detail_to}>
 					<div className={style.msg_detail_header}>
 						<span className={style.p_title}>받는 사람 : </span>
@@ -77,16 +84,8 @@ function ReadMessageDeatil() {
 
 					<br />
 				</div>
-			) : (
-				<div className={style.msg_detail_to}>
-					<span className={style.p_title}>보낸 사람 : </span>
-					<span className={style.p_content}> {messageDetail.sender_username}</span>
-					<button className={style.msg_delete} onClick={onDeleteMessage}>
-						삭제
-					</button>
-					<br />
-				</div>
 			)}
+
 			<div className={style.msg_detail_date}>
 				<span className={style.p_title}>날짜 : </span>
 				<span className={style.p_content}> {messageDetail.send_at.substring(0, 10)}</span>

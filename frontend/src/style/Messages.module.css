@@ -242,3 +242,16 @@
 	padding-bottom: 1rem;
 	border-bottom: 1px solid #dedede;
 }
+
+.msg_detail_header_reply {
+	width: 100%;
+	display: flex;
+	justify-self: flex-end;
+}
+
+.msg_delete_reply {
+	background-color: transparent;
+	color: red;
+	border: 1px solid #dedede;
+	margin: 0 1rem;
+}
