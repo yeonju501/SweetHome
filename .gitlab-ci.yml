@@ -7,9 +7,12 @@ deploy-to-server:
     - whoami
   script:
     - cd /home/ubuntu/S06P12D106/
+    - pwd
     - sudo git pull origin master
     - cd backend
+    - pwd
     - cd /home/ununtu/S06P12D106/frontend/
+    - pwd
     - sudo npm install
     - sudo npm run build
     - sudo service nginx restart
