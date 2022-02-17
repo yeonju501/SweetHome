@@ -1,0 +1,20 @@
+deploy-to-server:
+  stage:deploy
+  only:master:
+  - master
+  before_script:
+    - echo 'start deployment'
+    - whoami
+  script:
+   - cd /home/ubuntu/S06P12D106/
+   - cd backend
+   - kill $(lsof -t -i:8000)
+   - ./gradlew bootRun
+   - cd /home/ununtu/S06P12D106/frontend/
+   - sudo npm install
+   - sudo npm run build
+   - sudo node server.js
+  after_script:
+   - echo 'deployment is done'
+  tags:
+   - deploy
