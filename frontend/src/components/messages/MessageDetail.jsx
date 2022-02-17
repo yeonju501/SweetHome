@@ -4,12 +4,16 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import style from "style/Messages.module.css";
 import { getDetailMessageFromServer } from "utils/messagesFunction";
+import { useDispatch } from "react-redux";
+import { SET_MESSAGE } from "store/message";
 
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function ReadMessageDeatil() {
 	const location = useLocation();
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
+
 	const [messageDetail, setMessageDetail] = useState({
 		sender_username: "",
 		sender_email: "",
@@ -37,6 +41,19 @@ function ReadMessageDeatil() {
 		});
 	}
 
+	const handleReplyButtonClick = async () => {
+		await dispatch(
+			SET_MESSAGE({
+				username: messageDetail.sender_username,
+			}),
+		);
+		await window.open(
+			`/send-message/${messageDetail.sender_username}`,
+			`/send-message/${messageDetail.sender_username}`,
+			"width=450, height=500,location=no,status=no",
+		);
+	};
+
 	return (
 		<>
 			<h1 className={style.title_msg}>상세 보기</h1>
@@ -48,9 +65,9 @@ function ReadMessageDeatil() {
 			<div className={style.message_detail}>
 				<div>
 					{position === "receive" ? (
-						<Link to="/read-send-message/message-detail/send-message">
-							<button className={style.reply}>답장</button>
-						</Link>
+						<button onClick={handleReplyButtonClick} className={style.reply}>
+							답장
+						</button>
 					) : (
 						<></>
 					)}

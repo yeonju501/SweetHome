@@ -14,7 +14,6 @@ function MessageBox(props) {
 	const navigate = useNavigate();
 	const { messages, totalPage, currentPage } = data;
 
-	console.log(props);
 	useEffect(() => {
 		getMessagesFromServer(props.action, currentPage, setData);
 	}, [currentPage]);
@@ -79,7 +78,7 @@ function MessageBox(props) {
 									<Link
 										className={tableStyle.article_title}
 										to="/message-detail"
-										state={{ messageId: message.message_id, position: "send" }}
+										state={{ messageId: message.message_id, position: props.action }}
 									>
 										{message.title}
 									</Link>
