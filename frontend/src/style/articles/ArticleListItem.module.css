@@ -38,6 +38,7 @@
 }
 
 .title {
+	word-wrap: break-word;
 	font-size: 2.4rem;
 	margin: 2.4rem 0;
 }
@@ -54,6 +55,7 @@
 }
 
 .content {
+	word-wrap: break-word;
 	font-size: 1.8rem;
 	margin: 2rem 0 4rem;
 	white-space: pre;
