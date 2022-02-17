@@ -111,7 +111,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	};
 
 	return (
-		userInfo.username && (
+		userInfo.authority && (
 			<>
 				<div className={style.profile_user}>
 					<figure className={style.figure}>
