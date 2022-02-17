@@ -56,7 +56,6 @@ function Board() {
 				url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/boards/${board.id}/articles?page=${pageNumber}&size=5`,
 				method: "get",
 			});
-			console.log(res.data);
 			await setArticles((prev) => [...prev, ...res.data.articles]);
 			setLoading(false);
 		} catch (err) {

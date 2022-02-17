@@ -62,7 +62,6 @@
 }
 
 .article_title {
-	word-wrap: break-word;
 	font-size: 3.5rem;
 	margin-bottom: 4rem;
 }
@@ -81,7 +80,6 @@
 }
 
 .article_content {
-	word-wrap: break-word;
 	font-size: 2rem;
 	margin-bottom: 5rem;
 	white-space: pre;
