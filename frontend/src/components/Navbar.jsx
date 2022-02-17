@@ -26,7 +26,10 @@ function Navbar() {
 	const logOut = () => {
 		cookies.remove("accessToken");
 		cookies.remove("refreshToken");
-		persistor.purge();
+		persistor.purge().then(redirect);
+	};
+
+	const redirect = () => {
 		window.location.replace("/");
 	};
 
