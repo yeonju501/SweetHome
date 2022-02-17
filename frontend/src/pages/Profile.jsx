@@ -18,13 +18,13 @@ function Profile() {
 	const [intro, setIntro] = useState({
 		email: user.email,
 		username: user.username,
+		phone_number: user.username,
 	});
-
 	const dispatch = useDispatch();
 	useEffect(() => {
 		GETUSERINFO(dispatch, SET_USER);
 		dispatch(SET_POSITION(toggle, "profile"));
-	}, []);
+	}, [intro]);
 
 	return (
 		<div className={style.profile}>
