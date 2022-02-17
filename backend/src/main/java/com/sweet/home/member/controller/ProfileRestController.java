@@ -39,7 +39,7 @@ public class ProfileRestController {
 
     @PutMapping("/members/my-profile")
     public ResponseEntity<Void> updateMyProfile(@AuthenticationPrincipal String email,
-        @RequestPart(value = "image") MultipartFile file, @RequestPart(value = "profile") ProfileUpdateRequest request) {
+        @RequestPart(value = "image", required = false) MultipartFile file, @RequestPart(value = "profile") ProfileUpdateRequest request) {
         String url = null;
         if (!file.isEmpty()){
             try{

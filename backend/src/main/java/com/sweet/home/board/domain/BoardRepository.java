@@ -14,4 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     List<Board> findAllByBoardStatusIsNotNullAndApt(Apt apt);
 
     Optional<Board> findByIdAndBoardStatusIsNull(Long boardId);
+
+    List<Board> findAllByAptIdAndBoardStatusIsNotNull(Long aptId);
 }

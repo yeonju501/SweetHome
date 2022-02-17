@@ -83,17 +83,9 @@ public class ArticleRestController {
     }
 
     @AptChecker
-    @GetMapping("/{aptId}/boards/articles/popular")
-    public ResponseEntity<List<ArticleLikeResponse>> showPopularArticles(@PathVariable Long aptId,
-        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok().body(articleService.showPopularArticles(pageable));
-    }
-
-    @AptChecker
     @GetMapping("/{aptId}/boards/articles/new")
-    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(@PathVariable Long aptId,
-        @PageableDefault(sort = "id", direction = Sort.Direction.DESC) Pageable pageable) {
-        return ResponseEntity.ok().body(articleService.showNewArticles(pageable));
+    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(@PageableDefault(size=20, sort="id", direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long aptId) {
+        return ResponseEntity.ok().body(articleService.showNewArticles(pageable, aptId));
     }
 
     @AptChecker
@@ -115,7 +107,8 @@ public class ArticleRestController {
 
     @AptChecker
     @DeleteMapping("/{aptId}/boards/articles/{articleId}")
-    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId, @PathVariable Long articleId) {
+    public ResponseEntity<Void> deleteArticle(@AuthenticationPrincipal String email, @PathVariable Long aptId,
+        @PathVariable Long articleId) {
         articleDeleteService.deleteArticle(email, articleId);
         return ResponseEntity.noContent().build();
     }
