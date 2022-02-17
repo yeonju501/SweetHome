@@ -187,6 +187,8 @@
 .agreement_create_btn {
 	background-color: transparent;
 	color: black;
+	font-weight: 300;
+	font-size: 1.3rem;
 }
 
 /* 게시판 신청 목록 */

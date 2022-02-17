@@ -14,7 +14,7 @@ function AdimnAgreementManage() {
 		<div className={style.agreement_page}>
 			<div className={style.button_box}>
 				<button onClick={handleCreateBoardClick} className={style.agreement_create_btn}>
-					<FontAwesomeIcon icon={faPlus} />
+					<FontAwesomeIcon icon={faPlus} style={{ fontSize: "1.2rem" }} />
 					동의서 생성
 				</button>
 			</div>
