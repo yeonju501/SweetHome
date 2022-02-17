@@ -25,6 +25,7 @@ function CreateBoard(props) {
 			})
 				.then(() => {
 					setBoardInfo({ name: "", description: "" });
+					window.close();
 				})
 				.catch((err) => {
 					console.log(err);
@@ -32,7 +33,6 @@ function CreateBoard(props) {
 		} else {
 			alert("게시판명과 소개글을 모두 입력해주세요!");
 		}
-		window.close();
 	};
 
 	return (
