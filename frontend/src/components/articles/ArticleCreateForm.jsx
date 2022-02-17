@@ -95,7 +95,7 @@ function ArticleCreateForm({ invertDisabled, boardId, getArticlesAfterCreate }) 
 							onChange={handleImageChange}
 						/>
 					</div>
-					<div className={style.button_box}>
+					<div className={style.btns}>
 						<button onClick={invertDisabled} type="button" className={style.outline_btn}>
 							취소
 						</button>
