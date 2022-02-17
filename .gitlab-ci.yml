@@ -9,11 +9,10 @@ deploy-to-server:
    - cd /home/ubuntu/S06P12D106/
    - cd backend
    - kill $(lsof -t -i:8000)
-   - ./gradlew bootRun
    - cd /home/ununtu/S06P12D106/frontend/
    - sudo npm install
    - sudo npm run build
-   - sudo node server.js
+   - sudo service nginx restart
   after_script:
    - echo 'deployment is done'
   tags:
