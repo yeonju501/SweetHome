@@ -14,6 +14,7 @@ function MessageBox(props) {
 	const navigate = useNavigate();
 	const { messages, totalPage, currentPage } = data;
 
+	console.log(props);
 	useEffect(() => {
 		getMessagesFromServer(props.action, currentPage, setData);
 	}, [currentPage]);
@@ -54,7 +55,7 @@ function MessageBox(props) {
 					<tr>
 						<th></th>
 						<th>제목</th>
-						<th>받는 사람</th>
+						{props.action === "send" ? <th>받는 사람</th> : <th>보낸 사람</th>}
 						<th>보낸 날짜</th>
 						<th>상태</th>
 					</tr>
@@ -83,7 +84,12 @@ function MessageBox(props) {
 										{message.title}
 									</Link>
 								</td>
-								<td>{message.receiver_username}</td>
+								{props.action === "send" ? (
+									<td>{message.receiver_username}</td>
+								) : (
+									<td>{message.sender_username}</td>
+								)}
+
 								<td>{message.send_at.substring(0, 10)}</td>
 								<td className={!message.read_at && messageStyle.unread}>
 									{message.read_at === null ? "안읽음" : "읽음"}

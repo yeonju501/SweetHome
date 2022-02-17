@@ -221,6 +221,7 @@
 	margin-top: 2rem;
 }
 .message_detail_container {
+	width: 94%;
 	display: flex;
 	justify-content: flex-end;
 }
