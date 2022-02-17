@@ -2,7 +2,6 @@ import axios from "axios";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
-import msgStyle from "style/Messages.module.css";
 import style from "style/Admin.module.css";
 const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
@@ -22,9 +21,7 @@ function SiteAptAdminRegister() {
 			url: `${SERVER_URL}/api/superadmin/apts/apt-manager`,
 		})
 			.then((res) => {
-				console.log("여기", res.data);
 				setaptAdminRegister(res.data.register_managers);
-				console.log("저장", aptAdminRegister);
 			})
 			.catch((err) => {
 				console.log(err);

@@ -89,7 +89,7 @@ function SendMessage() {
 					<button className={style.btn_send} onClick={onSend}>
 						전송
 					</button>
-					<button className={style.btn_delete} onClick={onCancel}>
+					<button className={style.btn_delete} type="button" onClick={onCancel}>
 						취소
 					</button>
 				</div>
