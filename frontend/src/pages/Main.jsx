@@ -14,7 +14,7 @@ function Main() {
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const [newArticles, setNewArticles] = useState([]);
-
+	const [notices, setNotices] = useState([]);
 	useEffect(() => {
 		try {
 			axios({
@@ -33,6 +33,7 @@ function Main() {
 	useEffect(() => {
 		if (userInfo && userInfo.authority !== "준회원") {
 			getNewArticles();
+			getNotice();
 		}
 	}, [userInfo]);
 
@@ -46,6 +47,16 @@ function Main() {
 			})
 			.catch((err) => console.log(err.response));
 	};
+	const getNotice = () => {
+		axios({
+			url: `${SERVER_URL}/api/apts/${userInfo.apt_house.apt.apt_id}/boards/5/articles`,
+			method: "get",
+		})
+			.then((res) => {
+				setNotices(res.data.articles.slice(0, 2));
+			})
+			.catch((err) => console.log(err.response));
+	};
 
 	return (
 		userInfo &&
@@ -53,11 +64,31 @@ function Main() {
 			<AssoMemberpage />
 		) : (
 			<div className={style.body}>
-				<p className={style.new_articles_p}>최신글</p>
+				<p className={style.new_articles_p}>공지 사항</p>
 				<ul className={style.articles}>
+					{notices.map((notice, idx) => (
+						<div className={style.new_articles} key={idx}>
+							<li className={style.article}>
+								<Link
+									to={`/articles/${notice.id}`}
+									state={{
+										articleId: notice.id,
+										board: { id: 1, name: "공지 사항" },
+									}}
+								>
+									{notice.title}
+								</Link>
+							</li>
+						</div>
+					))}
+				</ul>
+
+				<p className={style.new_articles_p}>인기글</p>
+				<ul className={style.articles}>
+					<li className={style.article_rank}>게시글 순위</li>
 					{newArticles.map((article, idx) => (
 						<div className={style.new_articles} key={idx}>
-							<li>{article.board_name}</li>
+							<li className={style.rank}>{idx + 1}</li>
 							<li className={style.article}>
 								<Link
 									to={`/articles/${article.article_id}`}

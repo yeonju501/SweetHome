@@ -33,3 +33,9 @@
 	justify-content: space-between;
 	border-bottom: 1px solid #dedede;
 }
+.article_rank {
+	font-weight: 800;
+}
+.rank {
+	margin-left: 3rem;
+}
