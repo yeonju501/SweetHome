@@ -106,68 +106,72 @@ function SidebarBoards() {
 		setBoards(unStarBoards);
 	}
 
-	return (
-		!user.authority === "admin" && (
-			<div className={style.sidebar_container}>
-				{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
-				<div
-					className={style.request_new_board}
-					onClick={() => setModalOpen(true)}
-					style={{ cursor: "pointer" }}
-				>
-					<FontAwesomeIcon className={style.icon} icon={faPlus} />
-					<span>게시판 생성 요청</span>
-				</div>
+	{
+		if (user.authority !== "어드민") {
+			return (
+				<div className={style.sidebar_container}>
+					{modalOpen && <CreateBoard isOpen={modalOpen} onCancel={handleModal} />}
+					<div
+						className={style.request_new_board}
+						onClick={() => setModalOpen(true)}
+						style={{ cursor: "pointer" }}
+					>
+						<FontAwesomeIcon className={style.icon} icon={faPlus} />
+						<span>게시판 생성 요청</span>
+					</div>
 
-				<p className={style.sidebar_like}>즐겨찾는 게시판</p>
-				<ul className={style.sidebar_list}>
-					{favorites &&
-						favorites.map((favorite) => (
-							<li className={style.fav_sidebar_back} key={favorite.id}>
-								<Link
-									className={style.sidebar_link}
-									to={`/boards/${favorite.id}`}
-									state={{ favorite }}
-								>
-									{favorite.name}
-								</Link>
-								<span onClick={() => handleStarClick(favorite.id)} className={style.star_btn}>
-									<SidebarStarIcon status={true} />
-								</span>
-							</li>
-						))}
-				</ul>
-				<hr style={{ width: "85%", margin: "2rem 0" }} />
-				<p className={style.sidebar_agreements}>
-					<Link to={`/agreements`}>동의서 게시판</Link>
-				</p>
-				<ul className={style.sidebar_list}>
-					{boards.length > 0 &&
-						boards.map((board) => (
-							<div key={board.id} className={style.board_name_star}>
-								<li className={style.sidebar_back}>
+					<p className={style.sidebar_like}>즐겨찾는 게시판</p>
+					<ul className={style.sidebar_list}>
+						{favorites &&
+							favorites.map((favorite) => (
+								<li className={style.fav_sidebar_back} key={favorite.id}>
 									<Link
 										className={style.sidebar_link}
-										to={`/boards/${board.id}`}
-										state={{ board: board }}
+										to={`/boards/${favorite.id}`}
+										state={{ favorite }}
 									>
-										{board.name}
+										{favorite.name}
 									</Link>
+									<span onClick={() => handleStarClick(favorite.id)} className={style.star_btn}>
+										<SidebarStarIcon status={true} />
+									</span>
 								</li>
-								<span
-									onClick={() => {
-										handleStarClick(board.id);
-									}}
-									className={style.star_btn}
-								>
-									<SidebarStarIcon status={false} />
-								</span>
-							</div>
-						))}
-				</ul>
-			</div>
-		)
-	);
+							))}
+					</ul>
+					<hr style={{ width: "85%", margin: "2rem 0" }} />
+					<p className={style.sidebar_agreements}>
+						<Link to={`/agreements`}>동의서 게시판</Link>
+					</p>
+					<ul className={style.sidebar_list}>
+						{boards.length > 0 &&
+							boards.map((board) => (
+								<div key={board.id} className={style.board_name_star}>
+									<li className={style.sidebar_back}>
+										<Link
+											className={style.sidebar_link}
+											to={`/boards/${board.id}`}
+											state={{ board: board }}
+										>
+											{board.name}
+										</Link>
+									</li>
+									<span
+										onClick={() => {
+											handleStarClick(board.id);
+										}}
+										className={style.star_btn}
+									>
+										<SidebarStarIcon status={false} />
+									</span>
+								</div>
+							))}
+					</ul>
+				</div>
+			);
+		} else {
+			return <div style={{ display: "none" }}>h</div>;
+		}
+	}
 }
 
 export default SidebarBoards;
