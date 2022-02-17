@@ -1,6 +1,5 @@
 stages: 
   - deploy
-  - build
 
 test :
   stage: deploy
@@ -9,6 +8,7 @@ test :
     - echo 'start deployment' 
   script:
     - echo 'script ing'
+    - ls
   after_script:
     - echo 'deployment is done'
   tags:
