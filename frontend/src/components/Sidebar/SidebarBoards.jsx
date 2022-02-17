@@ -19,7 +19,24 @@ function SidebarBoards() {
 	}, []);
 
 	const handleModal = async () => {
-		await window.open("/board-create", "board", "width=430, height=500, location=no, status=no");
+		function createPopupWin(pageURL, pageTitle, popupWinWidth, popupWinHeight) {
+			let left = window.screen.width / 2 - popupWinWidth / 2;
+			let top = window.screen.height / 2 - popupWinHeight / 2;
+			let myWindow = window.open(
+				pageURL,
+				pageTitle,
+				"resizable=yes, width=" +
+					popupWinWidth +
+					", height=" +
+					popupWinHeight +
+					", top=" +
+					top +
+					", left=" +
+					left,
+			);
+		}
+
+		createPopupWin("/board-create", "board", 430, 500);
 	};
 
 	const getStarred = async (boardId) => {

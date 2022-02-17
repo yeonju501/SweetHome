@@ -12,11 +12,14 @@ import { GETUSERINFO } from "utils/profileAxios";
 import { SET_USER } from "store/user";
 import anonymous from "assets/anonymous.jpg";
 import ProfileNav from "./ProfileNav";
+import { useNavigate } from "react-router";
 
 function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const user = useSelector((state) => state.userInfo);
 	const [isDup, setIsDup] = useState(0);
+	const [loading, setLoading] = useState(false);
+	const navigate = useNavigate();
 	const [userInfo, setUserInfo] = useState({
 		username: "",
 		email: "",
@@ -62,17 +65,22 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 				url: `${SERVER_URL}/api/members/my-profile`,
 				data: formData,
 			})
-				.then(setUserInfo({ ...userInfo, password: "" }))
+				.then(() => {
+					setLoading(!loading);
+					setIntro({
+						...intro,
+						email,
+						username,
+						image_url: user.image_url,
+					});
+					setUserInfo({ ...userInfo, password: "" });
+					window.location.reload();
+				})
 				.then(() => toast.success("회원정보가 변경 되었습니다"))
 				.catch((err) => console.log(err.response.data));
 
-			setIntro({
-				...intro,
-				email: userInfo.email,
-				username: userInfo.username,
-			});
 			setIsDup(0);
-			window.location.reload();
+			navigate(`/profile/${username}`);
 		} else {
 			toast.error("회원 정보가 변경 되지 않았습니다.");
 		}

@@ -24,16 +24,34 @@ function ArticleDetailButtons({ article, articleId }) {
 		}
 	};
 
+	const createPopupWin = (pageURL, pageTitle, popupWinWidth, popupWinHeight) => {
+		let left = window.screen.width / 2 - popupWinWidth / 2;
+		let top = window.screen.height / 2 - popupWinHeight / 2;
+		let myWindow = window.open(
+			pageURL,
+			pageTitle,
+			"resizable=yes, width=" +
+				popupWinWidth +
+				", height=" +
+				popupWinHeight +
+				", top=" +
+				top +
+				", left=" +
+				left,
+		);
+	};
+
 	const handleMessageButtonClick = async () => {
 		await dispatch(
 			SET_MESSAGE({
 				username: article.username,
 			}),
 		);
-		await window.open(
+		createPopupWin(
 			`/send-message/${article.username}`,
 			`/send-message/${article.username}`,
-			"width=450, height=500,location=no,status=no",
+			450,
+			500,
 		);
 	};
 
@@ -45,7 +63,7 @@ function ArticleDetailButtons({ article, articleId }) {
 				type: "articles",
 			}),
 		);
-		await window.open("/report", "report", "width=430, height=500,location=no,status=no");
+		createPopupWin("/report", "report", 450, 500);
 	};
 
 	return (
