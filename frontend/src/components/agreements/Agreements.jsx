@@ -16,9 +16,6 @@ function Agreements({ newAgreement }) {
 	const authority = useSelector((state) => state.userInfo.authority);
 	const today = new Date();
 
-	const handleModal = () => {
-		window.open("/create-agreement", "agreement", "width=430, height=500,location=no,status=no");
-	};
 	const agreementProgress = (start_date, end_date) => {
 		if (new Date(start_date) > today) {
 			return "진행 예정";

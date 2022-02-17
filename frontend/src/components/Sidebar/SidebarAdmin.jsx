@@ -22,7 +22,7 @@ function SidebarAdmin() {
 						</li>
 						<li className={style.sidebar_back}>
 							<Link className={style.sidebar_link} to="agreement-manage">
-								관리동의서
+								동의서 관리
 							</Link>
 						</li>
 						<li className={style.sidebar_back}>
