@@ -16,7 +16,7 @@ function Comments({ articleId, setComment, getTotalComments }) {
 	const getMoreComments = () => {
 		try {
 			axios({
-				url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments?page=${currentPage}&size=5`,
+				url: `${URL}/api/apts/${user.apt.apt_id}/articles/${articleId}/comments?page=${currentPage}&size=10`,
 				method: "get",
 			}).then((res) => {
 				setData({ ...data, totalPage: res.data.total_page_count });
