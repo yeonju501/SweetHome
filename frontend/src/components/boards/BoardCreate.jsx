@@ -19,9 +19,10 @@ function CreateBoard(props) {
 		content: {
 			top: "50%",
 			left: "50%",
-			width: "50rem",
+			width: "52rem",
 			height: "50rem",
 			transform: "translate(-50%, -50%)",
+			textAlign: "center",
 		},
 	};
 	const handleFormSubmit = (e) => {

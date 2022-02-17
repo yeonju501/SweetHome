@@ -13,7 +13,11 @@ function Board() {
 	const [pageNumber, setPageNumber] = useState(0);
 	const [loading, setLoading] = useState(true);
 	const location = useLocation();
-	const board = location.state.board || location.state.favorite;
+	const board = location.state.board ||
+		location.state.favorite || {
+			id: location.state.boardId,
+			name: location.state.boardName,
+		};
 	const user = useSelector((state) => state.userInfo.apt_house);
 
 	const pageEnd = useRef(null);

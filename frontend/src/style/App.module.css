@@ -1,5 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Leckerli+One&family=Nanum+Gothic:wght@400;700;800&family=Noto+Sans+KR:wght@300;400;500;700;900&family=Roboto:wght@300;400;500;700;900&display=swap");
+@font-face {
+	font-family: "KoPubDotumMedium";
+	src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/KoPubDotumMedium.woff%22")
+		format("woff");
+	font-weight: normal;
+	font-style: normal;
+}
+
 * {
+	/* font-family: "KoPubDotumMedium"; */
 	box-sizing: border-box;
 }
 
