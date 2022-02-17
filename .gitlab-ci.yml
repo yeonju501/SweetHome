@@ -1,21 +1,14 @@
-deploy-to-server:
+stages: 
+  - deploy
+  - build
+
+test :
   stage: deploy
-  only:
-    - master
+
   before_script:
-    - echo 'start deployment'
-    - whoami
+    - echo 'start deployment' 
   script:
-    - cd /home/ubuntu/S06P12D106/
-    - echo $PWD
-    - sudo git pull origin master
-    - cd backend
-    - echo $PWD
-    - cd /home/ununtu/S06P12D106/frontend/
-    - echo $PWD
-    - sudo npm install
-    - sudo npm run build
-    - sudo service nginx restart
+    - echo 'script ing'
   after_script:
     - echo 'deployment is done'
   tags:
