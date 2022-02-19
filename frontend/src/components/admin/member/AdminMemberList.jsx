@@ -1,13 +1,11 @@
 import axios from "axios";
+import ProfilePagination from "components/profile/ProfilePagination";
 import React, { useState } from "react";
 import { useEffect } from "react";
 import style from "style/Admin.module.css";
-import pagStyle from "style/Pagination.module.css";
-import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function AdminMemberList() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [data, setData] = useState({ members: [], totalPage: 0, currentPage: 0 });
 	const { members, totalPage, currentPage } = data;
 
@@ -67,7 +65,7 @@ function AdminMemberList() {
 								<td>
 									<button
 										className={style.delete}
-										onClick={(e) => {
+										onClick={() => {
 											expelMember(aptMember.id);
 										}}
 									>
@@ -83,23 +81,9 @@ function AdminMemberList() {
 					)}
 				</tbody>
 			</table>
-			{totalPage.length > 1 ? (
-				<div className={pagStyle.pagination}>
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageDown(currentPage, pageSize, setPage)}
-					>
-						&lt;
-					</button>
-					{adminPagination(pageSize, setPage)}
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageUp(currentPage, pageSize, setPage)}
-					>
-						&gt;
-					</button>
-				</div>
-			) : null}
+			{totalPage.length > 1 && (
+				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
+			)}
 		</div>
 	);
 }
