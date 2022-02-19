@@ -10,7 +10,7 @@ function Comments({ setComment, getTotalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comments, setComments] = useState([]);
 	const user = useSelector((state) => state.userInfo.apt_house);
-	const articleId = useSelector((state) => state.article.articleId);
+	const articleId = useSelector((state) => state.comment.articleId);
 	const [data, setData] = useState({ totalPage: 0, currentPage: 0 });
 	const { totalPage, currentPage } = data;
 

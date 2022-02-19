@@ -6,13 +6,13 @@ import { commnetAxios, deleteOrSubmit } from "utils/commentAxios";
 import CommentButton from "./CommentButton";
 import { useSelector } from "react-redux";
 
-function CommentUpdate({ comment, getComments, user, getTotalComments }) {
+function CommentUpdate({ comment, getComments, getTotalComments }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const [activate, setActivate] = useState(true);
 	const [isLike, setIsLike] = useState(false);
 	const { content } = commentContent;
-	const articleId = useSelector((state) => state.article.articleId);
+	const user = useSelector((state) => state.userInfo.apt_house);
 
 	useEffect(() => {
 		isLiked();
@@ -29,7 +29,7 @@ function CommentUpdate({ comment, getComments, user, getTotalComments }) {
 
 	const likeOrCancelLike = () => {
 		const method = isLike ? "delete" : "post";
-		const res = commnetAxios(user.apt_house.apt.apt_id, comment.id, method);
+		const res = commnetAxios(user.apt.apt_id, comment.id, method);
 		if (res) {
 			setIsLike((prev) => !prev);
 			getComments();
@@ -37,19 +37,14 @@ function CommentUpdate({ comment, getComments, user, getTotalComments }) {
 	};
 
 	const isLiked = async () => {
-		const res = await commnetAxios(user.apt_house.apt.apt_id, comment.id, "get");
+		const res = await commnetAxios(user.apt.apt_id, comment.id, "get");
 		res && setIsLike(res.data.is_liked);
 	};
 
 	const onSubmit = async (e) => {
 		e.preventDefault();
 		if (content.trim()) {
-			const res = await deleteOrSubmit(
-				user.apt_house.apt.apt_id,
-				comment.id,
-				"put",
-				commentContent,
-			);
+			const res = await deleteOrSubmit(user.apt.apt_id, comment.id, "put", commentContent);
 			if (res) {
 				getComments();
 				onClick();

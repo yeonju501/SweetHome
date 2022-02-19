@@ -5,14 +5,14 @@ import userInfo from "./user";
 import toggle from "./toggle";
 import reportInfo from "./report";
 import messageInfo from "./message";
-import article from "./article";
+import comment from "./comment";
 
 const persistConfig = {
 	key: "root",
 	// localStorage에 저장합니다.
 	storage,
 	// auth, board, studio 3개의 reducer 중에 auth reducer만 localstorage에 저장합니다.
-	whitelist: ["userInfo", "reportInfo", "messageInfo", "toggle", "aritlce"],
+	whitelist: ["userInfo", "reportInfo", "messageInfo", "toggle", "comment"],
 	// blacklist -> 그것만 제외합니다
 };
 
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
 	toggle,
 	reportInfo,
 	messageInfo,
-	article,
+	comment,
 });
 
 export default persistReducer(persistConfig, rootReducer);

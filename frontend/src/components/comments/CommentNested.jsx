@@ -6,7 +6,7 @@ function CommentNested({ id, getComments, activate, setActivate, getTotalComment
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const user = useSelector((state) => state.userInfo.apt_house);
-	const articleId = useSelector((state) => state.article.articleId);
+	const articleId = useSelector((state) => state.comment.articleId);
 	const { content } = comment;
 
 	const onChange = (e) => {

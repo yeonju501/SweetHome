@@ -10,7 +10,7 @@ import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-ic
 import { useSelector } from "react-redux";
 import anonymous from "assets/anonymous.jpg";
 import { useDispatch } from "react-redux";
-import { SET_ARTICLE_NUM } from "store/article";
+import { SET_ARTICLE_NUM } from "store/comment";
 
 function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;

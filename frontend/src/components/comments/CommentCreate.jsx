@@ -9,7 +9,7 @@ function CommentCreate({ getComments, getTotalComments }) {
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
 	const user = useSelector((state) => state.userInfo.apt_house);
-	const articleId = useSelector((state) => state.article.articleId);
+	const articleId = useSelector((state) => state.comment.articleId);
 
 	const onChange = (e) => {
 		setComment({ content: e.target.value });
