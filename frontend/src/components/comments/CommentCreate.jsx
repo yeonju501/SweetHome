@@ -4,11 +4,13 @@ import { toast } from "react-toastify";
 import style from "style/articles/ArticleDetailComment.module.css";
 import { useSelector } from "react-redux";
 
-function CommentCreate({ articleId, getComments, getTotalComments }) {
+function CommentCreate({ getComments, getTotalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
 	const user = useSelector((state) => state.userInfo.apt_house);
+	const articleId = useSelector((state) => state.article.articleId);
+
 	const onChange = (e) => {
 		setComment({ content: e.target.value });
 	};

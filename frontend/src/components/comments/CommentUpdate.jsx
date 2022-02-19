@@ -4,13 +4,15 @@ import style from "style/articles/ArticleDetailComment.module.css";
 import CommentLike from "./CommentLike";
 import { commnetAxios, deleteOrSubmit } from "utils/commentAxios";
 import CommentButton from "./CommentButton";
+import { useSelector } from "react-redux";
 
-function CommentUpdate({ comment, getComments, user, articleId, getTotalComments }) {
+function CommentUpdate({ comment, getComments, user, getTotalComments }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const [activate, setActivate] = useState(true);
 	const [isLike, setIsLike] = useState(false);
 	const { content } = commentContent;
+	const articleId = useSelector((state) => state.article.articleId);
 
 	useEffect(() => {
 		isLiked();
@@ -87,7 +89,6 @@ function CommentUpdate({ comment, getComments, user, articleId, getTotalComments
 			)}
 			<CommentNested
 				id={comment.id}
-				articleId={articleId}
 				getComments={getComments}
 				activate={activate}
 				setActivate={setActivate}

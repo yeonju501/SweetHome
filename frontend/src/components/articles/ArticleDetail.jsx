@@ -116,7 +116,6 @@ function ArticleDetail() {
 							</div>
 						</article>
 						<Comments
-							articleId={articleId}
 							totalComments={comment}
 							setComment={setComment}
 							getTotalComments={getArticle}

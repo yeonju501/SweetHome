@@ -35,15 +35,10 @@ function Comments({ setComment, getTotalComments }) {
 
 	return (
 		<div>
-			<CommentCreate
-				articleId={articleId}
-				getComments={getMoreComments}
-				getTotalComments={getTotalComments}
-			/>
+			<CommentCreate getComments={getMoreComments} getTotalComments={getTotalComments} />
 			{comments.length > 0 ? (
 				<div className={style.comments}>
 					<CommentsList
-						articleId={articleId}
 						comments={comments}
 						getComments={getMoreComments}
 						getTotalComments={getTotalComments}

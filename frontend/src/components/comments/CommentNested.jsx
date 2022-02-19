@@ -2,10 +2,11 @@ import { useState } from "react";
 import axios from "axios";
 import style from "style/articles/ArticleDetailComment.module.css";
 import { useSelector } from "react-redux";
-function CommentNested({ articleId, id, getComments, activate, setActivate, getTotalComments }) {
+function CommentNested({ id, getComments, activate, setActivate, getTotalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const user = useSelector((state) => state.userInfo.apt_house);
+	const articleId = useSelector((state) => state.article.articleId);
 	const { content } = comment;
 
 	const onChange = (e) => {
