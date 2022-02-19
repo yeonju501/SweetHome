@@ -77,7 +77,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 						username,
 						image_url: user.image_url,
 					});
-					setUserInfo({ ...userInfo, password: null });
+					setUserInfo({ ...userInfo, password: "" });
 				})
 				.then(() => toast.success("회원정보가 변경 되었습니다"))
 				.catch((err) => console.log(err.response.data));
