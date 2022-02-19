@@ -14,7 +14,6 @@ function CommentsList({ comments, articleId, getComments, getTotalComments }) {
 							comment={comment}
 							getComments={getComments}
 							user={user}
-							id={comment.id}
 							articleId={articleId}
 							getTotalComments={getTotalComments}
 						/>
@@ -24,7 +23,6 @@ function CommentsList({ comments, articleId, getComments, getTotalComments }) {
 									comment={nestedComment}
 									getComments={getComments}
 									user={user}
-									id={nestedComment.id}
 									getTotalComments={getTotalComments}
 								/>
 							</div>

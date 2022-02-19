@@ -5,7 +5,7 @@ import CommentLike from "./CommentLike";
 import { commnetAxios, deleteOrSubmit } from "utils/commentAxios";
 import CommentButton from "./CommentButton";
 
-function CommentUpdate({ comment, getComments, user, id, articleId, getTotalComments }) {
+function CommentUpdate({ comment, getComments, user, articleId, getTotalComments }) {
 	const [update, setUpdate] = useState(false);
 	const [commentContent, setCommentContent] = useState({ content: comment.content });
 	const [activate, setActivate] = useState(true);
@@ -74,16 +74,13 @@ function CommentUpdate({ comment, getComments, user, id, articleId, getTotalComm
 					<CommentLike
 						comment={comment}
 						setActivate={setActivate}
-						activate={activate}
 						likeOrCancelLike={likeOrCancelLike}
 						isLike={isLike}
 					/>
 					<CommentButton
 						user={user}
 						comment={comment}
-						activate={activate}
 						onClick={onClick}
-						id={id}
 						getComments={getComments}
 					/>
 				</div>

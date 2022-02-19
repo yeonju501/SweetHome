@@ -3,8 +3,10 @@ import { SET_REPORT } from "store/report";
 import style from "style/articles/ArticleDetailComment.module.css";
 import { deleteOrSubmit } from "utils/commentAxios";
 
-function CommentButton({ user, comment, onClick, id, getComments }) {
+function CommentButton({ user, comment, onClick, getComments }) {
 	const dispatch = useDispatch();
+	const id = comment.id;
+
 	const commentDelete = async () => {
 		if (window.confirm("댓글을 삭제 하시겠습니까?")) {
 			const res = await deleteOrSubmit(user.apt_house.apt.apt_id, id, "delete");

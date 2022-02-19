@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 
-function CommentLike({ comment, setActivate, activate, likeOrCancelLike, isLike }) {
+function CommentLike({ comment, setActivate, likeOrCancelLike, isLike }) {
 	return (
 		<div className={style.date_btn}>
 			<p>{comment.created_at.slice(0, 10)}</p>
@@ -12,7 +12,7 @@ function CommentLike({ comment, setActivate, activate, likeOrCancelLike, isLike 
 			) : (
 				<p>{comment.total_likes}likes</p>
 			)}
-			{comment.replies ? <p onClick={() => setActivate(!activate)}>댓글 달기</p> : null}
+			{comment.replies ? <p onClick={() => setActivate((prev) => !prev)}>댓글 달기</p> : null}
 
 			<p onClick={likeOrCancelLike} className={style.btn_comment_like}>
 				{isLike ? (
