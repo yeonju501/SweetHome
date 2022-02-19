@@ -83,8 +83,14 @@ public class ArticleRestController {
     }
 
     @AptChecker
+    @GetMapping("/{aptId}/boards/articles/popular")
+    public ResponseEntity<List<ArticleLikeResponse>> showPopularArticles(@PageableDefault Pageable pageable, @PathVariable Long aptId) {
+        return ResponseEntity.ok().body(articleService.showPopularArticles(pageable, aptId));
+    }
+
+    @AptChecker
     @GetMapping("/{aptId}/boards/articles/new")
-    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(@PageableDefault(size=20, sort="id", direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long aptId) {
+    public ResponseEntity<List<ArticleLikeResponse>> showNewArticles(@PageableDefault Pageable pageable, @PathVariable Long aptId) {
         return ResponseEntity.ok().body(articleService.showNewArticles(pageable, aptId));
     }
 
