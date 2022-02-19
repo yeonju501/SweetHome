@@ -3,14 +3,11 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import msgStyle from "style/Messages.module.css";
 import style from "style/Admin.module.css";
-import pagStyle from "style/Pagination.module.css";
-import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import ProfilePagination from "components/profile/ProfilePagination";
 
 function AdminBoardRequestList() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [data, setData] = useState({ boardList: [], totalPage: 0, currentPage: 0 });
 	const user = useSelector((state) => state.userInfo.apt_house);
 	const { boardList, totalPage, currentPage } = data;
@@ -72,7 +69,7 @@ function AdminBoardRequestList() {
 								<td className={style.board_request_btns}>
 									<button
 										className={style.board_request_deline}
-										onClick={(e) => {
+										onClick={() => {
 											approveBoard("DELETE", boardRequest.id);
 										}}
 									>
@@ -89,21 +86,7 @@ function AdminBoardRequestList() {
 				</tbody>
 			</table>
 			{totalPage > 1 ? (
-				<div className={pagStyle.pagination}>
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageDown(currentPage, pageSize, setPage)}
-					>
-						&lt;
-					</button>
-					{adminPagination(pageSize, setPage)}
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageUp(page, pageSize, setPage)}
-					>
-						&gt;
-					</button>
-				</div>
+				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
 			) : null}
 		</div>
 	);
