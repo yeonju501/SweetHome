@@ -75,9 +75,23 @@ public class ArticleService {
     }
 
     @Transactional(readOnly = true)
+    public List<ArticleLikeResponse> showPopularArticles(Pageable pageable, Long aptId) {
+        List<Board> boards = boardService.findAllByApt(aptId);
+        LocalDateTime start = LocalDateTime.now().minusHours(24);
+        LocalDateTime end = LocalDateTime.now();
+        return articleRepository.findAllByBoardInAndBlockedAtIsNullAndCreatedAtBetweenOrderByTotalLikesDesc(boards, start, end,
+                pageable).stream()
+            .map(ArticleLikeResponse::from)
+            .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
     public List<ArticleLikeResponse> showNewArticles(Pageable pageable, Long aptId) {
         List<Board> boards = boardService.findAllByApt(aptId);
-        return articleRepository.findAllByBoardAndBlockedAtIsNullOrderByTotalLikes(pageable, boards.get(1)).stream()
+        LocalDateTime start = LocalDateTime.now().minusHours(24);
+        LocalDateTime end = LocalDateTime.now();
+        return articleRepository.findAllByBoardInAndBlockedAtIsNullAndCreatedAtBetweenOrderByIdDesc(boards, start, end,
+                pageable).stream()
             .map(ArticleLikeResponse::from)
             .collect(Collectors.toList());
     }
