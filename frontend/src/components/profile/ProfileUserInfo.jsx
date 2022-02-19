@@ -145,7 +145,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 				</div>
 				<ProfileNav active={active} setActive={setActive} />
 				<form onSubmit={onSubmit} className={style.profile_form}>
-					<div className={`${style.profile_user_info_div} ${style.first_div}`}>
+					<div className={`${style.first_div}`}>
 						<ProfileUserInfoInput
 							naming="닉네임"
 							inputId="username"
