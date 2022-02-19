@@ -2,6 +2,7 @@ package com.sweet.home.article.domain;
 
 import com.sweet.home.board.domain.Board;
 import com.sweet.home.member.domain.Member;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.domain.Page;
@@ -30,6 +31,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     @Query(nativeQuery = true, value = "update article a set a.deleted_at = current_timestamp where a.board_id = (:id) and a.deleted_at is null")
     int deleteArticlesByBoard(@Param("id") Long id);
 
-    List<Article> findAllByBoardAndBlockedAtIsNullOrderByTotalLikes(Pageable pageable, Board board);
+    Page<Article> findAllByBoardInAndBlockedAtIsNullAndCreatedAtBetweenOrderByTotalLikesDesc(List<Board> boards, LocalDateTime start, LocalDateTime end, Pageable pageable);
 
+    Page<Article> findAllByBoardInAndBlockedAtIsNullAndCreatedAtBetweenOrderByIdDesc(List<Board> boards, LocalDateTime start, LocalDateTime end, Pageable pageable);
 }
