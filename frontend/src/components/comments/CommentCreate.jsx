@@ -13,7 +13,7 @@ function CommentCreate({ articleId, getComments, getTotalComments }) {
 		setComment({ content: e.target.value });
 	};
 
-	const onSubmit = (e) => {
+	const createNewComment = (e) => {
 		e.preventDefault();
 		content.trim()
 			? axios({
@@ -31,7 +31,7 @@ function CommentCreate({ articleId, getComments, getTotalComments }) {
 
 	return (
 		<div>
-			<form onSubmit={onSubmit} className={style.create_form}>
+			<form onSubmit={createNewComment} className={style.create_form}>
 				<textarea
 					type="text"
 					onChange={onChange}
