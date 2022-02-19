@@ -9,6 +9,8 @@ import { faHeart as fasHeart } from "@fortawesome/free-solid-svg-icons";
 import { faComment, faHeart as farHeart } from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
 import anonymous from "assets/anonymous.jpg";
+import { useDispatch } from "react-redux";
+import { SET_ARTICLE_NUM } from "store/comment";
 
 function ArticleDetail() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -19,8 +21,10 @@ function ArticleDetail() {
 	const [isLiked, setIsLiked] = useState();
 	const [comment, setComment] = useState(0);
 	const user = useSelector((state) => state.userInfo.apt_house);
+	const dispatch = useDispatch();
 
 	useEffect(() => {
+		dispatch(SET_ARTICLE_NUM(articleId));
 		getArticle();
 		getIsLiked();
 	}, [isLiked, comment]);
@@ -112,7 +116,6 @@ function ArticleDetail() {
 							</div>
 						</article>
 						<Comments
-							articleId={articleId}
 							totalComments={comment}
 							setComment={setComment}
 							getTotalComments={getArticle}

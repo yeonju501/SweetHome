@@ -4,16 +4,18 @@ import { toast } from "react-toastify";
 import style from "style/articles/ArticleDetailComment.module.css";
 import { useSelector } from "react-redux";
 
-function CommentCreate({ articleId, getComments, getTotalComments }) {
+function CommentCreate({ getComments, getTotalComments }) {
 	const URL = process.env.REACT_APP_SERVER_URL;
 	const [comment, setComment] = useState({ content: "" });
 	const { content } = comment;
 	const user = useSelector((state) => state.userInfo.apt_house);
+	const articleId = useSelector((state) => state.comment.articleId);
+
 	const onChange = (e) => {
 		setComment({ content: e.target.value });
 	};
 
-	const onSubmit = (e) => {
+	const createNewComment = (e) => {
 		e.preventDefault();
 		content.trim()
 			? axios({
@@ -31,7 +33,7 @@ function CommentCreate({ articleId, getComments, getTotalComments }) {
 
 	return (
 		<div>
-			<form onSubmit={onSubmit} className={style.create_form}>
+			<form onSubmit={createNewComment} className={style.create_form}>
 				<textarea
 					type="text"
 					onChange={onChange}
