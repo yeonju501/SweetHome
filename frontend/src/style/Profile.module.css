@@ -99,6 +99,10 @@ button {
 	background: #fff;
 }
 
+.profile_user_info_div:first-child {
+	margin-top: 0;
+}
+
 .profile_user_info_div label {
 	font-weight: 800;
 	margin-right: 2rem;
@@ -167,6 +171,9 @@ button {
 .first_div {
 	margin-left: 8rem;
 	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
 .duplic {

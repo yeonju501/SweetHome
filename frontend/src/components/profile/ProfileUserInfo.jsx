@@ -13,6 +13,7 @@ import ProfileNav from "./ProfileNav";
 import { persistor } from "index";
 import errorMessage from "store/errorMessage";
 import { cookieDelete } from "utils/manageToken";
+import ProfileUserInfoInput from "./ProfileUserInfoInput";
 
 function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -36,6 +37,7 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 		GETUSERINFO(dispatch, SET_USER);
 		setUserInfo(user);
 	}, []);
+
 	const { username, email, phone_number, apt_house, password } = userInfo;
 	const isValid = inputValid.profileChange(email, phone_number);
 
@@ -143,47 +145,39 @@ function ProfileUserInfo({ setIntro, intro, active, setActive }) {
 				</div>
 				<ProfileNav active={active} setActive={setActive} />
 				<form onSubmit={onSubmit} className={style.profile_form}>
-					<div className={`${style.profile_user_info_div} ${style.first_div}`}>
-						<aside>
-							<label htmlFor="username">닉네임</label>
-						</aside>
-						<div className={style.user_name}>
-							<input type="text" id="username" value={username || ""} onChange={onChange} />
-						</div>
+					<div className={`${style.first_div}`}>
+						<ProfileUserInfoInput
+							naming="닉네임"
+							inputId="username"
+							value={username}
+							onChange={onChange}
+						/>
 						<button type="button" onClick={checkUserDup} className={style.btn_duplicate}>
 							중복 검사
 						</button>
 					</div>
 					<p className={style.duplic}>중복검사 버튼을 눌러주세요</p>
-
-					<div className={style.profile_user_info_div}>
-						<aside>
-							<label htmlFor="email">Email</label>
-						</aside>
-						<input type="text" id="email" value={email || ""} onChange={onChange} />
-					</div>
-					<div className={style.profile_user_info_div}>
-						<aside>
-							<label htmlFor="phone_number">휴대폰 번호</label>
-						</aside>
-						<input type="text" id="phone_number" value={phone_number || ""} onChange={onChange} />
-					</div>
+					<ProfileUserInfoInput naming="Email" inputId="email" value={email} onChange={onChange} />
+					<ProfileUserInfoInput
+						naming="휴대폰 번호"
+						inputId="phone_number"
+						value={phone_number}
+						onChange={onChange}
+					/>
 					{apt_house && (
-						<div className={style.profile_user_info_div}>
-							<aside>
-								<label htmlFor="apt_house">주소</label>
-							</aside>
-							<input type="text" readOnly id="apt_house" value={apt_house.apt.road_Name || ""} />
-						</div>
+						<ProfileUserInfoInput
+							naming="주소"
+							inputId="apt_house"
+							value={apt_house.apt.road_Name}
+						/>
 					)}
-
-					<div className={style.profile_user_info_div}>
-						<aside>
-							<label htmlFor="password">비밀번호</label>
-						</aside>
-						<input type="password" id="password" value={password || ""} onChange={onChange} />
-					</div>
-
+					<ProfileUserInfoInput
+						naming="비밀번호"
+						inputId="password"
+						value={password}
+						onChange={onChange}
+						type="password"
+					/>
 					<ProfileButtons password={password} isDup={isDup} />
 				</form>
 			</>
