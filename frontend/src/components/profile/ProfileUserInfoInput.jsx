@@ -1,6 +1,6 @@
 import style from "style/Profile.module.css";
 
-function ProfileUserInfoInput({ value, onChange, inputId, naming }) {
+function ProfileUserInfoInput({ type = "text", value, onChange, inputId, naming }) {
 	return (
 		<>
 			<div className={style.profile_user_info_div}>
@@ -8,7 +8,7 @@ function ProfileUserInfoInput({ value, onChange, inputId, naming }) {
 					<label htmlFor={inputId}>{naming}</label>
 				</aside>
 				<div className={style.user_name}>
-					<input type="text" id={inputId} value={value} onChange={onChange} />
+					<input type={type} id={inputId} value={value} onChange={onChange} />
 				</div>
 			</div>
 		</>
