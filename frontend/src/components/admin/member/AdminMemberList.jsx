@@ -1,32 +1,20 @@
 import axios from "axios";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import ProfilePagination from "components/profile/ProfilePagination";
+import { useState, useEffect } from "react";
 import style from "style/Admin.module.css";
-import pagStyle from "style/Pagination.module.css";
-import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 
 function AdminMemberList() {
-	const [aptMembers, setAptMembers] = useState({
-		id: "",
-		name: "",
-		email: "",
-		phone_number: "",
-		dong: "",
-		ho: "",
-	});
-	const [page, setPage] = useState(0);
-	const [pageSize, setPageSize] = useState(0);
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const [data, setData] = useState({ members: [], totalPage: 0, currentPage: 0 });
+	const { members, totalPage, currentPage } = data;
 
 	const getList = () => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/apts/members?page=${page}&size=10`,
+			url: `${SERVER_URL}/api/admin/apts/members?page=${currentPage}&size=10`,
 		})
 			.then((res) => {
-				setAptMembers(res.data.apt_members);
-				setPageSize(res.data.total_page_count);
+				setData({ ...data, members: res.data.apt_members, totalPage: res.data.total_page_count });
 			})
 			.catch((err) => {
 				console.log(err);
@@ -34,7 +22,7 @@ function AdminMemberList() {
 	};
 	useEffect(() => {
 		getList();
-	}, [page]);
+	}, [currentPage]);
 
 	const expelMember = (id) => {
 		if (window.confirm("정말로 추방하시겠습니까?")) {
@@ -64,8 +52,8 @@ function AdminMemberList() {
 					</tr>
 				</thead>
 				<tbody>
-					{aptMembers.length > 0 ? (
-						aptMembers.map((aptMember, idx) => (
+					{members.length > 0 ? (
+						members.map((aptMember, idx) => (
 							<tr key={idx}>
 								<td>{idx + 1}</td>
 								<td>{aptMember.email}</td>
@@ -76,7 +64,7 @@ function AdminMemberList() {
 								<td>
 									<button
 										className={style.delete}
-										onClick={(e) => {
+										onClick={() => {
 											expelMember(aptMember.id);
 										}}
 									>
@@ -92,23 +80,9 @@ function AdminMemberList() {
 					)}
 				</tbody>
 			</table>
-			{aptMembers.length > 0 ? (
-				<div className={pagStyle.pagination}>
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageDown(page, pageSize, setPage)}
-					>
-						&lt;
-					</button>
-					{adminPagination(pageSize, setPage)}
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageUp(page, pageSize, setPage)}
-					>
-						&gt;
-					</button>
-				</div>
-			) : null}
+			{totalPage.length > 1 && (
+				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
+			)}
 		</div>
 	);
 }

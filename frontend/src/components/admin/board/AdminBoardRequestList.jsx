@@ -1,34 +1,22 @@
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import msgStyle from "style/Messages.module.css";
+import axios from "axios";
 import style from "style/Admin.module.css";
-import pagStyle from "style/Pagination.module.css";
-import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import ProfilePagination from "components/profile/ProfilePagination";
 
 function AdminBoardRequestList() {
-	const [boardRequestList, setBoardRequestList] = useState({
-		id: "",
-		name: "",
-		description: "",
-	});
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const [data, setData] = useState({ boardList: [], totalPage: 0, currentPage: 0 });
 	const user = useSelector((state) => state.userInfo.apt_house);
-
-	const [page, setPage] = useState(0);
-	const [pageSize, setPageSize] = useState(0);
+	const { boardList, totalPage, currentPage } = data;
 
 	const getList = () => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards?page=${page}&size=10`,
+			url: `${SERVER_URL}/api/apts/${user.apt.apt_id}/admin/boards?page=${currentPage}&size=10`,
 		})
 			.then((res) => {
-				setBoardRequestList(res.data.boards);
-				setPageSize(res.data.total_page_count);
+				setData({ ...data, boardList: res.data.boards, totalPage: res.data.total_page_count });
 			})
 			.catch((err) => {
 				console.log(err);
@@ -36,7 +24,7 @@ function AdminBoardRequestList() {
 	};
 	useEffect(() => {
 		getList();
-	}, [page]);
+	}, [currentPage]);
 
 	const approveBoard = (method, id) => {
 		axios({
@@ -60,8 +48,8 @@ function AdminBoardRequestList() {
 					</tr>
 				</thead>
 				<tbody>
-					{boardRequestList.length > 0 ? (
-						boardRequestList.map((boardRequest, idx) => (
+					{boardList.length > 0 ? (
+						boardList.map((boardRequest, idx) => (
 							<tr key={idx}>
 								<td>{idx + 1}</td>
 								<td>{boardRequest.name}</td>
@@ -79,7 +67,7 @@ function AdminBoardRequestList() {
 								<td className={style.board_request_btns}>
 									<button
 										className={style.board_request_deline}
-										onClick={(e) => {
+										onClick={() => {
 											approveBoard("DELETE", boardRequest.id);
 										}}
 									>
@@ -95,22 +83,8 @@ function AdminBoardRequestList() {
 					)}
 				</tbody>
 			</table>
-			{boardRequestList.length > 0 ? (
-				<div className={pagStyle.pagination}>
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageDown(page, pageSize, setPage)}
-					>
-						&lt;
-					</button>
-					{adminPagination(pageSize, setPage)}
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageUp(page, pageSize, setPage)}
-					>
-						&gt;
-					</button>
-				</div>
+			{totalPage > 1 ? (
+				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
 			) : null}
 		</div>
 	);

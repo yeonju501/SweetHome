@@ -1,39 +1,28 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
-import msgStyle from "style/Messages.module.css";
 import style from "style/Admin.module.css";
-import pagStyle from "style/Pagination.module.css";
-import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
-
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+import ProfilePagination from "components/profile/ProfilePagination";
 
 function AdminMemberRegister() {
-	const [aptMemberRegister, setAptMemberRegister] = useState({
-		id: "",
-		name: "",
-		email: "",
-		dong: "",
-		ho: "",
-		message: "",
-		phone_number: "",
-	});
-	const [page, setPage] = useState(0);
-	const [pageSize, setPageSize] = useState(0);
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+	const [data, setData] = useState({ members: [], totalPage: 0, currentPage: 0 });
+	const { members, totalPage, currentPage } = data;
 
 	useEffect(() => {
 		getRegisterMember();
-	}, [page]);
+	}, [currentPage]);
 
 	const getRegisterMember = () => {
 		axios({
 			method: "GET",
-			url: `${SERVER_URL}/api/admin/apts/register?page=${page}&size=10`,
+			url: `${SERVER_URL}/api/admin/apts/register?page=${currentPage}&size=10`,
 		})
 			.then((res) => {
-				setAptMemberRegister(res.data.register_members);
-				setPageSize(res.data.total_page_count);
+				setData({
+					...data,
+					totalPage: res.data.total_page_count,
+					members: res.data.register_members,
+				});
 			})
 			.catch((err) => {
 				console.log(err);
@@ -41,7 +30,6 @@ function AdminMemberRegister() {
 	};
 
 	const registerMember = (method_, id) => {
-		console.log(method_, id);
 		axios({
 			method: method_,
 			url: `${SERVER_URL}/api/admin/apts/register`,
@@ -71,8 +59,8 @@ function AdminMemberRegister() {
 					</tr>
 				</thead>
 				<tbody>
-					{aptMemberRegister.length > 0 ? (
-						aptMemberRegister.map((aptMember, idx) => (
+					{members.length > 0 ? (
+						members.map((aptMember, idx) => (
 							<tr key={idx}>
 								<td>{idx + 1}</td>
 								<td>{aptMember.name}</td>
@@ -92,7 +80,7 @@ function AdminMemberRegister() {
 								<td className={style.admin_mb_btn}>
 									<button
 										className={style.admin_mb_decline}
-										onClick={(e) => {
+										onClick={() => {
 											registerMember("DELETE", aptMember.id);
 										}}
 									>
@@ -108,23 +96,9 @@ function AdminMemberRegister() {
 					)}
 				</tbody>
 			</table>
-			{aptMemberRegister.length > 0 ? (
-				<div className={pagStyle.pagination}>
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageDown(page, pageSize, setPage)}
-					>
-						&lt;
-					</button>
-					{adminPagination(pageSize, setPage)}
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageUp(page, pageSize, setPage)}
-					>
-						&gt;
-					</button>
-				</div>
-			) : null}
+			{totalPage > 1 && (
+				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
+			)}
 		</div>
 	);
 }

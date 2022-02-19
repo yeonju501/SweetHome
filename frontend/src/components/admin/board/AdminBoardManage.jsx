@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import AdminBoardNav from "./AdminBoardNav";
 import AdminBoardRequestList from "./AdminBoardRequestList";
 import AdminBoardList from "./AdminBoardList";
-import style from "../../../style/Admin.module.css";
+import style from "style/Admin.module.css";
 
 function AdminBoardManage() {
 	const [active, setActive] = useState(0);

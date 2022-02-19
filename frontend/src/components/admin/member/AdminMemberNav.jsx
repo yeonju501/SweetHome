@@ -1,5 +1,4 @@
-import React from "react";
-import style from "../../../style/Admin.module.css";
+import style from "style/Admin.module.css";
 
 function AdminMemberNav({ active, setActive }) {
 	const arr = ["아파트 회원", "신청 회원"];

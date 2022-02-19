@@ -1,5 +1,4 @@
-import React from "react";
-import style from "../../../style/Admin.module.css";
+import style from "style/Admin.module.css";
 
 function AdminBoardNav({ active, setActive }) {
 	const arr = ["게시판 목록", "게시판 신청 목록"];
