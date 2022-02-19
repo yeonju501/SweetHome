@@ -1,8 +1,6 @@
-import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
 import style from "style/Admin.module.css";
 import ProfilePagination from "components/profile/ProfilePagination";
 

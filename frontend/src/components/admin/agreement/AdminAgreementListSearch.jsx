@@ -1,11 +1,10 @@
+import { useEffect, useState } from "react";
 import axios from "axios";
-import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import style from "style/Admin.module.css";
 
-const SERVER_URL = process.env.REACT_APP_SERVER_URL;
-
 function AdminAgreementListSearch() {
+	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
 	const [agreementList, setAgreementList] = useState({
 		dong: "",
 		ho: "",

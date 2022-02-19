@@ -1,7 +1,6 @@
 import axios from "axios";
 import ProfilePagination from "components/profile/ProfilePagination";
-import React, { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import style from "style/Admin.module.css";
 
 function AdminMemberList() {
