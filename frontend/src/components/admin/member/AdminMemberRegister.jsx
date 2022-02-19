@@ -1,10 +1,7 @@
+import { useState, useEffect } from "react";
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
-import { useEffect } from "react";
 import style from "style/Admin.module.css";
-import pagStyle from "style/Pagination.module.css";
-import { adminPagination, pageDown, pageUp } from "utils/adminFunction";
+import ProfilePagination from "components/profile/ProfilePagination";
 
 function AdminMemberRegister() {
 	const SERVER_URL = process.env.REACT_APP_SERVER_URL;
@@ -33,7 +30,6 @@ function AdminMemberRegister() {
 	};
 
 	const registerMember = (method_, id) => {
-		console.log(method_, id);
 		axios({
 			method: method_,
 			url: `${SERVER_URL}/api/admin/apts/register`,
@@ -84,7 +80,7 @@ function AdminMemberRegister() {
 								<td className={style.admin_mb_btn}>
 									<button
 										className={style.admin_mb_decline}
-										onClick={(e) => {
+										onClick={() => {
 											registerMember("DELETE", aptMember.id);
 										}}
 									>
@@ -100,23 +96,9 @@ function AdminMemberRegister() {
 					)}
 				</tbody>
 			</table>
-			{aptMemberRegister.length > 0 ? (
-				<div className={pagStyle.pagination}>
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageDown(page, pageSize, setPage)}
-					>
-						&lt;
-					</button>
-					{adminPagination(pageSize, setPage)}
-					<button
-						className={pagStyle.btn_pagination}
-						onClick={() => pageUp(page, pageSize, setPage)}
-					>
-						&gt;
-					</button>
-				</div>
-			) : null}
+			{totalPage > 1 && (
+				<ProfilePagination page={currentPage} total={totalPage} setData={setData} />
+			)}
 		</div>
 	);
 }
