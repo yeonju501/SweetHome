@@ -12,6 +12,7 @@ import com.sweet.home.global.exception.CustomException;
 import com.sweet.home.global.exception.ErrorCode;
 import com.sweet.home.member.domain.Member;
 import com.sweet.home.member.domain.MemberRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -42,7 +43,8 @@ public class KakaoOAuthService {
         this.refreshTokenRepository = refreshTokenRepository;
     }
 
-    private static final String CLIENT_ID = "fee61610134bc27e46ca75ce36e1557c";
+    @Value("${kakao.client-id}")
+    private String CLIENT_ID;
     private static final String REDIRECT_URL = "http://localhost:3000/oauth2/code/kakao";
     private static final String TOKEN_URL = "https://kauth.kakao.com/oauth/token";
     private static final String USERINFO_URL = "https://kapi.kakao.com/v2/user/me";
