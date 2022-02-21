@@ -14,7 +14,8 @@ function Main() {
 	const [userInfo, setUserInfo] = useState(null);
 	const toggle = useSelector((state) => state.toggle.toggleValue);
 	const [newArticles, setNewArticles] = useState([]);
-	const [notices, setNotices] = useState([]);
+	const [hotArticles, setHotArticles] = useState([]);
+
 	useEffect(() => {
 		try {
 			axios({
@@ -33,7 +34,7 @@ function Main() {
 	useEffect(() => {
 		if (userInfo && userInfo.authority !== "준회원") {
 			getNewArticles();
-			getNotice();
+			getHotArticles();
 		}
 	}, [userInfo]);
 
@@ -47,13 +48,13 @@ function Main() {
 			})
 			.catch((err) => console.log(err.response));
 	};
-	const getNotice = () => {
+	const getHotArticles = () => {
 		axios({
-			url: `${SERVER_URL}/api/apts/${userInfo.apt_house.apt.apt_id}/boards/5/articles`,
+			url: `${SERVER_URL}/api/apts/${userInfo.apt_house.apt.apt_id}/boards/articles/popular`,
 			method: "get",
 		})
 			.then((res) => {
-				setNotices(res.data.articles.slice(0, 2));
+				setHotArticles(res.data);
 			})
 			.catch((err) => console.log(err.response));
 	};
@@ -64,19 +65,19 @@ function Main() {
 			<AssoMemberpage />
 		) : (
 			<div className={style.body}>
-				<p className={style.new_articles_p}>공지 사항</p>
+				<p className={style.new_articles_p}>최신글</p>
 				<ul className={style.articles}>
-					{notices.map((notice, idx) => (
+					{newArticles.map((article, idx) => (
 						<div className={style.new_articles} key={idx}>
 							<li className={style.article}>
 								<Link
-									to={`/articles/${notice.id}`}
+									to={`/articles/${article.id}`}
 									state={{
-										articleId: notice.id,
-										board: { id: 1, name: "공지 사항" },
+										articleId: article.article_id,
+										board: { id: article.board_id, name: article.board_name },
 									}}
 								>
-									{notice.title}
+									{article.title}
 								</Link>
 							</li>
 						</div>
@@ -86,7 +87,7 @@ function Main() {
 				<p className={style.new_articles_p}>인기글</p>
 				<ul className={style.articles}>
 					<li className={style.article_rank}>게시글 순위</li>
-					{newArticles.map((article, idx) => (
+					{hotArticles.map((article, idx) => (
 						<div className={style.new_articles} key={idx}>
 							<li className={style.rank}>{idx + 1}</li>
 							<li className={style.article}>
