@@ -60,9 +60,11 @@ $ ./gradlew bootRun
 
 ## 🏗 프로젝트 아키텍쳐 
 
+![2](https://user-images.githubusercontent.com/75344304/176684624-e8b94578-f03a-4728-8539-821e37149e24.png)
 
 
-### ⚙️ERD
+
+## ⚙️ERD
 
 ![image-20220219201316007](README.assets/image-20220219201316007.png)
 
